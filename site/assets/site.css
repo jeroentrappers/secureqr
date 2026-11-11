@@ -129,3 +129,16 @@ nav a:hover { color: var(--ink); }
 .checks li { padding-left: 30px; position: relative; }
 .checks li::before { content: ""; position: absolute; left: 0; top: .32em; width: 18px; height: 18px; border-radius: 6px; border: 4px solid var(--accent); }
 footer { margin-top: 24px; display: flex; justify-content: space-between; padding-top: 28px; padding-bottom: 40px; color: var(--muted); font-size: 14px; border-top: 1px solid var(--line); }
+
+/* text pages (privacy, support) */
+footer a { color: var(--muted); }
+.doc { max-width: 760px; padding-top: 24px; padding-bottom: 24px; }
+.doc h1 { font-size: clamp(30px, 5vw, 44px); }
+.doc h2 { font-size: 22px; margin: 34px 0 10px; }
+.doc h3 { margin: 22px 0 4px; }
+.doc p, .doc ul, .doc table { margin: 10px 0; }
+.doc ul { padding-left: 1.2em; display: grid; gap: 8px; }
+.doc code { font: 15px var(--mono); }
+.doc table { width: 100%; border-collapse: collapse; font-size: 16px; }
+.doc th, .doc td { text-align: left; vertical-align: top; padding: 10px 12px; border: 1px solid var(--line); background: var(--surface); }
+.doc th { font: 600 11px/1.4 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }

@@ -6,7 +6,7 @@
 #   bundle exec fastlane bundle             # Build a signed AAB (release)
 #   bundle exec fastlane deploy_internal    # Upload to Play Console internal track
 #   bundle exec fastlane deploy_production  # Promote internal to production
-#   bundle exec fastlane metadata_only      # Store listing text only
+#   bundle exec fastlane metadata_only      # Store listing text, icon, feature graphic and screenshots
 #
 # Signing lives in app/build.gradle.kts; this runbook does NOT pass keystore
 # credentials around — gradle reads them from keystore.properties (gitignored)
@@ -123,13 +123,15 @@ platform :android do
     )
   end
 
-  desc "Upload only the listing text + screenshots (no AAB)."
+  desc "Upload only the listing: text, icon, feature graphic and screenshots (no AAB)."
+  desc "The pictures are built by design/store/build.mjs into metadata/android/en-US/images."
   lane :metadata_only do
     upload_to_play_store(
       track: "internal",
       skip_upload_apk: true,
       skip_upload_aab: true,
       skip_upload_changelogs: false,
+      skip_upload_images: false,
       skip_upload_screenshots: false
     )
   end

@@ -88,12 +88,33 @@ platform :ios do
     upload_to_testflight(api_key: asc_key, skip_waiting_for_build_processing: true) if options[:upload]
   end
 
-  desc "Upload the store listing (metadata/, screenshots/) to App Store Connect. Never submits for review."
+  desc "Upload the store listing (metadata/, screenshots/, age rating, review notes) to App Store Connect. Never submits for review."
   lane :store_listing do |options|
     deliver(
       api_key: asc_key,
       skip_metadata: options[:skip_metadata] || false,
-      skip_screenshots: options[:skip_screenshots] || false
+      skip_screenshots: options[:skip_screenshots] || false,
+      app_rating_config_path: "fastlane/rating_config.json",
+      app_review_information: review_contact
+    )
+  end
+
+  desc "Send an uploaded build to App Review: build:… (the build number in TestFlight). Outward-facing; ask first."
+  desc "The approved version is not released by itself: release it by hand in App Store Connect."
+  lane :submit_review do |options|
+    build = options[:build] || UI.user_error!("Pass the build number: fastlane submit_review build:12")
+    version = ENV["MARKETING_VERSION"] || xcconfig_version
+    deliver(
+      api_key: asc_key,
+      app_version: version,
+      build_number: build.to_s,
+      skip_binary_upload: true,
+      skip_metadata: true,
+      skip_screenshots: true,
+      submit_for_review: true,
+      automatic_release: false,
+      run_precheck_before_submit: false,
+      submission_information: { add_id_info_uses_idfa: false }
     )
   end
 
@@ -115,6 +136,16 @@ def asc_key
     issuer_id: ENV.fetch("ASC_ISSUER_ID"),
     key_filepath: ENV.fetch("ASC_KEY_PATH")
   )
+end
+
+# Who App Review can reach, from REVIEW_FIRST_NAME, REVIEW_LAST_NAME, REVIEW_PHONE and REVIEW_EMAIL
+# (~/.appstoreconnect/env). Left out, and filled in by hand in App Store Connect, when they are not set.
+# The notes for the reviewer are in metadata/review_information/notes.txt.
+def review_contact
+  keys = %w[REVIEW_FIRST_NAME REVIEW_LAST_NAME REVIEW_PHONE REVIEW_EMAIL]
+  return nil unless keys.all? { |k| !ENV[k].to_s.empty? }
+  { first_name: ENV["REVIEW_FIRST_NAME"], last_name: ENV["REVIEW_LAST_NAME"],
+    phone_number: ENV["REVIEW_PHONE"], email_address: ENV["REVIEW_EMAIL"] }
 end
 
 # The team's signing keychain (shared with kinframe, see the note at the top).

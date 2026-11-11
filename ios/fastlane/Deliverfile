@@ -1,5 +1,5 @@
 # Store listing for `bundle exec fastlane store_listing`: metadata/ and screenshots/.
-# Never submits for review.
+# Submitting for review is a separate lane (`submit_review`); nothing here does it.
 app_identifier("be.appmire.secureqr")
 platform("ios")
 metadata_path("./fastlane/metadata")

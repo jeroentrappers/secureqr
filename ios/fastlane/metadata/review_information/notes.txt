@@ -1,0 +1,9 @@
+SecureQR needs no account or sign-in.
+
+How to test: open the app, allow the camera, and point it at any QR code that contains a web link (for example one shown on another screen). You can also tap the picture button and choose a QR code image from the photo library.
+
+What happens: the app does not open the link. It sends the link to our server (qr.appmire.be), which visits it, follows the redirects and returns the final address, a picture of the page and any warning signs. The link is only opened, in Safari, when you tap "Open" or "Open anyway".
+
+QR codes that are not web links (Wi-Fi, contacts, bank transfers, sign-in codes, text) are read on the device and shown as a card. They are not sent anywhere.
+
+The camera is used only to read QR codes. Nothing is recorded or stored.
