@@ -1,6 +1,10 @@
 package be.appmire.secureqr.ui.preview
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.Crossfade
+import androidx.compose.animation.core.MutableTransitionState
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -22,6 +26,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -44,6 +49,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import be.appmire.secureqr.PreviewUiState
 import be.appmire.secureqr.R
+import be.appmire.secureqr.data.CheckProgress
 import be.appmire.secureqr.data.Hop
 import be.appmire.secureqr.data.PreviewResponse
 import be.appmire.secureqr.data.ReputationStatus
@@ -77,7 +83,7 @@ fun PreviewScreen(
     onDontOpen: () -> Unit,
 ) {
     when (state) {
-        PreviewUiState.Checking -> Checking(url, onBack)
+        is PreviewUiState.Checking -> Checking(url, state.progress, onBack)
         is PreviewUiState.Result -> Decide(state.response, state.screenshotUrl, onBack, onOpen, onDontOpen)
         is PreviewUiState.Failed -> Failed(url, state, onBack, onRetry, onOpen, onDontOpen)
     }
@@ -91,7 +97,7 @@ private fun ScannedUrlCard(url: String) {
 }
 
 @Composable
-private fun Checking(url: String, onBack: () -> Unit) {
+private fun Checking(url: String, progress: CheckProgress, onBack: () -> Unit) {
     BrandScreen(
         onBack = onBack,
         footer = {
@@ -106,19 +112,107 @@ private fun Checking(url: String, onBack: () -> Unit) {
     ) {
         ScannedUrlCard(url)
         BrandCard(label = stringResource(R.string.checking_label_following)) {
-            Row(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.CenterVertically) {
-                CircularProgressIndicator(
-                    modifier = Modifier.size(22.dp),
-                    color = Brand.colors.accent,
-                    trackColor = Brand.colors.line,
-                    strokeWidth = 2.5.dp,
-                )
-                Column {
-                    Text(hostOf(url) ?: url, style = Brand.type.mono, color = Brand.colors.ink, maxLines = 2, overflow = TextOverflow.Ellipsis)
-                    Text(stringResource(R.string.checking_progress), style = Brand.type.small, color = Brand.colors.muted)
+            if (progress.stepsAvailable) CheckList(progress) else PlainProgress(url)
+        }
+    }
+}
+
+/** The wait without steps, for a server that cannot report them. */
+@Composable
+private fun PlainProgress(url: String) {
+    Row(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.CenterVertically) {
+        CircularProgressIndicator(
+            modifier = Modifier.size(22.dp),
+            color = Brand.colors.accent,
+            trackColor = Brand.colors.line,
+            strokeWidth = 2.5.dp,
+        )
+        Column {
+            Text(hostOf(url) ?: url, style = Brand.type.mono, color = Brand.colors.ink, maxLines = 2, overflow = TextOverflow.Ellipsis)
+            Text(stringResource(R.string.checking_progress), style = Brand.type.small, color = Brand.colors.muted)
+        }
+    }
+}
+
+private val STEP_ICON_SIZE = 18.dp
+private val STEP_ICON_GAP = 10.dp
+
+@Composable
+private fun CheckList(progress: CheckProgress) {
+    Column {
+        if (progress.steps.isEmpty()) {
+            StepRow(done = false, label = stringResource(R.string.checking_contacting))
+        }
+        progress.steps.forEachIndexed { index, step ->
+            key(step.id) {
+                // The first step takes the place of the "contacting" row; later ones slide in below.
+                Appearing(animate = index > 0) {
+                    Column {
+                        StepRow(step.done, step.label)
+                        if (step.id == CheckProgress.STEP_REDIRECTS) {
+                            progress.hopHosts.forEachIndexed { hopIndex, host ->
+                                key(hopIndex) {
+                                    Appearing {
+                                        Text(
+                                            host,
+                                            style = Brand.type.monoSmall,
+                                            color = Brand.colors.muted,
+                                            maxLines = 1,
+                                            overflow = TextOverflow.Ellipsis,
+                                            modifier = Modifier.padding(start = STEP_ICON_SIZE + STEP_ICON_GAP, bottom = 3.dp),
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
+    }
+}
+
+/** Fades and unfolds its content the first time it is shown. */
+@Composable
+private fun Appearing(animate: Boolean = true, content: @Composable () -> Unit) {
+    val visible = remember { MutableTransitionState(!animate).apply { targetState = true } }
+    AnimatedVisibility(
+        visibleState = visible,
+        enter = fadeIn() + expandVertically(expandFrom = Alignment.Top),
+    ) {
+        content()
+    }
+}
+
+@Composable
+private fun StepRow(done: Boolean, label: String) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 5.dp),
+        horizontalArrangement = Arrangement.spacedBy(STEP_ICON_GAP),
+    ) {
+        // As tall as the first line of the label, so the icon stays on it when the label wraps.
+        Box(Modifier.size(STEP_ICON_SIZE, 22.dp), contentAlignment = Alignment.Center) {
+            Crossfade(done, label = "step state") { isDone ->
+                if (isDone) {
+                    Icon(
+                        painterResource(R.drawable.ic_check),
+                        contentDescription = stringResource(R.string.checking_step_done),
+                        tint = Brand.colors.ok,
+                        modifier = Modifier.size(STEP_ICON_SIZE),
+                    )
+                } else {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(STEP_ICON_SIZE).padding(2.dp),
+                        color = Brand.colors.accent,
+                        trackColor = Brand.colors.line,
+                        strokeWidth = 2.dp,
+                    )
+                }
+            }
+        }
+        Text(label, style = Brand.type.body, color = Brand.colors.ink)
     }
 }
 
@@ -426,8 +520,10 @@ private fun Failed(
     val message = when {
         state.offline -> stringResource(R.string.error_offline)
         !state.message.isNullOrBlank() -> state.message
+        state.updateNeeded -> stringResource(R.string.error_update_needed)
         else -> stringResource(R.string.error_generic)
     }
+    val title = stringResource(if (state.updateNeeded) R.string.error_update_title else R.string.error_title)
     BrandScreen(
         onBack = onBack,
         footer = {
@@ -444,7 +540,7 @@ private fun Failed(
             }
         },
     ) {
-        Banner(BannerTone.CAUTION, title = stringResource(R.string.error_title), lines = listOf(message))
+        Banner(BannerTone.CAUTION, title = title, lines = listOf(message))
         ScannedUrlCard(url)
         Banner(BannerTone.DANGER, lines = listOf(stringResource(R.string.error_unchecked_warning)))
     }

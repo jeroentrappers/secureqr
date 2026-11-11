@@ -43,6 +43,7 @@ targets:
         NSCameraUsageDescription: SecureQR uses the camera to read QR codes. Nothing is recorded.
         ITSAppUsesNonExemptEncryption: false
         APIBaseURL: $(API_BASE_URL)
+        SecureQRAPIKey: $(SECUREQR_API_KEY)
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: be.appmire.secureqr
@@ -61,11 +62,24 @@ targets:
         Release:
           "CODE_SIGN_IDENTITY[sdk=iphoneos*]": Apple Distribution
           "PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]": match AppStore be.appmire.secureqr
-    postBuildScripts:
-      # App Transport Security: plain http is allowed for localhost in Debug
-      # only. Release builds never get this exception.
-      - name: Allow http://localhost (Debug only)
+    preBuildScripts:
+      # The preview server refuses requests without the app key, so a Release
+      # build without one is useless. Debug builds may go without.
+      - name: Require the app key (Release only)
         basedOnDependencyAnalysis: false
+        showEnvVars: false
+        script: |
+          if [ "${CONFIGURATION}" = "Release" ] && [ -z "${SECUREQR_API_KEY}" ]; then
+            echo "error: SECUREQR_API_KEY is empty. Release builds need the app key: copy Config/Secrets.example.xcconfig to Config/Secrets.xcconfig and fill in the key." >&2
+            exit 1
+          fi
+    postBuildScripts:
+      # App Transport Security: plain http is allowed for localhost and for
+      # addresses on the local network (a development server on the LAN) in
+      # Debug only. Release builds never get these exceptions.
+      - name: Allow http://localhost and the local network (Debug only)
+        basedOnDependencyAnalysis: false
+        showEnvVars: false
         inputFiles:
           - $(TARGET_BUILD_DIR)/$(INFOPLIST_PATH)
         script: |
@@ -78,6 +92,7 @@ targets:
           "$BUDDY" -c "Delete :NSAppTransportSecurity" "$PLIST" 2>/dev/null || true
           "$BUDDY" \
             -c "Add :NSAppTransportSecurity dict" \
+            -c "Add :NSAppTransportSecurity:NSAllowsLocalNetworking bool true" \
             -c "Add :NSAppTransportSecurity:NSExceptionDomains dict" \
             -c "Add :NSAppTransportSecurity:NSExceptionDomains:localhost dict" \
             -c "Add :NSAppTransportSecurity:NSExceptionDomains:localhost:NSExceptionAllowsInsecureHTTPLoads bool true" \

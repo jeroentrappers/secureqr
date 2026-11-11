@@ -29,6 +29,9 @@
 /* Checking */
 "checking.says" = "The QR code says";
 "checking.following" = "Following the link for you";
+"checking.contacting" = "Contacting the server";
+"checking.step.active" = "in progress";
+"checking.step.done" = "done";
 "checking.step.opening" = "Opening the link…";
 "checking.step.following" = "Following redirects…";
 "checking.step.screenshot" = "Taking a screenshot…";
@@ -77,6 +80,8 @@
 "failure.generic.message" = "Something went wrong on our side. Try again in a moment.";
 "failure.server.invalid_url.title" = "This is not a link we can check";
 "failure.server.invalid_url.message" = "The link is not a valid web address, or it is too long.";
+"failure.server.unauthorized.title" = "Update needed";
+"failure.server.unauthorized.message" = "This copy of the app can no longer use the service. Update SecureQR and try again.";
 "failure.server.blocked_target.title" = "This link points at a private address";
 "failure.server.blocked_target.message" = "It leads to a private or internal network, which we do not visit.";
 "failure.server.unreachable.title" = "The site did not respond";

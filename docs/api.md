@@ -9,6 +9,16 @@ Production: `https://qr.appmire.be`.
 
 All bodies are JSON, UTF-8. Clients should use a 45 s request timeout.
 
+## App key
+
+`POST /v1/preview` and `POST /v1/preview/stream` need the header
+`X-SecureQR-Key: <key>`. The key is built into the apps (it is not in git) and
+only keeps casual callers out; it is not a user credential. A missing or wrong
+key is answered with `401` and
+`{"error":{"code":"unauthorized","message":"This copy of the app can no longer use the service. Update SecureQR and try again."}}`.
+Screenshots and `/healthz` need no key. A server started without `API_KEYS`
+(local development) accepts every request, with or without the header.
+
 ## POST /v1/preview
 
 Request:
@@ -101,6 +111,56 @@ Display copy for the banner headline, by level:
 `danger` → "This looks risky". The first reason's `message` is the sub-line.
 `ok` must never be worded as "safe".
 
+## POST /v1/preview/stream
+
+The same check with the same request body, reported step by step so the app
+can show what is happening. The apps use this one; `/v1/preview` stays for
+simple clients.
+
+A link that cannot be checked at all (`invalid_url`), or a rate limit, is
+answered as a normal error response (see Errors). Otherwise the response is
+`200` with `content-type: application/x-ndjson`: one JSON object per line,
+written as things happen. Read it line by line. The **last line** is always
+either a `result` or an `error`.
+
+```json
+{"type":"step","id":"blocklists","state":"active","label":"Checking threat blocklists"}
+{"type":"step","id":"address","state":"active","label":"Looking up the address"}
+{"type":"step","id":"address","state":"done","label":"Address found"}
+{"type":"step","id":"redirects","state":"active","label":"Following the link"}
+{"type":"hop","hop":{"url":"https://qr-go.example/x7Pq","host":"qr-go.example","status":null,"kind":"start"}}
+{"type":"hop","hop":{"url":"https://parcel-track.example/pay","host":"parcel-track.example","status":null,"kind":"http"}}
+{"type":"step","id":"page","state":"active","label":"Loading the page"}
+{"type":"step","id":"redirects","state":"done","label":"1 redirect"}
+{"type":"step","id":"page","state":"done","label":"Page loaded"}
+{"type":"step","id":"forms","state":"active","label":"Looking for sign-in and payment forms"}
+{"type":"step","id":"picture","state":"active","label":"Taking a picture of the page"}
+{"type":"step","id":"blocklists","state":"done","label":"Not on 4 blocklists"}
+{"type":"step","id":"forms","state":"done","label":"Asks for card details"}
+{"type":"step","id":"picture","state":"done","label":"Picture taken"}
+{"type":"result","result":{ … the /v1/preview response object … }}
+```
+
+- `step`: `id` is one of `address`, `blocklists`, `redirects`, `page`,
+  `forms`, `picture`; `state` is `active` or `done`. Show steps as a list in
+  the order their first event arrives and update a row in place when a later
+  event has the same `id`. `label` is English, ready to display, and changes
+  between `active` and `done`. Several steps can be active at once. Not every
+  step appears for every link (a download has no `page`, `forms` or
+  `picture`); ignore ids and event types you do not know.
+- `hop`: a site the link passes through, as it is reached (`status` is not
+  known yet). Show `hop.host` under the `redirects` row.
+- `result`: the object described under `POST /v1/preview`.
+- `error`: `{"type":"error","status":422,"error":{"code":"unreachable","message":"…"}}`,
+  same codes and messages as the Errors table; `status` is the HTTP status the
+  plain endpoint would have used.
+- A reused answer (`cached: true`) arrives as a single `result` line with no
+  steps.
+- If the connection ends without a `result` or `error` line, treat it as a
+  network failure.
+- The endpoint never answers `404` for a link. A client that gets `404` here
+  is talking to an older server and falls back to `POST /v1/preview`.
+
 ## Errors
 
 Non-2xx responses have this shape:
@@ -112,6 +172,7 @@ Non-2xx responses have this shape:
 | HTTP | code | when |
 |---|---|---|
 | 400 | `invalid_url` | Not a valid http(s) URL, or too long |
+| 401 | `unauthorized` | Missing or wrong app key (see App key) |
 | 400 | `blocked_target` | Points at a private/internal address |
 | 422 | `unreachable` | DNS failure, connection refused, TLS error |
 | 429 | `rate_limited` | Too many requests from this client |

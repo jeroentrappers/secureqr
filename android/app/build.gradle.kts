@@ -38,6 +38,26 @@ val apiBaseUrlOverride = providers.gradleProperty("secureqr.apiBaseUrl").orNull?
 fun apiBaseUrl(default: String): String =
     "\"${(apiBaseUrlOverride ?: default).trimEnd('/')}\""
 
+// App key sent with every preview request (docs/api.md, "App key"). It is not in git.
+// Three sources tried in order:
+//   1. Gradle property     -Psecureqr.apiKey=...  (or ~/.gradle/gradle.properties)
+//   2. Environment         SECUREQR_API_KEY
+//   3. local.properties    secureqr.apiKey=...    (gitignored; the normal path)
+// Debug builds may go without (a local server asks for none); release builds may not.
+val localProperties = Properties().apply {
+    val file = rootProject.file("local.properties")
+    if (file.isFile) file.inputStream().use { load(it) }
+}
+
+val apiKey: String = (
+    providers.gradleProperty("secureqr.apiKey").orNull?.takeIf { it.isNotBlank() }
+        ?: System.getenv("SECUREQR_API_KEY")?.takeIf { it.isNotBlank() }
+        ?: localProperties.getProperty("secureqr.apiKey")?.takeIf { it.isNotBlank() }
+        ?: ""
+    ).trim()
+
+val apiKeyLiteral = "\"${apiKey.replace("\\", "\\\\").replace("\"", "\\\"")}\""
+
 android {
     namespace = "be.appmire.secureqr"
     compileSdk = 36
@@ -49,6 +69,7 @@ android {
         // Literals on purpose: `fastlane bump` rewrites these two lines.
         versionCode = 1
         versionName = "1.0.0"
+        buildConfigField("String", "API_KEY", apiKeyLiteral)
     }
 
     signingConfigs {
@@ -93,6 +114,21 @@ android {
     lint {
         abortOnError = true
         checkReleaseBuilds = false
+    }
+}
+
+// preReleaseBuild is the first task of assembleRelease and bundleRelease.
+val hasApiKey = apiKey.isNotEmpty()
+tasks.matching { it.name == "preReleaseBuild" }.configureEach {
+    doFirst {
+        if (!hasApiKey) {
+            throw GradleException(
+                "SecureQR release builds need the app key, and none is configured. Set it in one of:\n" +
+                    "  - the Gradle property secureqr.apiKey (-Psecureqr.apiKey=... or ~/.gradle/gradle.properties)\n" +
+                    "  - the environment variable SECUREQR_API_KEY\n" +
+                    "  - secureqr.apiKey=... in android/local.properties",
+            )
+        }
     }
 }
 

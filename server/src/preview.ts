@@ -6,7 +6,7 @@ import type { Reputation, ReputationCheck } from './reputation.js';
 import type { ScreenshotStore } from './store.js';
 import { judge, registrableDomain, type Verdict } from './verdict.js';
 
-export type ErrorCode = 'invalid_url' | 'blocked_target' | 'unreachable' | 'rate_limited' | 'timeout' | 'internal';
+export type ErrorCode = 'invalid_url' | 'unauthorized' | 'blocked_target' | 'unreachable' | 'rate_limited' | 'timeout' | 'internal';
 
 export class PreviewError extends Error {
   constructor(public readonly code: ErrorCode, message: string, public readonly status: number) {
@@ -40,6 +40,19 @@ export interface PreviewResult {
   checkedAt: string;
   /** True when this answer was reused from a recent check of the same link. */
   cached: boolean;
+}
+
+export type StepId = 'address' | 'blocklists' | 'redirects' | 'page' | 'forms' | 'picture';
+
+/** Progress of a running check, in the order things happen. Labels are English, ready to display. */
+export type ProgressEvent =
+  | { type: 'step'; id: StepId; state: 'active' | 'done'; label: string }
+  | { type: 'hop'; hop: Hop };
+
+export interface PreviewOptions {
+  skipPrecheck?: boolean;
+  /** Called for each step of a fresh check. A reused answer reports no steps. */
+  onProgress?: (e: ProgressEvent) => void;
 }
 
 const VIEWPORT = { width: 390, height: 844 };
@@ -126,6 +139,11 @@ export class Previewer {
     return this.browser;
   }
 
+  /** Start the browser ahead of the first scan, so that scan does not pay for the launch. */
+  warm(): void {
+    this.launch().catch(() => {});
+  }
+
   async close(): Promise<void> {
     const b = this.browser;
     this.browser = null;
@@ -154,7 +172,7 @@ export class Previewer {
    * popular code (a poster, a menu) from hitting its target on every scan, and
    * means a single-use link is visited once rather than once per viewer.
    */
-  async preview(rawUrl: unknown, opts: { skipPrecheck?: boolean } = {}): Promise<PreviewResult> {
+  async preview(rawUrl: unknown, opts: PreviewOptions = {}): Promise<PreviewResult> {
     const url = parseScannedUrl(rawUrl);
     const key = url.href;
     const hit = this.recent.get(key);
@@ -179,22 +197,39 @@ export class Previewer {
     }
   }
 
-  private async visit(url: URL, opts: { skipPrecheck?: boolean }): Promise<PreviewResult> {
+  private async visit(url: URL, opts: PreviewOptions): Promise<PreviewResult> {
     const started = Date.now();
     const guard = { allowPrivate: this.cfg.allowPrivate, allowedPorts: this.cfg.allowedPorts };
+    const emit = (e: ProgressEvent) => {
+      try {
+        opts.onProgress?.(e);
+      } catch {
+        // a listener that went away must not fail the check
+      }
+    };
+
+    // Blocklist lookups do not need the browser: start them now, alongside everything else.
+    const lookups = new Map<string, Promise<unknown>>();
+    const lookUp = (host: string) => {
+      if (!lookups.has(host)) lookups.set(host, this.reputation([host]).catch(() => null));
+    };
+    emit({ type: 'step', id: 'blocklists', state: 'active', label: 'Checking threat blocklists' });
+    lookUp(url.hostname.replace(/^\[|\]$/g, ''));
 
     if (!opts.skipPrecheck) {
+      emit({ type: 'step', id: 'address', state: 'active', label: 'Looking up the address' });
       try {
         await resolveTarget(url.hostname, url.port ? Number(url.port) : url.protocol === 'https:' ? 443 : 80, guard);
       } catch (e) {
         if (e instanceof GuardError && e.reason === 'blocked') throw blockedError();
         throw new PreviewError('unreachable', 'That site could not be found', 422);
       }
+      emit({ type: 'step', id: 'address', state: 'done', label: 'Address found' });
     }
 
     await this.acquire();
     let timer: NodeJS.Timeout | undefined;
-    const job = this.run(url, guard, started);
+    const job = this.run(url, guard, started, emit, lookUp, lookups);
     try {
       return await Promise.race([
         job.result,
@@ -210,7 +245,14 @@ export class Previewer {
     }
   }
 
-  private run(url: URL, guard: { allowPrivate: boolean; allowedPorts: Set<number> | null }, started: number) {
+  private run(
+    url: URL,
+    guard: { allowPrivate: boolean; allowedPorts: Set<number> | null },
+    started: number,
+    emit: (e: ProgressEvent) => void,
+    lookUp: (host: string) => void,
+    lookups: Map<string, Promise<unknown>>,
+  ) {
     const cleanup: (() => Promise<unknown>)[] = [];
     const dispose = async () => {
       for (const fn of cleanup.splice(0).reverse()) await fn().catch(() => {});
@@ -260,7 +302,13 @@ export class Previewer {
         }
         if (hops.length >= MAX_HOPS || !/^https?:/i.test(req.url())) return;
         const kind = hops.length === 0 ? 'start' : req.redirectedFrom() ? 'http' : 'client';
-        hops.push({ url: req.url(), host: hostOf(req.url()), status: null, kind, req });
+        const hop = { url: req.url(), host: hostOf(req.url()), status: null, kind } as const;
+        const repeat = hops.at(-1)?.url === hop.url;
+        hops.push({ ...hop, req });
+        if (!repeat) {
+          lookUp(hop.host);
+          emit({ type: 'hop', hop });
+        }
       });
       let appScheme: string | null = null;
       page.on('response', (res) => {
@@ -273,6 +321,7 @@ export class Previewer {
         if (m && !/^https?$/i.test(m[1]!)) appScheme = m[1]!.toLowerCase();
       });
 
+      emit({ type: 'step', id: 'redirects', state: 'active', label: 'Following the link' });
       let navError: unknown = null;
       try {
         await page.goto(url.href, { waitUntil: 'domcontentloaded', timeout: this.cfg.navTimeoutMs });
@@ -296,29 +345,83 @@ export class Previewer {
         throw new PreviewError('unreachable', 'The site did not respond', 422);
       }
 
+      // Blocklists: the per-host lookups started along the way have filled the cache; this adds them up.
+      const sumUpBlocklists = async (): Promise<Reputation> => {
+        const hosts = [...hops.map((h) => h.host), hostOf(committed ? page.url() : lastHopUrl)];
+        hosts.forEach(lookUp);
+        await Promise.all(lookups.values());
+        const reputation = await this.reputation(hosts).catch((): Reputation => ({ checked: [], flaggedBy: [], flaggedHost: null }));
+        emit({
+          type: 'step',
+          id: 'blocklists',
+          state: 'done',
+          label:
+            reputation.flaggedBy.length > 0
+              ? `Listed as malicious by ${reputation.flaggedBy.join(', ')}`
+              : reputation.checked.length > 0
+                ? `Not on ${reputation.checked.length === 1 ? 'the blocklist' : `${reputation.checked.length} blocklists`}`
+                : 'Blocklists could not be reached',
+        });
+        return reputation;
+      };
+      let judging: Promise<Reputation>;
+
       let title = '';
       let asksPassword = false;
       let asksPayment = false;
-      let shot: Buffer | null = null;
+      let shot = null as Buffer | null;
 
       if (committed) {
+        emit({ type: 'step', id: 'page', state: 'active', label: 'Loading the page' });
         // Let the page finish and give script/meta redirects a chance to fire.
         await page.waitForLoadState('load', { timeout: 8000 }).catch(() => {});
-        await page.waitForLoadState('networkidle', { timeout: 3000 }).catch(() => {});
+        // "networkidle" already means half a second without traffic, so a page that reaches it needs a shorter look.
+        let quiet = await page.waitForLoadState('networkidle', { timeout: 3000 }).then(
+          () => true,
+          () => false,
+        );
         for (let i = 0; i < 4; i++) {
           const before = page.url();
-          await page.waitForTimeout(700);
+          await page.waitForTimeout(quiet ? 300 : 700);
           if (page.url() === before) break;
+          quiet = false;
           await page.waitForLoadState('load', { timeout: 5000 }).catch(() => {});
         }
+        const moved = new Set(hops.map((h) => h.url)).size - 1;
+        emit({ type: 'step', id: 'redirects', state: 'done', label: moved === 0 ? 'No redirects' : moved === 1 ? '1 redirect' : `${moved} redirects` });
+        emit({ type: 'step', id: 'page', state: 'done', label: 'Page loaded' });
+        judging = sumUpBlocklists(); // every site in the chain is known now
 
-        title = (await page.title().catch(() => '')).slice(0, 200);
-        for (const frame of page.frames().slice(0, 15)) {
-          const r = await frame.evaluate<{ password: boolean; payment: boolean }>(PROBE_FORMS).catch(() => null);
-          if (r?.password) asksPassword = true;
-          if (r?.payment) asksPayment = true;
-        }
-        shot = await page.screenshot({ type: 'jpeg', quality: 72, animations: 'disabled', caret: 'hide', timeout: 10_000 }).catch(() => null);
+        // The form check and the picture read the same settled page; do them together.
+        emit({ type: 'step', id: 'forms', state: 'active', label: 'Looking for sign-in and payment forms' });
+        emit({ type: 'step', id: 'picture', state: 'active', label: 'Taking a picture of the page' });
+        const probing = (async () => {
+          title = (await page.title().catch(() => '')).slice(0, 200);
+          await Promise.all(
+            page
+              .frames()
+              .slice(0, 15)
+              .map(async (frame) => {
+                const r = await frame.evaluate<{ password: boolean; payment: boolean }>(PROBE_FORMS).catch(() => null);
+                if (r?.password) asksPassword = true;
+                if (r?.payment) asksPayment = true;
+              }),
+          );
+          const found = asksPassword && asksPayment ? 'Asks for a password and card details' : asksPassword ? 'Asks for a password' : asksPayment ? 'Asks for card details' : 'No sign-in or payment forms';
+          emit({ type: 'step', id: 'forms', state: 'done', label: found });
+        })();
+        const shooting = page
+          .screenshot({ type: 'jpeg', quality: 72, animations: 'disabled', caret: 'hide', timeout: 10_000 })
+          .catch(() => null)
+          .then((b) => {
+            shot = b;
+            emit({ type: 'step', id: 'picture', state: 'done', label: b ? 'Picture taken' : 'No picture could be taken' });
+          });
+        await Promise.all([probing, shooting]);
+      } else {
+        const moved = new Set(hops.map((h) => h.url)).size - 1;
+        emit({ type: 'step', id: 'redirects', state: 'done', label: moved <= 0 ? 'No redirects' : moved === 1 ? '1 redirect' : `${moved} redirects` });
+        judging = sumUpBlocklists();
       }
 
       const finalUrl = committed ? page.url() : lastHopUrl;
@@ -334,9 +437,7 @@ export class Previewer {
       if (cleanHops.length === 0) cleanHops.push({ url: url.href, host: hostOf(url.href), status: null, kind: 'start' });
 
       const finalHost = hostOf(finalUrl);
-      const reputation = await this.reputation([...cleanHops.map((h) => h.host), finalHost]).catch(
-        (): Reputation => ({ checked: [], flaggedBy: [], flaggedHost: null }),
-      );
+      const reputation = await judging;
 
       const id = this.store.newId();
       if (shot) this.store.put(id, shot);

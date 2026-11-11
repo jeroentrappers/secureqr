@@ -4,13 +4,19 @@
 # It listens on loopback only; nginx terminates TLS and reverse-proxies.
 services:
   secureqr:
-    build: ./src
+    build:
+      context: ./src
+      args:
+        # one line in .env, raised by secureqr-update.sh
+        PLAYWRIGHT_VERSION: ${PLAYWRIGHT_VERSION}
     image: secureqr-server
     container_name: secureqr
     init: true
     restart: unless-stopped
+    networks: [egress]
     ports:
       - "127.0.0.1:{{ secureqr_port }}:8080"
+    env_file: ./api.env
     environment:
       TRUST_PROXY: "1"
       RATE_LIMIT_PER_MIN: "{{ secureqr_rate_limit_per_min }}"
@@ -34,3 +40,16 @@ services:
     logging:
       driver: json-file
       options: { max-size: "10m", max-file: "3" }
+
+# Its own bridge with a fixed name and range, so the host firewall
+# (secureqr-firewall.sh) can pin it to the public internet.
+networks:
+  egress:
+    name: secureqr_egress
+    enable_ipv6: false
+    driver_opts:
+      com.docker.network.bridge.name: {{ secureqr_bridge }}
+    ipam:
+      config:
+        - subnet: {{ secureqr_subnet }}
+          gateway: {{ secureqr_gateway }}

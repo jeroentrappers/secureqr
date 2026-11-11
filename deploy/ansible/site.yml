@@ -5,5 +5,17 @@
   hosts: secureqr
   become: true
   force_handlers: true  # a mid-play failure must not strand the nginx reload
+  vars_files:
+    - secrets.yml  # not in git: copy secrets.example.yml
+  pre_tasks:
+    - name: App keys are set
+      ansible.builtin.assert:
+        that:
+          - secureqr_api_keys is defined
+          - secureqr_api_keys | length > 0
+          - secureqr_api_keys | select('match', '^[A-Za-z0-9_-]{24,}$') | list | length == secureqr_api_keys | length
+        fail_msg: "Set secureqr_api_keys in secrets.yml (letters, digits, - and _, at least 24 characters each)."
+        quiet: true
+      tags: [secureqr]
   roles:
     - { role: secureqr, tags: [secureqr] }

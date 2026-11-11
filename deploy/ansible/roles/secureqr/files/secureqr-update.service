@@ -1,0 +1,9 @@
+# Managed by Ansible (secureqr).
+[Unit]
+Description=SecureQR: update the headless browser
+After=docker.service network-online.target
+Wants=network-online.target
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/secureqr-update.sh
+TimeoutStartSec=45min

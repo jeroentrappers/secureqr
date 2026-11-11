@@ -1,0 +1,11 @@
+# Managed by Ansible (secureqr).
+[Unit]
+Description=SecureQR: keep the preview container off the host and private networks
+After=docker.service
+Wants=docker.service
+[Service]
+Type=oneshot
+RemainAfterExit=true
+ExecStart=/usr/local/sbin/secureqr-firewall.sh
+[Install]
+WantedBy=multi-user.target

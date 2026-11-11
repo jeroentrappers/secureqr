@@ -157,3 +157,82 @@ test('expired or unknown screenshots are 404', async () => {
 test('health check', async () => {
   assert.deepEqual((await open.app.inject({ method: 'GET', url: '/healthz' })).json(), { ok: true });
 });
+
+const stream = async (app: FastifyInstance, url: unknown) => {
+  const res = await app.inject({ method: 'POST', url: '/v1/preview/stream', payload: { url } });
+  const lines = res.statusCode === 200 ? res.body.trim().split('\n').map((l) => JSON.parse(l)) : [];
+  return { res, lines };
+};
+
+test('the stream reports each step and hop, then the result', async () => {
+  const { res, lines } = await stream(open.app, `http://localhost:${port}/start#stream`);
+  assert.equal(res.statusCode, 200, res.body);
+  assert.match(String(res.headers['content-type']), /^application\/x-ndjson/);
+  assert.equal(res.headers['x-accel-buffering'], 'no');
+
+  const last = lines.at(-1);
+  assert.equal(last.type, 'result');
+  assert.equal(new URL(last.result.finalUrl).pathname, '/final', res.body);
+  assert.ok(last.result.screenshotUrl);
+
+  const hops = lines.filter((l) => l.type === 'hop').map((l) => new URL(l.hop.url).pathname);
+  assert.deepEqual(hops, ['/start', '/two', '/js', '/final']);
+
+  const steps = lines.filter((l) => l.type === 'step');
+  for (const id of ['blocklists', 'redirects', 'page', 'forms', 'picture']) {
+    const states = steps.filter((s) => s.id === id).map((s) => s.state);
+    assert.deepEqual(states, ['active', 'done'], id);
+  }
+  const done = (id: string) => steps.find((s) => s.id === id && s.state === 'done').label;
+  assert.equal(done('redirects'), '3 redirects');
+  assert.equal(done('forms'), 'Asks for a password');
+  assert.equal(done('blocklists'), 'Blocklists could not be reached');
+  // nothing is reported after the result
+  assert.equal(lines.filter((l) => l.type === 'result').length, 1);
+});
+
+test('the stream answers a repeated link with the result only', async () => {
+  await stream(open.app, `http://localhost:${port}/plain#stream`);
+  const { lines } = await stream(open.app, `http://localhost:${port}/plain#stream`);
+  assert.deepEqual(lines.map((l) => l.type), ['result']);
+  assert.equal(lines[0].result.cached, true);
+});
+
+test('the stream refuses bad links with a plain error and reports later failures as a line', async () => {
+  const bad = await stream(open.app, 'ftp://example.com/x');
+  assert.equal(bad.res.statusCode, 400);
+  assert.equal(bad.res.json().error.code, 'invalid_url');
+
+  const priv = await stream(strict.app, `http://127.0.0.1:${port}/plain`);
+  assert.equal(priv.res.statusCode, 200);
+  const last = priv.lines.at(-1);
+  assert.equal(last.type, 'error');
+  assert.equal(last.status, 400);
+  assert.equal(last.error.code, 'blocked_target');
+});
+
+test('with app keys configured, the preview endpoints refuse callers without one', async () => {
+  const env = { RATE_LIMIT_PER_MIN: '1000', CHROMIUM_SANDBOX: process.env.CHROMIUM_SANDBOX ?? '1', ALLOW_PRIVATE: '1', API_KEYS: 'first-key, second-key' };
+  const keyed = await buildApp(loadConfig(env), { logger: false, reputation: noReputation });
+  try {
+    const call = (path: string, key?: string) =>
+      keyed.app.inject({ method: 'POST', url: path, payload: { url: `http://localhost:${port}/plain#keyed` }, headers: key === undefined ? {} : { 'x-secureqr-key': key } });
+
+    for (const path of ['/v1/preview', '/v1/preview/stream']) {
+      for (const bad of [undefined, '', 'wrong', 'first-key2', 'first-key, second-key']) {
+        const res = await call(path, bad);
+        assert.equal(res.statusCode, 401, `${path} ${bad}`);
+        assert.equal(res.json().error.code, 'unauthorized');
+      }
+    }
+    assert.equal((await call('/v1/preview', 'first-key')).statusCode, 200);
+    const s = await call('/v1/preview/stream', 'second-key');
+    assert.equal(s.statusCode, 200);
+    assert.equal(JSON.parse(s.body.trim().split('\n').at(-1)!).type, 'result');
+    // no key needed for these
+    assert.equal((await keyed.app.inject({ method: 'GET', url: '/healthz' })).statusCode, 200);
+    assert.equal((await keyed.app.inject({ method: 'GET', url: '/v1/screenshots/0000000000000000.jpg' })).statusCode, 404);
+  } finally {
+    await keyed.app.close();
+  }
+});

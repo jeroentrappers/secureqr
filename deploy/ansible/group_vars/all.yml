@@ -23,3 +23,29 @@ secureqr_apparmor_profile: secureqr
 # A real page that the post-deploy check previews end to end (browser launch,
 # egress proxy, screenshot). The play fails if this does not come back.
 secureqr_selftest_url: https://example.com/
+
+# The container gets its own bridge; the host firewall lets it reach the public
+# internet only (not the host, other containers, the VPN or private ranges).
+secureqr_bridge: br-secureqr
+secureqr_subnet: 10.97.18.0/24
+secureqr_gateway: 10.97.18.1
+# Extra host:port pairs the container must NOT be able to reach, checked after
+# every deploy on top of the host's own addresses (e.g. an exporter on the VPN).
+secureqr_must_not_reach: ["10.66.0.2:9100"]
+
+# Browser updates: the nightly job on the box moves to a newer Playwright
+# (same major version) once it has been out this many days. The version in
+# server/Dockerfile is only the floor; the box may be ahead of it.
+secureqr_update_min_age_days: 3
+secureqr_playwright_floor: "{{ lookup('file', secureqr_server_src + '/Dockerfile') | regex_search('ARG PLAYWRIGHT_VERSION=([0-9.]+)', '\\1') | first }}"
+
+# Traffic alerts (ntfy, via the host's /usr/local/sbin/appmire-alert.sh).
+# Counted over the window; each kind alerts at most once per cooldown.
+secureqr_alert_window_min: 10
+secureqr_alert_requests: 150     # all preview requests
+secureqr_alert_denied: 30        # requests without a valid app key
+secureqr_alert_limited: 30       # rate-limited requests
+secureqr_alert_failed: 10        # server errors (5xx)
+secureqr_alert_cooldown_min: 60
+
+# secureqr_api_keys comes from secrets.yml (not in git; see secrets.example.yml).

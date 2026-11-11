@@ -88,22 +88,38 @@ nav a:hover { color: var(--ink); }
 .chips span { font: 600 11px/1 var(--mono); padding: 6px 9px; border-radius: 99px; border: 1px solid var(--line); color: var(--muted); }
 .chips span.bad { color: var(--danger); border-color: var(--danger); }
 
-/* try it */
-.check { display: flex; gap: 10px; flex-wrap: wrap; }
-.check input { flex: 1 1 280px; min-width: 0; border-radius: var(--r); border: 1px solid var(--line); background: var(--surface); color: var(--ink);
-               padding: 13px 18px; font: 15px/1.2 var(--mono); }
-.check input:focus-visible, .btn:focus-visible, a:focus-visible { outline: 3px solid color-mix(in srgb, var(--accent) 50%, transparent); outline-offset: 2px; }
-.status { min-height: 1.6em; margin-top: 12px; color: var(--muted); }
-.status.err { color: var(--danger); font-weight: 600; }
+/* demo */
+.picks { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+.pick { border-radius: 99px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); padding: 10px 18px; font: 700 15px/1.2 inherit; font-family: inherit; cursor: pointer; }
+.pick[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.pick:focus-visible, .btn:focus-visible, a:focus-visible { outline: 3px solid color-mix(in srgb, var(--accent) 50%, transparent); outline-offset: 2px; }
+.demo { display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); gap: 14px; align-items: start; min-height: 420px; }
+@media (max-width: 860px) { .demo { grid-template-columns: 1fr; min-height: 0; } }
+.demo .result { margin-top: 0; animation: rise .35s ease-out; }
+.lbl.sp { margin-top: 18px; }
+.dsteps { list-style: none; padding: 0; display: grid; gap: 10px; min-height: 250px; align-content: start; }
+.dsteps > li { display: grid; grid-template-columns: 22px 1fr; column-gap: 10px; align-items: start; animation: rise .25s ease-out; }
+.dsteps > li > i { width: 18px; height: 18px; margin-top: 4px; border-radius: 50%; border: 2.5px solid color-mix(in srgb, var(--accent) 25%, transparent); border-top-color: var(--accent); animation: spin .8s linear infinite; }
+.dsteps > li.done > i { animation: none; border: 0; background: var(--ok); position: relative; }
+.dsteps > li.done > i::after { content: ""; position: absolute; left: 6px; top: 3px; width: 4px; height: 8px; border: solid var(--surface); border-width: 0 2px 2px 0; transform: rotate(45deg); }
+.dsteps > li.bad > i { background: var(--danger); }
+.dsteps > li.bad > span { color: var(--danger); font-weight: 700; }
+.dhops { grid-column: 2; list-style: none; padding: 0; font: 13px/1.5 var(--mono); color: var(--muted); word-break: break-all; }
+.dhops li { animation: rise .25s ease-out; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes rise { from { opacity: 0; transform: translateY(4px); } }
+@media (prefers-reduced-motion: reduce) { .dsteps > li, .dhops li, .demo .result { animation: none; } .dsteps > li > i { animation: none; } }
+.shot.big .pg { font-size: 15px; padding: 18px 18px 22px; min-height: 300px; }
+.shot.big .pg h5 { font-size: 20px; margin: 12px 0 6px; }
+.shot.big .brandbar { width: 90px; height: 16px; }
+.shot.big .pg .f { height: 34px; font-size: 13px; padding: 8px 10px; margin-top: 10px; border-radius: 6px; }
+.shot.big .pg .b { height: 38px; line-height: 38px; margin-top: 12px; border-radius: 6px; font-size: 15px; }
+.pg .ln { border-bottom: 1px dotted #c9ccd3; padding: 7px 0; white-space: pre-wrap; }
 .result { margin-top: 8px; display: grid; gap: 14px; }
 .cols { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 14px; align-items: start; }
 @media (max-width: 700px) { .cols { grid-template-columns: 1fr; } }
-.shot.big img { display: block; width: 100%; height: auto; }
-.noshot { padding: 40px 16px; text-align: center; color: #666; font-size: 15px; }
 .facts { display: grid; gap: 14px; }
-.reasons, .hops { padding-left: 1.2em; display: grid; gap: 6px; font-size: 15px; }
-.hops { font: 13px/1.4 var(--mono); word-break: break-all; }
-.hops small { color: var(--muted); font-family: "Nunito Sans", system-ui, sans-serif; display: block; }
+.reasons { padding-left: 1.2em; display: grid; gap: 6px; font-size: 15px; }
 
 .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 20px; }
 @media (max-width: 760px) { .steps { grid-template-columns: 1fr; } }

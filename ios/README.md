@@ -36,14 +36,15 @@ xcodebuild test -project SecureQR.xcodeproj -scheme SecureQR \
 ```
 
 The unit tests (`SecureQRTests`) cover the QR classifier with every vector from `docs/qr-types.md`, the API
-decoding and the history store.
+decoding, the step-by-step preview stream (line parser, checklist, and the client against a `URLProtocol` stub,
+including the app key header and the `401` answer) and the history store.
 
 ## Layout
 
 | path | what |
 |---|---|
 | `project.yml` | XcodeGen spec: targets, Info.plist keys, build settings |
-| `Config/*.xcconfig` | team id (`Signing.xcconfig`), version, API base URL per configuration |
+| `Config/*.xcconfig` | team id (`Signing.xcconfig`), version, API base URL per configuration, app key (`Secrets.xcconfig`, not in git) |
 | `SecureQR/QR` | classifier and parsers, Foundation only |
 | `SecureQR/API` | preview API models and client |
 | `SecureQR/History` | on-device history (JSON file in Application Support) |
@@ -59,14 +60,47 @@ decoding and the history store.
 | what | where |
 |---|---|
 | API base URL | build setting `API_BASE_URL` in `Config/Debug.xcconfig` (`http://localhost:8080`) and `Config/Release.xcconfig` (`https://qr.appmire.be`); the app reads it from the Info.plist key `APIBaseURL` |
+| App key | build setting `SECUREQR_API_KEY` in `Config/Secrets.xcconfig` (not in git); the app reads it from the Info.plist key `SecureQRAPIKey` |
 | Developer team | `DEVELOPMENT_TEAM` in `Config/Signing.xcconfig` |
 | Version / build | `MARKETING_VERSION`, `CURRENT_PROJECT_VERSION` in `Config/Shared.xcconfig` |
 
 To point a Debug build at a server on another port, override the setting on the command line:
 `xcodebuild … API_BASE_URL=http://localhost:18081`.
 
-Plain `http` is allowed for `localhost` in Debug builds only: a build phase adds the App Transport Security
-exception to the built Info.plist when the configuration is Debug. Release builds have no exception.
+### App key
+
+The preview server only answers apps that send its app key (`X-SecureQR-Key`, see "App key" in `../docs/api.md`).
+The key is not in git. Copy `Config/Secrets.example.xcconfig` to `Config/Secrets.xcconfig` (git-ignored) and put the
+real key in place of the placeholder:
+
+```sh
+cp Config/Secrets.example.xcconfig Config/Secrets.xcconfig   # then edit SECUREQR_API_KEY
+```
+
+`Config/Shared.xcconfig` includes that file when it exists (`#include?`), `project.yml` copies the build setting
+`SECUREQR_API_KEY` into the Info.plist key `SecureQRAPIKey`, and `PreviewClient` sends it with both preview
+requests (never with screenshot loads). The key keeps casual callers out and is not a user credential; still,
+keep it out of git, logs and screenshots.
+
+- **Release** builds fail in their first build phase when the key is empty
+  (`error: SECUREQR_API_KEY is empty. …`), so `fastlane release` cannot produce a build the server would refuse.
+- **Debug** builds work without the file: the app then sends no key, which a local server started without
+  `API_KEYS` accepts.
+
+When the server answers `401 unauthorized` (a missing or retired key), the app shows "Update needed" with the
+server's message and no "Try again".
+
+Plain `http` is allowed for `localhost` and for addresses on the local network (`NSAllowsLocalNetworking`, e.g.
+`-apiBaseURL http://192.168.1.20:8080`) in Debug builds only: a build phase adds the App Transport Security
+exceptions to the built Info.plist when the configuration is Debug. Release builds have no exception.
+
+## Checking a link
+
+The app calls `POST /v1/preview/stream` and reads the answer line by line (`PreviewClient.previewEvents`); the
+checking screen shows each step the server reports, with the sites the link passes through under the redirects
+step. A server that does not have that endpoint yet (404) is asked through `POST /v1/preview` instead, and the
+screen shows a plain busy state. Both together get 45 seconds. Only a 404 leads to the plain endpoint; any other
+error, `401 unauthorized` included, is shown as it is.
 
 In the simulator `localhost` is the Mac, so a preview server running on the Mac (see `../server`) is reachable
 as is.
@@ -127,6 +161,9 @@ Distribution certificate already lives there, so SecureQR reuses it.
 `ios/ExportOptions.plist`; `release upload:true` also uploads it to App Store Connect for TestFlight. The version is
 `MARKETING_VERSION` from `Config/Shared.xcconfig` and the build number is the commit count (1 while there is no git
 history); override with `MARKETING_VERSION=…` and `BUILD_NUMBER=…`.
+
+The archive needs the app key in `Config/Secrets.xcconfig` (see "App key" above) and stops early without it. The
+lane's own command-line settings (version and build number) do not replace it.
 
 Before the first upload the app record for `be.appmire.secureqr` must exist in App Store Connect and the profiles
 must have been created once with `renew_certificates`.

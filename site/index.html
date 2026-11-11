@@ -12,7 +12,7 @@
 <body>
 <header class="top wrap">
   <a class="brand" href="/"><img src="/assets/mark.svg" alt="" width="34" height="34"><span>Secure<b>QR</b></span></a>
-  <nav><a href="#try">Try it</a><a href="#how">How it works</a><a href="#privacy">Privacy</a></nav>
+  <nav><a href="#demo">See it work</a><a href="#how">How it works</a><a href="#privacy">Privacy</a></nav>
 </header>
 
 <main>
@@ -21,7 +21,7 @@
     <h1>See where it goes before you go.</h1>
     <p class="lead">A QR code doesn't tell you where it leads. SecureQR opens the link on our server instead of your phone, follows every redirect, and shows you a picture of the page at the end. Then you decide.</p>
     <p class="soon"><span class="pill">Coming soon</span> for iPhone and Android</p>
-    <a class="btn p" href="#try">Check a link now</a>
+    <a class="btn p" href="#demo">See it check a link</a>
   </div>
   <div class="phones" aria-hidden="true">
     <div class="phone scan">
@@ -45,25 +45,33 @@
   </div>
 </section>
 
-<section id="try" class="wrap">
-  <h2>Try it on a link</h2>
-  <p class="sub">Paste any web address. We visit it for you and show what we find. Nothing opens in your browser.</p>
-  <form id="check" class="check">
-    <input id="url" type="url" inputmode="url" autocomplete="off" spellcheck="false" placeholder="https://…" aria-label="Link to check" required>
-    <button class="btn p" type="submit">Check this link</button>
-  </form>
-  <p id="status" class="status" role="status" aria-live="polite"></p>
-  <div id="result" class="result" hidden>
-    <div id="r-verdict" class="verdict"><span id="r-icon"></span><div><span id="r-head"></span><small id="r-sub"></small></div></div>
-    <div class="cols">
-      <div class="shot big"><div class="chrome" id="r-chrome"></div><img id="r-shot" alt="Picture of the final page" hidden><div id="r-noshot" class="noshot" hidden>No picture available for this link.</div></div>
-      <div class="facts">
-        <div class="card"><div class="lbl">You would land on</div><div class="final" id="r-final"></div><div class="chips" id="r-chips"></div></div>
-        <div class="card"><div class="lbl">Why</div><ul id="r-reasons" class="reasons"></ul></div>
-        <div class="card"><div class="lbl">The path it took</div><ol id="r-hops" class="hops"></ol></div>
+<section id="demo" class="wrap">
+  <h2>See it check a link</h2>
+  <p class="sub">Three made-up QR codes, played back the way the app shows them. Pick one.</p>
+  <div class="picks" role="group" aria-label="Example QR codes">
+    <button class="pick" type="button" data-demo="parcel">A parcel text message</button>
+    <button class="pick" type="button" data-demo="menu">A restaurant menu</button>
+    <button class="pick" type="button" data-demo="prize">A "you won" sticker</button>
+  </div>
+  <div class="demo">
+    <div class="card">
+      <div class="lbl">The QR code says</div>
+      <div class="final" id="d-url"></div>
+      <div class="lbl sp">Following the link for you</div>
+      <ul id="d-steps" class="dsteps" role="status" aria-live="polite"></ul>
+    </div>
+    <div id="d-result" class="result" hidden>
+      <div id="d-verdict" class="verdict"><span id="d-icon"></span><div><span id="d-head"></span><small id="d-sub"></small></div></div>
+      <div class="cols">
+        <div class="shot big"><div class="chrome" id="d-chrome"></div><div class="pg" id="d-page"></div></div>
+        <div class="facts">
+          <div class="card" id="d-finalcard"><div class="lbl">You would land on</div><div class="final" id="d-final"></div><div class="chips" id="d-chips"></div></div>
+          <div class="card"><div class="lbl">Why</div><ul id="d-reasons" class="reasons"></ul></div>
+        </div>
       </div>
     </div>
   </div>
+  <p class="fine">These examples are a recording, not a live check, and the sites in them do not exist. The app does this for real with every link you scan.</p>
 </section>
 
 <section id="how" class="wrap">

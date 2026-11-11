@@ -1,7 +1,9 @@
-import Fastify, { type FastifyInstance } from 'fastify';
+import { createHash, timingSafeEqual } from 'node:crypto';
+import { PassThrough } from 'node:stream';
+import Fastify, { type FastifyInstance, type FastifyRequest } from 'fastify';
 import rateLimit from '@fastify/rate-limit';
 import type { Config } from './config.js';
-import { PreviewError, Previewer } from './preview.js';
+import { parseScannedUrl, PreviewError, Previewer } from './preview.js';
 import { dnsReputation, type ReputationCheck } from './reputation.js';
 import { ScreenshotStore } from './store.js';
 
@@ -37,12 +39,57 @@ export async function buildApp(cfg: Config, deps: AppDeps = {}): Promise<{ app: 
 
   app.get('/healthz', async () => ({ ok: true }));
 
-  app.post('/v1/preview', { config: { rateLimit: {} } }, async (req) => {
+  // The app key keeps casual callers out. Compared as digests so the check takes the same time for any input.
+  const digest = (k: string) => createHash('sha256').update(k).digest();
+  const accepted = cfg.apiKeys.map(digest);
+  const needsKey = async (req: FastifyRequest) => {
+    if (accepted.length === 0) return;
+    const given = req.headers['x-secureqr-key'];
+    const d = digest(typeof given === 'string' ? given : '');
+    // no early exit: every accepted key is compared
+    const ok = accepted.reduce((hit, k) => timingSafeEqual(k, d) || hit, false);
+    if (!ok) throw new PreviewError('unauthorized', 'This copy of the app can no longer use the service. Update SecureQR and try again.', 401);
+  };
+  // One line per preview request, for the traffic alert on the host. No URLs, no keys.
+  app.addHook('onResponse', async (req, reply) => {
+    if (req.method === 'POST' && req.url.startsWith('/v1/preview')) req.log.info({ status: reply.statusCode }, 'api');
+  });
+
+  app.post('/v1/preview', { config: { rateLimit: {} }, preHandler: needsKey }, async (req) => {
     const body = req.body as { url?: unknown } | null;
     const result = await previewer.preview(body?.url);
     // Log hosts only, never full URLs: paths and queries can carry personal tokens.
     req.log.info({ start: result.hops[0]?.host, final: result.finalHost, level: result.verdict.level, ms: result.durationMs }, 'preview');
     return result;
+  });
+
+  // The same check, reported step by step as newline-delimited JSON. The last line is the result or an error.
+  app.post('/v1/preview/stream', { config: { rateLimit: {} }, preHandler: needsKey }, async (req, reply) => {
+    const body = req.body as { url?: unknown } | null;
+    parseScannedUrl(body?.url); // a link we cannot check at all is a plain 400, not a stream
+    const out = new PassThrough();
+    const line = (o: unknown) => {
+      if (!out.writableEnded) out.write(JSON.stringify(o) + '\n');
+    };
+    previewer
+      .preview(body?.url, { onProgress: line })
+      .then(
+        (result) => {
+          req.log.info({ start: result.hops[0]?.host, final: result.finalHost, level: result.verdict.level, ms: result.durationMs }, 'preview');
+          line({ type: 'result', result });
+        },
+        (err: unknown) => {
+          if (err instanceof PreviewError) return line({ type: 'error', status: err.status, error: { code: err.code, message: err.message } });
+          req.log.error({ err }, 'preview failed');
+          line({ type: 'error', status: 500, error: { code: 'internal', message: 'Something went wrong on our side' } });
+        },
+      )
+      .finally(() => out.end());
+    return reply
+      .header('content-type', 'application/x-ndjson; charset=utf-8')
+      .header('cache-control', 'no-store')
+      .header('x-accel-buffering', 'no') // nginx: pass each line on as it is written
+      .send(out);
   });
 
   app.get<{ Params: { file: string } }>('/v1/screenshots/:file', async (req, reply) => {

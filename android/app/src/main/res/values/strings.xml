@@ -44,6 +44,8 @@
     <!-- Checking -->
     <string name="checking_label_says">The QR code says</string>
     <string name="checking_label_following">Following the link for you</string>
+    <string name="checking_contacting">Contacting the server</string>
+    <string name="checking_step_done">Done</string>
     <string name="checking_progress">Opening it in a sealed browser…</string>
     <string name="checking_note">We open the link on our server, never on your phone.</string>
 
@@ -84,6 +86,9 @@
     <string name="error_title">This link could not be checked</string>
     <string name="error_offline">SecureQR could not be reached. Check your internet connection and try again.</string>
     <string name="error_generic">Something went wrong while checking this link.</string>
+    <!-- The server no longer accepts this version of the app -->
+    <string name="error_update_title">Update needed</string>
+    <string name="error_update_needed">This copy of the app can no longer use the service. Update SecureQR and try again.</string>
     <string name="error_unchecked_warning">This link has not been checked. If you open it anyway, you will not know where it leads until you are there.</string>
     <string name="error_no_browser">No browser found to open this link.</string>
 

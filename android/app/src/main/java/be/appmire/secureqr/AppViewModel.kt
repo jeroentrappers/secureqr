@@ -6,9 +6,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import be.appmire.secureqr.data.CheckProgress
 import be.appmire.secureqr.data.HistoryEntry
 import be.appmire.secureqr.data.HistoryStore
 import be.appmire.secureqr.data.PreviewApi
+import be.appmire.secureqr.data.PreviewEvent
 import be.appmire.secureqr.data.PreviewOutcome
 import be.appmire.secureqr.data.PreviewResponse
 import be.appmire.secureqr.qr.QrClassifier
@@ -33,29 +35,32 @@ sealed interface Screen {
 }
 
 sealed interface PreviewUiState {
-    data object Checking : PreviewUiState
+    data class Checking(val progress: CheckProgress = CheckProgress()) : PreviewUiState
 
     data class Result(val response: PreviewResponse, val screenshotUrl: String?) : PreviewUiState
 
     /** [message] is the server's own wording when it sent one; [offline] when it could not be reached. */
     data class Failed(val code: String?, val message: String?, val offline: Boolean) : PreviewUiState {
         val retryable: Boolean get() = offline || code !in NOT_RETRYABLE
+
+        /** The server turned this build away; trying again cannot help, an app update can. */
+        val updateNeeded: Boolean get() = !offline && code == PreviewApi.CODE_UNAUTHORIZED
     }
 
     companion object {
-        private val NOT_RETRYABLE = setOf("invalid_url", "blocked_target")
+        private val NOT_RETRYABLE = setOf("invalid_url", "blocked_target", PreviewApi.CODE_UNAUTHORIZED)
     }
 }
 
 class AppViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val api = PreviewApi(BuildConfig.API_BASE_URL)
+    private val api = PreviewApi(BuildConfig.API_BASE_URL, BuildConfig.API_KEY)
     private val history = HistoryStore(application)
 
     var screen by mutableStateOf<Screen>(Screen.Scan)
         private set
 
-    var previewState by mutableStateOf<PreviewUiState>(PreviewUiState.Checking)
+    var previewState by mutableStateOf<PreviewUiState>(PreviewUiState.Checking())
         private set
 
     val historyEntries: StateFlow<List<HistoryEntry>> =
@@ -91,27 +96,36 @@ class AppViewModel(application: Application) : AndroidViewModel(application) {
     private fun startPreview() {
         val target = screen as? Screen.Preview ?: return
         previewJob?.cancel()
-        previewState = PreviewUiState.Checking
+        previewState = PreviewUiState.Checking()
         previewJob = viewModelScope.launch {
-            val outcome = api.preview(target.url)
-            if (screen != target) return@launch
-            previewState = when (outcome) {
-                is PreviewOutcome.Success -> {
-                    val response = outcome.response
-                    target.historyId?.let {
-                        history.setLevel(it, response.verdict.verdictLevel.id, System.currentTimeMillis())
-                    }
-                    PreviewUiState.Result(response, response.screenshotUrl?.let(api::absoluteUrl))
-                }
-                is PreviewOutcome.ApiError -> {
-                    markFailed(target)
-                    PreviewUiState.Failed(outcome.code, outcome.message, offline = false)
-                }
-                PreviewOutcome.Offline -> {
-                    markFailed(target)
-                    PreviewUiState.Failed(null, null, offline = true)
+            var progress = CheckProgress()
+            api.previewEvents(target.url).collect { event ->
+                if (screen != target) return@collect
+                if (event is PreviewEvent.Finished) {
+                    previewState = finished(target, event.outcome)
+                } else {
+                    progress = progress.reduce(event)
+                    previewState = PreviewUiState.Checking(progress)
                 }
             }
+        }
+    }
+
+    private suspend fun finished(target: Screen.Preview, outcome: PreviewOutcome): PreviewUiState = when (outcome) {
+        is PreviewOutcome.Success -> {
+            val response = outcome.response
+            target.historyId?.let {
+                history.setLevel(it, response.verdict.verdictLevel.id, System.currentTimeMillis())
+            }
+            PreviewUiState.Result(response, response.screenshotUrl?.let(api::absoluteUrl))
+        }
+        is PreviewOutcome.ApiError -> {
+            markFailed(target)
+            PreviewUiState.Failed(outcome.code, outcome.message, offline = false)
+        }
+        PreviewOutcome.Offline -> {
+            markFailed(target)
+            PreviewUiState.Failed(null, null, offline = true)
         }
     }
 

@@ -25,3 +25,6 @@ fastlane/.env*
 vendor/bundle/
 
 .DS_Store
+
+# Local secrets (API key)
+Config/Secrets.xcconfig

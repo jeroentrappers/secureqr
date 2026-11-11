@@ -24,6 +24,7 @@ curl -s -X POST localhost:8080/v1/preview -H 'content-type: application/json' \
 | variable | default | meaning |
 |---|---|---|
 | `PORT` / `HOST` | `8080` / `0.0.0.0` | listen address |
+| `API_KEYS` | (none) | comma-separated app keys accepted in `X-SecureQR-Key`; when empty, no key is needed (local development only) |
 | `RATE_LIMIT_PER_MIN` | `20` | previews per client IP per minute |
 | `MAX_CONCURRENCY` / `MAX_QUEUE` | `3` / `12` | parallel browser jobs / waiting jobs before answering 429 |
 | `ALLOWED_PORTS` | `80,443,8080,8443` | ports the browser may connect to (`*` = any) |

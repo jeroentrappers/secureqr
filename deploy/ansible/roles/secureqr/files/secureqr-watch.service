@@ -1,0 +1,7 @@
+# Managed by Ansible (secureqr).
+[Unit]
+Description=SecureQR: firewall re-check and traffic alerts
+After=docker.service
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/secureqr-watch.sh

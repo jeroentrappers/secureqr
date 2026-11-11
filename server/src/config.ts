@@ -13,6 +13,8 @@ export interface Config {
   screenshotTtlMs: number;
   navTimeoutMs: number;
   jobTimeoutMs: number;
+  /** App keys accepted on the preview endpoints. Empty = no key needed (local development). */
+  apiKeys: string[];
 }
 
 const bool = (v: string | undefined, d: boolean) => (v === undefined ? d : v === '1' || v.toLowerCase() === 'true');
@@ -36,5 +38,6 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): Config {
     screenshotTtlMs: int(env.SCREENSHOT_TTL_SEC, 900) * 1000,
     navTimeoutMs: int(env.NAV_TIMEOUT_MS, 15000),
     jobTimeoutMs: int(env.JOB_TIMEOUT_MS, 30000),
+    apiKeys: (env.API_KEYS ?? '').split(',').map((k) => k.trim()).filter((k) => k.length > 0),
   };
 }

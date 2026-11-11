@@ -11,7 +11,8 @@ Specs: `../docs/api.md`, `../docs/qr-types.md`, `../design/brand.md`.
 
 - JDK 17 or newer (developed with Temurin 21)
 - Android SDK with platform `android-36` and build-tools 36.0.0
-- `local.properties` with `sdk.dir=/path/to/Android/Sdk` (not committed)
+- `local.properties` with `sdk.dir=/path/to/Android/Sdk` (not committed);
+  for release builds also the app key, see Configuration
 
 Gradle itself comes from the wrapper (`./gradlew`, Gradle 8.14.7).
 
@@ -33,12 +34,46 @@ sit next to a release install.
 |---|---|---|
 | API base URL, debug | `http://10.0.2.2:8080` (host machine, seen from the emulator) | `-Psecureqr.apiBaseUrl=...` |
 | API base URL, release | `https://qr.appmire.be` | `-Psecureqr.apiBaseUrl=...` |
+| App key | none | `secureqr.apiKey` / `SECUREQR_API_KEY`, see below |
 | Version code / name | `1` / `1.0.0` | `bundle exec fastlane bump` (edits `app/build.gradle.kts`) |
 
 The base URL ends up in `BuildConfig.API_BASE_URL`. The property can also go
 in `~/.gradle/gradle.properties`. On a real phone, point a debug build at your
 machine's LAN address, for example
 `./gradlew installDebug -Psecureqr.apiBaseUrl=http://192.168.1.20:8080`.
+
+### App key
+
+The server only answers preview requests that carry the app key
+(`../docs/api.md`, "App key"). The key is not in git. The build takes it from
+the first of these that is set:
+
+1. the Gradle property `secureqr.apiKey` (`-Psecureqr.apiKey=...` or
+   `~/.gradle/gradle.properties`)
+2. the environment variable `SECUREQR_API_KEY`
+3. `secureqr.apiKey` in `local.properties` (git-ignored; the normal place)
+
+```properties
+# local.properties
+sdk.dir=/path/to/Android/Sdk
+# SecureQR app key sent with every preview request. Never commit the real value.
+secureqr.apiKey=
+```
+
+It ends up in `BuildConfig.API_KEY` and is sent as `X-SecureQR-Key` on
+`POST /v1/preview/stream` and `POST /v1/preview`, nowhere else (screenshots
+are loaded without it). A debug build may go without a key: it then sends no
+header, which is fine for a local server started without `API_KEYS`. A release
+build without a key fails at its first task (`preReleaseBuild`) with a message
+naming the three places above.
+
+When the server refuses the key (`401 unauthorized`, an old build after the
+key was changed) the failure screen is titled "Update needed", shows the
+server's message and offers no Retry.
+
+Links are checked through `POST /v1/preview/stream`, so the Checking screen
+can list each step as the server reports it. A server that answers 404 there
+is asked through `POST /v1/preview` instead, and the screen shows a plain wait.
 
 Plain HTTP is allowed in debug builds only
 (`app/src/debug/res/xml/network_security_config.xml`). Release builds are
@@ -123,6 +158,14 @@ for anything missing there, from the environment:
 
 Without them `./gradlew assembleRelease` / `bundleRelease` still work and
 produce unsigned output. Release builds are minified with R8.
+
+### App key
+
+A release build needs the app key (see Configuration, "App key") and stops
+with an error when none is configured, so an app that the server would turn
+away cannot be built by accident. On this machine it is in `local.properties`;
+on CI set `SECUREQR_API_KEY`. Keep the key out of tracked files, logs and
+screenshots.
 
 The upload keystore is `~/.android/secureqr-release.jks`. Keep a backup of it
 and of `keystore.properties`: with Play App Signing a lost upload key can be

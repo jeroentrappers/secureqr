@@ -21,4 +21,11 @@ enum AppConfig {
         }
         return productionBaseURL
     }
+
+    /// App key for the preview API, from the `SecureQRAPIKey` Info.plist key
+    /// (build setting `SECUREQR_API_KEY`). Empty when the build has none.
+    static var apiKey: String {
+        let text = Bundle.main.object(forInfoDictionaryKey: "SecureQRAPIKey") as? String ?? ""
+        return text.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
 }

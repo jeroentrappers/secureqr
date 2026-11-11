@@ -1,6 +1,14 @@
 // Settings shared by every configuration.
 #include "Signing.xcconfig"
 
+// App key for the preview API (docs/api.md, "App key"), exposed to the app as
+// the Info.plist key SecureQRAPIKey. The value comes from Secrets.xcconfig,
+// which is not in git: copy Secrets.example.xcconfig to Secrets.xcconfig and
+// fill it in. Without that file the key stays empty: Debug builds then send
+// no key, Release builds fail (build phase in project.yml).
+SECUREQR_API_KEY =
+#include? "Secrets.xcconfig"
+
 // `fastlane release` overrides both on the command line.
 MARKETING_VERSION = 1.0.0
 CURRENT_PROJECT_VERSION = 1

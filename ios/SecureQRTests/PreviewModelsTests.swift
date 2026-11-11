@@ -150,7 +150,7 @@ final class PreviewModelsTests: XCTestCase {
 
     func testErrorResponses() {
         let cases: [(Int, String)] = [
-            (400, "invalid_url"), (400, "blocked_target"), (422, "unreachable"),
+            (400, "invalid_url"), (401, "unauthorized"), (400, "blocked_target"), (422, "unreachable"),
             (429, "rate_limited"), (504, "timeout"), (500, "internal")
         ]
         for (status, code) in cases {
@@ -165,6 +165,9 @@ final class PreviewModelsTests: XCTestCase {
     func testErrorWithoutBodyFallsBackOnStatus() {
         XCTAssertThrowsError(try decode("<html>Bad gateway</html>", status: 504)) { error in
             XCTAssertEqual(error as? PreviewFailure, .server(code: "timeout", message: ""))
+        }
+        XCTAssertThrowsError(try decode("", status: 401)) { error in
+            XCTAssertEqual(error as? PreviewFailure, .server(code: "unauthorized", message: ""))
         }
         XCTAssertThrowsError(try decode("", status: 503)) { error in
             XCTAssertEqual(error as? PreviewFailure, .server(code: "internal", message: ""))
@@ -184,6 +187,25 @@ final class PreviewModelsTests: XCTestCase {
         XCTAssertTrue(PreviewFailure.server(code: "unreachable", message: "").isRetryable)
         XCTAssertTrue(PreviewFailure.offline.isRetryable)
         XCTAssertTrue(PreviewFailure.timedOut.isRetryable)
+    }
+
+    func testUnauthorizedAsksForAnUpdateAndCannotBeRetried() {
+        let message = "This copy of the app can no longer use the service. Update SecureQR and try again."
+        let body = "{\"error\":{\"code\":\"unauthorized\",\"message\":\"\(message)\"}}"
+        XCTAssertThrowsError(try decode(body, status: 401)) { error in
+            guard let failure = error as? PreviewFailure else {
+                return XCTFail("expected a PreviewFailure")
+            }
+            XCTAssertEqual(failure, .server(code: "unauthorized", message: message))
+            XCTAssertFalse(failure.isRetryable)
+            XCTAssertEqual(failure.title, "Update needed")
+            XCTAssertEqual(failure.message, message)
+        }
+        // Without a readable body the app's own text says the same.
+        let bare = PreviewFailure.server(code: "unauthorized", message: "")
+        XCTAssertFalse(bare.isRetryable)
+        XCTAssertEqual(bare.title, "Update needed")
+        XCTAssertEqual(bare.message, message)
     }
 }
 

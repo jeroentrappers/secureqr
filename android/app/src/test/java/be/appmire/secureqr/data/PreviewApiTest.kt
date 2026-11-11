@@ -156,7 +156,7 @@ class PreviewApiTest {
     @Test
     fun `decodes every documented error`() {
         val cases = listOf(
-            400 to "invalid_url", 400 to "blocked_target", 422 to "unreachable",
+            400 to "invalid_url", 401 to "unauthorized", 400 to "blocked_target", 422 to "unreachable",
             429 to "rate_limited", 504 to "timeout", 500 to "internal",
         )
         for ((status, code) in cases) {

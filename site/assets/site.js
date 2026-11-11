@@ -16,20 +16,45 @@
   if (el) el.innerHTML = '<svg viewBox="-8 -8 116 116"><rect x="-8" y="-8" width="116" height="116" fill="#f4f4f1"/><g fill="#15161a">' + s + '</g></svg>';
 })();
 
-// "Try it": everything that comes back from the server is written with textContent only.
+// Demo: a scripted playback of three made-up checks. Nothing is sent anywhere.
 (function () {
-  var form = document.getElementById('check');
-  if (!form) return;
+  var steps = document.getElementById('d-steps');
+  if (!steps) return;
   var $ = function (id) { return document.getElementById(id); };
-  var input = $('url'), button = form.querySelector('button'), status = $('status'), result = $('result');
   var HEAD = { ok: 'No warning signs found', caution: 'Check this one', danger: 'This looks risky' };
   var ICON = { ok: '✓', caution: '⚠', danger: '✕' };
   var CLS = { ok: '', caution: 'warn', danger: 'bad' };
 
-  function say(text, isError) {
-    status.textContent = text;
-    status.className = 'status' + (isError ? ' err' : '');
-  }
+  var DEMOS = {
+    parcel: {
+      url: 'https://qr-go.example/x7Pq',
+      hops: ['qr-go.example', 'trk.mailing.example', 'pay-fee.parcel-track.example'],
+      lists: 'Not on 4 blocklists', redirects: '2 redirects', forms: 'Asks for card details',
+      level: 'caution', https: true, host: 'pay-fee.', domain: 'parcel-track.example',
+      reasons: ['Ends at a different site than it starts', 'The page asks for card details'],
+      chips: [['HTTPS'], ['2 redirects'], ['Not on blocklists']],
+      page: { colour: '#c33', title: 'Your parcel is on hold', text: 'Pay the €1.99 customs fee to release delivery.', fields: ['Card number', 'Expiry date'], button: 'Pay now' }
+    },
+    menu: {
+      url: 'https://menu.cafe-lindeboom.example/table/12',
+      hops: ['menu.cafe-lindeboom.example'],
+      lists: 'Not on 4 blocklists', redirects: 'No redirects', forms: 'No sign-in or payment forms',
+      level: 'ok', https: true, host: 'menu.', domain: 'cafe-lindeboom.example',
+      reasons: [],
+      chips: [['HTTPS'], ['No redirects'], ['Not on blocklists']],
+      page: { colour: '#2f6b4f', title: 'Café Lindeboom', text: 'Table 12 · Today’s menu', lines: ['Soup of the day  6.50', 'Croque monsieur  11.00', 'Apple pie  5.50', 'Coffee  3.20'] }
+    },
+    prize: {
+      url: 'http://win-a-phone.example/claim',
+      hops: ['win-a-phone.example', 'secure-login.prize-claim.example'],
+      lists: 'Listed as malicious by Quad9 and Cloudflare', listsBad: true, redirects: '1 redirect', forms: 'Asks for a password',
+      level: 'danger', https: true, host: 'secure-login.', domain: 'prize-claim.example',
+      reasons: ['Listed as malicious by Quad9 and Cloudflare', 'Ends at a different site than it starts', 'The page asks for a password'],
+      chips: [['HTTPS'], ['1 redirect'], ['On a blocklist', 'bad']],
+      page: { colour: '#5a39c6', title: 'Congratulations! Confirm your prize', text: 'Sign in with your email account to claim your new phone.', fields: ['Email address', 'Password'], button: 'Claim now' }
+    }
+  };
+
   function add(parent, tag, text, cls) {
     var el = document.createElement(tag);
     if (text != null) el.textContent = text;
@@ -38,64 +63,89 @@
     return el;
   }
 
-  function show(r) {
-    var level = HEAD[r.verdict && r.verdict.level] ? r.verdict.level : 'caution';
-    var reasons = (r.verdict && r.verdict.reasons) || [];
-    $('r-verdict').className = 'verdict ' + CLS[level];
-    $('r-icon').textContent = ICON[level];
-    $('r-head').textContent = HEAD[level];
-    $('r-sub').textContent = reasons.length ? reasons[0].message : 'Nothing unusual about where this link ends.';
+  var timers = [];
+  var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function at(ms, fn) { if (still) fn(); else timers.push(setTimeout(fn, ms)); }
 
-    $('r-chrome').textContent = (r.https ? '🔒 ' : '') + r.finalHost;
-    var img = $('r-shot'), none = $('r-noshot');
-    if (r.screenshotUrl && /^\/v1\/screenshots\/[0-9a-f]+\.jpg$/.test(r.screenshotUrl)) {
-      img.src = r.screenshotUrl; img.hidden = false; none.hidden = true;
-    } else { img.removeAttribute('src'); img.hidden = true; none.hidden = false; }
-
-    var fin = $('r-final'); fin.textContent = '';
-    var host = String(r.finalHost || ''), dom = String(r.finalDomain || '');
-    if (dom && host.length > dom.length && host.slice(-dom.length) === dom) {
-      fin.appendChild(document.createTextNode(host.slice(0, host.length - dom.length)));
-      add(fin, 'em', dom);
-    } else add(fin, 'em', host);
-    fin.parentNode.className = 'card ' + (level === 'danger' ? 'bad-hl' : level === 'caution' ? 'warn-hl' : '');
-
-    var chips = $('r-chips'); chips.textContent = '';
-    add(chips, 'span', r.https ? 'HTTPS' : 'Not encrypted', r.https ? '' : 'bad');
-    var redirects = Math.max(0, (r.hops || []).length - 1);
-    add(chips, 'span', redirects === 0 ? 'No redirects' : redirects === 1 ? '1 redirect' : redirects + ' redirects');
-    var rep = r.reputation;
-    if (rep && rep.flaggedBy && rep.flaggedBy.length) add(chips, 'span', 'On a blocklist', 'bad');
-    else if (rep && rep.checked && rep.checked.length) add(chips, 'span', 'Not on blocklists');
-
-    var list = $('r-reasons'); list.textContent = '';
-    if (!reasons.length) add(list, 'li', 'No warning signs found. That is not a guarantee.');
-    reasons.forEach(function (x) { add(list, 'li', x.message); });
-
-    var hops = $('r-hops'); hops.textContent = '';
-    (r.hops || []).forEach(function (h) {
-      var li = add(hops, 'li', h.host);
-      var kind = h.kind === 'start' ? 'The link you gave' : h.kind === 'client' ? 'Redirected by the page' : 'Redirected';
-      add(li, 'small', kind + (h.status ? ' · ' + h.status : ''));
-    });
-    result.hidden = false;
+  function row(id, label) {
+    var li = add(steps, 'li', null, 'active');
+    li.id = 'd-step-' + id;
+    add(li, 'i');
+    add(li, 'span', label);
+    return li;
+  }
+  function done(id, label, bad) {
+    var li = $('d-step-' + id);
+    li.className = bad ? 'done bad' : 'done';
+    li.querySelector('span').textContent = label;
   }
 
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    var url = input.value.trim();
-    if (!url) return;
-    if (!/^https?:\/\//i.test(url)) { url = 'https://' + url; input.value = url; }
-    button.disabled = true; result.hidden = true;
-    say('Following the link for you… this can take a few seconds.');
-    fetch('/v1/preview', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ url: url }) })
-      .then(function (res) { return res.json().then(function (body) { return { ok: res.ok, body: body }; }); })
-      .then(function (x) {
-        if (!x.ok) { say((x.body && x.body.error && x.body.error.message) || 'Something went wrong. Try again.', true); return; }
-        say('Done in ' + (x.body.durationMs / 1000).toFixed(1) + ' s.');
-        show(x.body);
-      })
-      .catch(function () { say('We could not reach the checking service. Try again in a moment.', true); })
-      .then(function () { button.disabled = false; });
+  function result(d) {
+    $('d-verdict').className = 'verdict ' + CLS[d.level];
+    $('d-icon').textContent = ICON[d.level];
+    $('d-head').textContent = HEAD[d.level];
+    $('d-sub').textContent = d.reasons[0] || 'Nothing unusual about where this link ends.';
+    $('d-chrome').textContent = (d.https ? '🔒 ' : '') + d.host + d.domain;
+
+    var pg = $('d-page'); pg.textContent = '';
+    add(pg, 'div', null, 'brandbar').style.background = d.page.colour;
+    add(pg, 'h5', d.page.title);
+    add(pg, 'p', d.page.text);
+    (d.page.lines || []).forEach(function (t) { add(pg, 'div', t, 'ln'); });
+    (d.page.fields || []).forEach(function (t) { add(pg, 'div', t, 'f'); });
+    if (d.page.button) add(pg, 'div', d.page.button, 'b').style.background = d.page.colour;
+
+    var fin = $('d-final'); fin.textContent = d.host;
+    add(fin, 'em', d.domain);
+    $('d-finalcard').className = 'card ' + (d.level === 'danger' ? 'bad-hl' : d.level === 'caution' ? 'warn-hl' : '');
+    var chips = $('d-chips'); chips.textContent = '';
+    d.chips.forEach(function (c) { add(chips, 'span', c[0], c[1]); });
+    var list = $('d-reasons'); list.textContent = '';
+    if (!d.reasons.length) add(list, 'li', 'No warning signs found. That is not a guarantee.');
+    d.reasons.forEach(function (t) { add(list, 'li', t); });
+    $('d-result').hidden = false;
+  }
+
+  function play(name) {
+    var d = DEMOS[name];
+    timers.forEach(clearTimeout); timers = [];
+    Array.prototype.forEach.call(document.querySelectorAll('.pick'), function (b) {
+      b.setAttribute('aria-pressed', b.getAttribute('data-demo') === name ? 'true' : 'false');
+    });
+    $('d-url').textContent = d.url;
+    steps.textContent = '';
+    $('d-result').hidden = true;
+
+    var t = 250;
+    at(t, function () { row('lists', 'Checking threat blocklists'); row('address', 'Looking up the address'); });
+    at(t += 450, function () { done('address', 'Address found'); });
+    at(t += 200, function () {
+      var li = row('redirects', 'Following the link');
+      add(li, 'ol', null, 'dhops');
+    });
+    d.hops.forEach(function (h) {
+      at(t += 420, function () { add($('d-step-redirects').querySelector('ol'), 'li', h); });
+    });
+    at(t += 350, function () { row('page', 'Loading the page'); });
+    at(t += 900, function () {
+      done('redirects', d.redirects); done('page', 'Page loaded');
+      row('forms', 'Looking for sign-in and payment forms'); row('picture', 'Taking a picture of the page');
+    });
+    at(t += 350, function () { done('lists', d.lists, d.listsBad); });
+    at(t += 250, function () { done('forms', d.forms); });
+    at(t += 300, function () { done('picture', 'Picture taken'); });
+    at(t += 500, function () { result(d); });
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll('.pick'), function (b) {
+    b.addEventListener('click', function () { play(b.getAttribute('data-demo')); });
   });
+
+  // Start the first example when the section scrolls into view.
+  var section = document.getElementById('demo'), started = false;
+  function first() { if (!started) { started = true; play('parcel'); } }
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (e) { if (e[0].isIntersecting) { io.disconnect(); first(); } }, { threshold: 0.35 });
+    io.observe(section);
+  } else first();
 })();

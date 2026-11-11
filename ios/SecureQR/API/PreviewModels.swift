@@ -207,14 +207,15 @@ enum PreviewFailure: Error, Equatable {
     case unexpected
 
     static let knownCodes: Set<String> = [
-        "invalid_url", "blocked_target", "unreachable", "rate_limited", "timeout", "internal"
+        "invalid_url", "unauthorized", "blocked_target", "unreachable", "rate_limited", "timeout", "internal"
     ]
 
-    /// Retrying cannot help when the link itself was refused.
+    /// Retrying cannot help when the link itself was refused, or when the
+    /// server no longer accepts this copy of the app.
     var isRetryable: Bool {
         switch self {
         case .server(let code, _):
-            return code != "invalid_url" && code != "blocked_target"
+            return code != "invalid_url" && code != "blocked_target" && code != "unauthorized"
         case .offline, .timedOut, .unexpected:
             return true
         case .cancelled:
@@ -265,6 +266,7 @@ enum PreviewDecoding {
     static func fallbackCode(forStatus status: Int) -> String {
         switch status {
         case 400: return "invalid_url"
+        case 401: return "unauthorized"
         case 422: return "unreachable"
         case 429: return "rate_limited"
         case 504: return "timeout"

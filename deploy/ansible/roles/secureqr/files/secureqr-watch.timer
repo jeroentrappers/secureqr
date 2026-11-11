@@ -1,0 +1,9 @@
+# Managed by Ansible (secureqr).
+[Unit]
+Description=SecureQR: firewall re-check and traffic alerts (every 5 minutes)
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=5min
+AccuracySec=30s
+[Install]
+WantedBy=timers.target

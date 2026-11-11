@@ -144,6 +144,7 @@ extension PreviewFailure {
     var symbolName: String {
         switch self {
         case .offline: return "wifi.slash"
+        case .server(code: "unauthorized", _): return "arrow.down.circle.fill"
         default: return "exclamationmark.triangle.fill"
         }
     }
