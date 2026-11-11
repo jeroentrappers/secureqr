@@ -1,0 +1,5 @@
+#include "Shared.xcconfig"
+
+// Base URL of the preview API, exposed to the app as the Info.plist key
+// APIBaseURL. "//" starts a comment in an xcconfig file, hence "/$()/".
+API_BASE_URL = https:/$()/qr.appmire.be

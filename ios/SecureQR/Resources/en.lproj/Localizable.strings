@@ -1,0 +1,195 @@
+/* SecureQR, English. Keys are stable; values may be translated. */
+
+/* Common */
+"common.ok" = "OK";
+"common.cancel" = "Cancel";
+"common.yes" = "Yes";
+"common.no" = "No";
+"common.none" = "None";
+
+/* Scanner */
+"scan.hint.before" = "Point at a QR code. ";
+"scan.hint.strong" = "Nothing opens";
+"scan.hint.after" = " until you say so.";
+"scan.torch.on" = "Turn the light on";
+"scan.torch.off" = "Turn the light off";
+"scan.photo" = "Scan a photo";
+"scan.history" = "History";
+"scan.photo.none.title" = "No QR code found";
+"scan.photo.none.message" = "We could not find a QR code in that photo. Try a sharper or closer picture.";
+"scan.permission.title" = "Camera access";
+"scan.permission.message" = "SecureQR uses the camera only to read QR codes. Nothing is recorded, and nothing opens until you say so.";
+"scan.permission.continue" = "Continue";
+"scan.denied.title" = "The camera is off";
+"scan.denied.message" = "SecureQR is not allowed to use the camera. You can allow it in Settings, or scan a QR code from a photo with the button below.";
+"scan.denied.settings" = "Open Settings";
+"scan.unavailable.title" = "No camera available";
+"scan.unavailable.message" = "You can still scan a QR code from a photo with the button below.";
+
+/* Checking */
+"checking.says" = "The QR code says";
+"checking.following" = "Following the link for you";
+"checking.step.opening" = "Opening the link…";
+"checking.step.following" = "Following redirects…";
+"checking.step.screenshot" = "Taking a screenshot…";
+"checking.note" = "We open the link on our server, never on your phone.";
+
+/* Verdict headlines. "ok" must never be worded as "safe". */
+"verdict.ok" = "No warning signs found";
+"verdict.caution" = "Check this one";
+"verdict.danger" = "This looks risky";
+
+/* Decide */
+"decide.landOn" = "You would land on";
+"decide.chip.https" = "HTTPS";
+"decide.chip.notEncrypted" = "Not encrypted";
+"decide.chip.redirects.none" = "No redirects";
+"decide.chip.redirects.one" = "1 redirect";
+"decide.chip.redirects.many" = "%d redirects";
+"decide.chip.blocklisted" = "On a blocklist";
+"decide.chip.notBlocklisted" = "Not on blocklists";
+"decide.hops.show" = "Show the route";
+"decide.hops.hide" = "Hide the route";
+"decide.open" = "Open";
+"decide.openAnyway" = "Open anyway";
+"decide.dontOpen" = "Don't open";
+"decide.screenshot.more" = "Show the whole page";
+"decide.screenshot.less" = "Show less";
+"decide.checked.now" = "Checked less than a minute ago";
+"decide.checked.one" = "Checked 1 min ago";
+"decide.checked.many" = "Checked %d min ago";
+"decide.screenshot.label" = "Screenshot of the page";
+"decide.screenshot.none" = "The page could not be shown.";
+"decide.screenshot.failed" = "The screenshot is no longer available.";
+
+/* Hops */
+"hop.start" = "Scanned link";
+"hop.http" = "Redirect";
+"hop.client" = "Redirect by the page";
+"hop.unknown" = "Step";
+
+/* Failures */
+"failure.offline.title" = "No connection";
+"failure.offline.message" = "We could not reach SecureQR. Check your internet connection and try again.";
+"failure.timeout.title" = "This is taking too long";
+"failure.timeout.message" = "The check did not finish in time. Try again in a moment.";
+"failure.generic.title" = "This link could not be checked";
+"failure.generic.message" = "Something went wrong on our side. Try again in a moment.";
+"failure.server.invalid_url.title" = "This is not a link we can check";
+"failure.server.invalid_url.message" = "The link is not a valid web address, or it is too long.";
+"failure.server.blocked_target.title" = "This link points at a private address";
+"failure.server.blocked_target.message" = "It leads to a private or internal network, which we do not visit.";
+"failure.server.unreachable.title" = "The site did not respond";
+"failure.server.unreachable.message" = "The site could not be found or refused the connection.";
+"failure.server.rate_limited.title" = "Too many checks";
+"failure.server.rate_limited.message" = "You have checked a lot of links in a short time. Wait a moment and try again.";
+"failure.server.timeout.title" = "The page took too long";
+"failure.server.timeout.message" = "The page did not finish loading in time.";
+"failure.server.internal.title" = "This link could not be checked";
+"failure.server.internal.message" = "Something went wrong on our side. Try again in a moment.";
+"failure.unchecked.note" = "This link was not checked. We cannot tell you where it leads.";
+"failure.retry" = "Try again";
+"failure.confirm.title" = "Open without checking?";
+"failure.confirm.message" = "We could not check this link, so we cannot tell you where it leads or whether it shows warning signs.";
+
+/* Typed cards */
+"qr.type.paylink" = "Payment link";
+"qr.type.url" = "Link";
+"qr.type.epc" = "Bank transfer";
+"qr.type.emv" = "Payment";
+"qr.type.upi" = "UPI payment";
+"qr.type.crypto" = "Crypto payment";
+"qr.type.wifi" = "Wi-Fi network";
+"qr.type.contact" = "Contact";
+"qr.type.event" = "Calendar event";
+"qr.type.email" = "Email";
+"qr.type.phone" = "Phone number";
+"qr.type.sms" = "Text message";
+"qr.type.geo" = "Location";
+"qr.type.otp" = "Sign-in code setup";
+"qr.type.applink" = "App link";
+"qr.type.text" = "Text";
+
+"qr.field.beneficiary" = "Beneficiary";
+"qr.field.iban" = "IBAN";
+"qr.field.bic" = "BIC";
+"qr.field.amount" = "Amount";
+"qr.field.reference" = "Reference";
+"qr.field.message" = "Message";
+"qr.field.merchant" = "Merchant";
+"qr.field.city" = "City";
+"qr.field.country" = "Country";
+"qr.field.currency" = "Currency";
+"qr.field.payeeName" = "Payee name";
+"qr.field.payeeAddress" = "Payee address";
+"qr.field.note" = "Note";
+"qr.field.network" = "Network";
+"qr.field.address" = "Address";
+"qr.field.label" = "Label";
+"qr.field.security" = "Security";
+"qr.field.password" = "Password";
+"qr.field.hidden" = "Hidden";
+"qr.field.name" = "Name";
+"qr.field.phone" = "Phone";
+"qr.field.email" = "Email";
+"qr.field.organisation" = "Organisation";
+"qr.field.url" = "URL";
+"qr.field.title" = "Title";
+"qr.field.start" = "Start";
+"qr.field.end" = "End";
+"qr.field.location" = "Location";
+"qr.field.details" = "Description";
+"qr.field.to" = "To";
+"qr.field.subject" = "Subject";
+"qr.field.body" = "Body";
+"qr.field.number" = "Number";
+"qr.field.latitude" = "Latitude";
+"qr.field.longitude" = "Longitude";
+"qr.field.issuer" = "Issuer";
+"qr.field.account" = "Account";
+"qr.field.type" = "Type";
+"qr.field.scheme" = "Scheme";
+"qr.field.content" = "Content";
+
+"qr.notice.paymentRequest" = "This is a payment request. Check the name, account and amount before you pay. Payments are hard to undo.";
+"qr.notice.paymentRequestInApp" = "This is a payment request. Check the name and amount in your payment app before you confirm. Payments are hard to undo.";
+"qr.notice.scanWithBankingApp" = "To pay, open your banking app and scan this QR code with it.";
+"qr.notice.cryptoIrreversible" = "Crypto payments cannot be reversed.";
+"qr.notice.invalidIBAN" = "The account number is not a valid IBAN.";
+"qr.notice.signInSecret" = "This is a sign-in secret. Only scan it into your own authenticator app, and never share it.";
+"qr.notice.openNetwork" = "This network has no password. Anyone nearby can see your traffic.";
+"qr.notice.shortCode" = "Messages to short numbers can cost money.";
+"qr.notice.opensOtherApp" = "This opens another app. Only continue if you expected that.";
+"qr.notice.readOnDevice" = "This was read on your phone and not sent anywhere.";
+
+"qr.action.openInApp" = "Open in app";
+"qr.action.openInPaymentApp" = "Open in payment app";
+"qr.action.copy" = "Copy";
+"qr.action.copyAll" = "Copy all";
+"qr.action.copyIBAN" = "Copy IBAN";
+"qr.action.copyAddress" = "Copy address";
+"qr.action.copyPassword" = "Copy password";
+
+"content.done" = "Done";
+"content.copied" = "Copied";
+"content.raw.show" = "Show raw content";
+"content.raw.hide" = "Hide raw content";
+"content.raw.secretHidden" = "Secret parts are left out.";
+"content.secret.show" = "Show password";
+"content.secret.hide" = "Hide password";
+"content.noApp.title" = "Nothing can open this";
+"content.noApp.message" = "No app on this phone can open this.";
+"content.history.redacted" = "Passwords and sign-in secrets are not kept in history.";
+
+/* History */
+"history.title" = "Past scans";
+"history.note" = "Your history stays on this phone.";
+"history.clear" = "Clear all";
+"history.clear.confirm.title" = "Clear all history?";
+"history.clear.confirm.message" = "This removes every past scan from this phone.";
+"history.clear.confirm.action" = "Clear all";
+"history.empty.title" = "No scans yet";
+"history.empty.message" = "QR codes you scan will be listed here. The list stays on this phone.";
+"history.unchecked" = "Not checked";
+"history.failed" = "Could not be checked";
+"history.delete" = "Delete";

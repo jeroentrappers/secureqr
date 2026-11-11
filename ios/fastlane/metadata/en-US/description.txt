@@ -1,0 +1,20 @@
+A QR code doesn't tell you where it leads. SecureQR checks first.
+
+When you scan a code that contains a web link, SecureQR does not open it. Our server visits the link for you, follows every redirect, and takes a picture of the page it ends on. You see the real destination, the picture and any warning signs, and then you decide.
+
+▌What it looks for
+• Where the link really ends, with every stop along the way
+• Sites on the threat lists of Quad9, Cloudflare and DNS4EU, and on an open list of active phishing sites
+• Pages that ask for a password or card details, are not encrypted, use look-alike characters, or try to download a file
+• Links that try to open another app
+
+▌Payment and other codes
+Bank transfers, payment requests, Wi-Fi networks, contacts and sign-in codes are read on your phone and shown in plain words before anything happens. They are never sent to us.
+
+▌Private by design
+• No account, no advertising, no analytics
+• Only web links are sent to our server; everything else stays on your phone
+• Page pictures are kept for 15 minutes and then deleted
+• Your scan history stays on your phone, and you can clear it at any time
+
+A clean result means we found no warning signs. It is not a guarantee.

@@ -1,0 +1,36 @@
+# Gradle / build outputs
+.gradle/
+build/
+/app/build/
+/captures/
+.kotlin/
+.externalNativeBuild/
+.cxx/
+
+# Machine-specific
+local.properties
+
+# IDE
+.idea/
+*.iml
+.DS_Store
+
+# Signing and secrets
+*.jks
+*.keystore
+*.p12
+keystore.properties
+play-service-account*.json
+/fastlane/*.json
+.env
+.env.*
+
+# Fastlane
+/fastlane/report.xml
+/fastlane/README.md
+/fastlane/metadata/android/**/images/
+/vendor/bundle/
+.bundle/
+
+# Local publish script (copied from build-production.example.sh)
+/build-production.sh

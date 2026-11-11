@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">SecureQR</string>
+    <string name="wordmark_secure" translatable="false">Secure</string>
+    <string name="wordmark_qr" translatable="false">QR</string>
+
+    <!-- Common actions -->
+    <string name="action_back">Back</string>
+    <string name="action_open">Open</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_open_anyway">Open anyway</string>
+    <string name="action_dont_open">Don\'t open</string>
+    <string name="action_retry">Retry</string>
+    <string name="action_open_in_app">Open in app</string>
+    <string name="action_open_in_payment_app">Open in payment app</string>
+    <string name="action_copy">Copy</string>
+    <string name="action_copy_all">Copy all</string>
+    <string name="action_copy_iban">Copy IBAN</string>
+    <string name="action_copy_address">Copy address</string>
+    <string name="action_copy_password">Copy password</string>
+    <string name="copied">Copied</string>
+
+    <!-- Scan -->
+    <!-- %1$s is scan_hint_emphasis, shown highlighted -->
+    <string name="scan_hint">Point at a QR code. %1$s until you say so.</string>
+    <string name="scan_hint_emphasis">Nothing opens</string>
+    <string name="scan_torch_on">Turn the torch on</string>
+    <string name="scan_torch_off">Turn the torch off</string>
+    <string name="scan_pick_image">Scan a picture from your gallery</string>
+    <string name="scan_history">History</string>
+    <string name="scan_no_qr_in_image">No QR code found in that picture.</string>
+    <string name="scan_image_failed">That picture could not be read.</string>
+    <string name="scan_camera_failed">The camera could not be started.</string>
+
+    <!-- Camera permission -->
+    <string name="permission_title">SecureQR needs your camera</string>
+    <string name="permission_rationale">The camera is only used to read QR codes. Nothing is recorded, and pictures never leave your phone.</string>
+    <string name="permission_allow">Allow camera</string>
+    <string name="permission_denied_title">The camera is switched off</string>
+    <string name="permission_denied_body">SecureQR cannot scan without the camera. You can switch it on in Settings, or scan a picture from your gallery instead.</string>
+    <string name="permission_open_settings">Open Settings</string>
+    <string name="permission_pick_image">Scan a picture instead</string>
+
+    <!-- Checking -->
+    <string name="checking_label_says">The QR code says</string>
+    <string name="checking_label_following">Following the link for you</string>
+    <string name="checking_progress">Opening it in a sealed browser…</string>
+    <string name="checking_note">We open the link on our server, never on your phone.</string>
+
+    <!-- Decide -->
+    <string name="verdict_ok">No warning signs found</string>
+    <string name="verdict_caution">Check this one</string>
+    <string name="verdict_danger">This looks risky</string>
+    <string name="decide_checked_just_now">Checked just now</string>
+    <plurals name="decide_checked_minutes">
+        <item quantity="one">Checked %d min ago</item>
+        <item quantity="other">Checked %d min ago</item>
+    </plurals>
+    <string name="decide_label_land">You would land on</string>
+    <string name="decide_label_path">The path it took</string>
+    <string name="decide_show_path">Show every step</string>
+    <string name="decide_hide_path">Hide the steps</string>
+    <string name="chip_https">HTTPS</string>
+    <string name="chip_not_encrypted">Not encrypted</string>
+    <string name="chip_no_redirects">No redirects</string>
+    <plurals name="chip_redirects">
+        <item quantity="one">%d redirect</item>
+        <item quantity="other">%d redirects</item>
+    </plurals>
+    <string name="chip_blocklisted">On a blocklist</string>
+    <string name="chip_not_blocklisted">Not on blocklists</string>
+    <string name="hop_start">Scanned link</string>
+    <string name="hop_http">Redirect</string>
+    <string name="hop_client">Redirect by the page</string>
+    <!-- %1$s is the kind of step, %2$d the HTTP status code -->
+    <string name="hop_with_status">%1$s · %2$d</string>
+    <string name="screenshot_description">Screenshot of the page you would land on</string>
+    <string name="screenshot_loading">Loading the screenshot…</string>
+    <string name="screenshot_expand">Show the whole page</string>
+    <string name="screenshot_collapse">Show less</string>
+    <string name="screenshot_unavailable">No screenshot available</string>
+
+    <!-- Check failed -->
+    <string name="error_title">This link could not be checked</string>
+    <string name="error_offline">SecureQR could not be reached. Check your internet connection and try again.</string>
+    <string name="error_generic">Something went wrong while checking this link.</string>
+    <string name="error_unchecked_warning">This link has not been checked. If you open it anyway, you will not know where it leads until you are there.</string>
+    <string name="error_no_browser">No browser found to open this link.</string>
+
+    <!-- Typed cards: titles -->
+    <string name="type_paylink">Payment link</string>
+    <string name="type_url">Link</string>
+    <string name="type_epc">Bank transfer</string>
+    <string name="type_emv">Payment code</string>
+    <string name="type_upi">UPI payment</string>
+    <string name="type_crypto">Crypto payment</string>
+    <string name="type_wifi">Wi-Fi network</string>
+    <string name="type_contact">Contact</string>
+    <string name="type_event">Calendar event</string>
+    <string name="type_email">Email</string>
+    <string name="type_phone">Phone number</string>
+    <string name="type_sms">Text message</string>
+    <string name="type_geo">Location</string>
+    <string name="type_otp">Sign-in secret</string>
+    <string name="type_applink">App link</string>
+    <string name="type_text">Text</string>
+
+    <!-- Typed cards: field labels -->
+    <string name="field_beneficiary">Beneficiary</string>
+    <string name="field_iban">IBAN</string>
+    <string name="field_bic">BIC</string>
+    <string name="field_amount">Amount</string>
+    <string name="field_reference">Reference</string>
+    <string name="field_message">Message</string>
+    <string name="field_merchant">Merchant</string>
+    <string name="field_city">City</string>
+    <string name="field_country">Country</string>
+    <string name="field_currency">Currency</string>
+    <string name="field_payee_name">Payee name</string>
+    <string name="field_payee_address">Payee address</string>
+    <string name="field_note">Note</string>
+    <string name="field_network">Network</string>
+    <string name="field_address">Address</string>
+    <string name="field_label">Label</string>
+    <string name="field_security">Security</string>
+    <string name="field_password">Password</string>
+    <string name="field_hidden">Hidden</string>
+    <string name="field_name">Name</string>
+    <string name="field_phone">Phone</string>
+    <string name="field_email">Email</string>
+    <string name="field_organisation">Organisation</string>
+    <string name="field_url">URL</string>
+    <string name="field_title">Title</string>
+    <string name="field_start">Start</string>
+    <string name="field_end">End</string>
+    <string name="field_location">Location</string>
+    <string name="field_description">Description</string>
+    <string name="field_to">To</string>
+    <string name="field_subject">Subject</string>
+    <string name="field_body">Body</string>
+    <string name="field_number">Number</string>
+    <string name="field_latitude">Latitude</string>
+    <string name="field_longitude">Longitude</string>
+    <string name="field_issuer">Issuer</string>
+    <string name="field_account">Account</string>
+    <string name="field_type">Type</string>
+    <string name="field_scheme">Scheme</string>
+    <string name="field_text">Text</string>
+    <string name="field_provider">Provider</string>
+    <string name="value_none">None</string>
+    <string name="value_yes">Yes</string>
+
+    <!-- Typed cards: notices -->
+    <string name="notice_payment">This is a payment request. Check the name, account and amount before you pay. Payments are hard to undo.</string>
+    <string name="notice_paylink">This is a payment request. Check the name and amount in your payment app before you confirm. Payments are hard to undo.</string>
+    <string name="notice_epc_instruction">To pay, open your banking app and scan this QR code with it.</string>
+    <string name="notice_crypto">Crypto payments cannot be reversed.</string>
+    <string name="notice_invalid_iban">The account number is not a valid IBAN.</string>
+    <string name="notice_otp">This is a sign-in secret. Only scan it into your own authenticator app, and never share it.</string>
+    <string name="notice_wifi_open">This network has no password. Anyone nearby can see your traffic.</string>
+    <string name="notice_sms_short_code">Messages to short numbers can cost money.</string>
+    <string name="notice_app_link">This opens another app. Only continue if you expected that.</string>
+    <string name="notice_local_only">This was read on your phone and not sent anywhere.</string>
+
+    <!-- Typed cards: other -->
+    <string name="content_no_payment_app">Nothing on this phone can open this payment link.</string>
+    <string name="content_show_raw">Show raw content</string>
+    <string name="content_hide_raw">Hide raw content</string>
+    <string name="content_reveal">Show</string>
+    <string name="content_conceal">Hide</string>
+    <string name="content_no_app">No app on this phone can open this.</string>
+    <string name="content_secret_hidden">The secret part is left out here.</string>
+    <string name="content_from_history_redacted">Secrets are never saved in your history, so this entry is incomplete. Scan the code again to see all of it.</string>
+
+    <!-- History -->
+    <string name="history_title">History</string>
+    <string name="history_note">Kept on this phone only.</string>
+    <string name="history_empty">Nothing scanned yet.</string>
+    <string name="history_clear">Clear all</string>
+    <string name="history_clear_title">Clear history?</string>
+    <string name="history_clear_body">This removes all past scans from this phone.</string>
+    <string name="history_clear_confirm">Clear</string>
+    <!-- %1$s is the kind of content (for example "Link"), %2$s a relative time (for example "5 minutes ago") -->
+    <string name="history_subtitle">%1$s · %2$s</string>
+    <string name="history_just_now">Just now</string>
+    <string name="history_level_ok">No warning signs found</string>
+    <string name="history_level_caution">Needs a check</string>
+    <string name="history_level_danger">Looked risky</string>
+    <string name="history_level_neutral">No warnings</string>
+    <string name="history_level_unchecked">Not checked</string>
+    <string name="history_level_failed">Could not be checked</string>
+    <!-- %1$s is the kind of content, %2$s the outcome (history_level_failed), %3$s a relative time -->
+    <string name="history_subtitle_with_state">%1$s · %2$s · %3$s</string>
+    <string name="history_delete">Delete</string>
+    <string name="history_entry_options">Options for this entry</string>
+</resources>

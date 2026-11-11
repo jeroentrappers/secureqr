@@ -1,0 +1,204 @@
+# SecureQR preview server on appmire-hetz1: image built on the box from this
+# checkout, one container on loopback, nginx + certbot in front.
+---
+- name: Tooling (nginx, certbot, apparmor)
+  ansible.builtin.apt:
+    name: [nginx, certbot, apparmor]
+    state: present
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Loopback port is free or already ours
+  ansible.builtin.shell: |
+    set -o pipefail
+    if ss -ltnH "sport = :{{ secureqr_port }}" | grep -q .; then
+      docker port secureqr 2>/dev/null | grep -q ":{{ secureqr_port }}$" || { echo "port {{ secureqr_port }} is used by something else"; exit 1; }
+    fi
+  args: { executable: /bin/bash }
+  changed_when: false
+  check_mode: false
+
+- name: Project directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0750"
+  loop:
+    - "{{ secureqr_dir }}"
+    - "{{ secureqr_dir }}/src"
+
+# ── AppArmor profile (lets the browser sandbox create user namespaces) ──────
+- name: Install the AppArmor profile
+  ansible.builtin.copy:
+    src: "{{ secureqr_server_src }}/deploy/apparmor-secureqr"
+    dest: /etc/apparmor.d/secureqr
+    owner: root
+    group: root
+    mode: "0644"
+  when: secureqr_apparmor_profile == 'secureqr'
+  notify: Load AppArmor profile
+
+- name: Load the profile before the container needs it
+  ansible.builtin.meta: flush_handlers
+
+# ── sources + image ─────────────────────────────────────────────────────────
+- name: Copy the build inputs
+  ansible.builtin.copy:
+    src: "{{ secureqr_server_src }}/{{ item }}"
+    dest: "{{ secureqr_dir }}/src/"
+    owner: root
+    group: root
+    mode: preserve
+  loop:
+    - Dockerfile
+    - .dockerignore
+    - package.json
+    - package-lock.json
+    - tsconfig.json
+    - seccomp_profile.json
+    - src
+  register: sources
+
+- name: Render docker-compose.yml
+  ansible.builtin.template:
+    src: docker-compose.yml.j2
+    dest: "{{ secureqr_dir }}/docker-compose.yml"
+    owner: root
+    group: root
+    mode: "0640"
+  register: compose_cfg
+
+- name: Build the image
+  ansible.builtin.command:
+    cmd: docker compose -f {{ secureqr_dir }}/docker-compose.yml build
+  when: sources is changed or compose_cfg is changed
+  changed_when: true
+
+- name: Start the container
+  ansible.builtin.command:
+    cmd: docker compose -f {{ secureqr_dir }}/docker-compose.yml up -d
+  register: stack_up
+  changed_when: "'Started' in stack_up.stderr or 'Created' in stack_up.stderr or 'Recreate' in stack_up.stderr"
+
+- name: Wait for the server to answer on loopback
+  ansible.builtin.uri:
+    url: "http://127.0.0.1:{{ secureqr_port }}/healthz"
+  register: up
+  retries: 20
+  delay: 3
+  until: up is succeeded
+  changed_when: false
+
+# /healthz only proves Node is up. This runs a real preview, which fails if the
+# browser sandbox cannot start (AppArmor/seccomp) or the container has no egress.
+- name: Self-test (preview a real page end to end)
+  ansible.builtin.uri:
+    url: "http://127.0.0.1:{{ secureqr_port }}/v1/preview"
+    method: POST
+    body_format: json
+    body: { url: "{{ secureqr_selftest_url }}" }
+    timeout: 60
+    return_content: true
+  register: selftest
+  retries: 2
+  delay: 5
+  until: selftest is succeeded and (selftest.json.screenshotUrl | default('')) | length > 0
+  changed_when: false
+
+- name: Self-test (private addresses are refused)
+  ansible.builtin.uri:
+    url: "http://127.0.0.1:{{ secureqr_port }}/v1/preview"
+    method: POST
+    body_format: json
+    body: { url: "http://169.254.169.254/" }
+    status_code: 400
+  changed_when: false
+
+# ── landing page ────────────────────────────────────────────────────────────
+- name: Landing page directory
+  ansible.builtin.file:
+    path: "{{ secureqr_www }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Copy the landing page
+  ansible.builtin.copy:
+    src: "{{ secureqr_site_src }}/"
+    dest: "{{ secureqr_www }}/"
+    owner: root
+    group: root
+    mode: "0644"
+    directory_mode: "0755"
+
+# ── nginx vhost + TLS (two-pass: :80 for ACME, then :443) ───────────────────
+- name: Cert present yet?
+  ansible.builtin.stat:
+    path: "/etc/letsencrypt/live/{{ secureqr_domain }}/fullchain.pem"
+  register: cert
+
+- name: Render the vhost (TLS block only once the cert exists)
+  ansible.builtin.template:
+    src: vhost.conf.j2
+    dest: "/etc/nginx/sites-available/{{ secureqr_domain }}"
+    mode: "0644"
+  vars:
+    tls_ready: "{{ cert.stat.exists }}"
+  notify: Reload nginx
+
+- name: Enable the vhost
+  ansible.builtin.file:
+    src: "/etc/nginx/sites-available/{{ secureqr_domain }}"
+    dest: "/etc/nginx/sites-enabled/{{ secureqr_domain }}"
+    state: link
+  notify: Reload nginx
+
+- name: Flush handlers (serve :80 for the ACME challenge)
+  ansible.builtin.meta: flush_handlers
+
+- name: Obtain the TLS cert (webroot; reuses the box's existing ACME account)
+  ansible.builtin.command: >-
+    certbot certonly --webroot -w /var/www/html -d {{ secureqr_domain }}
+    --non-interactive --agree-tos --keep-until-expiring
+  register: certbot_run
+  when: not cert.stat.exists
+  changed_when: "'Congratulations' in certbot_run.stdout or 'Successfully received' in certbot_run.stdout"
+
+- name: Re-render the vhost with TLS now the cert exists
+  ansible.builtin.template:
+    src: vhost.conf.j2
+    dest: "/etc/nginx/sites-available/{{ secureqr_domain }}"
+    mode: "0644"
+  vars:
+    tls_ready: true
+  when: certbot_run is changed
+  notify: Reload nginx
+
+- name: Flush handlers (serve :443)
+  ansible.builtin.meta: flush_handlers
+
+- name: Public endpoint answers over TLS
+  ansible.builtin.uri:
+    url: "https://{{ secureqr_domain }}/healthz"
+  delegate_to: localhost
+  become: false
+  retries: 5
+  delay: 3
+  register: public
+  until: public is succeeded
+  changed_when: false
+  when: not ansible_check_mode
+
+- name: Landing page is served
+  ansible.builtin.uri:
+    url: "https://{{ secureqr_domain }}/"
+    return_content: true
+  delegate_to: localhost
+  become: false
+  register: landing
+  failed_when: "'SecureQR' not in landing.content"
+  changed_when: false
+  when: not ansible_check_mode

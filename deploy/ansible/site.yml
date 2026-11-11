@@ -1,0 +1,9 @@
+# SecureQR preview server on appmire-hetz1.
+#   cd deploy/ansible && ansible-playbook site.yml
+---
+- name: SecureQR preview server
+  hosts: secureqr
+  become: true
+  force_handlers: true  # a mid-play failure must not strand the nginx reload
+  roles:
+    - { role: secureqr, tags: [secureqr] }

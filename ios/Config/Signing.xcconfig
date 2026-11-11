@@ -1,0 +1,5 @@
+// Signing team for every target: the Appmire Apple Developer team (Appmire GCV). Set it here, and only here.
+// The app signs manually on device with fastlane match profiles ("match Development …" for Debug,
+// "match AppStore …" for Release, see project.yml and README.md); simulator builds sign ad hoc and need no team.
+// Certificates and profiles are never committed.
+DEVELOPMENT_TEAM = QB4NQU492U

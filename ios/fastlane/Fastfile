@@ -1,0 +1,159 @@
+# Signing and App Store uploads for the iOS app. Run from ios/: `bundle exec fastlane <lane>`.
+#
+# Needs an App Store Connect API key (ASC_KEY_ID, ASC_ISSUER_ID, ASC_KEY_PATH, read from ~/.appstoreconnect/env when
+# not set) and MATCH_PASSWORD. Signing identities go into the team's dedicated signing keychain, or a temporary one
+# on CI. That keychain is the one first set up for kinframe (KINFRAME_KEYCHAIN, default
+# ~/Library/Keychains/kinframe-signing.keychain-db, password KINFRAME_KEYCHAIN_PASSWORD from
+# ~/.appstoreconnect/signing.env): the team's Apple Distribution certificate already lives there, so it is reused
+# under its existing names instead of adding a second keychain.
+default_platform(:ios)
+
+APP_IDS = ["be.appmire.secureqr"].freeze
+PROJECT = "SecureQR.xcodeproj"
+SCHEME = "SecureQR"
+
+platform :ios do
+  before_all do
+    load_local_env
+    setup_ci if ENV["CI"]
+  end
+
+  desc "Generate SecureQR.xcodeproj from project.yml"
+  lane :generate do
+    Dir.chdir(File.expand_path("..", __dir__)) do
+      sh(xcodegen, "generate")
+    end
+  end
+
+  desc "Run the unit tests in a simulator (SCAN_DEVICE picks one; DERIVED_DATA moves the build output)"
+  lane :test do
+    generate
+    options = { project: PROJECT, scheme: SCHEME, output_directory: "fastlane/test_output" }
+    options[:device] = ENV["SCAN_DEVICE"] unless ENV["SCAN_DEVICE"].to_s.empty?
+    options[:derived_data_path] = ENV["DERIVED_DATA"] unless ENV["DERIVED_DATA"].to_s.empty?
+    run_tests(options)
+  end
+
+  desc "Register the bundle identifier in the developer account if it is missing (changes the Apple account; ask first)"
+  lane :register_app_id do
+    Spaceship::ConnectAPI.token = Spaceship::ConnectAPI::Token.create(
+      key_id: ENV.fetch("ASC_KEY_ID"),
+      issuer_id: ENV.fetch("ASC_ISSUER_ID"),
+      filepath: ENV.fetch("ASC_KEY_PATH")
+    )
+    APP_IDS.each do |identifier|
+      existing = Spaceship::ConnectAPI::BundleId.find(identifier)
+      if existing
+        UI.message("#{identifier} is already registered as \"#{existing.name}\"")
+      else
+        created = Spaceship::ConnectAPI::BundleId.create(name: "SecureQR", platform: "IOS", identifier: identifier)
+        UI.success("Registered #{created.identifier} as \"#{created.name}\"")
+      end
+    end
+  end
+
+  desc "Fetch the development and App Store certificates and profiles (read-only)"
+  lane :certificates do
+    sync(type: "development")
+    sync(type: "appstore")
+  end
+
+  desc "Create missing certificates and profiles (changes the Apple account; ask first)"
+  lane :renew_certificates do
+    sync(type: "development", readonly: false)
+    sync(type: "appstore", readonly: false)
+  end
+
+  desc "Register a development device and add it to the development profiles: name:… udid:…"
+  lane :register_device do |options|
+    register_devices(devices: { options.fetch(:name) => options.fetch(:udid) }, api_key: asc_key)
+    sync(type: "development", readonly: false, force_for_new_devices: true)
+  end
+
+  desc "Archive a Release build for the App Store into build/; upload: true also sends it to TestFlight"
+  lane :release do |options|
+    generate
+    sync(type: "appstore")
+    version = ENV["MARKETING_VERSION"] || xcconfig_version
+    build = ENV["BUILD_NUMBER"] || commit_count
+    UI.message("SecureQR #{version} (#{build})")
+    build_app(
+      project: PROJECT,
+      scheme: SCHEME,
+      configuration: "Release",
+      output_directory: "build",
+      export_options: "ExportOptions.plist",
+      xcargs: "MARKETING_VERSION=#{version} CURRENT_PROJECT_VERSION=#{build}"
+    )
+    upload_to_testflight(api_key: asc_key, skip_waiting_for_build_processing: true) if options[:upload]
+  end
+
+  desc "Upload the store listing (metadata/, screenshots/) to App Store Connect. Never submits for review."
+  lane :store_listing do |options|
+    deliver(
+      api_key: asc_key,
+      skip_metadata: options[:skip_metadata] || false,
+      skip_screenshots: options[:skip_screenshots] || false
+    )
+  end
+
+  private_lane :sync do |options|
+    match(
+      type: options[:type],
+      readonly: options.fetch(:readonly, true),
+      force_for_new_devices: options.fetch(:force_for_new_devices, false),
+      api_key: asc_key,
+      keychain_name: ENV["CI"] ? nil : keychain_path,
+      keychain_password: ENV["CI"] ? nil : ENV.fetch("KINFRAME_KEYCHAIN_PASSWORD")
+    )
+  end
+end
+
+def asc_key
+  @asc_key ||= app_store_connect_api_key(
+    key_id: ENV.fetch("ASC_KEY_ID"),
+    issuer_id: ENV.fetch("ASC_ISSUER_ID"),
+    key_filepath: ENV.fetch("ASC_KEY_PATH")
+  )
+end
+
+# The team's signing keychain (shared with kinframe, see the note at the top).
+def keychain_path
+  ENV["KINFRAME_KEYCHAIN"] || File.expand_path("~/Library/Keychains/kinframe-signing.keychain-db")
+end
+
+# xcodegen from PATH, or Homebrew's when it is not on PATH (non-interactive shells).
+def xcodegen
+  return ENV["XCODEGEN"] unless ENV["XCODEGEN"].to_s.empty?
+  on_path = ENV["PATH"].to_s.split(File::PATH_SEPARATOR).any? { |dir| File.executable?(File.join(dir, "xcodegen")) }
+  on_path ? "xcodegen" : "/opt/homebrew/bin/xcodegen"
+end
+
+# ~/.appstoreconnect/env (API key) and ~/.appstoreconnect/signing.env (MATCH_PASSWORD, KINFRAME_KEYCHAIN_PASSWORD):
+# KEY=value lines; variables already set win.
+def load_local_env
+  %w[env signing.env].each do |name|
+    path = File.expand_path("~/.appstoreconnect/#{name}")
+    next unless File.exist?(path)
+    File.readlines(path).each do |line|
+      key, value = line.strip.split("=", 2)
+      next if key.nil? || key.start_with?("#") || value.nil?
+      ENV[key] ||= value.gsub("$HOME", Dir.home)
+    end
+  end
+end
+
+# MARKETING_VERSION from Config/Shared.xcconfig.
+def xcconfig_version
+  path = File.expand_path("../Config/Shared.xcconfig", __dir__)
+  line = File.readlines(path).find { |l| l.strip.start_with?("MARKETING_VERSION") }
+  version = line.to_s.split("=", 2).last.to_s.strip
+  UI.user_error!("No MARKETING_VERSION in #{path}") if version.empty?
+  version
+end
+
+# The commit count, or 1 when there is no git history yet.
+def commit_count
+  count = `git rev-list --count HEAD 2>/dev/null`.strip
+  count.match?(/\A[1-9]\d*\z/) ? count : "1"
+end

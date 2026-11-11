@@ -1,0 +1,47 @@
+# Managed by Ansible (secureqr). Reverse proxy for {{ secureqr_domain }}.
+# Two-pass rendering: the :443 block only appears once certbot has issued the
+# cert, so nginx can serve the ACME challenge on :80 first.
+server {
+    listen 80;
+    listen [::]:80;
+    server_name {{ secureqr_domain }};
+    location /.well-known/acme-challenge/ { root /var/www/html; }
+    location / { return 301 https://$host$request_uri; }
+}
+{% if tls_ready %}
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+    http2 on;
+    server_name {{ secureqr_domain }};
+
+    ssl_certificate     /etc/letsencrypt/live/{{ secureqr_domain }}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/{{ secureqr_domain }}/privkey.pem;
+
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+    add_header Referrer-Policy "no-referrer" always;
+    add_header Content-Security-Policy "default-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'self'" always;
+
+    # Requests are a single short URL in JSON.
+    client_max_body_size 16k;
+
+    # Landing page (static) plus the API; everything else is refused here.
+    root {{ secureqr_www }};
+    location = / { try_files /index.html =404; }
+    location /assets/ { try_files $uri =404; expires 1h; }
+
+    location ~ ^/(v1/|healthz$) {
+        proxy_pass http://127.0.0.1:{{ secureqr_port }};
+        proxy_set_header Host              $host;
+        # The server rate-limits per client IP and trusts this header (TRUST_PROXY=1),
+        # so it is overwritten here, never appended to what the client sent.
+        proxy_set_header X-Forwarded-For   $remote_addr;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_http_version 1.1;
+        # A preview may take up to 30 s plus queueing.
+        proxy_read_timeout 60s;
+    }
+    location / { return 404; }
+}
+{% endif %}

@@ -1,0 +1,6 @@
+#include "Shared.xcconfig"
+
+// Base URL of the preview API, exposed to the app as the Info.plist key
+// APIBaseURL. "//" starts a comment in an xcconfig file, hence "/$()/".
+// Override on the command line with API_BASE_URL=http://localhost:1234
+API_BASE_URL = http:/$()/localhost:8080

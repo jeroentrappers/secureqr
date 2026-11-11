@@ -1,0 +1,36 @@
+# Managed by Ansible (secureqr). Do not edit on the box.
+#
+# The preview server opens links chosen by strangers in a headless Chromium.
+# It listens on loopback only; nginx terminates TLS and reverse-proxies.
+services:
+  secureqr:
+    build: ./src
+    image: secureqr-server
+    container_name: secureqr
+    init: true
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:{{ secureqr_port }}:8080"
+    environment:
+      TRUST_PROXY: "1"
+      RATE_LIMIT_PER_MIN: "{{ secureqr_rate_limit_per_min }}"
+      MAX_CONCURRENCY: "{{ secureqr_max_concurrency }}"
+    # Chromium runs as a non-root user inside its own sandbox, which needs user
+    # namespaces: the seccomp profile is Docker's default plus those calls, and
+    # the AppArmor profile is Docker's default plus `userns`.
+    # No cap_drop: dropping the bounding set breaks the browser sandbox, and a
+    # non-root process with no-new-privileges holds no capabilities anyway.
+    security_opt:
+      - seccomp=./src/seccomp_profile.json
+      - apparmor={{ secureqr_apparmor_profile }}
+      - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /tmp:exec,size=512m
+      - /home/pwuser:exec,size=256m,uid=1001,gid=1001
+    shm_size: 1gb
+    mem_limit: {{ secureqr_mem_limit }}
+    pids_limit: 1024
+    logging:
+      driver: json-file
+      options: { max-size: "10m", max-file: "3" }

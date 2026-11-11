@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SecureQR · Branding round 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Nunito+Sans:wght@400;600;800&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  body { background: #e9eaee; color: #16181d; font: 15px/1.5 Inter, system-ui, sans-serif; padding: 32px 16px 64px; }
+  .wrap { max-width: 1240px; margin: 0 auto; }
+  .intro h1 { font-size: 30px; letter-spacing: -0.02em; }
+  .intro p { max-width: 70ch; color: #4a4f5c; margin-top: 8px; }
+
+  /* ---------- themes ---------- */
+  .vault  { --bg:#0B1220; --surface:#131C2E; --line:#22304A; --ink:#E8EEF9; --muted:#8A97B0;
+            --accent:#3DF0A8; --accent-ink:#04231A; --ok:#3DF0A8; --warn:#FFB547; --danger:#FF5C6C;
+            --r:14px; --bw:1px; --font:Inter, system-ui, sans-serif; --mono:"JetBrains Mono", ui-monospace, monospace; --hw:700; }
+  .clear  { --bg:#F5F7FB; --surface:#FFFFFF; --line:#E1E6F0; --ink:#111933; --muted:#5F6B85;
+            --accent:#3B5BFF; --accent-ink:#FFFFFF; --ok:#0E9F6E; --warn:#C77700; --danger:#D92D3A;
+            --r:22px; --bw:1px; --font:"Nunito Sans", system-ui, sans-serif; --mono:ui-monospace, "JetBrains Mono", monospace; --hw:800; }
+  .signal { --bg:#F3EFE4; --surface:#FFFFFF; --line:#111111; --ink:#111111; --muted:#5C5A52;
+            --accent:#FFD400; --accent-ink:#111111; --ok:#1E8E3E; --warn:#E06A00; --danger:#D7261E;
+            --r:3px; --bw:2px; --font:"Space Grotesk", system-ui, sans-serif; --mono:"Space Mono", ui-monospace, monospace; --hw:700; }
+
+  .dir { background: var(--bg); color: var(--ink); font-family: var(--font); border-radius: 20px; margin-top: 28px;
+         padding: 28px; display: grid; grid-template-columns: 300px 1fr; gap: 32px; }
+  @media (max-width: 900px) { .dir { grid-template-columns: 1fr; padding: 20px; } }
+  .tag { font: 600 11px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+  .lockup { display: flex; align-items: center; gap: 12px; margin: 14px 0 6px; }
+  .lockup svg { width: 44px; height: 44px; flex: none; }
+  .word { font-size: 30px; font-weight: var(--hw); letter-spacing: -0.03em; }
+  .word b { color: var(--accent); font-weight: inherit; }
+  .signal .word b { color: var(--ink); background: var(--accent); padding: 0 5px; }
+  .tagline { font-size: 17px; font-weight: 600; margin-top: 4px; }
+  .blurb { color: var(--muted); font-size: 14px; margin-top: 10px; }
+  .sw { display: flex; gap: 6px; margin-top: 18px; flex-wrap: wrap; }
+  .sw i { width: 42px; height: 42px; border-radius: var(--r); border: var(--bw) solid var(--line); display: block; }
+  .meta { font: 12px/1.6 var(--mono); color: var(--muted); margin-top: 12px; }
+  .icons { display: flex; gap: 12px; margin-top: 18px; align-items: center; }
+  .appicon { width: 68px; height: 68px; border-radius: 16px; display: grid; place-items: center; }
+  .appicon svg { width: 42px; height: 42px; }
+
+  /* ---------- phones ---------- */
+  .phones { display: flex; gap: 22px; overflow-x: auto; padding-bottom: 8px; }
+  .col { flex: none; }
+  .col > span { display: block; margin-bottom: 8px; }
+  .phone { width: 262px; height: 540px; border-radius: 34px; border: 7px solid #000; background: var(--bg); color: var(--ink);
+           overflow: hidden; position: relative; display: flex; flex-direction: column; font-size: 13px;
+           box-shadow: 0 18px 40px rgba(0,0,0,.28); }
+  .bar { display: flex; align-items: center; gap: 8px; padding: 14px 14px 10px; font-weight: var(--hw); font-size: 15px; }
+  .bar svg { width: 22px; height: 22px; }
+  .bar .sp { flex: 1; }
+  .body { flex: 1; padding: 4px 14px 14px; display: flex; flex-direction: column; gap: 10px; min-height: 0; }
+  .card { background: var(--surface); border: var(--bw) solid var(--line); border-radius: var(--r); padding: 10px 12px; }
+  .lbl { font: 600 10px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+  .url { font: 12px/1.4 var(--mono); word-break: break-all; }
+  .btn { border-radius: var(--r); padding: 11px; text-align: center; font-weight: 700; border: var(--bw) solid var(--line); }
+  .btn.p { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+  .signal .btn.p { border-color: var(--ink); box-shadow: 3px 3px 0 var(--ink); }
+  .btn.g { color: var(--muted); background: transparent; }
+
+  /* scan */
+  .cam { position: absolute; inset: 0; background: radial-gradient(120% 80% at 50% 40%, #5b6068 0%, #2a2d33 55%, #0c0d10 100%); }
+  .scan { color: #fff; }
+  .scan .bar, .scan .hint, .scan .tools { position: relative; z-index: 1; }
+  .ret { position: absolute; left: 50%; top: 44%; width: 178px; height: 178px; transform: translate(-50%,-50%); }
+  .ret svg.qr { position: absolute; inset: 22px; width: 134px; height: 134px; transform: rotate(-4deg); border-radius: 4px; }
+  .ret b { position: absolute; width: 34px; height: 34px; border: 4px solid var(--accent); }
+  .ret b:nth-of-type(1){left:0;top:0;border-right:0;border-bottom:0;border-top-left-radius:calc(var(--r) + 2px)}
+  .ret b:nth-of-type(2){right:0;top:0;border-left:0;border-bottom:0;border-top-right-radius:calc(var(--r) + 2px)}
+  .ret b:nth-of-type(3){left:0;bottom:0;border-right:0;border-top:0;border-bottom-left-radius:calc(var(--r) + 2px)}
+  .ret b:nth-of-type(4){right:0;bottom:0;border-left:0;border-top:0;border-bottom-right-radius:calc(var(--r) + 2px)}
+  .hint { margin: auto 14px 12px; background: rgba(0,0,0,.6); border-radius: var(--r); padding: 9px 12px; text-align: center; font-size: 12px; }
+  .hint strong { color: var(--accent); }
+  .tools { display: flex; justify-content: space-around; padding: 0 14px 20px; }
+  .tools i { width: 46px; height: 46px; border-radius: 50%; background: rgba(255,255,255,.14); display: grid; place-items: center; font-style: normal; font-size: 18px; }
+  .signal .tools i { border-radius: 3px; }
+
+  /* hops */
+  .hop { display: flex; gap: 9px; align-items: flex-start; padding: 7px 0; border-top: var(--bw) solid var(--line); }
+  .hop:first-of-type { border-top: 0; }
+  .dot { flex: none; width: 18px; height: 18px; border-radius: 50%; display: grid; place-items: center; font-size: 10px; font-weight: 700;
+         background: var(--ok); color: var(--surface); margin-top: 1px; }
+  .dot.spin { background: none; border: 2px solid var(--line); border-top-color: var(--accent); animation: sp 1s linear infinite; }
+  .signal .dot.spin { border-color: #ddd; border-top-color: var(--ink); }
+  @keyframes sp { to { transform: rotate(360deg); } }
+  .hop small { color: var(--muted); display: block; font-size: 11px; }
+  .note { color: var(--muted); font-size: 11.5px; text-align: center; margin-top: auto; }
+
+  /* result */
+  .verdict { border-radius: var(--r); padding: 9px 12px; font-weight: 700; display: flex; gap: 8px; align-items: center;
+             background: color-mix(in srgb, var(--warn) 18%, var(--surface)); border: var(--bw) solid var(--warn); }
+  .signal .verdict { background: var(--warn); color: #fff; border-color: var(--ink); }
+  .verdict small { display: block; font-weight: 400; font-size: 11px; opacity: .85; }
+  .shot { border-radius: var(--r); border: var(--bw) solid var(--line); overflow: hidden; background: #fff; color: #222; flex: none; }
+  .shot .chrome { background: #eceef2; padding: 5px 8px; font: 9.5px/1 ui-monospace, monospace; color: #555; display: flex; gap: 5px; align-items: center; }
+  .shot .pg { padding: 10px 12px 12px; font: 10px/1.4 system-ui, sans-serif; }
+  .shot .pg h5 { font-size: 13px; margin: 6px 0 3px; }
+  .shot .pg .brand { width: 54px; height: 10px; background: #c33; border-radius: 2px; }
+  .shot .pg .f { height: 16px; border: 1px solid #c9ccd3; border-radius: 3px; margin-top: 6px; padding: 2px 5px; color: #999; font-size: 9px; }
+  .shot .pg .b { height: 18px; background: #c33; border-radius: 3px; margin-top: 7px; color: #fff; text-align: center; font-weight: 700; line-height: 18px; }
+  .final { font: 600 13.5px/1.3 var(--mono); word-break: break-all; }
+  .final em { font-style: normal; background: color-mix(in srgb, var(--warn) 30%, transparent); padding: 0 2px; border-radius: 3px; }
+  .chips { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 7px; }
+  .chips span { font: 600 10px/1 var(--mono); padding: 5px 7px; border-radius: 99px; border: var(--bw) solid var(--line); color: var(--muted); }
+  .signal .chips span { border-radius: 0; }
+  .row { display: flex; gap: 8px; margin-top: auto; }
+  .row .btn { flex: 1; }
+
+  .ask { background: #fff; border-radius: 20px; padding: 24px 28px; margin-top: 28px; }
+  .ask h2 { font-size: 19px; margin-bottom: 8px; }
+  .ask li { margin: 6px 0 0 18px; color: #3b404c; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="intro">
+    <h1>SecureQR · branding round 1</h1>
+    <p>Three directions for the same product. Each shows the mark, wordmark, palette, type and app icon, then the three core screens: scan, the server following the link, and the preview where the user decides. The example is a parcel-fee scam so the caution state is visible. Pick one, or name the parts you want combined.</p>
+  </div>
+  <div id="dirs"></div>
+  <div class="ask">
+    <h2>What I need back</h2>
+    <ul>
+      <li>Which direction (A, B or C), or a mix such as "B's layout with A's colours".</li>
+      <li>Tagline: keep one of these or supply your own.</li>
+      <li>Verdict style: should the app give its own judgement (safe / caution / danger banner, as mocked), or only show the facts (redirect chain, final domain, screenshot) and leave the call to the user?</li>
+      <li>Light and dark: every direction will ship both modes; the one shown is the lead mode for store screenshots.</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+const marks = {
+  // shield holding a QR finder pattern
+  vault: (a, b) => `<svg viewBox="0 0 64 64"><path d="M32 3 57 12v19c0 15-10 25-25 30C17 56 7 46 7 31V12z" fill="${a}"/><rect x="20" y="18" width="24" height="24" rx="5" fill="none" stroke="${b}" stroke-width="5"/><rect x="28.5" y="26.5" width="7" height="7" rx="1.5" fill="${b}"/></svg>`,
+  // finder pattern whose centre is a check
+  clear: (a, b) => `<svg viewBox="0 0 64 64"><rect x="4" y="4" width="56" height="56" rx="18" fill="${a}"/><rect x="15" y="15" width="34" height="34" rx="10" fill="none" stroke="${b}" stroke-width="5"/><path d="m24.5 32.5 5.5 5.5 10-11" fill="none" stroke="${b}" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  // finder pattern whose centre is a keyhole
+  signal: (a, b) => `<svg viewBox="0 0 64 64"><rect x="4" y="4" width="56" height="56" fill="${a}"/><rect x="13" y="13" width="38" height="38" fill="none" stroke="${b}" stroke-width="6"/><circle cx="32" cy="28.5" r="5.5" fill="${b}"/><path d="M29 30h6l2.5 12h-11z" fill="${b}"/></svg>`
+};
+
+function qr() {
+  const n = 21, c = 100 / n; let s = '';
+  const on = (x, y) => {
+    for (const [ox, oy] of [[0,0],[14,0],[0,14]]) {
+      const dx = x - ox, dy = y - oy;
+      if (dx >= 0 && dy >= 0 && dx <= 6 && dy <= 6) return Math.max(Math.abs(dx - 3), Math.abs(dy - 3)) !== 2;
+    }
+    if ((x < 8 && y < 8) || (x > 12 && y < 8) || (x < 8 && y > 12)) return false;
+    return ((x * 7 + y * 13 + x * y * 3) % 5 < 2) !== ((x + y) % 7 === 0);
+  };
+  for (let y = 0; y < n; y++) for (let x = 0; x < n; x++)
+    if (on(x, y)) s += `<rect x="${(x * c).toFixed(2)}" y="${(y * c).toFixed(2)}" width="${(c + .3).toFixed(2)}" height="${(c + .3).toFixed(2)}"/>`;
+  return `<svg class="qr" viewBox="-8 -8 116 116"><rect x="-8" y="-8" width="116" height="116" fill="#f4f4f1"/><g fill="#15161a">${s}</g></svg>`;
+}
+
+const dirs = [
+  { id: 'vault', letter: 'A', name: 'Vault', tagline: 'Look before you link.',
+    blurb: 'Dark, technical, security-tool confidence. Mint on ink navy; URLs and evidence set in mono. Speaks to people who already distrust QR codes.',
+    type: 'Inter 700 / 400 · JetBrains Mono', mark: ['#3DF0A8', '#0B1220'], icon: ['#0B1220', ['#3DF0A8', '#0B1220']],
+    sw: ['#0B1220', '#131C2E', '#3DF0A8', '#FFB547', '#FF5C6C', '#E8EEF9'] },
+  { id: 'clear', letter: 'B', name: 'Clear', tagline: 'See where it goes before you go.',
+    blurb: 'Light, calm, rounded. Trust-blue on near-white, plain language over jargon. Aimed at everyone, including the relative who scans every parking-meter sticker.',
+    type: 'Nunito Sans 800 / 400 · system mono', mark: ['#3B5BFF', '#FFFFFF'], icon: ['#3B5BFF', ['#3B5BFF', '#FFFFFF']],
+    sw: ['#F5F7FB', '#FFFFFF', '#3B5BFF', '#0E9F6E', '#C77700', '#D92D3A', '#111933'] },
+  { id: 'signal', letter: 'C', name: 'Signal', tagline: 'Scan. Check. Then decide.',
+    blurb: 'Bold and blunt. Hazard yellow, black rules, square corners, hard shadows. The most recognisable on a home screen; the least "corporate security".',
+    type: 'Space Grotesk 700 / 400 · Space Mono', mark: ['#FFD400', '#111111'], icon: ['#FFD400', ['#FFD400', '#111111']],
+    sw: ['#F3EFE4', '#FFFFFF', '#FFD400', '#111111', '#E06A00', '#D7261E', '#1E8E3E'] }
+];
+
+const phone = (cls, inner) => `<div class="phone ${cls}">${inner}</div>`;
+const bar = (d) => `<div class="bar">${marks[d.id](...d.mark)}<span>SecureQR</span><span class="sp"></span></div>`;
+
+function render(d) {
+  const scan = phone('scan', `<div class="cam"></div>${bar(d)}
+    <div class="ret">${qr()}<b></b><b></b><b></b><b></b></div>
+    <div class="hint">Point at a QR code. <strong>Nothing opens</strong> until you say so.</div>
+    <div class="tools"><i>⚡</i><i>▦</i><i>↺</i></div>`);
+
+  const check = phone('', `${bar(d)}<div class="body">
+    <div class="card"><div class="lbl">The QR code says</div><div class="url">https://qr-go.example/x7Pq</div></div>
+    <div class="card"><div class="lbl">Following the link for you</div>
+      <div class="hop"><span class="dot">✓</span><div><span class="url">qr-go.example</span><small>Short link · redirects</small></div></div>
+      <div class="hop"><span class="dot">✓</span><div><span class="url">trk.mailing.example</span><small>Tracker · redirects</small></div></div>
+      <div class="hop"><span class="dot spin"></span><div><span class="url">parcel-track.example</span><small>Taking a screenshot…</small></div></div>
+    </div>
+    <div class="note">We open the link on our server, never on your phone.</div>
+  </div>`);
+
+  const result = phone('', `${bar(d)}<div class="body">
+    <div class="verdict"><span>⚠</span><div>Check this one<small>Ends at a different site than it starts</small></div></div>
+    <div class="shot"><div class="chrome">🔒 pay-fee.parcel-track.example</div>
+      <div class="pg"><div class="brand"></div><h5>Your parcel is on hold</h5>Pay the €1.99 customs fee to release delivery.
+        <div class="f">Card number</div><div class="b">Pay now</div></div></div>
+    <div class="card"><div class="lbl">You would land on</div>
+      <div class="final">pay-fee.<em>parcel-track.example</em></div>
+      <div class="chips"><span>HTTPS</span><span>2 redirects</span><span>Short link</span></div></div>
+    <div class="row"><div class="btn g">Open anyway</div><div class="btn p">Don't open</div></div>
+  </div>`);
+
+  return `<section class="dir ${d.id}">
+    <div>
+      <div class="tag">Direction ${d.letter} · ${d.name}</div>
+      <div class="lockup">${marks[d.id](...d.mark)}<div class="word">Secure<b>QR</b></div></div>
+      <div class="tagline">${d.tagline}</div>
+      <p class="blurb">${d.blurb}</p>
+      <div class="sw">${d.sw.map(c => `<i style="background:${c}" title="${c}"></i>`).join('')}</div>
+      <div class="meta">${d.sw.join(' · ')}<br>${d.type}</div>
+      <div class="icons"><div class="appicon" style="background:${d.icon[0]};${d.id === 'vault' ? 'border:1px solid #22304A' : ''}">${marks[d.id](...(d.id === 'vault' ? d.mark : [d.icon[0], d.icon[1][1]]))}</div><span class="tag">App icon</span></div>
+    </div>
+    <div class="phones">
+      <div class="col"><span class="tag">1 · Scan</span>${scan}</div>
+      <div class="col"><span class="tag">2 · Checking</span>${check}</div>
+      <div class="col"><span class="tag">3 · Decide</span>${result}</div>
+    </div>
+  </section>`;
+}
+document.getElementById('dirs').innerHTML = dirs.map(render).join('');
+</script>
+</body>
+</html>

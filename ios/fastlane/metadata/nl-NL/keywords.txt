@@ -1,0 +1,1 @@
+qr,scanner,qr-code,phishing,linkcheck,oplichting,doorverwijzing,quishing,beveiliging,wifi

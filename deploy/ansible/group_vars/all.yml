@@ -1,0 +1,25 @@
+---
+secureqr_dir: /opt/secureqr
+secureqr_domain: qr.appmire.be
+secureqr_port: 18097              # loopback only; nginx terminates TLS in front
+
+# Sources are copied from this checkout and the image is built on the box.
+secureqr_server_src: "{{ playbook_dir }}/../../server"
+
+# Static landing page, served by nginx.
+secureqr_www: /var/www/qr.appmire.be
+secureqr_site_src: "{{ playbook_dir }}/../../site"
+
+secureqr_rate_limit_per_min: 20   # previews per client IP per minute
+secureqr_max_concurrency: 4       # parallel headless-browser jobs
+secureqr_mem_limit: 3g
+
+# Chromium's sandbox needs user namespaces, which Docker's default AppArmor
+# profile denies. The role installs server/deploy/apparmor-secureqr (Docker's
+# default plus `userns`) under this name. Set to "unconfined" to fall back to
+# no AppArmor confinement for this one container.
+secureqr_apparmor_profile: secureqr
+
+# A real page that the post-deploy check previews end to end (browser launch,
+# egress proxy, screenshot). The play fails if this does not come back.
+secureqr_selftest_url: https://example.com/

@@ -1,0 +1,116 @@
+name: SecureQR
+
+options:
+  bundleIdPrefix: be.appmire
+  deploymentTarget:
+    iOS: "16.0"
+  developmentLanguage: en
+  createIntermediateGroups: true
+  groupSortPosition: top
+
+configFiles:
+  Debug: Config/Debug.xcconfig
+  Release: Config/Release.xcconfig
+
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    IPHONEOS_DEPLOYMENT_TARGET: "16.0"
+    TARGETED_DEVICE_FAMILY: "1"
+
+targets:
+  SecureQR:
+    type: application
+    platform: iOS
+    sources:
+      - path: SecureQR
+    info:
+      path: SecureQR/Info.plist
+      properties:
+        CFBundleDisplayName: SecureQR
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        LSRequiresIPhoneOS: true
+        UIRequiresFullScreen: true
+        UILaunchScreen:
+          UIColorName: LaunchBackground
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+        UIApplicationSceneManifest:
+          UIApplicationSupportsMultipleScenes: false
+        UIAppFonts:
+          - NunitoSans-Variable.ttf
+        NSCameraUsageDescription: SecureQR uses the camera to read QR codes. Nothing is recorded.
+        ITSAppUsesNonExemptEncryption: false
+        APIBaseURL: $(API_BASE_URL)
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: be.appmire.secureqr
+        PRODUCT_NAME: SecureQR
+        TARGETED_DEVICE_FAMILY: "1"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        ENABLE_USER_SCRIPT_SANDBOXING: NO
+        # Manual signing with fastlane match profiles; simulator builds sign ad hoc.
+        CODE_SIGN_STYLE: Manual
+        "CODE_SIGN_IDENTITY[sdk=iphonesimulator*]": "-"
+      configs:
+        Debug:
+          "CODE_SIGN_IDENTITY[sdk=iphoneos*]": Apple Development
+          "PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]": match Development be.appmire.secureqr
+        Release:
+          "CODE_SIGN_IDENTITY[sdk=iphoneos*]": Apple Distribution
+          "PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]": match AppStore be.appmire.secureqr
+    postBuildScripts:
+      # App Transport Security: plain http is allowed for localhost in Debug
+      # only. Release builds never get this exception.
+      - name: Allow http://localhost (Debug only)
+        basedOnDependencyAnalysis: false
+        inputFiles:
+          - $(TARGET_BUILD_DIR)/$(INFOPLIST_PATH)
+        script: |
+          set -e
+          if [ "${CONFIGURATION}" != "Debug" ]; then
+            exit 0
+          fi
+          PLIST="${TARGET_BUILD_DIR}/${INFOPLIST_PATH}"
+          BUDDY=/usr/libexec/PlistBuddy
+          "$BUDDY" -c "Delete :NSAppTransportSecurity" "$PLIST" 2>/dev/null || true
+          "$BUDDY" \
+            -c "Add :NSAppTransportSecurity dict" \
+            -c "Add :NSAppTransportSecurity:NSExceptionDomains dict" \
+            -c "Add :NSAppTransportSecurity:NSExceptionDomains:localhost dict" \
+            -c "Add :NSAppTransportSecurity:NSExceptionDomains:localhost:NSExceptionAllowsInsecureHTTPLoads bool true" \
+            "$PLIST"
+
+  SecureQRTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: SecureQRTests
+    dependencies:
+      - target: SecureQR
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: be.appmire.secureqr.tests
+        GENERATE_INFOPLIST_FILE: YES
+        TARGETED_DEVICE_FAMILY: "1"
+
+schemes:
+  SecureQR:
+    build:
+      targets:
+        SecureQR: all
+        SecureQRTests: [test]
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - SecureQRTests
+    profile:
+      config: Release
+    analyze:
+      config: Debug
+    archive:
+      config: Release

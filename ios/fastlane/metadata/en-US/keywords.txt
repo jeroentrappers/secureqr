@@ -1,0 +1,1 @@
+qr,scanner,qr code,phishing,link check,scam,redirect,quishing,security,preview,barcode,wifi

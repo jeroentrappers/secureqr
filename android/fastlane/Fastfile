@@ -1,0 +1,136 @@
+# Fastlane runbook for SecureQR (Android). Same lanes as gpsinfo.
+#
+# Quick reference (run from android/):
+#   bundle exec fastlane bump               # Bump versionCode (+ changelog stubs)
+#   bundle exec fastlane verify             # Run unit tests
+#   bundle exec fastlane bundle             # Build a signed AAB (release)
+#   bundle exec fastlane deploy_internal    # Upload to Play Console internal track
+#   bundle exec fastlane deploy_production  # Promote internal to production
+#   bundle exec fastlane metadata_only      # Store listing text only
+#
+# Signing lives in app/build.gradle.kts; this runbook does NOT pass keystore
+# credentials around — gradle reads them from keystore.properties (gitignored)
+# or the FASTLANE_SECUREQR_* env vars. The Play service-account key comes from
+# SUPPLY_JSON_KEY_FILE or ./play-service-account.json (see Appfile).
+
+require "fileutils"
+
+default_platform(:android)
+
+LOCALES = %w[en-US nl-NL]
+
+platform :android do
+
+  desc "Bump versionCode (+ optional versionName) and scaffold changelog files."
+  desc "  fastlane bump                        # versionCode + 1"
+  desc "  fastlane bump version:1.1.0          # versionCode + 1, set versionName"
+  desc "  fastlane bump code:10 version:1.1.0  # set versionCode explicitly"
+  lane :bump do |options|
+    # Fastlane chdir's into the fastlane/ folder before running lanes, so
+    # resolve paths absolutely from the Fastfile's own location.
+    root = File.expand_path("..", __dir__)
+    gradle_file = File.join(root, "app", "build.gradle.kts")
+    contents = File.read(gradle_file)
+
+    current_code = contents[/versionCode\s*=\s*(\d+)/, 1]&.to_i
+    UI.user_error!("No versionCode found in #{gradle_file}") if current_code.nil?
+    current_name = contents[/versionName\s*=\s*"([^"]+)"/, 1]
+
+    new_code = options[:code] ? options[:code].to_i : current_code + 1
+    if new_code <= current_code
+      UI.user_error!("versionCode must increase: #{new_code} is not greater than #{current_code}")
+    end
+    new_name = options[:version] || current_name
+
+    contents = contents.sub(/(versionCode\s*=\s*)\d+/, "\\1#{new_code}")
+    contents = contents.sub(/(versionName\s*=\s*")[^"]+(")/, "\\1#{new_name}\\2")
+    File.write(gradle_file, contents)
+    UI.success("versionCode #{current_code} → #{new_code}   versionName #{current_name} → #{new_name}")
+
+    # An empty changelog per locale so the new versionCode has release notes
+    # to attach on upload. Existing files are never overwritten.
+    created = []
+    LOCALES.each do |locale|
+      dir = File.join(root, "fastlane", "metadata", "android", locale, "changelogs")
+      FileUtils.mkdir_p(dir)
+      path = "#{dir}/#{new_code}.txt"
+      next if File.exist?(path)
+      File.write(path, "• \n")
+      created << path
+    end
+    UI.important("Scaffolded #{created.length} changelog stub(s).") if created.any?
+    UI.message("Fill in: fastlane/metadata/android/*/changelogs/#{new_code}.txt")
+    UI.important("Then commit, e.g.: Bump to #{new_name} (vc #{new_code})")
+  end
+
+  desc "Run unit tests"
+  lane :verify do
+    gradle(task: "testDebugUnitTest")
+  end
+
+  desc "Build a signed AAB ready for Play upload"
+  lane :bundle do
+    verify
+    gradle(
+      task: "bundle",
+      build_type: "Release",
+      print_command: false
+    )
+  end
+
+  desc "Upload AAB + listing text + changelog to the internal testing track."
+  desc "Use this for every release before promoting to production."
+  lane :deploy_internal do
+    bundle
+    upload_to_play_store(
+      track: "internal",
+      # "completed" so internal testers get the build the moment it lands,
+      # and so the track never holds two releases (which breaks promotes).
+      # Until the app has passed its first review Play only accepts drafts:
+      # run with RELEASE_STATUS=draft for those first uploads.
+      release_status: ENV.fetch("RELEASE_STATUS", "completed"),
+      skip_upload_apk: true,
+      # Screenshots and images are managed out-of-band (metadata_only).
+      skip_upload_screenshots: true,
+      skip_upload_images: true,
+      validate_only: false
+    )
+  end
+
+  desc "Promote the current internal release to production."
+  desc "Staged rollout, 10% by default; ROLLOUT=1.0 for everyone."
+  lane :deploy_production do
+    # Pin the promote to the versionCode in the repo, so a stale release on
+    # the track can never be the one that goes out.
+    root = File.expand_path("..", __dir__)
+    gradle = File.read(File.join(root, "app", "build.gradle.kts"))
+    version_code = gradle[/versionCode\s*=\s*(\d+)/, 1]&.to_i
+    UI.user_error!("No versionCode found in app/build.gradle.kts") if version_code.nil?
+
+    upload_to_play_store(
+      track: "internal",
+      track_promote_to: "production",
+      version_code: version_code,
+      rollout: ENV.fetch("ROLLOUT", "0.1"),
+      skip_upload_apk: true,
+      skip_upload_aab: true,
+      # Promote only: listing text and the changelog already travel with
+      # the release from deploy_internal.
+      skip_upload_metadata: true,
+      skip_upload_changelogs: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true
+    )
+  end
+
+  desc "Upload only the listing text + screenshots (no AAB)."
+  lane :metadata_only do
+    upload_to_play_store(
+      track: "internal",
+      skip_upload_apk: true,
+      skip_upload_aab: true,
+      skip_upload_changelogs: false,
+      skip_upload_screenshots: false
+    )
+  end
+end
