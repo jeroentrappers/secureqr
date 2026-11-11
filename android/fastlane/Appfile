@@ -5,5 +5,7 @@
 # Play Console). It MUST stay out of git: point SUPPLY_JSON_KEY_FILE at it,
 # or keep it (or a symlink to it) as android/play-service-account.json.
 
-json_key_file(ENV["SUPPLY_JSON_KEY_FILE"] || "../play-service-account.json")
+# fastlane reads this file from android/ or from android/fastlane/ depending on
+# the command, so look in both places.
+json_key_file(ENV["SUPPLY_JSON_KEY_FILE"] || ["play-service-account.json", "../play-service-account.json"].map { |p| File.expand_path(p) }.find { |p| File.exist?(p) })
 package_name("be.appmire.secureqr")

@@ -67,7 +67,7 @@ android {
         minSdk = 26
         targetSdk = 36
         // Literals on purpose: `fastlane bump` rewrites these two lines.
-        versionCode = 1
+        versionCode = 2
         versionName = "1.0.0"
         buildConfigField("String", "API_KEY", apiKeyLiteral)
     }
