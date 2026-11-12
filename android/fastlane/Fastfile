@@ -130,7 +130,8 @@ platform :android do
       track: "internal",
       skip_upload_apk: true,
       skip_upload_aab: true,
-      skip_upload_changelogs: false,
+      # Release notes belong to a build and travel with deploy_internal.
+      skip_upload_changelogs: true,
       skip_upload_images: false,
       skip_upload_screenshots: false
     )

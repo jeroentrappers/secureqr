@@ -12,7 +12,7 @@ When you scan a code that contains a web link, SecureQR does not open it. Our se
 Bank transfers, payment requests, Wi-Fi networks, contacts and sign-in codes are read on your phone and shown in plain words before anything happens. They are never sent to us.
 
 ▌Private by design
-• No account, no advertising, no analytics
+• No account, no advertising, and no analytics of our own
 • Only web links are sent to our server; everything else stays on your phone
 • Page pictures are kept for 15 minutes and then deleted
 • Your scan history stays on your phone, and you can clear it at any time

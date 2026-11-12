@@ -12,7 +12,7 @@ Scan je een code met een weblink, dan opent SecureQR die niet. Onze server bezoe
 Overschrijvingen, betaalverzoeken, wifi-netwerken, contacten en aanmeldcodes worden op je telefoon gelezen en in gewone taal getoond voor er iets gebeurt. Ze worden nooit naar ons gestuurd.
 
 ▌Privacy voorop
-• Geen account, geen reclame, geen analytics
+• Geen account, geen reclame en geen eigen analytics
 • Alleen weblinks gaan naar onze server; al de rest blijft op je telefoon
 • Foto's van pagina's worden 15 minuten bewaard en dan gewist
 • Je scangeschiedenis blijft op je telefoon en je kan ze altijd wissen

@@ -1,0 +1,4 @@
+• Join a Wi-Fi network straight from its QR code
+• Add scanned contacts and events to your phone
+• Warnings for sign-in codes, eSIM plans, phone service codes and unsafe links
+• Reads Swiss, Czech and Pix payment codes
