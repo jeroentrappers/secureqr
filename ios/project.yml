@@ -44,6 +44,12 @@ targets:
         ITSAppUsesNonExemptEncryption: false
         APIBaseURL: $(API_BASE_URL)
         SecureQRAPIKey: $(SECUREQR_API_KEY)
+    entitlements:
+      path: SecureQR/SecureQR.entitlements
+      properties:
+        # "Join network" on a Wi-Fi code. Needs the Hotspot Configuration
+        # capability on the App ID (fastlane register_app_id switches it on).
+        com.apple.developer.networking.HotspotConfiguration: true
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: be.appmire.secureqr

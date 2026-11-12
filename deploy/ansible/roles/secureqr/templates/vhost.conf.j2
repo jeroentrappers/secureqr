@@ -29,7 +29,7 @@ server {
     # Landing page (static) plus the API; everything else is refused here.
     root {{ secureqr_www }};
     location = / { try_files /index.html =404; }
-    location ~ ^/(privacy|support)$ { try_files /$1.html =404; }
+    location ~ ^/(privacy|support|terms)$ { try_files /$1.html =404; }
     location /assets/ { try_files $uri =404; expires 1h; }
 
     location ~ ^/(v1/|healthz$) {

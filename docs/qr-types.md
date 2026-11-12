@@ -14,7 +14,7 @@ Matching is case-insensitive on the prefix; trim surrounding whitespace first.
 | `emv` | starts with `000201` and TLV-parses cleanly | Merchant, City, Country, Amount, Currency | Copy all |
 | `upi` | `upi://pay` | Payee name (`pn`), Payee address (`pa`), Amount (`am`), Currency (`cu`), Note (`tn`) | Open in app, Copy |
 | `crypto` | `bitcoin:`, `ethereum:`, `litecoin:`, `bitcoincash:`, `lightning:` | Network, Address, Amount (`amount`/`value`), Label, Message | Open in app, Copy address |
-| `wifi` | `WIFI:` | Network (S), Security (T), Password (P, masked with reveal), Hidden (H) | Copy password |
+| `wifi` | `WIFI:` | Network (S), Security (T), Password (P, masked with reveal), Hidden (H) | Join network, Copy password |
 | `contact` | `BEGIN:VCARD` or `MECARD:` | Name, Phone(s), Email(s), Organisation, Address, URL | Copy all |
 | `event` | `BEGIN:VEVENT` or `BEGIN:VCALENDAR` | Title, Start, End, Location, Description | Copy all |
 | `email` | `mailto:` or `MATMSG:` | To, Subject, Body | Open in app, Copy |
@@ -54,6 +54,14 @@ Wero and other wallets have no single published link format yet, so their
 links take the normal preview route; "Open" then replays the original link
 and the wallet app takes over if it claims it. Add hosts to the table as they
 are confirmed.
+
+**Wi-Fi (`wifi`).** "Join network" asks the system to add the network, and the
+system asks the user before anything is saved: "Save this network?" on Android
+11 and up, "Wants to Join Wi-Fi Network" on iOS (Hotspot Configuration
+entitlement). On older Android, and for kinds the system dialog cannot take
+(WEP, company sign-in), the password is copied and the Wi-Fi settings open.
+For a network without a password the copy action stays the accent button and
+"Join network" the quiet one. No action when the code has no network name.
 
 **SEPA bank transfers (`epc`).** These are plain text, not a link, so there is
 nothing to open. The card tells the user what to do instead (see notices) and

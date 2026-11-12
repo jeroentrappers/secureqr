@@ -169,6 +169,7 @@
 
 "qr.action.openInApp" = "Open in app";
 "qr.action.openInPaymentApp" = "Open in payment app";
+"qr.action.joinWiFi" = "Join network";
 "qr.action.copy" = "Copy";
 "qr.action.copyAll" = "Copy all";
 "qr.action.copyIBAN" = "Copy IBAN";
@@ -184,6 +185,8 @@
 "content.secret.hide" = "Hide password";
 "content.noApp.title" = "Nothing can open this";
 "content.noApp.message" = "No app on this phone can open this.";
+"content.wifi.failed.title" = "Could not join the network";
+"content.wifi.failed.message" = "Check that the network is in range. You can also copy the password and join it in Settings.";
 "content.history.redacted" = "Passwords and sign-in secrets are not kept in history.";
 
 /* History */

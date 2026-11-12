@@ -101,7 +101,26 @@ class QrClassifierTest {
         assertEquals(FieldStyle.SECRET, c.fields.first { it.label == FieldLabel.PASSWORD }.style)
         assertEquals("WPA", c.field(FieldLabel.SECURITY))
         assertEquals(listOf(Notice.LOCAL_ONLY), c.notices)
-        assertEquals(listOf(QrAction.COPY_PASSWORD), c.actions)
+        assertEquals(listOf(QrAction.JOIN_WIFI, QrAction.COPY_PASSWORD), c.actions)
+    }
+
+    @Test
+    fun `wifi without a name cannot be joined`() {
+        assertEquals(listOf(QrAction.COPY_PASSWORD), classify("WIFI:T:WPA;P:secret12;;").actions)
+    }
+
+    @Test
+    fun `wifi security kinds`() {
+        assertEquals(WifiKind.WPA2, wifiKind("WPA", "secret12"))
+        assertEquals(WifiKind.WPA2, wifiKind("wpa2", "secret12"))
+        assertEquals(WifiKind.WPA3, wifiKind("SAE", "secret12"))
+        assertEquals(WifiKind.OPEN, wifiKind("", ""))
+        assertEquals(WifiKind.OPEN, wifiKind("nopass", ""))
+        // A password with no type given: treated as the common case.
+        assertEquals(WifiKind.WPA2, wifiKind("", "secret12"))
+        assertEquals(WifiKind.UNSUPPORTED, wifiKind("WEP", "abcde"))
+        assertEquals(WifiKind.UNSUPPORTED, wifiKind("WPA2-EAP", "x"))
+        assertEquals(WifiKind.UNSUPPORTED, wifiKind("WPA", ""))
     }
 
     @Test

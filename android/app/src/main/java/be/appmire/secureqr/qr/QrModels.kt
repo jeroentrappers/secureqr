@@ -88,6 +88,9 @@ enum class QrAction {
 
     /** Payment-app links: open the scanned link unchanged so the installed app claims it. */
     OPEN_IN_PAYMENT_APP,
+
+    /** Wi-Fi: ask the system to save the network. The system shows its own confirmation. */
+    JOIN_WIFI,
     COPY,
     COPY_ALL,
     COPY_IBAN,

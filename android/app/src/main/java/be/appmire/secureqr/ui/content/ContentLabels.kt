@@ -92,6 +92,7 @@ fun Notice.textRes(): Int = when (this) {
 fun QrAction.labelRes(): Int = when (this) {
     QrAction.OPEN_IN_APP -> R.string.action_open_in_app
     QrAction.OPEN_IN_PAYMENT_APP -> R.string.action_open_in_payment_app
+    QrAction.JOIN_WIFI -> R.string.action_join_wifi
     QrAction.COPY -> R.string.action_copy
     QrAction.COPY_ALL -> R.string.action_copy_all
     QrAction.COPY_IBAN -> R.string.action_copy_iban

@@ -52,6 +52,7 @@ extension QRAction {
     var symbolName: String {
         switch self {
         case .openInApp, .openInPaymentApp: return "arrow.up.forward.app"
+        case .joinWiFi: return "wifi"
         case .copy, .copyAll, .copyIBAN, .copyAddress, .copyPassword: return "doc.on.doc"
         }
     }

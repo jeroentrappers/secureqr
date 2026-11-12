@@ -243,7 +243,11 @@ object QrClassifier {
                 if (hidden) QrField(FieldLabel.HIDDEN, "true") else null,
             ),
             notices = if (open) listOf(Notice.WIFI_OPEN) else LOCAL,
-            actions = if (password.isEmpty()) listOf(QrAction.COPY) else listOf(QrAction.COPY_PASSWORD),
+            actions = listOfNotNull(
+                // Without a name there is nothing to join.
+                if (value("S").isNullOrEmpty()) null else QrAction.JOIN_WIFI,
+                if (password.isEmpty()) QrAction.COPY else QrAction.COPY_PASSWORD,
+            ),
         )
     }
 

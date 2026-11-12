@@ -1,3 +1,4 @@
+import NetworkExtension
 import SwiftUI
 import UIKit
 
@@ -14,6 +15,7 @@ struct ContentScreen: View {
     @State private var showRaw = false
     @State private var copiedAction: QRAction?
     @State private var showNoAppAlert = false
+    @State private var showWiFiFailedAlert = false
 
     var body: some View {
         ScrollView {
@@ -42,6 +44,11 @@ struct ContentScreen: View {
             Button(L("common.ok"), role: .cancel) {}
         } message: {
             Text(L("content.noApp.message"))
+        }
+        .alert(L("content.wifi.failed.title"), isPresented: $showWiFiFailedAlert) {
+            Button(L("common.ok"), role: .cancel) {}
+        } message: {
+            Text(L("content.wifi.failed.message"))
         }
     }
 
@@ -131,7 +138,7 @@ struct ContentScreen: View {
                             .font(.system(size: 15, weight: .semibold))
                         Text(copiedAction == action ? L("content.copied") : action.title)
                     }
-                    if action == .openInPaymentApp {
+                    if action == .openInPaymentApp || (action == .joinWiFi && payload.notice.level == .neutral) {
                         Button { perform(action) } label: { label }
                             .buttonStyle(PrimaryButtonStyle())
                     } else {
@@ -184,6 +191,10 @@ struct ContentScreen: View {
         switch action {
         case .openInApp, .openInPaymentApp:
             openInApp()
+        case .joinWiFi:
+            if case .wifi(let network) = payload.content {
+                joinWiFi(network)
+            }
         case .copy:
             // Never the secret: see `ScannedPayload.copyText`.
             copy(payload.copyText, sensitive: false, action: action)
@@ -224,6 +235,34 @@ struct ContentScreen: View {
             }
         }
         return lines.joined(separator: "\n")
+    }
+
+    /// Asks the system to join the scanned network. iOS shows its own
+    /// "Wants to Join Wi-Fi Network" question first; saying no there is not
+    /// an error.
+    private func joinWiFi(_ network: WiFiNetwork) {
+        let configuration: NEHotspotConfiguration
+        if network.password.isEmpty {
+            configuration = NEHotspotConfiguration(ssid: network.ssid)
+        } else {
+            let isWEP = network.security.trimmingCharacters(in: .whitespaces).uppercased() == "WEP"
+            configuration = NEHotspotConfiguration(ssid: network.ssid, passphrase: network.password, isWEP: isWEP)
+        }
+        configuration.hidden = network.hidden ?? false
+        NEHotspotConfigurationManager.shared.apply(configuration) { error in
+            DispatchQueue.main.async {
+                guard let error = error as NSError? else {
+                    Haptics.success()
+                    return
+                }
+                let quiet: [NEHotspotConfigurationError] = [.userDenied, .alreadyAssociated]
+                if error.domain == NEHotspotConfigurationErrorDomain,
+                   let code = NEHotspotConfigurationError(rawValue: error.code), quiet.contains(code) {
+                    return
+                }
+                showWiFiFailedAlert = true
+            }
+        }
     }
 
     /// Hands the original scanned text, unchanged, to the system. If nothing

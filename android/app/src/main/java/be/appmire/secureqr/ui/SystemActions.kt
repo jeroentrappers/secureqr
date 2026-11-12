@@ -5,16 +5,20 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.net.wifi.WifiNetworkSuggestion
 import android.os.Build
 import android.os.PersistableBundle
 import android.provider.Settings
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
 import androidx.core.net.toUri
 import be.appmire.secureqr.R
 import be.appmire.secureqr.qr.FieldLabel
 import be.appmire.secureqr.qr.QrContent
 import be.appmire.secureqr.qr.QrType
+import be.appmire.secureqr.qr.WifiKind
+import be.appmire.secureqr.qr.wifiKind
 
 /** The only places where the app hands something to the rest of the system. Each needs an explicit tap. */
 object SystemActions {
@@ -67,6 +71,49 @@ object SystemActions {
         if (start(context, Intent(Intent.ACTION_VIEW, original))) return true
         val normalized = original.normalizeScheme()
         return normalized != original && start(context, Intent(Intent.ACTION_VIEW, normalized))
+    }
+
+    enum class WifiJoin { ASKED, SETTINGS_OPENED, FAILED }
+
+    /**
+     * Asks the system to save the scanned Wi-Fi network (Android 11 and up):
+     * the system shows its own "Save this network?" question, and the app
+     * needs no Wi-Fi permission. On older phones, and for kinds of network
+     * the system cannot take this way (WEP, company sign-in), the password is
+     * copied and the Wi-Fi settings open so the user can pick the network.
+     */
+    fun joinWifi(context: Context, content: QrContent): WifiJoin {
+        val ssid = content.field(FieldLabel.NETWORK).orEmpty()
+        val password = content.fields.firstOrNull { it.label == FieldLabel.PASSWORD }?.copyValue.orEmpty()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            val suggestion = wifiSuggestion(
+                ssid = ssid,
+                kind = wifiKind(content.field(FieldLabel.SECURITY).orEmpty(), password),
+                password = password,
+                hidden = content.field(FieldLabel.HIDDEN) != null,
+            )
+            if (suggestion != null) {
+                val intent = Intent(Settings.ACTION_WIFI_ADD_NETWORKS)
+                    .putParcelableArrayListExtra(Settings.EXTRA_WIFI_NETWORK_LIST, arrayListOf(suggestion))
+                if (start(context, intent)) return WifiJoin.ASKED
+            }
+        }
+        if (password.isNotEmpty()) copy(context, password, sensitive = true)
+        return if (start(context, Intent(Settings.ACTION_WIFI_SETTINGS))) WifiJoin.SETTINGS_OPENED else WifiJoin.FAILED
+    }
+
+    @RequiresApi(Build.VERSION_CODES.R)
+    private fun wifiSuggestion(ssid: String, kind: WifiKind, password: String, hidden: Boolean): WifiNetworkSuggestion? = try {
+        val builder = WifiNetworkSuggestion.Builder().setSsid(ssid).setIsHiddenSsid(hidden)
+        when (kind) {
+            WifiKind.OPEN -> builder.build()
+            WifiKind.WPA2 -> builder.setWpa2Passphrase(password).build()
+            WifiKind.WPA3 -> builder.setWpa3Passphrase(password).build()
+            WifiKind.UNSUPPORTED -> null
+        }
+    } catch (e: IllegalArgumentException) {
+        // A name or password the system does not accept (for example a WPA password under 8 characters).
+        null
     }
 
     fun openAppSettings(context: Context) {

@@ -34,7 +34,7 @@ platform :ios do
     run_tests(options)
   end
 
-  desc "Register the bundle identifier in the developer account if it is missing (changes the Apple account; ask first)"
+  desc "Register the bundle identifier and its capabilities in the developer account where missing (changes the Apple account; ask first)"
   lane :register_app_id do
     Spaceship::ConnectAPI.token = Spaceship::ConnectAPI::Token.create(
       key_id: ENV.fetch("ASC_KEY_ID"),
@@ -48,6 +48,16 @@ platform :ios do
       else
         created = Spaceship::ConnectAPI::BundleId.create(name: "SecureQR", platform: "IOS", identifier: identifier)
         UI.success("Registered #{created.identifier} as \"#{created.name}\"")
+      end
+      # Hotspot Configuration: "Join network" on a Wi-Fi code. Profiles made before this was on must be made again.
+      bundle_id = Spaceship::ConnectAPI::BundleId.all(filter: { identifier: identifier }, includes: "bundleIdCapabilities")
+                                                 .find { |b| b.identifier == identifier }
+      hotspot = Spaceship::ConnectAPI::BundleIdCapability::Type::HOT_SPOT
+      if (bundle_id.bundle_id_capabilities || []).any? { |c| c.capability_type == hotspot }
+        UI.message("#{identifier} already has Hotspot Configuration")
+      else
+        bundle_id.create_capability(hotspot)
+        UI.success("Switched on Hotspot Configuration for #{identifier}")
       end
     end
   end
@@ -77,6 +87,8 @@ platform :ios do
     version = ENV["MARKETING_VERSION"] || xcconfig_version
     build = ENV["BUILD_NUMBER"] || commit_count
     UI.message("SecureQR #{version} (#{build})")
+    # codesign cannot ask for the keychain password in a shell without a screen (ssh): open the signing keychain first.
+    unlock_keychain(path: keychain_path, password: ENV.fetch("KINFRAME_KEYCHAIN_PASSWORD"), add_to_search_list: true) unless ENV["CI"]
     build_app(
       project: PROJECT,
       scheme: SCHEME,

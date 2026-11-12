@@ -160,7 +160,7 @@ private fun ActionButtons(content: QrContent, onAction: (QrAction) -> Unit) {
         // Opening the payment app is the whole point of a payment-app link.
         QrAction.OPEN_IN_PAYMENT_APP in actions -> QrAction.OPEN_IN_PAYMENT_APP
         content.level == NoticeLevel.NEUTRAL -> actions.first()
-        else -> actions.firstOrNull { it != QrAction.OPEN_IN_APP } ?: actions.first()
+        else -> actions.firstOrNull { it != QrAction.OPEN_IN_APP && it != QrAction.JOIN_WIFI } ?: actions.first()
     }
     val secondary = actions.filter { it != primary }
 
@@ -237,6 +237,15 @@ private fun perform(context: Context, content: QrContent, action: QrAction) {
         // The scanned link, unchanged: the installed payment app claims it, else the provider's page opens.
         QrAction.OPEN_IN_PAYMENT_APP ->
             if (!SystemActions.openLink(context, content.raw)) SystemActions.toast(context, R.string.content_no_payment_app)
+
+        QrAction.JOIN_WIFI -> when (SystemActions.joinWifi(context, content)) {
+            SystemActions.WifiJoin.ASKED -> Unit
+            SystemActions.WifiJoin.SETTINGS_OPENED -> SystemActions.toast(
+                context,
+                if (content.field(FieldLabel.PASSWORD) == null) R.string.wifi_choose_in_settings else R.string.wifi_password_copied,
+            )
+            SystemActions.WifiJoin.FAILED -> SystemActions.toast(context, R.string.wifi_cannot_join)
+        }
 
         // For a sign-in secret this is issuer and account only, never the secret.
         QrAction.COPY -> SystemActions.copy(context, content.copyText)

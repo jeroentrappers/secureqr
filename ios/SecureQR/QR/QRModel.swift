@@ -211,6 +211,8 @@ enum QRAction: String, Equatable {
     case openInApp
     /// The same hand-off, worded for a payment-app link.
     case openInPaymentApp
+    /// Wi-Fi: ask the system to join the network. The system asks the user first.
+    case joinWiFi
     case copy
     case copyAll
     case copyIBAN
@@ -392,7 +394,9 @@ struct ScannedPayload: Equatable {
         case .emv: return [.copyAll]
         case .upi: return [.openInApp, .copy]
         case .crypto: return [.openInApp, .copyAddress]
-        case .wifi(let w): return w.password.isEmpty ? [] : [.copyPassword]
+        case .wifi(let w):
+            // Without a name there is nothing to join.
+            return (w.ssid.isEmpty ? [] : [.joinWiFi]) + (w.password.isEmpty ? [] : [.copyPassword])
         case .contact, .event: return [.copyAll]
         case .email, .phone, .sms, .geo: return [.openInApp, .copy]
         case .otp: return [.copy]

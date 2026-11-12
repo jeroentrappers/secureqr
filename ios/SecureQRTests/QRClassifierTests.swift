@@ -185,7 +185,7 @@ final class QRClassifierTests: XCTestCase {
         XCTAssertEqual(network.security, "WPA")
         XCTAssertNil(network.hidden)
         XCTAssertEqual(payload.notice.level, .neutral)
-        XCTAssertEqual(payload.actions, [.copyPassword])
+        XCTAssertEqual(payload.actions, [.joinWiFi, .copyPassword])
     }
 
     func testWiFiOpenNetwork() {
@@ -197,7 +197,7 @@ final class QRClassifierTests: XCTestCase {
         XCTAssertEqual(network.ssid, "Open")
         XCTAssertTrue(network.isOpen)
         XCTAssertEqual(payload.notice, QRNotice(level: .caution, messages: [.openNetwork]))
-        XCTAssertEqual(payload.actions, [])
+        XCTAssertEqual(payload.actions, [.joinWiFi])
     }
 
     func testMECARD() {

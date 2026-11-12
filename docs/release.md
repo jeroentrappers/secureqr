@@ -57,7 +57,11 @@ not "no data collected".
   - Processed ephemerally: **no** (site names stay in the server log)
   - Required, the user cannot turn it off
   - Purposes: **App functionality**, **Fraud prevention, security and compliance**
-- Nothing else: no location, no personal info, no photos (camera frames stay on the phone), no device IDs.
+- Data type: **App info and performance > Diagnostics** and **Device or other IDs**. These come from
+  Google's ML Kit barcode library, which reports its own use to Google (device and app information,
+  performance, error codes, a per-installation identifier). Collected: yes. Shared: no. Not ephemeral.
+  Required. Purpose: **Analytics**.
+- Nothing else: no location, no personal info, no photos (camera frames stay on the phone).
 
 **Production access.** A personal developer account created after 13 November
 2023 must first run a closed test with 12 testers for 14 days. Organisation

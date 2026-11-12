@@ -13,6 +13,7 @@
     <string name="action_retry">Retry</string>
     <string name="action_open_in_app">Open in app</string>
     <string name="action_open_in_payment_app">Open in payment app</string>
+    <string name="action_join_wifi">Join network</string>
     <string name="action_copy">Copy</string>
     <string name="action_copy_all">Copy all</string>
     <string name="action_copy_iban">Copy IBAN</string>
@@ -173,6 +174,9 @@
     <string name="content_hide_raw">Hide raw content</string>
     <string name="content_reveal">Show</string>
     <string name="content_conceal">Hide</string>
+    <string name="wifi_password_copied">Password copied. Choose the network to join it.</string>
+    <string name="wifi_choose_in_settings">Choose the network to join it.</string>
+    <string name="wifi_cannot_join">Wi-Fi settings could not be opened.</string>
     <string name="content_no_app">No app on this phone can open this.</string>
     <string name="content_secret_hidden">The secret part is left out here.</string>
     <string name="content_from_history_redacted">Secrets are never saved in your history, so this entry is incomplete. Scan the code again to see all of it.</string>
