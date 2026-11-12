@@ -68,7 +68,8 @@ Field notes:
 - `finalDomain` is the registrable domain (eTLD+1) of `finalHost`; for IP
   addresses it equals `finalHost`. Clients highlight this part of `finalHost`.
 - `screenshotUrl` is relative to the API base URL. JPEG, 390 pt wide phone
-  viewport rendered at 2x (780 x 1688 px). Available for 15 minutes. May be `null` if the page
+  viewport rendered at 2x (780 x 1688 px). Available for 15 minutes after the
+  answer that carries it; fetch it then, not later. May be `null` if the page
   could not be rendered.
 - `verdict.level` is `ok`, `caution` or `danger`. `reasons` is ordered most
   important first and may be empty when `level` is `ok`. `message` is
@@ -82,8 +83,10 @@ Field notes:
   `checked` is non-empty and `flaggedBy` is empty, and no chip when `checked`
   is empty. Treat the whole field as optional when decoding.
 - `checkedAt` / `cached` (optional): the server reuses the answer for the
-  same link for 10 minutes. `cached` is true for a reused answer and
-  `checkedAt` is when the link was actually visited.
+  same link for an hour. `cached` is true for a reused answer and
+  `checkedAt` is when the link was actually visited. A reused answer has
+  `reputation` and `verdict` brought up to date with the blocklists as they
+  are now; the rest is as it was at `checkedAt`.
 - `appLink` (optional, may be `null`): `{ "scheme": "itsme" }` when the chain
   ends by redirecting to an app scheme instead of a web page (`itsme://`,
   `intent://`, `bankapp://` …). The server cannot follow that step, so

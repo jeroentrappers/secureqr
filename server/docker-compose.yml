@@ -11,6 +11,7 @@ services:
       TRUST_PROXY: "1"
       RATE_LIMIT_PER_MIN: "20"
       MAX_CONCURRENCY: "3"
+      CACHE_DIR: /var/cache/secureqr
     # Chromium runs as a non-root user inside its own sandbox, which needs
     # user namespaces. The seccomp profile is Docker's default plus those calls.
     # Docker's default AppArmor profile forbids them, so it is switched off here;
@@ -22,9 +23,15 @@ services:
       - apparmor=unconfined
       - no-new-privileges:true
     read_only: true
+    # Kept answers (encrypted, see README "Result reuse"); the only writable disk.
+    volumes:
+      - cache:/var/cache/secureqr
     tmpfs:
       - /tmp:exec,size=512m
       - /home/pwuser:exec,size=256m,uid=1001,gid=1001
     shm_size: 1gb
     mem_limit: 2g
     pids_limit: 512
+
+volumes:
+  cache:

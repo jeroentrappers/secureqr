@@ -1,6 +1,6 @@
 import { randomBytes } from 'node:crypto';
 
-/** Short-lived in-memory screenshot store. Nothing is written to disk. */
+/** Short-lived in-memory screenshot store, for pictures the apps are about to fetch. */
 export class ScreenshotStore {
   private items = new Map<string, { data: Buffer; expires: number }>();
   constructor(private ttlMs: number, private maxItems = 300) {}

@@ -21,6 +21,10 @@ services:
       TRUST_PROXY: "1"
       RATE_LIMIT_PER_MIN: "{{ secureqr_rate_limit_per_min }}"
       MAX_CONCURRENCY: "{{ secureqr_max_concurrency }}"
+      WARM_PAGES: "{{ secureqr_warm_pages }}"
+      CACHE_DIR: /var/cache/secureqr
+      RESULT_TTL_SEC: "{{ secureqr_result_ttl_sec }}"
+      CACHE_MAX_MB: "{{ secureqr_cache_max_mb }}"
     # Chromium runs as a non-root user inside its own sandbox, which needs user
     # namespaces: the seccomp profile is Docker's default plus those calls, and
     # the AppArmor profile is Docker's default plus `userns`.
@@ -31,6 +35,9 @@ services:
       - apparmor={{ secureqr_apparmor_profile }}
       - no-new-privileges:true
     read_only: true
+    # Kept answers (encrypted, see server/README.md "Result reuse"); the only writable disk.
+    volumes:
+      - cache:/var/cache/secureqr
     tmpfs:
       - /tmp:exec,size=512m
       - /home/pwuser:exec,size=256m,uid=1001,gid=1001
@@ -40,6 +47,9 @@ services:
     logging:
       driver: json-file
       options: { max-size: "10m", max-file: "3" }
+
+volumes:
+  cache:
 
 # Its own bridge with a fixed name and range, so the host firewall
 # (secureqr-firewall.sh) can pin it to the public internet.

@@ -21,6 +21,8 @@ WORKDIR /app
 COPY --from=build /app/node_modules ./node_modules
 COPY --from=build /app/dist ./dist
 COPY package.json ./
+# Where the result cache volume is mounted; a new volume takes over this owner.
+RUN install -d -o pwuser -g pwuser -m 700 /var/cache/secureqr
 USER pwuser
 EXPOSE 8080
 HEALTHCHECK --interval=30s --timeout=5s --retries=3 CMD node -e "fetch('http://127.0.0.1:8080/healthz').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"

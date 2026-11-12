@@ -29,7 +29,11 @@ curl -s -X POST localhost:8080/v1/preview -H 'content-type: application/json' \
 | `MAX_CONCURRENCY` / `MAX_QUEUE` | `3` / `12` | parallel browser jobs / waiting jobs before answering 429 |
 | `ALLOWED_PORTS` | `80,443,8080,8443` | ports the browser may connect to (`*` = any) |
 | `TRUST_PROXY` | `0` | set `1` behind nginx so the client IP comes from `X-Forwarded-For` |
-| `SCREENSHOT_TTL_SEC` | `900` | how long screenshots stay available |
+| `SCREENSHOT_TTL_SEC` | `900` | how long a screenshot can be fetched after an answer that points at it |
+| `WARM_PAGES` | `2` | browser tabs kept open and ready for the next check (`0` = none) |
+| `CACHE_DIR` | (none) | directory where answers are kept; when empty they are kept in memory and lost on restart |
+| `RESULT_TTL_SEC` | `3600` | how long the answer for a link is reused |
+| `CACHE_MAX_MB` | `256` | size limit of the kept answers; the oldest go first |
 | `NAV_TIMEOUT_MS` / `JOB_TIMEOUT_MS` | `15000` / `30000` | page-load and whole-job limits |
 | `CHROMIUM_SANDBOX` | `1` | keep on; `0` disables the browser's own sandbox |
 | `ALLOW_PRIVATE` | `0` | tests/local only: lets the browser reach private addresses |
@@ -47,11 +51,14 @@ The server opens links chosen by strangers, so the browser is treated as hostile
   WebRTC is limited to proxied traffic and QUIC is off.
 - **Fresh context per job**: no cookies or storage carried over; service
   workers, downloads, permissions and pop-ups are blocked; dialogs dismissed.
+  The spare tabs (below) are each a fresh context with its own proxy, used for
+  one job and then closed; nothing is shared between jobs.
 - **Limits**: per-job byte and connection caps in the proxy, navigation and job
   timeouts, concurrency and queue caps, per-IP rate limit, 8 KB body limit.
 - **Browser sandbox on**, running as a non-root user in a read-only container.
-- **Nothing kept**: screenshots live in memory for 15 minutes; logs contain
-  host names and verdict level only, never full URLs.
+- **Little kept**: answers are kept for an hour, unreadable without the link
+  (see Result reuse); logs contain host names and verdict level only, never
+  full URLs.
 
 ## Reputation checks
 
@@ -77,9 +84,36 @@ a good extra signal but has no coverage for `.be`.
 
 ## Result reuse
 
-The answer for a link is reused for 10 minutes (`cached: true`), and identical
-requests arriving at the same time share one visit. A popular code does not
-hit its target on every scan, and a single-use link is visited once.
+The answer for a link is reused for an hour (`RESULT_TTL_SEC`, `cached: true`),
+and identical requests arriving at the same time share one visit. A popular
+code does not hit its target on every scan, and a single-use link is visited
+once.
+
+Answers and their screenshots are kept in `CACHE_DIR` (`src/cache.ts`), so they
+survive a restart; without it they are kept in memory.
+
+- **Anonymous.** An entry holds the answer and the picture, nothing about who
+  asked or how often.
+- **Unreadable without the link.** A link can carry a personal token, so each
+  entry is encrypted (AES-256-GCM) with a key derived from the link and stored
+  under a different hash of it. Reading an entry takes the link itself; the
+  files alone show neither links nor pages. Someone with the files can still
+  test whether one particular link they already know was checked.
+- **Blocklists are asked again** for every reused answer, and the verdict is
+  redone if the listing changed, so a site that gets listed after it was
+  checked turns to `known_malicious` at once. The page itself is not visited
+  again within the hour, so a page that changes is seen late.
+- Expired entries are deleted when the server starts and as new ones are
+  written; above `CACHE_MAX_MB` the oldest go first.
+
+## Spare tabs
+
+`WARM_PAGES` tabs (context, egress proxy and blank page) are opened ahead of
+time and one is replaced as soon as it is taken, so a check starts navigating
+at once. On a developer machine this saves about 30 ms per check; the launch
+of the browser itself (80 ms) is paid once at start. Most of a check is spent
+waiting for the page: at least 0.8 s after it has loaded, to let script
+redirects fire.
 
 ## Limits worth knowing
 

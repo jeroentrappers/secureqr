@@ -20,7 +20,11 @@
   <div class="pitch">
     <h1>See where it goes before you go.</h1>
     <p class="lead">A QR code doesn't tell you where it leads. SecureQR opens the link on our server instead of your phone, follows every redirect, and shows you a picture of the page at the end. Then you decide.</p>
-    <p class="soon"><span class="pill">Coming soon</span> for iPhone and Android</p>
+    <div class="get">
+      <a class="store" href="https://play.google.com/store/apps/details?id=be.appmire.secureqr"><small>Get it on</small>Google Play</a>
+      <span class="store off" aria-disabled="true"><small>Coming soon to the</small>App Store</span>
+    </div>
+    <p class="soon">Free, no account, no ads. <a href="https://github.com/jeroentrappers/secureqr">Open source on GitHub</a>.</p>
     <a class="btn p" href="#demo">See it check a link</a>
   </div>
   <div class="phones" aria-hidden="true">
@@ -98,7 +102,7 @@
   <ul class="checks">
     <li><b>Only web links reach us.</b> Everything else in a QR code stays on your phone.</li>
     <li><b>No account, no tracking.</b> The app works without signing in and has no advertising, and we run no analytics of our own.</li>
-    <li><b>We keep very little.</b> Page pictures are held in memory for 15 minutes and then gone. Our logs record your IP address, as any web server does, plus the site names involved and the result, but not the full link.</li>
+    <li><b>We keep very little.</b> The result and the picture of a page are kept for an hour, locked with the link itself, and then gone. Our logs record your IP address, as any web server does, plus the site names involved and the result, but not the full link.</li>
     <li><b>Your scan history stays on your phone.</b> You can clear it at any time.</li>
     <li><b>Blocklist checks</b> send the site names (not the full link) to Quad9, Cloudflare and DNS4EU as ordinary DNS lookups.</li>
     <li><b>The full details</b> are in the <a href="/privacy">privacy policy</a>.</li>
@@ -107,7 +111,7 @@
 </section>
 </main>
 
-<footer class="wrap"><span>© 2026 Appmire CommV</span><span><a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/support">Support</a></span></footer>
+<footer class="wrap"><span>© 2026 Appmire CommV</span><span><a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/support">Support</a> · <a href="https://github.com/jeroentrappers/secureqr">GitHub</a></span></footer>
 <script src="/assets/site.js" defer></script>
 </body>
 </html>

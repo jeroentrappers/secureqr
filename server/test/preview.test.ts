@@ -1,6 +1,9 @@
 import { after, before, test } from 'node:test';
 import assert from 'node:assert/strict';
 import http from 'node:http';
+import { mkdtemp, readdir, rm } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import type { AddressInfo } from 'node:net';
 import type { FastifyInstance } from 'fastify';
 import { loadConfig } from '../src/config.ts';
@@ -115,6 +118,71 @@ test('a repeated link is answered from the recent result without a second visit'
   }
   assert.equal(visits, 1);
   assert.equal((await open.app.inject({ method: 'GET', url: first.screenshotUrl! })).statusCode, 200);
+});
+
+test('a kept answer is judged again when a blocklist lists the site later', async () => {
+  const u = `http://localhost:${port}/plain#listed-later`;
+  const first = (await post(open.app, u)).json() as PreviewResult;
+  assert.ok(!first.verdict.reasons.some((x) => x.code === 'known_malicious'));
+  flagged = { checked: ['Quad9'], flaggedBy: ['Quad9'], flaggedHost: 'localhost' };
+  try {
+    const again = (await post(open.app, u)).json() as PreviewResult;
+    assert.equal(again.cached, true);
+    assert.equal(again.verdict.level, 'danger');
+    assert.equal(again.verdict.reasons[0]!.code, 'known_malicious');
+    assert.deepEqual(again.reputation, flagged);
+  } finally {
+    flagged = { checked: [], flaggedBy: [], flaggedHost: null };
+  }
+});
+
+test('answers kept on disk are reused after a restart, picture included', async () => {
+  const dir = await mkdtemp(join(tmpdir(), 'secureqr-results-'));
+  const env = { RATE_LIMIT_PER_MIN: '1000', CHROMIUM_SANDBOX: process.env.CHROMIUM_SANDBOX ?? '1', ALLOW_PRIVATE: '1', CACHE_DIR: dir };
+  const u = `http://127.0.0.1:${port}/counted#disk`;
+  const before = visits;
+  try {
+    const one = await buildApp(loadConfig(env), { logger: false, reputation: noReputation });
+    const first = (await post(one.app, u)).json() as PreviewResult;
+    await one.app.close();
+    assert.equal(first.cached, false);
+    assert.equal((await readdir(dir)).length, 1);
+
+    const two = await buildApp(loadConfig(env), { logger: false, reputation: noReputation });
+    try {
+      const again = (await post(two.app, u)).json() as PreviewResult;
+      assert.equal(again.cached, true);
+      assert.equal(again.checkedAt, first.checkedAt);
+      assert.deepEqual(again.verdict, first.verdict);
+      const img = await two.app.inject({ method: 'GET', url: again.screenshotUrl! });
+      assert.equal(img.statusCode, 200);
+      assert.deepEqual([...img.rawPayload.subarray(0, 2)], [0xff, 0xd8]);
+    } finally {
+      await two.app.close();
+    }
+    assert.equal(visits, before + 1);
+  } finally {
+    await rm(dir, { recursive: true, force: true });
+  }
+});
+
+test('spare tabs are opened ahead of a check and replaced as they are used', async () => {
+  const env = { RATE_LIMIT_PER_MIN: '1000', CHROMIUM_SANDBOX: process.env.CHROMIUM_SANDBOX ?? '1', ALLOW_PRIVATE: '1', WARM_PAGES: '2' };
+  const warm = await buildApp(loadConfig(env), { logger: false, reputation: noReputation });
+  const spare = () => (warm.previewer as unknown as { spare: Promise<{ page: { isClosed(): boolean } }>[] }).spare;
+  try {
+    warm.previewer.warm();
+    assert.equal(spare().length, 2);
+    const ready = await Promise.all(spare());
+    const results = await Promise.all(['a', 'b', 'c'].map((x) => post(warm.app, `http://localhost:${port}/plain#warm-${x}`)));
+    for (const res of results) assert.equal(res.statusCode, 200, res.body);
+    // the two that waited were used and thrown away, and two new ones wait
+    assert.ok(ready.every((s) => s.page.isClosed()));
+    assert.equal(spare().length, 2);
+    assert.ok((await Promise.all(spare())).every((s) => !s.page.isClosed()));
+  } finally {
+    await warm.app.close();
+  }
 });
 
 test('rejects things that are not web links', async () => {

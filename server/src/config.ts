@@ -15,6 +15,13 @@ export interface Config {
   jobTimeoutMs: number;
   /** App keys accepted on the preview endpoints. Empty = no key needed (local development). */
   apiKeys: string[];
+  /** Browser tabs kept open and ready, so a check starts without setting one up. 0 = none. */
+  warmPages: number;
+  /** Where answers for recent links are kept. null = in memory only. */
+  cacheDir: string | null;
+  /** How long the answer for a link is reused. */
+  resultTtlMs: number;
+  cacheMaxBytes: number;
 }
 
 const bool = (v: string | undefined, d: boolean) => (v === undefined ? d : v === '1' || v.toLowerCase() === 'true');
@@ -39,5 +46,9 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): Config {
     navTimeoutMs: int(env.NAV_TIMEOUT_MS, 15000),
     jobTimeoutMs: int(env.JOB_TIMEOUT_MS, 30000),
     apiKeys: (env.API_KEYS ?? '').split(',').map((k) => k.trim()).filter((k) => k.length > 0),
+    warmPages: /^\d+$/.test(env.WARM_PAGES ?? '') ? Number(env.WARM_PAGES) : 2,
+    cacheDir: env.CACHE_DIR?.trim() || null,
+    resultTtlMs: int(env.RESULT_TTL_SEC, 3600) * 1000,
+    cacheMaxBytes: int(env.CACHE_MAX_MB, 256) * 1024 * 1024,
   };
 }

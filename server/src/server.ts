@@ -2,8 +2,9 @@ import { createHash, timingSafeEqual } from 'node:crypto';
 import { PassThrough } from 'node:stream';
 import Fastify, { type FastifyInstance, type FastifyRequest } from 'fastify';
 import rateLimit from '@fastify/rate-limit';
+import { ResultCache } from './cache.js';
 import type { Config } from './config.js';
-import { parseScannedUrl, PreviewError, Previewer } from './preview.js';
+import { parseScannedUrl, PreviewError, Previewer, type KeptResult } from './preview.js';
 import { dnsReputation, type ReputationCheck } from './reputation.js';
 import { ScreenshotStore } from './store.js';
 
@@ -15,7 +16,8 @@ export interface AppDeps {
 export async function buildApp(cfg: Config, deps: AppDeps = {}): Promise<{ app: FastifyInstance; previewer: Previewer }> {
   const app = Fastify({ logger: deps.logger ?? true, trustProxy: cfg.trustProxy, bodyLimit: 8 * 1024 });
   const store = new ScreenshotStore(cfg.screenshotTtlMs);
-  const previewer = new Previewer(cfg, store, deps.reputation ?? dnsReputation((msg) => app.log.info(msg)));
+  const cache = await ResultCache.open<KeptResult>(cfg.cacheDir, cfg.resultTtlMs, cfg.cacheMaxBytes, (msg) => app.log.info(msg));
+  const previewer = new Previewer(cfg, store, deps.reputation ?? dnsReputation((msg) => app.log.info(msg)), cache);
 
   const fail = (code: string, message: string) => ({ error: { code, message } });
 

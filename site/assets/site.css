@@ -34,7 +34,12 @@ nav a:hover { color: var(--ink); }
 
 .hero { display: grid; grid-template-columns: 1.05fr 1fr; gap: 40px; align-items: center; padding-top: 32px; }
 @media (max-width: 860px) { .hero { grid-template-columns: 1fr; } }
-.soon { font-weight: 600; margin-bottom: 20px; }
+.soon { font-weight: 600; margin-bottom: 20px; color: var(--muted); }
+.get { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 14px; }
+.store { display: inline-flex; flex-direction: column; justify-content: center; min-width: 168px; padding: 9px 18px; border-radius: 14px;
+         background: var(--ink); color: var(--bg); text-decoration: none; font-weight: 800; font-size: 19px; line-height: 1.1; }
+.store small { font-weight: 600; font-size: 11px; letter-spacing: .02em; opacity: .85; }
+.store.off { background: transparent; color: var(--muted); border: 1px dashed var(--line); }
 .pill { background: color-mix(in srgb, var(--accent) 14%, var(--surface)); color: var(--accent); border-radius: 99px; padding: 4px 12px; font-size: 14px; font-weight: 800; margin-right: 6px; }
 
 .btn { display: inline-block; border-radius: var(--r); padding: 13px 22px; text-align: center; font: 800 16px/1.2 inherit; font-family: inherit;

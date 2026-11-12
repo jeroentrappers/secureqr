@@ -14,7 +14,7 @@ Overschrijvingen, betaalverzoeken, wifi-netwerken, contacten en aanmeldcodes wor
 ▌Privacy voorop
 • Geen account, geen reclame en geen eigen analytics
 • Alleen weblinks gaan naar onze server; al de rest blijft op je telefoon
-• Foto's van pagina's worden 15 minuten bewaard en dan gewist
+• Resultaten en foto's van pagina's worden een uur bewaard en dan gewist
 • Je scangeschiedenis blijft op je telefoon en je kan ze altijd wissen
 
 Een resultaat zonder waarschuwingen betekent dat we niets verdachts vonden. Het is geen garantie.

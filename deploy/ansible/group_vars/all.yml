@@ -13,6 +13,12 @@ secureqr_site_src: "{{ playbook_dir }}/../../site"
 secureqr_rate_limit_per_min: 20   # previews per client IP per minute
 secureqr_max_concurrency: 4       # parallel headless-browser jobs
 secureqr_mem_limit: 3g
+secureqr_warm_pages: 2            # browser tabs kept open and ready for the next check
+
+# Answers are kept on disk (a Docker volume), encrypted with the link itself.
+# The privacy policy (site/privacy.html) states how long: change both together.
+secureqr_result_ttl_sec: 3600
+secureqr_cache_max_mb: 512
 
 # Chromium's sandbox needs user namespaces, which Docker's default AppArmor
 # profile denies. The role installs server/deploy/apparmor-secureqr (Docker's

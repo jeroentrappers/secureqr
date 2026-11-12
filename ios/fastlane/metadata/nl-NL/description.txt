@@ -2,19 +2,19 @@ Een QR-code zegt niet waar ze naartoe leidt. SecureQR kijkt eerst.
 
 Scan je een code met een weblink, dan opent SecureQR die niet. Onze server bezoekt de link voor jou, volgt elke doorverwijzing en neemt een foto van de pagina waar je uitkomt. Je ziet de echte bestemming, de foto en eventuele waarschuwingen, en daarna beslis jij.
 
-▌Waar het op let
+Waar het op let
 • Waar de link echt eindigt, met elke tussenstop
 • Sites op de dreigingslijsten van Quad9, Cloudflare en DNS4EU, en op een open lijst van actieve phishingsites
 • Pagina's die een wachtwoord of kaartgegevens vragen, niet versleuteld zijn, lijkende tekens gebruiken of een bestand willen downloaden
 • Links die een andere app willen openen
 
-▌Betaalcodes en andere codes
+Betaalcodes en andere codes
 Overschrijvingen, betaalverzoeken, wifi-netwerken, contacten en aanmeldcodes worden op je telefoon gelezen en in gewone taal getoond voor er iets gebeurt. Ze worden nooit naar ons gestuurd.
 
-▌Privacy voorop
+Privacy voorop
 • Geen account, geen reclame, geen analytics
 • Alleen weblinks gaan naar onze server; al de rest blijft op je telefoon
-• Foto's van pagina's worden 15 minuten bewaard en dan gewist
+• Resultaten en foto's van pagina's worden een uur bewaard en dan gewist
 • Je scangeschiedenis blijft op je telefoon en je kan ze altijd wissen
 
 Een resultaat zonder waarschuwingen betekent dat we niets verdachts vonden. Het is geen garantie.

@@ -1,10 +1,11 @@
-import { chromium, type Browser, type Frame, type Request } from 'playwright';
+import { chromium, type Browser, type BrowserContext, type Frame, type Page, type Request } from 'playwright';
+import type { ResultCache } from './cache.js';
 import type { Config } from './config.js';
-import { GuardError, resolveTarget } from './netguard.js';
-import { startEgressProxy } from './proxy.js';
+import { GuardError, resolveTarget, type GuardOptions } from './netguard.js';
+import { startEgressProxy, type EgressProxy } from './proxy.js';
 import type { Reputation, ReputationCheck } from './reputation.js';
 import type { ScreenshotStore } from './store.js';
-import { judge, registrableDomain, type Verdict } from './verdict.js';
+import { judge, registrableDomain, type Evidence, type Verdict } from './verdict.js';
 
 export type ErrorCode = 'invalid_url' | 'unauthorized' | 'blocked_target' | 'unreachable' | 'rate_limited' | 'timeout' | 'internal';
 
@@ -55,12 +56,23 @@ export interface PreviewOptions {
   onProgress?: (e: ProgressEvent) => void;
 }
 
+/** What is kept for a checked link: the answer, and what the verdict was based on so it can be judged again. */
+export interface KeptResult {
+  result: PreviewResult;
+  evidence: Evidence;
+}
+
+/** A browser tab with its own context and its own way out, used for one check and then thrown away. */
+interface Slot {
+  proxy: EgressProxy;
+  context: BrowserContext;
+  page: Page;
+  close(): Promise<void>;
+}
+
 const VIEWPORT = { width: 390, height: 844 };
 const MAX_URL_LENGTH = 2048;
 const MAX_HOPS = 20;
-/** Shorter than the screenshot lifetime, so a reused answer still has its picture. */
-const RESULT_CACHE_MS = 10 * 60 * 1000;
-const RESULT_CACHE_MAX = 250;
 const hostOf = (u: string) => new URL(u).hostname.replace(/^\[|\]$/g, '');
 
 export function parseScannedUrl(raw: unknown): URL {
@@ -100,14 +112,20 @@ export class Previewer {
   private browser: Promise<Browser> | null = null;
   private active = 0;
   private waiting: (() => void)[] = [];
-  private recent = new Map<string, { result: PreviewResult; expires: number }>();
   private inFlight = new Map<string, Promise<PreviewResult>>();
+  /** Tabs opened ahead of time, oldest first. */
+  private spare: Promise<Slot>[] = [];
+  private closed = false;
+  private guard: GuardOptions;
 
   constructor(
     private cfg: Config,
     private store: ScreenshotStore,
     private reputation: ReputationCheck,
-  ) {}
+    private cache: ResultCache<KeptResult>,
+  ) {
+    this.guard = { allowPrivate: cfg.allowPrivate, allowedPorts: cfg.allowedPorts };
+  }
 
   private launch(): Promise<Browser> {
     if (!this.browser) {
@@ -139,12 +157,79 @@ export class Previewer {
     return this.browser;
   }
 
-  /** Start the browser ahead of the first scan, so that scan does not pay for the launch. */
+  /** Start the browser and open the spare tabs ahead of the first scan, so that scan does not pay for them. */
   warm(): void {
     this.launch().catch(() => {});
+    this.refill();
+  }
+
+  /** A fresh context, with nothing carried over, behind its own egress proxy, and a blank tab in it. */
+  private async open(): Promise<Slot> {
+    const browser = await this.launch();
+    const proxy = await startEgressProxy(this.guard);
+    let context: BrowserContext | undefined;
+    try {
+      const major = browser.version().split('.')[0];
+      context = await browser.newContext({
+        proxy: { server: proxy.url, bypass: '<-loopback>' },
+        viewport: VIEWPORT,
+        deviceScaleFactor: 2,
+        isMobile: true,
+        hasTouch: true,
+        userAgent: `Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${major}.0.0.0 Mobile Safari/537.36`,
+        locale: 'en-US',
+        serviceWorkers: 'block',
+        acceptDownloads: false,
+        permissions: [],
+      });
+      const ctx = context;
+      const page = await ctx.newPage();
+      return {
+        proxy,
+        context: ctx,
+        page,
+        close: async () => {
+          await ctx.close().catch(() => {});
+          await proxy.close();
+        },
+      };
+    } catch (e) {
+      await context?.close().catch(() => {});
+      await proxy.close();
+      throw e;
+    }
+  }
+
+  /** Open spare tabs until the configured number is waiting. */
+  private refill(): void {
+    while (!this.closed && this.spare.length < this.cfg.warmPages) {
+      const s = this.open();
+      s.catch(() => {
+        const i = this.spare.indexOf(s);
+        if (i >= 0) this.spare.splice(i, 1);
+      });
+      this.spare.push(s);
+    }
+  }
+
+  /** A tab for one check: a spare one when there is one, and a replacement is started right away. */
+  private async take(): Promise<Slot> {
+    for (let s = this.spare.shift(); s; s = this.spare.shift()) {
+      const slot = await s.catch(() => null);
+      if (slot && !slot.page.isClosed() && slot.context.browser()?.isConnected()) {
+        this.refill();
+        return slot;
+      }
+      await slot?.close(); // its browser went away while it waited
+    }
+    const slot = await this.open();
+    this.refill();
+    return slot;
   }
 
   async close(): Promise<void> {
+    this.closed = true;
+    for (const s of this.spare.splice(0)) await s.then((slot) => slot.close(), () => {});
     const b = this.browser;
     this.browser = null;
     if (b) await b.then((x) => x.close()).catch(() => {});
@@ -168,38 +253,54 @@ export class Previewer {
   }
 
   /**
-   * Preview a link, reusing a recent answer for the same link. Reuse keeps a
+   * Preview a link, reusing a kept answer for the same link. Reuse keeps a
    * popular code (a poster, a menu) from hitting its target on every scan, and
    * means a single-use link is visited once rather than once per viewer.
    */
   async preview(rawUrl: unknown, opts: PreviewOptions = {}): Promise<PreviewResult> {
     const url = parseScannedUrl(rawUrl);
     const key = url.href;
-    const hit = this.recent.get(key);
-    if (hit) {
-      const pictureGone = hit.result.screenshotUrl !== null && this.store.get(hit.result.id) === null;
-      if (hit.expires > Date.now() && !pictureGone) return { ...hit.result, cached: true };
-      this.recent.delete(key);
-    }
-    const running = this.inFlight.get(key);
-    if (running) return running.then((r) => ({ ...r, cached: true }));
+    const joined = (running: Promise<PreviewResult>) => running.then((r) => ({ ...r, cached: true }));
+    let running = this.inFlight.get(key);
+    if (running) return joined(running);
+    const kept = await this.cache.get(key);
+    if (kept) return this.reuse(kept.value, kept.blob);
+    running = this.inFlight.get(key); // started while the cache was being read
+    if (running) return joined(running);
 
-    const fresh = this.visit(url, opts);
+    // Kept before the visit counts as over, so a request arriving in between finds one or the other.
+    const fresh = this.visit(url, opts).then(async (v) => {
+      await this.cache.put(key, { result: v.result, evidence: v.evidence }, v.shot);
+      return v.result;
+    });
     this.inFlight.set(key, fresh);
     try {
-      const result = await fresh;
-      for (const [k, v] of this.recent) if (v.expires <= Date.now()) this.recent.delete(k);
-      while (this.recent.size >= RESULT_CACHE_MAX) this.recent.delete(this.recent.keys().next().value!);
-      this.recent.set(key, { result, expires: Date.now() + RESULT_CACHE_MS });
-      return result;
+      return await fresh;
     } finally {
       this.inFlight.delete(key);
     }
   }
 
-  private async visit(url: URL, opts: PreviewOptions): Promise<PreviewResult> {
+  /**
+   * Answer from a kept result. The page is not visited again, but the
+   * blocklists are asked again: a site can be listed after it was checked.
+   */
+  private async reuse(kept: KeptResult, shot: Buffer | null): Promise<PreviewResult> {
+    const r = kept.result;
+    if (shot && this.store.get(r.id) === null) this.store.put(r.id, shot);
+    let { reputation, verdict } = r;
+    const now = await this.reputation([...r.hops.map((h) => h.host), r.finalHost]).catch(() => null);
+    // A listing always counts. "Not listed" only replaces the kept answer when every service that answered then answers now.
+    if (now && (now.flaggedBy.length > 0 || (now.checked.length > 0 && reputation.checked.every((p) => now.checked.includes(p))))) {
+      if (now.flaggedBy.join() !== reputation.flaggedBy.join()) verdict = judge({ ...kept.evidence, flaggedBy: now.flaggedBy });
+      reputation = now;
+    }
+    return { ...r, screenshotUrl: shot ? r.screenshotUrl : null, reputation, verdict, cached: true };
+  }
+
+  private async visit(url: URL, opts: PreviewOptions): Promise<Visit> {
     const started = Date.now();
-    const guard = { allowPrivate: this.cfg.allowPrivate, allowedPorts: this.cfg.allowedPorts };
+    const guard = this.guard;
     const emit = (e: ProgressEvent) => {
       try {
         opts.onProgress?.(e);
@@ -229,7 +330,7 @@ export class Previewer {
 
     await this.acquire();
     let timer: NodeJS.Timeout | undefined;
-    const job = this.run(url, guard, started, emit, lookUp, lookups);
+    const job = this.run(url, started, emit, lookUp, lookups);
     try {
       return await Promise.race([
         job.result,
@@ -247,38 +348,27 @@ export class Previewer {
 
   private run(
     url: URL,
-    guard: { allowPrivate: boolean; allowedPorts: Set<number> | null },
     started: number,
     emit: (e: ProgressEvent) => void,
     lookUp: (host: string) => void,
     lookups: Map<string, Promise<unknown>>,
   ) {
-    const cleanup: (() => Promise<unknown>)[] = [];
+    let slot: Slot | null = null;
+    let disposed = false;
     const dispose = async () => {
-      for (const fn of cleanup.splice(0).reverse()) await fn().catch(() => {});
+      disposed = true;
+      await slot?.close().catch(() => {});
     };
 
-    const result = (async (): Promise<PreviewResult> => {
-      const browser = await this.launch();
-      const proxy = await startEgressProxy(guard);
-      cleanup.push(() => proxy.close());
-
-      const major = browser.version().split('.')[0];
-      const context = await browser.newContext({
-        proxy: { server: proxy.url, bypass: '<-loopback>' },
-        viewport: VIEWPORT,
-        deviceScaleFactor: 2,
-        isMobile: true,
-        hasTouch: true,
-        userAgent: `Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${major}.0.0.0 Mobile Safari/537.36`,
-        locale: 'en-US',
-        serviceWorkers: 'block',
-        acceptDownloads: false,
-        permissions: [],
-      });
-      cleanup.push(() => context.close());
-
-      const page = await context.newPage();
+    const result = (async (): Promise<Visit> => {
+      const taken = await this.take();
+      if (disposed) {
+        // The check was given up on while the tab was being opened.
+        await taken.close().catch(() => {});
+        throw new PreviewError('timeout', 'The page took too long to load', 504);
+      }
+      slot = taken;
+      const { proxy, context, page } = taken;
       context.on('page', (p) => {
         if (p !== page) void p.close().catch(() => {});
       });
@@ -442,7 +532,18 @@ export class Previewer {
       const id = this.store.newId();
       if (shot) this.store.put(id, shot);
 
-      return {
+      const evidence: Evidence = {
+        requestedUrl: url.href,
+        finalUrl,
+        redirects: cleanHops.length - 1,
+        hopUrls: cleanHops.map((h) => h.url),
+        download,
+        asksPassword,
+        asksPayment,
+        flaggedBy: reputation.flaggedBy,
+        appScheme,
+      };
+      const result: PreviewResult = {
         id,
         requestedUrl: url.href,
         finalUrl,
@@ -454,25 +555,23 @@ export class Previewer {
         screenshotUrl: shot ? `/v1/screenshots/${id}.jpg` : null,
         reputation,
         appLink: appScheme ? { scheme: appScheme } : null,
-        verdict: judge({
-          requestedUrl: url.href,
-          finalUrl,
-          redirects: cleanHops.length - 1,
-          hopUrls: cleanHops.map((h) => h.url),
-          download,
-          asksPassword,
-          asksPayment,
-          flaggedBy: reputation.flaggedBy,
-          appScheme,
-        }),
+        verdict: judge(evidence),
         durationMs: Date.now() - started,
         checkedAt: new Date(started).toISOString(),
         cached: false,
       };
+      return { result, evidence, shot };
     })();
 
     return { result, dispose };
   }
+}
+
+/** A finished visit: the answer, what its verdict rests on, and the picture. */
+interface Visit {
+  result: PreviewResult;
+  evidence: Evidence;
+  shot: Buffer | null;
 }
 
 function blockedError(): PreviewError {
