@@ -57,6 +57,14 @@ struct ScannerScreen: View {
             camera.stop()
         }
         .onChange(of: model.isScannerFrontmost) { _ in updateCamera() }
+        // Pinch anywhere on the scan screen to zoom the camera.
+        .simultaneousGesture(
+            MagnificationGesture()
+                .onChanged { scale in
+                    if showsLiveCamera { camera.pinch(scale: scale) }
+                }
+                .onEnded { _ in camera.endPinch() }
+        )
         .onChange(of: scenePhase) { phase in
             if phase == .active {
                 // The user may have changed the permission in Settings.

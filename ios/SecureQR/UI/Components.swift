@@ -346,3 +346,82 @@ enum Haptics {
         UINotificationFeedbackGenerator().notificationOccurred(.warning)
     }
 }
+
+// MARK: - Pinch to zoom
+
+/// Pinch to enlarge a picture in place, drag to move it while enlarged, and
+/// double-tap to go back to normal size. While the picture is not enlarged
+/// there is no drag gesture, so the page around it still scrolls.
+private struct PinchZoom: ViewModifier {
+    private let maximumScale: CGFloat = 5
+
+    @State private var scale: CGFloat = 1
+    @State private var scaleAtPinchStart: CGFloat = 1
+    @State private var offset: CGSize = .zero
+    @State private var offsetAtDragStart: CGSize = .zero
+    @State private var size: CGSize = .zero
+
+    func body(content: Content) -> some View {
+        content
+            .scaleEffect(scale)
+            .offset(offset)
+            .background(
+                GeometryReader { proxy in
+                    Color.clear
+                        .onAppear { size = proxy.size }
+                        .onChange(of: proxy.size) { size = $0 }
+                }
+            )
+            .clipped()
+            .contentShape(Rectangle())
+            .onTapGesture(count: 2) {
+                withAnimation(.easeOut(duration: 0.2)) { reset() }
+            }
+            .simultaneousGesture(
+                MagnificationGesture()
+                    .onChanged { value in
+                        scale = min(max(scaleAtPinchStart * value, 1), maximumScale)
+                        offset = clamped(offset)
+                    }
+                    .onEnded { _ in
+                        scaleAtPinchStart = scale
+                        if scale <= 1 { reset() }
+                    }
+            )
+            .gesture(scale > 1 ? drag : nil)
+    }
+
+    private var drag: some Gesture {
+        DragGesture()
+            .onChanged { value in
+                offset = clamped(CGSize(
+                    width: offsetAtDragStart.width + value.translation.width,
+                    height: offsetAtDragStart.height + value.translation.height
+                ))
+            }
+            .onEnded { _ in offsetAtDragStart = offset }
+    }
+
+    /// Keeps the picture inside its frame: it may move by half of what it grew.
+    private func clamped(_ proposed: CGSize) -> CGSize {
+        let maxX = size.width * (scale - 1) / 2
+        let maxY = size.height * (scale - 1) / 2
+        return CGSize(
+            width: min(max(proposed.width, -maxX), maxX),
+            height: min(max(proposed.height, -maxY), maxY)
+        )
+    }
+
+    private func reset() {
+        scale = 1
+        scaleAtPinchStart = 1
+        offset = .zero
+        offsetAtDragStart = .zero
+    }
+}
+
+extension View {
+    func pinchZoom() -> some View {
+        return modifier(PinchZoom())
+    }
+}

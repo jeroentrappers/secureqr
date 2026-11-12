@@ -2,6 +2,8 @@ package be.appmire.secureqr.ui.scan
 
 import android.util.Size
 import android.view.HapticFeedbackConstants
+import android.view.MotionEvent
+import android.view.ScaleGestureDetector
 import androidx.camera.core.Camera
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
@@ -26,6 +28,7 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import com.google.mlkit.vision.barcode.BarcodeScanner
 import com.google.mlkit.vision.barcode.ZoomSuggestionOptions
 import java.util.concurrent.Executors
+import java.util.concurrent.atomic.AtomicBoolean
 
 /**
  * Live camera preview that reports the first QR code it sees, once.
@@ -51,6 +54,32 @@ internal fun CameraPreview(
         PreviewView(context).apply { scaleType = PreviewView.ScaleType.FILL_CENTER }
     }
     var camera by remember { mutableStateOf<Camera?>(null) }
+
+    // Pinch to zoom the camera. Once the user has chosen a zoom, the automatic zoom below leaves it alone.
+    val zoomedByHand = remember { AtomicBoolean(false) }
+    val currentCamera by rememberUpdatedState(camera)
+    DisposableEffect(previewView) {
+        val pinch = ScaleGestureDetector(
+            context,
+            object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
+                override fun onScale(detector: ScaleGestureDetector): Boolean {
+                    val bound = currentCamera ?: return false
+                    val state = bound.cameraInfo.zoomState.value ?: return false
+                    zoomedByHand.set(true)
+                    bound.cameraControl.setZoomRatio(
+                        (state.zoomRatio * detector.scaleFactor).coerceIn(state.minZoomRatio, state.maxZoomRatio),
+                    )
+                    return true
+                }
+            },
+        )
+        previewView.setOnTouchListener { view, event ->
+            pinch.onTouchEvent(event)
+            if (event.actionMasked == MotionEvent.ACTION_UP) view.performClick()
+            true
+        }
+        onDispose { previewView.setOnTouchListener(null) }
+    }
 
     DisposableEffect(lifecycleOwner) {
         val analysisExecutor = Executors.newSingleThreadExecutor()
@@ -89,8 +118,12 @@ internal fun CameraPreview(
                 // ML Kit suggests a zoom ratio when it sees a code that is too small to read.
                 val maxZoom = bound.cameraInfo.zoomState.value?.maxZoomRatio ?: 1f
                 val zoom = ZoomSuggestionOptions.Builder { ratio ->
-                    bound.cameraControl.setZoomRatio(ratio)
-                    true
+                    if (zoomedByHand.get()) {
+                        false
+                    } else {
+                        bound.cameraControl.setZoomRatio(ratio)
+                        true
+                    }
                 }.setMaxSupportedZoomRatio(maxZoom).build()
 
                 val qrScanner = qrScanner(zoom).also { scanner = it }
@@ -110,6 +143,7 @@ internal fun CameraPreview(
         }, ContextCompat.getMainExecutor(context))
 
         onDispose {
+            zoomedByHand.set(false)
             disposed = true
             provider?.unbindAll()
             scanner?.close()

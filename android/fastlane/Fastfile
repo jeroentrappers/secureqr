@@ -107,11 +107,15 @@ platform :android do
     version_code = gradle[/versionCode\s*=\s*(\d+)/, 1]&.to_i
     UI.user_error!("No versionCode found in app/build.gradle.kts") if version_code.nil?
 
+    # Until the app has passed its first review Play only accepts a draft
+    # (RELEASE_STATUS=draft): it is then rolled out from Play Console.
+    draft = ENV["RELEASE_STATUS"] == "draft"
     upload_to_play_store(
       track: "internal",
       track_promote_to: "production",
+      track_promote_release_status: draft ? "draft" : "inProgress",
       version_code: version_code,
-      rollout: ENV.fetch("ROLLOUT", "0.1"),
+      rollout: draft ? nil : ENV.fetch("ROLLOUT", "0.1"),
       skip_upload_apk: true,
       skip_upload_aab: true,
       # Promote only: listing text and the changelog already travel with

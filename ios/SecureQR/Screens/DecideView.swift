@@ -250,6 +250,7 @@ private struct ScreenshotCard: View {
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(maxWidth: .infinity)
+                                .pinchZoom()
                                 .accessibilityLabel(Text(L("decide.screenshot.label")))
                         } else {
                             Color.clear
@@ -260,6 +261,7 @@ private struct ScreenshotCard: View {
                                         .aspectRatio(contentMode: .fill)
                                 }
                                 .clipped()
+                                .pinchZoom()
                                 .accessibilityLabel(Text(L("decide.screenshot.label")))
                         }
                         pageToggle

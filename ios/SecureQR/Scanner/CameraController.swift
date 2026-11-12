@@ -26,6 +26,10 @@ final class CameraController: NSObject, ObservableObject {
     // sessionQueue only
     private var isConfigured = false
     private var device: AVCaptureDevice?
+    /// The zoom when the current pinch began; nil between pinches.
+    private var zoomAtPinchStart: CGFloat?
+    /// Digital zoom beyond this is too blurry to read a code.
+    private let maximumZoom: CGFloat = 8
 
     // videoQueue only
     private var detectionEnabled = false
@@ -74,6 +78,31 @@ final class CameraController: NSObject, ObservableObject {
             DispatchQueue.main.async {
                 self.isTorchOn = false
             }
+        }
+    }
+
+    /// Pinch on the camera picture. `scale` is the pinch's size relative to
+    /// where it began, so the zoom follows the fingers.
+    func pinch(scale: CGFloat) {
+        sessionQueue.async { [weak self] in
+            guard let self = self, let device = self.device else { return }
+            let start = self.zoomAtPinchStart ?? device.videoZoomFactor
+            self.zoomAtPinchStart = start
+            let limit = min(device.activeFormat.videoMaxZoomFactor, self.maximumZoom)
+            let factor = max(1, min(start * scale, limit))
+            do {
+                try device.lockForConfiguration()
+                device.videoZoomFactor = factor
+                device.unlockForConfiguration()
+            } catch {
+                // Zoom is a convenience; leave it as it is.
+            }
+        }
+    }
+
+    func endPinch() {
+        sessionQueue.async { [weak self] in
+            self?.zoomAtPinchStart = nil
         }
     }
 

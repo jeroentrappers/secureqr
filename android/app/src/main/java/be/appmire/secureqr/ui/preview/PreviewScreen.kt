@@ -55,6 +55,7 @@ import be.appmire.secureqr.data.PreviewResponse
 import be.appmire.secureqr.data.ReputationStatus
 import be.appmire.secureqr.data.VerdictLevel
 import be.appmire.secureqr.qr.hostOf
+import be.appmire.secureqr.ui.pinchZoom
 import be.appmire.secureqr.ui.components.Banner
 import be.appmire.secureqr.ui.components.BannerTone
 import be.appmire.secureqr.ui.components.BrandCard
@@ -325,14 +326,17 @@ private fun Screenshot(url: String?, host: String, https: Boolean) {
                     alignment = Alignment.TopCenter,
                     onSuccess = { loaded = true },
                     onError = { failed = true },
+                    // Pinch to read small print; the zoom resets when the picture is expanded or collapsed.
                     modifier = if (expanded) {
                         Modifier
                             .fillMaxWidth()
                             .aspectRatio(SCREENSHOT_ASPECT)
+                            .pinchZoom(key = true)
                     } else {
                         Modifier
                             .fillMaxWidth()
                             .height(SCREENSHOT_COLLAPSED_HEIGHT)
+                            .pinchZoom(key = false)
                     },
                 )
                 if (!loaded) ScreenshotMessage(stringResource(R.string.screenshot_loading))
