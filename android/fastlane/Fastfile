@@ -17,7 +17,8 @@ require "fileutils"
 
 default_platform(:android)
 
-LOCALES = %w[en-US nl-NL]
+# Every listing language: the folders under fastlane/metadata/android.
+LOCALES = Dir.children(File.expand_path("metadata/android", __dir__)).sort
 
 platform :android do
 
