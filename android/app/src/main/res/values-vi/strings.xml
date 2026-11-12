@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Common actions -->
+    <string name="action_back">Quay lại</string>
+    <string name="action_open">Mở</string>
+    <string name="action_cancel">Hủy</string>
+    <string name="action_open_anyway">Vẫn mở</string>
+    <string name="action_dont_open">Không mở</string>
+    <string name="action_retry">Thử lại</string>
+    <string name="action_open_in_app">Mở trong ứng dụng</string>
+    <string name="action_open_in_payment_app">Mở trong ứng dụng thanh toán</string>
+    <string name="action_join_wifi">Kết nối mạng</string>
+    <string name="action_add_contact">Thêm vào danh bạ</string>
+    <string name="action_add_event">Thêm vào lịch</string>
+    <string name="action_copy">Sao chép</string>
+    <string name="action_copy_all">Sao chép tất cả</string>
+    <string name="action_copy_iban">Sao chép IBAN</string>
+    <string name="action_copy_address">Sao chép địa chỉ</string>
+    <string name="action_copy_password">Sao chép mật khẩu</string>
+    <string name="copied">Đã sao chép</string>
+
+    <!-- Scan -->
+    <!-- %1$s is scan_hint_emphasis, shown highlighted -->
+    <string name="scan_hint">Hướng camera vào mã QR. %1$s cho đến khi bạn đồng ý.</string>
+    <string name="scan_hint_emphasis">Không có gì được mở</string>
+    <string name="scan_torch_on">Bật đèn pin</string>
+    <string name="scan_torch_off">Tắt đèn pin</string>
+    <string name="scan_pick_image">Quét ảnh trong thư viện</string>
+    <string name="scan_history">Lịch sử</string>
+    <string name="scan_no_qr_in_image">Không tìm thấy mã QR trong ảnh đó.</string>
+    <string name="scan_image_failed">Không đọc được ảnh đó.</string>
+    <string name="scan_camera_failed">Không khởi động được camera.</string>
+
+    <!-- Camera permission -->
+    <string name="permission_title">SecureQR cần dùng camera</string>
+    <string name="permission_rationale">Camera chỉ được dùng để đọc mã QR. Không có gì được ghi lại, và ảnh không bao giờ rời khỏi điện thoại của bạn.</string>
+    <string name="permission_allow">Cho phép camera</string>
+    <string name="permission_denied_title">Camera đang bị tắt</string>
+    <string name="permission_denied_body">SecureQR không thể quét khi không có camera. Bạn có thể bật camera trong Cài đặt, hoặc quét một ảnh trong thư viện.</string>
+    <string name="permission_open_settings">Mở Cài đặt</string>
+    <string name="permission_pick_image">Quét ảnh thay thế</string>
+
+    <!-- Checking -->
+    <string name="checking_label_says">Mã QR chứa</string>
+    <string name="checking_label_following">Đang đi theo link giúp bạn</string>
+    <string name="checking_contacting">Đang kết nối với máy chủ</string>
+    <string name="checking_step_done">Xong</string>
+    <string name="checking_progress">Đang mở trong trình duyệt khép kín…</string>
+    <string name="checking_note">Chúng tôi mở link trên máy chủ của mình, không bao giờ trên điện thoại của bạn.</string>
+
+    <!-- Decide -->
+    <string name="verdict_ok">Không thấy dấu hiệu cảnh báo</string>
+    <string name="verdict_caution">Nên kiểm tra</string>
+    <string name="verdict_danger">Link này có vẻ nguy hiểm</string>
+    <string name="decide_checked_just_now">Vừa kiểm tra xong</string>
+    <plurals name="decide_checked_minutes">
+        <item quantity="other">Đã kiểm tra %d phút trước</item>
+    </plurals>
+    <string name="decide_label_land">Bạn sẽ đến</string>
+    <string name="decide_label_path">Đường đi của link</string>
+    <string name="decide_show_path">Hiện mọi bước</string>
+    <string name="decide_hide_path">Ẩn các bước</string>
+    <string name="chip_https">HTTPS</string>
+    <string name="chip_not_encrypted">Không mã hóa</string>
+    <string name="chip_no_redirects">Không chuyển hướng</string>
+    <plurals name="chip_redirects">
+        <item quantity="other">%d lần chuyển hướng</item>
+    </plurals>
+    <string name="chip_blocklisted">Trong danh sách chặn</string>
+    <string name="chip_not_blocklisted">Không trong danh sách chặn</string>
+    <string name="hop_start">Link đã quét</string>
+    <string name="hop_http">Chuyển hướng</string>
+    <string name="hop_client">Trang tự chuyển hướng</string>
+    <!-- %1$s is the kind of step, %2$d the HTTP status code -->
+    <string name="hop_with_status">%1$s · %2$d</string>
+    <string name="screenshot_description">Ảnh chụp trang bạn sẽ đến</string>
+    <string name="screenshot_loading">Đang tải ảnh chụp…</string>
+    <string name="screenshot_expand">Hiện toàn bộ trang</string>
+    <string name="screenshot_collapse">Thu gọn</string>
+    <string name="screenshot_unavailable">Không có ảnh chụp</string>
+
+    <!-- Check failed -->
+    <string name="error_title">Không kiểm tra được link này</string>
+    <string name="error_offline">Không kết nối được với SecureQR. Hãy kiểm tra kết nối internet rồi thử lại.</string>
+    <string name="error_generic">Đã xảy ra lỗi khi kiểm tra link này.</string>
+    <!-- The server no longer accepts this version of the app -->
+    <string name="error_update_title">Cần cập nhật</string>
+    <string name="error_update_needed">Phiên bản ứng dụng này không còn dùng được dịch vụ. Hãy cập nhật SecureQR rồi thử lại.</string>
+    <string name="error_unchecked_warning">Link này chưa được kiểm tra. Nếu vẫn mở, bạn sẽ không biết nó dẫn đến đâu cho đến khi đã ở đó.</string>
+    <string name="error_no_browser">Không tìm thấy trình duyệt để mở link này.</string>
+
+    <!-- Typed cards: titles -->
+    <string name="type_login">Mã đăng nhập</string>
+    <string name="type_chat">Link trò chuyện</string>
+    <string name="type_swissqr">Hóa đơn QR Thụy Sĩ</string>
+    <string name="type_otp_export">Bản xuất ứng dụng xác thực</string>
+    <string name="type_esim">Gói di động eSIM</string>
+    <string name="type_device">Thiết bị nhà thông minh</string>
+    <string name="type_healthcert">Giấy chứng nhận y tế</string>
+    <string name="type_unsafe">Link nguy hiểm</string>
+    <string name="type_paylink">Link thanh toán</string>
+    <string name="type_url">Link</string>
+    <string name="type_epc">Chuyển khoản ngân hàng</string>
+    <string name="type_emv">Mã thanh toán</string>
+    <string name="type_upi">Thanh toán UPI</string>
+    <string name="type_crypto">Thanh toán tiền mã hóa</string>
+    <string name="type_wifi">Mạng Wi-Fi</string>
+    <string name="type_contact">Liên hệ</string>
+    <string name="type_event">Sự kiện lịch</string>
+    <string name="type_email">Email</string>
+    <string name="type_phone">Số điện thoại</string>
+    <string name="type_sms">Tin nhắn</string>
+    <string name="type_geo">Vị trí</string>
+    <string name="type_otp">Khóa bí mật đăng nhập</string>
+    <string name="type_applink">Link ứng dụng</string>
+    <string name="type_text">Văn bản</string>
+
+    <!-- Typed cards: field labels -->
+    <string name="field_beneficiary">Người thụ hưởng</string>
+    <string name="field_iban">IBAN</string>
+    <string name="field_bic">BIC</string>
+    <string name="field_amount">Số tiền</string>
+    <string name="field_reference">Mã tham chiếu</string>
+    <string name="field_message">Lời nhắn</string>
+    <string name="field_merchant">Người bán</string>
+    <string name="field_city">Thành phố</string>
+    <string name="field_country">Quốc gia</string>
+    <string name="field_currency">Tiền tệ</string>
+    <string name="field_payee_name">Tên người nhận</string>
+    <string name="field_payee_address">Địa chỉ người nhận</string>
+    <string name="field_note">Ghi chú</string>
+    <string name="field_network">Mạng</string>
+    <string name="field_address">Địa chỉ</string>
+    <string name="field_label">Nhãn</string>
+    <string name="field_security">Bảo mật</string>
+    <string name="field_password">Mật khẩu</string>
+    <string name="field_hidden">Ẩn</string>
+    <string name="field_name">Tên</string>
+    <string name="field_phone">Điện thoại</string>
+    <string name="field_email">Email</string>
+    <string name="field_organisation">Tổ chức</string>
+    <string name="field_url">URL</string>
+    <string name="field_title">Tiêu đề</string>
+    <string name="field_start">Bắt đầu</string>
+    <string name="field_end">Kết thúc</string>
+    <string name="field_location">Địa điểm</string>
+    <string name="field_description">Mô tả</string>
+    <string name="field_to">Đến</string>
+    <string name="field_subject">Chủ đề</string>
+    <string name="field_body">Nội dung</string>
+    <string name="field_number">Số</string>
+    <string name="field_latitude">Vĩ độ</string>
+    <string name="field_longitude">Kinh độ</string>
+    <string name="field_issuer">Nhà phát hành</string>
+    <string name="field_account">Tài khoản</string>
+    <string name="field_type">Loại</string>
+    <string name="field_scheme">Giao thức</string>
+    <string name="field_text">Văn bản</string>
+    <string name="field_provider">Nhà cung cấp</string>
+    <string name="field_service">Dịch vụ</string>
+    <string name="field_handle">Tên người dùng</string>
+    <string name="field_activation_code">Mã kích hoạt</string>
+    <string name="value_invite">Link mời</string>
+    <string name="value_none">Không có</string>
+    <string name="value_yes">Có</string>
+
+    <!-- Typed cards: notices -->
+    <string name="notice_payment">Đây là yêu cầu thanh toán. Hãy kiểm tra tên, tài khoản và số tiền trước khi trả. Thanh toán rất khó hoàn lại.</string>
+    <string name="notice_paylink">Đây là yêu cầu thanh toán. Hãy kiểm tra tên và số tiền trong ứng dụng thanh toán trước khi xác nhận. Thanh toán rất khó hoàn lại.</string>
+    <string name="notice_epc_instruction">Để thanh toán, hãy mở ứng dụng ngân hàng và quét mã QR này bằng ứng dụng đó.</string>
+    <string name="notice_crypto">Thanh toán bằng tiền mã hóa không thể hoàn lại.</string>
+    <string name="notice_invalid_iban">Số tài khoản không phải là IBAN hợp lệ.</string>
+    <string name="notice_otp">Đây là khóa bí mật đăng nhập. Chỉ quét nó vào ứng dụng xác thực của chính bạn, và không bao giờ chia sẻ.</string>
+    <string name="notice_wifi_open">Mạng này không có mật khẩu. Người ở gần có thể xem dữ liệu bạn gửi và nhận.</string>
+    <string name="notice_sms_short_code">Tin nhắn đến đầu số ngắn có thể tốn tiền.</string>
+    <string name="notice_app_link">Link này mở một ứng dụng khác. Chỉ tiếp tục nếu bạn đã biết trước điều đó.</string>
+    <string name="notice_login_code">Mã này đăng nhập một thiết bị khác vào tài khoản của bạn. Chỉ quét nó từ bên trong ứng dụng đó, trên màn hình do chính bạn mở. Nếu ai đó gửi mã này cho bạn, đó là lừa đảo.</string>
+    <string name="notice_chat_link">Link này mở cuộc trò chuyện với người bạn có thể không quen. Kẻ lừa đảo dùng link trò chuyện để kéo cuộc nói chuyện ra khỏi trang web bạn tin tưởng.</string>
+    <string name="notice_otp_export">Mã này chứa khóa bí mật của mọi tài khoản trong một ứng dụng xác thực. Ai quét được mã này đều có thể tạo mã đăng nhập của bạn. Chỉ quét bằng điện thoại mới của chính bạn, và không bao giờ chia sẻ.</string>
+    <string name="notice_esim_instruction">Để cài đặt, hãy mở phần cài đặt mạng di động trên điện thoại và thêm eSIM.</string>
+    <string name="notice_esim">Mã này cài một gói di động (eSIM) lên điện thoại của bạn. Chỉ tiếp tục nếu nó đến từ nhà mạng của chính bạn.</string>
+    <string name="notice_device_setup">Đây là mã cài đặt cho thiết bị nhà thông minh. Ai quét được mã này đều có thể thêm thiết bị vào nhà của họ. Chỉ quét bằng ứng dụng nhà thông minh của bạn, cho thiết bị bạn sở hữu.</string>
+    <string name="notice_health_cert">Đây là giấy chứng nhận y tế. Nó chứa tên, ngày sinh và thông tin y tế. Mã được đọc trên điện thoại của bạn và không được gửi đi đâu. Đừng chia sẻ nó.</string>
+    <string name="notice_unsafe_link">Đây không phải là địa chỉ web. Loại link này có thể chạy mã hoặc mở tệp trên điện thoại của bạn. Đừng mở nó.</string>
+    <string name="notice_dialer_code">Đây là mã dịch vụ điện thoại, không phải số thường. Các mã như vậy có thể chuyển tiếp cuộc gọi, thay đổi cài đặt hoặc tốn tiền. Chỉ gọi nếu nhà mạng của bạn yêu cầu.</string>
+    <string name="notice_premium_number">Đây có vẻ là số dịch vụ giá cao. Gọi đến số này có thể tốn nhiều tiền mỗi phút.</string>
+    <string name="notice_local_only">Nội dung này được đọc trên điện thoại của bạn và không được gửi đi đâu.</string>
+
+    <!-- Typed cards: other -->
+    <string name="content_no_payment_app">Không có ứng dụng nào trên điện thoại này mở được link thanh toán này.</string>
+    <string name="content_show_raw">Hiện nội dung gốc</string>
+    <string name="content_hide_raw">Ẩn nội dung gốc</string>
+    <string name="content_reveal">Hiện</string>
+    <string name="content_conceal">Ẩn</string>
+    <string name="wifi_password_copied">Đã sao chép mật khẩu. Chọn mạng để kết nối.</string>
+    <string name="wifi_choose_in_settings">Chọn mạng để kết nối.</string>
+    <string name="wifi_cannot_join">Không mở được cài đặt Wi-Fi.</string>
+    <string name="content_no_app">Không có ứng dụng nào trên điện thoại này mở được nội dung này.</string>
+    <string name="content_secret_hidden">Phần bí mật được lược bỏ ở đây.</string>
+    <string name="content_from_history_redacted">Thông tin bí mật không bao giờ được lưu trong lịch sử, nên mục này không đầy đủ. Hãy quét lại mã để xem toàn bộ.</string>
+
+    <!-- History -->
+    <string name="history_title">Lịch sử</string>
+    <string name="history_note">Chỉ lưu trên điện thoại này.</string>
+    <string name="history_empty">Chưa quét mã nào.</string>
+    <string name="history_clear">Xóa tất cả</string>
+    <string name="history_clear_title">Xóa lịch sử?</string>
+    <string name="history_clear_body">Thao tác này xóa mọi lần quét trước đây khỏi điện thoại này.</string>
+    <string name="history_clear_confirm">Xóa</string>
+    <!-- %1$s is the kind of content (for example "Link"), %2$s a relative time (for example "5 minutes ago") -->
+    <string name="history_subtitle">%1$s · %2$s</string>
+    <string name="history_just_now">Vừa xong</string>
+    <string name="history_level_ok">Không thấy dấu hiệu cảnh báo</string>
+    <string name="history_level_caution">Nên kiểm tra</string>
+    <string name="history_level_danger">Có vẻ nguy hiểm</string>
+    <string name="history_level_neutral">Không có cảnh báo</string>
+    <string name="history_level_unchecked">Chưa kiểm tra</string>
+    <string name="history_level_failed">Không kiểm tra được</string>
+    <!-- %1$s is the kind of content, %2$s the outcome (history_level_failed), %3$s a relative time -->
+    <string name="history_subtitle_with_state">%1$s · %2$s · %3$s</string>
+    <string name="history_delete">Xóa</string>
+    <string name="history_entry_options">Tùy chọn cho mục này</string>
+</resources>

@@ -1,0 +1,20 @@
+Um QR code não diz para onde leva. O SecureQR verifica primeiro.
+
+Quando você lê um código que contém um link da web, o SecureQR não o abre. Nosso servidor visita o link por você, segue cada redirecionamento e tira uma foto da página onde ele termina. Você vê o destino real, a imagem e qualquer sinal de alerta, e então decide.
+
+▌O que ele verifica
+• Onde o link realmente termina, com cada parada no caminho
+• Sites nas listas de ameaças do Quad9, Cloudflare e DNS4EU, e em uma lista aberta de sites de phishing ativos
+• Páginas que pedem uma senha ou dados do cartão, não são criptografadas, usam caracteres parecidos com outros ou tentam baixar um arquivo
+• Links que tentam abrir outro app
+
+▌Pagamentos e outros códigos
+Transferências bancárias, pedidos de pagamento, redes Wi-Fi, contatos e códigos de login são lidos no seu celular e explicados em palavras simples antes de qualquer coisa acontecer. Eles nunca são enviados para nós.
+
+▌Privacidade desde o início
+• Sem conta, sem publicidade e sem ferramentas de análise próprias
+• Só links da web são enviados ao nosso servidor; todo o resto fica no seu celular
+• Os resultados e as imagens das páginas ficam guardados por uma hora e depois são apagados
+• Seu histórico de leituras fica no seu celular, e você pode apagá-lo quando quiser
+
+Um resultado limpo significa que não encontramos sinais de alerta. Não é uma garantia.

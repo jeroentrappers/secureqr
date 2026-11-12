@@ -1,0 +1,1 @@
+Controlla dove porta un codice QR prima di aprirlo. Il nostro server segue il link per te e mostra la vera destinazione, un'immagine della pagina e i segnali di allarme.

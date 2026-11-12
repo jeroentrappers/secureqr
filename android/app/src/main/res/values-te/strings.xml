@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Common actions -->
+    <string name="action_back">వెనుకకు</string>
+    <string name="action_open">తెరవండి</string>
+    <string name="action_cancel">రద్దు చేయండి</string>
+    <string name="action_open_anyway">అయినా తెరవండి</string>
+    <string name="action_dont_open">తెరవవద్దు</string>
+    <string name="action_retry">మళ్లీ ప్రయత్నించండి</string>
+    <string name="action_open_in_app">యాప్‌లో తెరవండి</string>
+    <string name="action_open_in_payment_app">చెల్లింపు యాప్‌లో తెరవండి</string>
+    <string name="action_join_wifi">నెట్‌వర్క్‌లో చేరండి</string>
+    <string name="action_add_contact">కాంటాక్ట్‌లకు జోడించండి</string>
+    <string name="action_add_event">క్యాలెండర్‌కు జోడించండి</string>
+    <string name="action_copy">కాపీ చేయండి</string>
+    <string name="action_copy_all">అన్నీ కాపీ చేయండి</string>
+    <string name="action_copy_iban">IBAN కాపీ చేయండి</string>
+    <string name="action_copy_address">చిరునామా కాపీ చేయండి</string>
+    <string name="action_copy_password">పాస్‌వర్డ్ కాపీ చేయండి</string>
+    <string name="copied">కాపీ అయింది</string>
+
+    <!-- Scan -->
+    <!-- %1$s is scan_hint_emphasis, shown highlighted -->
+    <string name="scan_hint">QR కోడ్ వైపు కెమెరా పెట్టండి. మీరు చెప్పే వరకు %1$s.</string>
+    <string name="scan_hint_emphasis">ఏదీ తెరుచుకోదు</string>
+    <string name="scan_torch_on">టార్చ్ ఆన్ చేయండి</string>
+    <string name="scan_torch_off">టార్చ్ ఆఫ్ చేయండి</string>
+    <string name="scan_pick_image">గ్యాలరీలోని చిత్రాన్ని స్కాన్ చేయండి</string>
+    <string name="scan_history">చరిత్ర</string>
+    <string name="scan_no_qr_in_image">ఆ చిత్రంలో QR కోడ్ కనిపించలేదు.</string>
+    <string name="scan_image_failed">ఆ చిత్రాన్ని చదవలేకపోయాం.</string>
+    <string name="scan_camera_failed">కెమెరాను ప్రారంభించలేకపోయాం.</string>
+
+    <!-- Camera permission -->
+    <string name="permission_title">SecureQRకి మీ కెమెరా అవసరం</string>
+    <string name="permission_rationale">కెమెరాను QR కోడ్‌లను చదవడానికి మాత్రమే ఉపయోగిస్తాం. ఏదీ రికార్డ్ చేయబడదు, చిత్రాలు మీ ఫోన్ దాటి వెళ్లవు.</string>
+    <string name="permission_allow">కెమెరాను అనుమతించండి</string>
+    <string name="permission_denied_title">కెమెరా ఆఫ్‌లో ఉంది</string>
+    <string name="permission_denied_body">కెమెరా లేకుండా SecureQR స్కాన్ చేయలేదు. మీరు దాన్ని సెట్టింగ్‌లలో ఆన్ చేయవచ్చు, లేదా బదులుగా గ్యాలరీలోని చిత్రాన్ని స్కాన్ చేయవచ్చు.</string>
+    <string name="permission_open_settings">సెట్టింగ్‌లు తెరవండి</string>
+    <string name="permission_pick_image">బదులుగా చిత్రాన్ని స్కాన్ చేయండి</string>
+
+    <!-- Checking -->
+    <string name="checking_label_says">QR కోడ్‌లో ఉన్నది</string>
+    <string name="checking_label_following">మీ కోసం లింక్‌ను అనుసరిస్తున్నాం</string>
+    <string name="checking_contacting">సర్వర్‌ను సంప్రదిస్తోంది</string>
+    <string name="checking_step_done">పూర్తయింది</string>
+    <string name="checking_progress">కట్టుదిట్టమైన బ్రౌజర్‌లో తెరుస్తోంది…</string>
+    <string name="checking_note">లింక్‌ను మేము మా సర్వర్‌లో తెరుస్తాం, మీ ఫోన్‌లో ఎప్పుడూ కాదు.</string>
+
+    <!-- Decide -->
+    <string name="verdict_ok">హెచ్చరిక సంకేతాలు లేవు</string>
+    <string name="verdict_caution">దీన్ని పరిశీలించండి</string>
+    <string name="verdict_danger">ఇది ప్రమాదకరంగా ఉంది</string>
+    <string name="decide_checked_just_now">ఇప్పుడే తనిఖీ చేశాం</string>
+    <plurals name="decide_checked_minutes">
+        <item quantity="one">%d నిమి. క్రితం తనిఖీ చేశాం</item>
+        <item quantity="other">%d నిమి. క్రితం తనిఖీ చేశాం</item>
+    </plurals>
+    <string name="decide_label_land">మీరు చేరేది</string>
+    <string name="decide_label_path">లింక్ వెళ్లిన దారి</string>
+    <string name="decide_show_path">ప్రతి దశను చూపించండి</string>
+    <string name="decide_hide_path">దశలను దాచండి</string>
+    <string name="chip_https">HTTPS</string>
+    <string name="chip_not_encrypted">ఎన్‌క్రిప్ట్ కాలేదు</string>
+    <string name="chip_no_redirects">రీడైరెక్ట్‌లు లేవు</string>
+    <plurals name="chip_redirects">
+        <item quantity="one">%d రీడైరెక్ట్</item>
+        <item quantity="other">%d రీడైరెక్ట్‌లు</item>
+    </plurals>
+    <string name="chip_blocklisted">బ్లాక్‌లిస్ట్‌లో ఉంది</string>
+    <string name="chip_not_blocklisted">బ్లాక్‌లిస్ట్‌లో లేదు</string>
+    <string name="hop_start">స్కాన్ చేసిన లింక్</string>
+    <string name="hop_http">రీడైరెక్ట్</string>
+    <string name="hop_client">పేజీ చేసిన రీడైరెక్ట్</string>
+    <!-- %1$s is the kind of step, %2$d the HTTP status code -->
+    <string name="hop_with_status">%1$s · %2$d</string>
+    <string name="screenshot_description">మీరు చేరే పేజీ స్క్రీన్‌షాట్</string>
+    <string name="screenshot_loading">స్క్రీన్‌షాట్ లోడ్ అవుతోంది…</string>
+    <string name="screenshot_expand">పూర్తి పేజీని చూపించండి</string>
+    <string name="screenshot_collapse">తక్కువ చూపించండి</string>
+    <string name="screenshot_unavailable">స్క్రీన్‌షాట్ అందుబాటులో లేదు</string>
+
+    <!-- Check failed -->
+    <string name="error_title">ఈ లింక్‌ను తనిఖీ చేయలేకపోయాం</string>
+    <string name="error_offline">SecureQRని చేరుకోలేకపోయాం. మీ ఇంటర్నెట్ కనెక్షన్‌ను చూసి మళ్లీ ప్రయత్నించండి.</string>
+    <string name="error_generic">ఈ లింక్‌ను తనిఖీ చేస్తున్నప్పుడు ఏదో పొరపాటు జరిగింది.</string>
+    <!-- The server no longer accepts this version of the app -->
+    <string name="error_update_title">అప్‌డేట్ అవసరం</string>
+    <string name="error_update_needed">యాప్ యొక్క ఈ వెర్షన్ ఇకపై సేవను ఉపయోగించలేదు. SecureQRని అప్‌డేట్ చేసి మళ్లీ ప్రయత్నించండి.</string>
+    <string name="error_unchecked_warning">ఈ లింక్ తనిఖీ కాలేదు. మీరు దీన్ని అయినా తెరిస్తే, అక్కడికి చేరే వరకు అది ఎక్కడికి తీసుకెళ్తుందో మీకు తెలియదు.</string>
+    <string name="error_no_browser">ఈ లింక్‌ను తెరవడానికి బ్రౌజర్ కనిపించలేదు.</string>
+
+    <!-- Typed cards: titles -->
+    <string name="type_login">సైన్-ఇన్ కోడ్</string>
+    <string name="type_chat">చాట్ లింక్</string>
+    <string name="type_swissqr">స్విస్ QR-బిల్</string>
+    <string name="type_otp_export">ఆథెంటికేటర్ ఎగుమతి</string>
+    <string name="type_esim">eSIM మొబైల్ ప్లాన్</string>
+    <string name="type_device">స్మార్ట్-హోమ్ పరికరం</string>
+    <string name="type_healthcert">ఆరోగ్య ధృవపత్రం</string>
+    <string name="type_unsafe">ప్రమాదకర లింక్</string>
+    <string name="type_paylink">చెల్లింపు లింక్</string>
+    <string name="type_url">లింక్</string>
+    <string name="type_epc">బ్యాంక్ బదిలీ</string>
+    <string name="type_emv">చెల్లింపు కోడ్</string>
+    <string name="type_upi">UPI చెల్లింపు</string>
+    <string name="type_crypto">క్రిప్టో చెల్లింపు</string>
+    <string name="type_wifi">Wi-Fi నెట్‌వర్క్</string>
+    <string name="type_contact">కాంటాక్ట్</string>
+    <string name="type_event">క్యాలెండర్ ఈవెంట్</string>
+    <string name="type_email">ఈమెయిల్</string>
+    <string name="type_phone">ఫోన్ నంబర్</string>
+    <string name="type_sms">SMS సందేశం</string>
+    <string name="type_geo">స్థానం</string>
+    <string name="type_otp">సైన్-ఇన్ రహస్యం</string>
+    <string name="type_applink">యాప్ లింక్</string>
+    <string name="type_text">టెక్స్ట్</string>
+
+    <!-- Typed cards: field labels -->
+    <string name="field_beneficiary">లబ్ధిదారు</string>
+    <string name="field_iban">IBAN</string>
+    <string name="field_bic">BIC</string>
+    <string name="field_amount">మొత్తం</string>
+    <string name="field_reference">రిఫరెన్స్</string>
+    <string name="field_message">సందేశం</string>
+    <string name="field_merchant">వ్యాపారి</string>
+    <string name="field_city">నగరం</string>
+    <string name="field_country">దేశం</string>
+    <string name="field_currency">కరెన్సీ</string>
+    <string name="field_payee_name">గ్రహీత పేరు</string>
+    <string name="field_payee_address">గ్రహీత చిరునామా</string>
+    <string name="field_note">గమనిక</string>
+    <string name="field_network">నెట్‌వర్క్</string>
+    <string name="field_address">చిరునామా</string>
+    <string name="field_label">లేబుల్</string>
+    <string name="field_security">భద్రత</string>
+    <string name="field_password">పాస్‌వర్డ్</string>
+    <string name="field_hidden">దాచబడింది</string>
+    <string name="field_name">పేరు</string>
+    <string name="field_phone">ఫోన్</string>
+    <string name="field_email">ఈమెయిల్</string>
+    <string name="field_organisation">సంస్థ</string>
+    <string name="field_url">URL</string>
+    <string name="field_title">శీర్షిక</string>
+    <string name="field_start">ప్రారంభం</string>
+    <string name="field_end">ముగింపు</string>
+    <string name="field_location">స్థలం</string>
+    <string name="field_description">వివరణ</string>
+    <string name="field_to">ఎవరికి</string>
+    <string name="field_subject">విషయం</string>
+    <string name="field_body">సందేశ పాఠం</string>
+    <string name="field_number">నంబర్</string>
+    <string name="field_latitude">అక్షాంశం</string>
+    <string name="field_longitude">రేఖాంశం</string>
+    <string name="field_issuer">జారీదారు</string>
+    <string name="field_account">ఖాతా</string>
+    <string name="field_type">రకం</string>
+    <string name="field_scheme">స్కీమ్</string>
+    <string name="field_text">టెక్స్ట్</string>
+    <string name="field_provider">ప్రొవైడర్</string>
+    <string name="field_service">సేవ</string>
+    <string name="field_handle">హ్యాండిల్</string>
+    <string name="field_activation_code">యాక్టివేషన్ కోడ్</string>
+    <string name="value_invite">ఆహ్వాన లింక్</string>
+    <string name="value_none">ఏదీ లేదు</string>
+    <string name="value_yes">అవును</string>
+
+    <!-- Typed cards: notices -->
+    <string name="notice_payment">ఇది చెల్లింపు అభ్యర్థన. చెల్లించే ముందు పేరు, ఖాతా, మొత్తాన్ని సరిచూసుకోండి. చెల్లింపులను వెనక్కి తీసుకోవడం కష్టం.</string>
+    <string name="notice_paylink">ఇది చెల్లింపు అభ్యర్థన. నిర్ధారించే ముందు మీ చెల్లింపు యాప్‌లో పేరు, మొత్తాన్ని సరిచూసుకోండి. చెల్లింపులను వెనక్కి తీసుకోవడం కష్టం.</string>
+    <string name="notice_epc_instruction">చెల్లించడానికి, మీ బ్యాంకింగ్ యాప్‌ను తెరిచి ఈ QR కోడ్‌ను దానితో స్కాన్ చేయండి.</string>
+    <string name="notice_crypto">క్రిప్టో చెల్లింపులను వెనక్కి తీసుకోలేరు.</string>
+    <string name="notice_invalid_iban">ఖాతా నంబర్ చెల్లుబాటయ్యే IBAN కాదు.</string>
+    <string name="notice_otp">ఇది సైన్-ఇన్ రహస్యం. దీన్ని మీ సొంత ఆథెంటికేటర్ యాప్‌లో మాత్రమే స్కాన్ చేయండి, ఎవరితోనూ పంచుకోవద్దు.</string>
+    <string name="notice_wifi_open">ఈ నెట్‌వర్క్‌కు పాస్‌వర్డ్ లేదు. సమీపంలో ఉన్న ఎవరైనా మీ ట్రాఫిక్‌ను చూడగలరు.</string>
+    <string name="notice_sms_short_code">షార్ట్ నంబర్‌లకు పంపే సందేశాలకు డబ్బు ఖర్చు కావచ్చు.</string>
+    <string name="notice_app_link">ఇది మరో యాప్‌ను తెరుస్తుంది. మీరు అది ఆశించినట్లయితేనే కొనసాగండి.</string>
+    <string name="notice_login_code">ఈ కోడ్ మరో పరికరాన్ని మీ ఖాతాలోకి సైన్ ఇన్ చేస్తుంది. ఆ యాప్ లోపలి నుండే, మీరే తెరిచిన స్క్రీన్‌లో మాత్రమే దీన్ని స్కాన్ చేయండి. ఎవరైనా దీన్ని మీకు పంపితే, అది మోసం.</string>
+    <string name="notice_chat_link">ఇది మీకు తెలియని వ్యక్తితో చాట్ ప్రారంభించవచ్చు. మోసగాళ్లు మీరు నమ్మే సైట్ నుండి సంభాషణను దూరం చేయడానికి చాట్ లింక్‌లను వాడతారు.</string>
+    <string name="notice_otp_export">ఈ కోడ్‌లో ఆథెంటికేటర్ యాప్‌లోని ప్రతి ఖాతా రహస్యాలు ఉంటాయి. దీన్ని స్కాన్ చేసిన ఎవరైనా మీ సైన్-ఇన్ కోడ్‌లను తయారు చేయగలరు. మీ సొంత కొత్త ఫోన్‌తో మాత్రమే స్కాన్ చేయండి, ఎవరితోనూ పంచుకోవద్దు.</string>
+    <string name="notice_esim_instruction">ఇన్‌స్టాల్ చేయడానికి, మీ ఫోన్ మొబైల్ నెట్‌వర్క్ సెట్టింగ్‌లను తెరిచి eSIMను జోడించండి.</string>
+    <string name="notice_esim">ఇది మీ ఫోన్‌లో మొబైల్ ప్లాన్ (eSIM)ను ఇన్‌స్టాల్ చేస్తుంది. ఇది మీ సొంత మొబైల్ ప్రొవైడర్ నుండి వచ్చినదైతేనే కొనసాగండి.</string>
+    <string name="notice_device_setup">ఇది స్మార్ట్-హోమ్ పరికరం సెటప్ కోడ్. దీన్ని స్కాన్ చేసిన ఎవరైనా ఆ పరికరాన్ని తమ ఇంటికి జోడించుకోగలరు. మీ సొంత పరికరం కోసం, మీ స్మార్ట్-హోమ్ యాప్‌తో మాత్రమే స్కాన్ చేయండి.</string>
+    <string name="notice_health_cert">ఇది ఆరోగ్య ధృవపత్రం. ఇందులో పేరు, పుట్టిన తేదీ, వైద్య వివరాలు ఉంటాయి. ఇది మీ ఫోన్‌లోనే చదవబడింది, ఎక్కడికీ పంపబడలేదు. దీన్ని పంచుకోవద్దు.</string>
+    <string name="notice_unsafe_link">ఇది వెబ్ చిరునామా కాదు. ఈ రకమైన లింక్‌లు మీ ఫోన్‌లో కోడ్‌ను నడపగలవు లేదా ఫైల్‌లను తెరవగలవు. దీన్ని తెరవవద్దు.</string>
+    <string name="notice_dialer_code">ఇది ఫోన్ సర్వీస్ కోడ్, సాధారణ నంబర్ కాదు. ఇలాంటి కోడ్‌లు మీ కాల్‌లను ఫార్వర్డ్ చేయగలవు, సెట్టింగ్‌లను మార్చగలవు లేదా డబ్బు ఖర్చు చేయించగలవు. మీ ప్రొవైడర్ చెప్పినప్పుడు మాత్రమే డయల్ చేయండి.</string>
+    <string name="notice_premium_number">ఇది ప్రీమియం-రేట్ నంబర్ లాగా ఉంది. దీనికి కాల్ చేస్తే నిమిషానికి చాలా ఖర్చు కావచ్చు.</string>
+    <string name="notice_local_only">ఇది మీ ఫోన్‌లోనే చదవబడింది, ఎక్కడికీ పంపబడలేదు.</string>
+
+    <!-- Typed cards: other -->
+    <string name="content_no_payment_app">ఈ ఫోన్‌లో ఈ చెల్లింపు లింక్‌ను తెరవగలిగేది ఏదీ లేదు.</string>
+    <string name="content_show_raw">అసలు కంటెంట్ చూపించండి</string>
+    <string name="content_hide_raw">అసలు కంటెంట్ దాచండి</string>
+    <string name="content_reveal">చూపించండి</string>
+    <string name="content_conceal">దాచండి</string>
+    <string name="wifi_password_copied">పాస్‌వర్డ్ కాపీ అయింది. చేరడానికి నెట్‌వర్క్‌ను ఎంచుకోండి.</string>
+    <string name="wifi_choose_in_settings">చేరడానికి నెట్‌వర్క్‌ను ఎంచుకోండి.</string>
+    <string name="wifi_cannot_join">Wi-Fi సెట్టింగ్‌లను తెరవలేకపోయాం.</string>
+    <string name="content_no_app">ఈ ఫోన్‌లో దీన్ని తెరవగల యాప్ ఏదీ లేదు.</string>
+    <string name="content_secret_hidden">రహస్య భాగం ఇక్కడ చూపబడలేదు.</string>
+    <string name="content_from_history_redacted">రహస్యాలు మీ చరిత్రలో ఎప్పుడూ సేవ్ చేయబడవు, కాబట్టి ఈ ఎంట్రీ అసంపూర్ణంగా ఉంది. మొత్తం చూడాలంటే కోడ్‌ను మళ్లీ స్కాన్ చేయండి.</string>
+
+    <!-- History -->
+    <string name="history_title">చరిత్ర</string>
+    <string name="history_note">ఈ ఫోన్‌లో మాత్రమే ఉంచబడుతుంది.</string>
+    <string name="history_empty">ఇంకా ఏదీ స్కాన్ చేయలేదు.</string>
+    <string name="history_clear">అన్నీ తొలగించండి</string>
+    <string name="history_clear_title">చరిత్రను తొలగించాలా?</string>
+    <string name="history_clear_body">ఇది ఈ ఫోన్ నుండి గత స్కాన్‌లన్నింటినీ తొలగిస్తుంది.</string>
+    <string name="history_clear_confirm">తొలగించండి</string>
+    <!-- %1$s is the kind of content (for example "Link"), %2$s a relative time (for example "5 minutes ago") -->
+    <string name="history_subtitle">%1$s · %2$s</string>
+    <string name="history_just_now">ఇప్పుడే</string>
+    <string name="history_level_ok">హెచ్చరిక సంకేతాలు లేవు</string>
+    <string name="history_level_caution">పరిశీలన అవసరం</string>
+    <string name="history_level_danger">ప్రమాదకరంగా కనిపించింది</string>
+    <string name="history_level_neutral">హెచ్చరికలు లేవు</string>
+    <string name="history_level_unchecked">తనిఖీ చేయలేదు</string>
+    <string name="history_level_failed">తనిఖీ చేయలేకపోయాం</string>
+    <!-- %1$s is the kind of content, %2$s the outcome (history_level_failed), %3$s a relative time -->
+    <string name="history_subtitle_with_state">%1$s · %2$s · %3$s</string>
+    <string name="history_delete">తొలగించండి</string>
+    <string name="history_entry_options">ఈ ఎంట్రీ కోసం ఎంపికలు</string>
+</resources>

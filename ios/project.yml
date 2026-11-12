@@ -133,6 +133,9 @@ schemes:
       config: Debug
     test:
       config: Debug
+      # The tests check English texts; run them in English whatever the Mac's language is.
+      language: en
+      region: US
       targets:
         - SecureQRTests
     profile:

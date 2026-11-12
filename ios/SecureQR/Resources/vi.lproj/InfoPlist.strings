@@ -1,0 +1,4 @@
+"NSCameraUsageDescription" = "SecureQR dùng camera để đọc mã QR. Không có gì được ghi lại.";
+"NSContactsUsageDescription" = "SecureQR chỉ thêm liên hệ đã quét vào danh bạ khi bạn chạm vào Thêm vào danh bạ. Ứng dụng không bao giờ đọc danh bạ của bạn.";
+"NSCalendarsUsageDescription" = "SecureQR chỉ thêm sự kiện đã quét vào lịch khi bạn chạm vào Thêm vào lịch. Ứng dụng không bao giờ đọc lịch của bạn.";
+"NSCalendarsWriteOnlyAccessUsageDescription" = "SecureQR chỉ thêm sự kiện đã quét vào lịch khi bạn chạm vào Thêm vào lịch.";

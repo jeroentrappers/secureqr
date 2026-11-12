@@ -1,0 +1,230 @@
+/* SecureQR, Nederlands. Keys are stable; values may be translated. */
+
+/* Common */
+"common.ok" = "OK";
+"common.cancel" = "Annuleren";
+"common.yes" = "Ja";
+"common.no" = "Nee";
+"common.none" = "Geen";
+
+/* Scanner */
+"scan.hint.before" = "Richt op een QR-code. ";
+"scan.hint.strong" = "Er opent niets";
+"scan.hint.after" = " tot jij het zegt.";
+"scan.torch.on" = "Lamp aanzetten";
+"scan.torch.off" = "Lamp uitzetten";
+"scan.photo" = "Foto scannen";
+"scan.history" = "Geschiedenis";
+"scan.photo.none.title" = "Geen QR-code gevonden";
+"scan.photo.none.message" = "We vonden geen QR-code in die foto. Probeer een scherpere foto of kom dichterbij.";
+"scan.permission.title" = "Toegang tot de camera";
+"scan.permission.message" = "SecureQR gebruikt de camera alleen om QR-codes te lezen. Er wordt niets opgenomen, en er opent niets tot jij het zegt.";
+"scan.permission.continue" = "Doorgaan";
+"scan.denied.title" = "De camera staat uit";
+"scan.denied.message" = "SecureQR mag de camera niet gebruiken. Je kunt dat toestaan in Instellingen, of met de knop hieronder een QR-code uit een foto scannen.";
+"scan.denied.settings" = "Instellingen openen";
+"scan.unavailable.title" = "Geen camera beschikbaar";
+"scan.unavailable.message" = "Je kunt nog altijd met de knop hieronder een QR-code uit een foto scannen.";
+
+/* Checking */
+"checking.says" = "De QR-code bevat";
+"checking.following" = "We volgen de link voor je";
+"checking.contacting" = "Verbinden met de server";
+"checking.step.active" = "bezig";
+"checking.step.done" = "klaar";
+"checking.step.opening" = "Link openen…";
+"checking.step.following" = "Doorverwijzingen volgen…";
+"checking.step.screenshot" = "Foto van de pagina nemen…";
+"checking.note" = "We openen de link op onze server, nooit op je telefoon.";
+
+/* Verdict headlines. "ok" must never be worded as "safe". */
+"verdict.ok" = "Geen waarschuwingen gevonden";
+"verdict.caution" = "Even opletten";
+"verdict.danger" = "Dit lijkt riskant";
+
+/* Decide */
+"decide.landOn" = "Je komt uit op";
+"decide.chip.https" = "HTTPS";
+"decide.chip.notEncrypted" = "Niet versleuteld";
+"decide.chip.redirects.none" = "Geen doorverwijzingen";
+"decide.chip.redirects.one" = "1 doorverwijzing";
+"decide.chip.redirects.many" = "%d doorverwijzingen";
+"decide.chip.blocklisted" = "Op een blokkeerlijst";
+"decide.chip.notBlocklisted" = "Niet op blokkeerlijsten";
+"decide.hops.show" = "Route tonen";
+"decide.hops.hide" = "Route verbergen";
+"decide.open" = "Openen";
+"decide.openAnyway" = "Toch openen";
+"decide.dontOpen" = "Niet openen";
+"decide.screenshot.more" = "Hele pagina tonen";
+"decide.screenshot.less" = "Minder tonen";
+"decide.checked.now" = "Minder dan een minuut geleden gecontroleerd";
+"decide.checked.one" = "1 min geleden gecontroleerd";
+"decide.checked.many" = "%d min geleden gecontroleerd";
+"decide.screenshot.label" = "Foto van de pagina";
+"decide.screenshot.none" = "De pagina kon niet getoond worden.";
+"decide.screenshot.failed" = "De foto is niet meer beschikbaar.";
+
+/* Hops */
+"hop.start" = "Gescande link";
+"hop.http" = "Doorverwijzing";
+"hop.client" = "Doorverwijzing door de pagina";
+"hop.unknown" = "Stap";
+
+/* Failures */
+"failure.offline.title" = "Geen verbinding";
+"failure.offline.message" = "We konden SecureQR niet bereiken. Controleer je internetverbinding en probeer opnieuw.";
+"failure.timeout.title" = "Dit duurt te lang";
+"failure.timeout.message" = "De controle was niet op tijd klaar. Probeer het zo meteen opnieuw.";
+"failure.generic.title" = "Deze link kon niet gecontroleerd worden";
+"failure.generic.message" = "Er ging bij ons iets mis. Probeer het zo meteen opnieuw.";
+"failure.server.invalid_url.title" = "Deze link kunnen we niet controleren";
+"failure.server.invalid_url.message" = "De link is geen geldig webadres, of hij is te lang.";
+"failure.server.unauthorized.title" = "Update nodig";
+"failure.server.unauthorized.message" = "Deze versie van de app kan de dienst niet meer gebruiken. Werk SecureQR bij en probeer opnieuw.";
+"failure.server.blocked_target.title" = "Deze link wijst naar een privéadres";
+"failure.server.blocked_target.message" = "Hij leidt naar een privé- of intern netwerk, en dat bezoeken we niet.";
+"failure.server.unreachable.title" = "De site reageerde niet";
+"failure.server.unreachable.message" = "De site werd niet gevonden of weigerde de verbinding.";
+"failure.server.rate_limited.title" = "Te veel controles";
+"failure.server.rate_limited.message" = "Je hebt in korte tijd veel links gecontroleerd. Wacht even en probeer opnieuw.";
+"failure.server.timeout.title" = "De pagina deed er te lang over";
+"failure.server.timeout.message" = "De pagina was niet op tijd geladen.";
+"failure.server.internal.title" = "Deze link kon niet gecontroleerd worden";
+"failure.server.internal.message" = "Er ging bij ons iets mis. Probeer het zo meteen opnieuw.";
+"failure.unchecked.note" = "Deze link is niet gecontroleerd. We kunnen je niet zeggen waar hij naartoe leidt.";
+"failure.retry" = "Opnieuw proberen";
+"failure.confirm.title" = "Openen zonder controle?";
+"failure.confirm.message" = "We konden deze link niet controleren, dus we kunnen je niet zeggen waar hij naartoe leidt of er waarschuwingen zijn.";
+
+/* Typed cards */
+"qr.type.login" = "Aanmeldcode voor een ander toestel";
+"qr.type.chat" = "Chatlink";
+"qr.type.swissqr" = "Overschrijving";
+"qr.type.spd" = "Overschrijving";
+"qr.type.otpexport" = "Export van authenticator";
+"qr.type.esim" = "eSIM";
+"qr.type.device" = "Installatiecode smarthome";
+"qr.type.healthcert" = "Gezondheidscertificaat";
+"qr.type.unsafe" = "Onveilige link";
+"qr.type.paylink" = "Betaallink";
+"qr.type.url" = "Link";
+"qr.type.epc" = "Overschrijving";
+"qr.type.emv" = "Betaling";
+"qr.type.upi" = "UPI-betaling";
+"qr.type.crypto" = "Cryptobetaling";
+"qr.type.wifi" = "Wi-Fi-netwerk";
+"qr.type.contact" = "Contact";
+"qr.type.event" = "Agenda-afspraak";
+"qr.type.email" = "E-mail";
+"qr.type.phone" = "Telefoonnummer";
+"qr.type.sms" = "Sms";
+"qr.type.geo" = "Locatie";
+"qr.type.otp" = "Aanmeldcodes instellen";
+"qr.type.applink" = "App-link";
+"qr.type.text" = "Tekst";
+
+"qr.field.beneficiary" = "Begunstigde";
+"qr.field.iban" = "IBAN";
+"qr.field.bic" = "BIC";
+"qr.field.amount" = "Bedrag";
+"qr.field.reference" = "Mededeling";
+"qr.field.message" = "Bericht";
+"qr.field.merchant" = "Handelaar";
+"qr.field.city" = "Plaats";
+"qr.field.country" = "Land";
+"qr.field.currency" = "Munteenheid";
+"qr.field.payeeName" = "Naam ontvanger";
+"qr.field.payeeAddress" = "Adres ontvanger";
+"qr.field.note" = "Notitie";
+"qr.field.network" = "Netwerk";
+"qr.field.address" = "Adres";
+"qr.field.label" = "Label";
+"qr.field.security" = "Beveiliging";
+"qr.field.password" = "Wachtwoord";
+"qr.field.hidden" = "Verborgen";
+"qr.field.name" = "Naam";
+"qr.field.phone" = "Telefoon";
+"qr.field.email" = "E-mail";
+"qr.field.organisation" = "Organisatie";
+"qr.field.url" = "URL";
+"qr.field.title" = "Titel";
+"qr.field.start" = "Begin";
+"qr.field.end" = "Einde";
+"qr.field.location" = "Locatie";
+"qr.field.details" = "Beschrijving";
+"qr.field.to" = "Aan";
+"qr.field.subject" = "Onderwerp";
+"qr.field.body" = "Tekst";
+"qr.field.number" = "Nummer";
+"qr.field.latitude" = "Breedtegraad";
+"qr.field.longitude" = "Lengtegraad";
+"qr.field.issuer" = "Uitgever";
+"qr.field.account" = "Account";
+"qr.field.type" = "Type";
+"qr.field.scheme" = "Schema";
+"qr.field.content" = "Inhoud";
+"qr.field.service" = "Dienst";
+"qr.field.handle" = "Gebruikersnaam";
+"qr.field.provider" = "Aanbieder";
+"qr.field.activationCode" = "Activeringscode";
+
+"qr.value.inviteLink" = "Uitnodigingslink";
+
+"qr.notice.paymentRequest" = "Dit is een betaalverzoek. Controleer de naam, de rekening en het bedrag voor je betaalt. Betalingen zijn moeilijk terug te draaien.";
+"qr.notice.paymentRequestInApp" = "Dit is een betaalverzoek. Controleer de naam en het bedrag in je betaalapp voor je bevestigt. Betalingen zijn moeilijk terug te draaien.";
+"qr.notice.scanWithBankingApp" = "Open je bankapp en scan deze QR-code daarmee om te betalen.";
+"qr.notice.cryptoIrreversible" = "Cryptobetalingen kunnen niet teruggedraaid worden.";
+"qr.notice.invalidIBAN" = "Het rekeningnummer is geen geldig IBAN.";
+"qr.notice.signInSecret" = "Dit is een aanmeldgeheim. Scan het alleen in je eigen authenticator-app en deel het nooit.";
+"qr.notice.openNetwork" = "Dit netwerk heeft geen wachtwoord. Iedereen in de buurt kan je verkeer zien.";
+"qr.notice.shortCode" = "Berichten naar korte nummers kunnen geld kosten.";
+"qr.notice.opensOtherApp" = "Dit opent een andere app. Ga alleen verder als je dat verwachtte.";
+"qr.notice.readOnDevice" = "Dit is op je telefoon gelezen en nergens naartoe gestuurd.";
+"qr.notice.signsInOtherDevice" = "Met deze code meld je een ander toestel aan op je account. Scan hem alleen vanuit die app, op een scherm dat je zelf geopend hebt. Heeft iemand hem je gestuurd, dan is het oplichting.";
+"qr.notice.chatWithStranger" = "Dit start een chat met iemand die je misschien niet kent. Oplichters gebruiken chatlinks om een gesprek weg te halen van een site die je vertrouwt.";
+"qr.notice.authenticatorExport" = "Deze code bevat de geheimen van alle accounts in een authenticator-app. Wie hem scant, kan jouw aanmeldcodes maken. Scan hem alleen met je eigen nieuwe telefoon en deel hem nooit.";
+"qr.notice.installESIM" = "Open de instellingen voor het mobiele netwerk van je telefoon en voeg een eSIM toe om hem te installeren.";
+"qr.notice.mobilePlan" = "Dit installeert een mobiel abonnement (eSIM) op je telefoon. Ga alleen verder als het van je eigen provider komt.";
+"qr.notice.deviceSetupCode" = "Dit is een installatiecode voor een smarthome-apparaat. Wie hem scant, kan het apparaat aan zijn eigen woning toevoegen. Scan hem alleen met je smarthome-app, voor een apparaat dat van jou is.";
+"qr.notice.healthCertificate" = "Dit is een gezondheidscertificaat. Het bevat een naam, een geboortedatum en medische gegevens. Het is op je telefoon gelezen en nergens naartoe gestuurd. Deel het niet.";
+"qr.notice.unsafeLink" = "Dit is geen webadres. Links van dit soort kunnen code uitvoeren of bestanden openen op je telefoon. Open hem niet.";
+"qr.notice.serviceCode" = "Dit is een servicecode voor je telefoon, geen gewoon nummer. Zulke codes kunnen je oproepen doorschakelen, instellingen wijzigen of geld kosten. Bel hem alleen als je provider je dat gevraagd heeft.";
+"qr.notice.premiumNumber" = "Dit lijkt een betaalnummer. Bellen kan veel kosten per minuut.";
+
+"qr.action.openInApp" = "Openen in app";
+"qr.action.openInPaymentApp" = "Openen in betaalapp";
+"qr.action.joinWiFi" = "Verbinden";
+"qr.action.addToContacts" = "Aan contacten toevoegen";
+"qr.action.addToCalendar" = "Aan agenda toevoegen";
+"qr.action.copy" = "Kopiëren";
+"qr.action.copyAll" = "Alles kopiëren";
+"qr.action.copyIBAN" = "IBAN kopiëren";
+"qr.action.copyAddress" = "Adres kopiëren";
+"qr.action.copyPassword" = "Wachtwoord kopiëren";
+
+"content.done" = "Klaar";
+"content.copied" = "Gekopieerd";
+"content.raw.show" = "Ruwe inhoud tonen";
+"content.raw.hide" = "Ruwe inhoud verbergen";
+"content.raw.secretHidden" = "Geheime delen worden weggelaten.";
+"content.secret.show" = "Verborgen tekst tonen";
+"content.secret.hide" = "Tekst verbergen";
+"content.noApp.title" = "Niets kan dit openen";
+"content.noApp.message" = "Geen app op deze telefoon kan dit openen.";
+"content.wifi.failed.title" = "Kon niet verbinden met het netwerk";
+"content.wifi.failed.message" = "Controleer of het netwerk binnen bereik is. Je kunt ook het wachtwoord kopiëren en in Instellingen verbinden.";
+"content.history.redacted" = "Wachtwoorden, codes en geheimen worden niet in de geschiedenis bewaard.";
+
+/* History */
+"history.title" = "Eerdere scans";
+"history.note" = "Je geschiedenis blijft op deze telefoon.";
+"history.clear" = "Alles wissen";
+"history.clear.confirm.title" = "Hele geschiedenis wissen?";
+"history.clear.confirm.message" = "Dit verwijdert alle eerdere scans van deze telefoon.";
+"history.clear.confirm.action" = "Alles wissen";
+"history.empty.title" = "Nog geen scans";
+"history.empty.message" = "QR-codes die je scant, komen hier te staan. De lijst blijft op deze telefoon.";
+"history.unchecked" = "Niet gecontroleerd";
+"history.failed" = "Kon niet gecontroleerd worden";
+"history.delete" = "Verwijderen";

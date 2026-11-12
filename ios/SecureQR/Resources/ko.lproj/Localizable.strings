@@ -1,0 +1,230 @@
+/* SecureQR, 한국어. Keys are stable; values may be translated. */
+
+/* Common */
+"common.ok" = "확인";
+"common.cancel" = "취소";
+"common.yes" = "예";
+"common.no" = "아니요";
+"common.none" = "없음";
+
+/* Scanner */
+"scan.hint.before" = "QR 코드를 비춰 보세요. 직접 열기 전에는 ";
+"scan.hint.strong" = "아무것도 열리지 않아요";
+"scan.hint.after" = ".";
+"scan.torch.on" = "손전등 켜기";
+"scan.torch.off" = "손전등 끄기";
+"scan.photo" = "사진 스캔";
+"scan.history" = "기록";
+"scan.photo.none.title" = "QR 코드 없음";
+"scan.photo.none.message" = "이 사진에서 QR 코드를 찾지 못했어요. 더 선명하거나 가까이에서 찍은 사진으로 다시 시도하세요.";
+"scan.permission.title" = "카메라 접근";
+"scan.permission.message" = "SecureQR은 QR 코드를 읽을 때만 카메라를 사용합니다. 아무것도 녹화되지 않으며, 직접 열기 전에는 아무것도 열리지 않습니다.";
+"scan.permission.continue" = "계속";
+"scan.denied.title" = "카메라가 꺼져 있어요";
+"scan.denied.message" = "SecureQR에 카메라 사용 권한이 없어요. 설정에서 허용하거나, 아래 버튼으로 사진 속 QR 코드를 스캔하세요.";
+"scan.denied.settings" = "설정 열기";
+"scan.unavailable.title" = "사용할 수 있는 카메라 없음";
+"scan.unavailable.message" = "아래 버튼으로 사진 속 QR 코드를 스캔할 수 있어요.";
+
+/* Checking */
+"checking.says" = "QR 코드 내용";
+"checking.following" = "대신 링크를 따라가는 중";
+"checking.contacting" = "서버에 연결하는 중";
+"checking.step.active" = "진행 중";
+"checking.step.done" = "완료";
+"checking.step.opening" = "링크 여는 중…";
+"checking.step.following" = "리디렉션 따라가는 중…";
+"checking.step.screenshot" = "스크린샷 찍는 중…";
+"checking.note" = "링크는 휴대폰이 아닌 저희 서버에서 열립니다.";
+
+/* Verdict headlines. "ok" must never be worded as "safe". */
+"verdict.ok" = "경고 신호 없음";
+"verdict.caution" = "확인이 필요해요";
+"verdict.danger" = "위험해 보여요";
+
+/* Decide */
+"decide.landOn" = "도착할 곳";
+"decide.chip.https" = "HTTPS";
+"decide.chip.notEncrypted" = "암호화 안 됨";
+"decide.chip.redirects.none" = "리디렉션 없음";
+"decide.chip.redirects.one" = "리디렉션 1회";
+"decide.chip.redirects.many" = "리디렉션 %d회";
+"decide.chip.blocklisted" = "차단 목록에 있음";
+"decide.chip.notBlocklisted" = "차단 목록에 없음";
+"decide.hops.show" = "경로 보기";
+"decide.hops.hide" = "경로 숨기기";
+"decide.open" = "열기";
+"decide.openAnyway" = "그래도 열기";
+"decide.dontOpen" = "열지 않기";
+"decide.screenshot.more" = "페이지 전체 보기";
+"decide.screenshot.less" = "간단히 보기";
+"decide.checked.now" = "1분 이내에 확인함";
+"decide.checked.one" = "1분 전에 확인함";
+"decide.checked.many" = "%d분 전에 확인함";
+"decide.screenshot.label" = "페이지 스크린샷";
+"decide.screenshot.none" = "페이지를 표시할 수 없어요.";
+"decide.screenshot.failed" = "스크린샷을 더 이상 볼 수 없어요.";
+
+/* Hops */
+"hop.start" = "스캔한 링크";
+"hop.http" = "리디렉션";
+"hop.client" = "페이지의 리디렉션";
+"hop.unknown" = "단계";
+
+/* Failures */
+"failure.offline.title" = "연결 없음";
+"failure.offline.message" = "SecureQR에 연결할 수 없어요. 인터넷 연결을 확인하고 다시 시도하세요.";
+"failure.timeout.title" = "시간이 너무 오래 걸려요";
+"failure.timeout.message" = "확인이 제시간에 끝나지 않았어요. 잠시 후 다시 시도하세요.";
+"failure.generic.title" = "이 링크를 확인할 수 없어요";
+"failure.generic.message" = "저희 쪽에 문제가 생겼어요. 잠시 후 다시 시도하세요.";
+"failure.server.invalid_url.title" = "확인할 수 있는 링크가 아니에요";
+"failure.server.invalid_url.message" = "올바른 웹 주소가 아니거나 링크가 너무 깁니다.";
+"failure.server.unauthorized.title" = "업데이트 필요";
+"failure.server.unauthorized.message" = "이 버전의 앱으로는 더 이상 서비스를 이용할 수 없어요. SecureQR을 업데이트한 뒤 다시 시도하세요.";
+"failure.server.blocked_target.title" = "사설 주소를 가리키는 링크예요";
+"failure.server.blocked_target.message" = "사설 또는 내부 네트워크로 연결되며, 저희는 이런 곳을 방문하지 않습니다.";
+"failure.server.unreachable.title" = "사이트가 응답하지 않았어요";
+"failure.server.unreachable.message" = "사이트를 찾을 수 없거나 사이트가 연결을 거부했습니다.";
+"failure.server.rate_limited.title" = "확인 횟수가 너무 많아요";
+"failure.server.rate_limited.message" = "짧은 시간에 많은 링크를 확인했어요. 잠시 기다린 뒤 다시 시도하세요.";
+"failure.server.timeout.title" = "페이지가 너무 오래 걸렸어요";
+"failure.server.timeout.message" = "페이지가 제시간에 로드되지 않았습니다.";
+"failure.server.internal.title" = "이 링크를 확인할 수 없어요";
+"failure.server.internal.message" = "저희 쪽에 문제가 생겼어요. 잠시 후 다시 시도하세요.";
+"failure.unchecked.note" = "이 링크는 확인되지 않았어요. 어디로 연결되는지 알려 드릴 수 없습니다.";
+"failure.retry" = "다시 시도";
+"failure.confirm.title" = "확인하지 않고 열까요?";
+"failure.confirm.message" = "이 링크를 확인하지 못해서 어디로 연결되는지, 경고 신호가 있는지 알려 드릴 수 없습니다.";
+
+/* Typed cards */
+"qr.type.login" = "다른 기기용 로그인 코드";
+"qr.type.chat" = "채팅 링크";
+"qr.type.swissqr" = "계좌 이체";
+"qr.type.spd" = "계좌 이체";
+"qr.type.otpexport" = "인증 앱 내보내기";
+"qr.type.esim" = "eSIM";
+"qr.type.device" = "스마트홈 설정 코드";
+"qr.type.healthcert" = "건강 증명서";
+"qr.type.unsafe" = "안전하지 않은 링크";
+"qr.type.paylink" = "결제 링크";
+"qr.type.url" = "링크";
+"qr.type.epc" = "계좌 이체";
+"qr.type.emv" = "결제";
+"qr.type.upi" = "UPI 결제";
+"qr.type.crypto" = "암호화폐 결제";
+"qr.type.wifi" = "Wi-Fi 네트워크";
+"qr.type.contact" = "연락처";
+"qr.type.event" = "캘린더 일정";
+"qr.type.email" = "이메일";
+"qr.type.phone" = "전화번호";
+"qr.type.sms" = "문자 메시지";
+"qr.type.geo" = "위치";
+"qr.type.otp" = "로그인 코드 설정";
+"qr.type.applink" = "앱 링크";
+"qr.type.text" = "텍스트";
+
+"qr.field.beneficiary" = "수취인";
+"qr.field.iban" = "IBAN";
+"qr.field.bic" = "BIC";
+"qr.field.amount" = "금액";
+"qr.field.reference" = "참조";
+"qr.field.message" = "메시지";
+"qr.field.merchant" = "가맹점";
+"qr.field.city" = "도시";
+"qr.field.country" = "국가";
+"qr.field.currency" = "통화";
+"qr.field.payeeName" = "받는 사람 이름";
+"qr.field.payeeAddress" = "받는 사람 주소";
+"qr.field.note" = "메모";
+"qr.field.network" = "네트워크";
+"qr.field.address" = "주소";
+"qr.field.label" = "라벨";
+"qr.field.security" = "보안";
+"qr.field.password" = "비밀번호";
+"qr.field.hidden" = "숨김";
+"qr.field.name" = "이름";
+"qr.field.phone" = "전화";
+"qr.field.email" = "이메일";
+"qr.field.organisation" = "조직";
+"qr.field.url" = "URL";
+"qr.field.title" = "제목";
+"qr.field.start" = "시작";
+"qr.field.end" = "종료";
+"qr.field.location" = "장소";
+"qr.field.details" = "설명";
+"qr.field.to" = "받는 사람";
+"qr.field.subject" = "제목";
+"qr.field.body" = "본문";
+"qr.field.number" = "번호";
+"qr.field.latitude" = "위도";
+"qr.field.longitude" = "경도";
+"qr.field.issuer" = "발급자";
+"qr.field.account" = "계정";
+"qr.field.type" = "유형";
+"qr.field.scheme" = "스킴";
+"qr.field.content" = "내용";
+"qr.field.service" = "서비스";
+"qr.field.handle" = "사용자 이름";
+"qr.field.provider" = "제공업체";
+"qr.field.activationCode" = "활성화 코드";
+
+"qr.value.inviteLink" = "초대 링크";
+
+"qr.notice.paymentRequest" = "결제 요청입니다. 결제하기 전에 이름, 계좌, 금액을 확인하세요. 결제는 되돌리기 어렵습니다.";
+"qr.notice.paymentRequestInApp" = "결제 요청입니다. 승인하기 전에 결제 앱에서 이름과 금액을 확인하세요. 결제는 되돌리기 어렵습니다.";
+"qr.notice.scanWithBankingApp" = "결제하려면 은행 앱을 열고 그 앱으로 이 QR 코드를 스캔하세요.";
+"qr.notice.cryptoIrreversible" = "암호화폐 결제는 취소할 수 없습니다.";
+"qr.notice.invalidIBAN" = "계좌 번호가 올바른 IBAN이 아닙니다.";
+"qr.notice.signInSecret" = "로그인 비밀 키입니다. 본인의 인증 앱에만 스캔하고, 절대 다른 사람과 공유하지 마세요.";
+"qr.notice.openNetwork" = "비밀번호가 없는 네트워크입니다. 근처에 있는 누구나 내 데이터 통신을 볼 수 있습니다.";
+"qr.notice.shortCode" = "단축 번호로 보내는 문자는 요금이 부과될 수 있습니다.";
+"qr.notice.opensOtherApp" = "다른 앱이 열립니다. 예상한 경우에만 계속하세요.";
+"qr.notice.readOnDevice" = "휴대폰에서 읽었으며 어디에도 전송되지 않았습니다.";
+"qr.notice.signsInOtherDevice" = "이 코드는 다른 기기를 내 계정에 로그인시킵니다. 해당 앱 안에서, 직접 연 화면에서만 스캔하세요. 누군가 이 코드를 보냈다면 사기입니다.";
+"qr.notice.chatWithStranger" = "모르는 사람과 채팅이 시작될 수 있습니다. 사기범은 채팅 링크로 대화를 믿을 수 있는 사이트 밖으로 옮깁니다.";
+"qr.notice.authenticatorExport" = "이 코드에는 인증 앱에 있는 모든 계정의 비밀 키가 들어 있습니다. 이 코드를 스캔한 사람은 누구나 내 로그인 코드를 만들 수 있습니다. 본인의 새 휴대폰으로만 스캔하고, 절대 공유하지 마세요.";
+"qr.notice.installESIM" = "설치하려면 휴대폰의 모바일 네트워크 설정을 열고 eSIM을 추가하세요.";
+"qr.notice.mobilePlan" = "휴대폰에 모바일 요금제(eSIM)를 설치합니다. 내가 가입한 통신사에서 받은 경우에만 계속하세요.";
+"qr.notice.deviceSetupCode" = "스마트홈 기기의 설정 코드입니다. 이 코드를 스캔한 사람은 누구나 기기를 자기 집에 추가할 수 있습니다. 내 기기에 대해, 스마트홈 앱으로만 스캔하세요.";
+"qr.notice.healthCertificate" = "건강 증명서입니다. 이름, 생년월일, 의료 정보가 들어 있습니다. 휴대폰에서 읽었으며 어디에도 전송되지 않았습니다. 공유하지 마세요.";
+"qr.notice.unsafeLink" = "웹 주소가 아닙니다. 이런 종류의 링크는 휴대폰에서 코드를 실행하거나 파일을 열 수 있습니다. 열지 마세요.";
+"qr.notice.serviceCode" = "일반 전화번호가 아닌 전화 서비스 코드입니다. 이런 코드는 통화를 착신 전환하거나, 설정을 바꾸거나, 요금을 발생시킬 수 있습니다. 통신사가 안내한 경우에만 거세요.";
+"qr.notice.premiumNumber" = "유료 정보 서비스 번호로 보입니다. 전화를 걸면 분당 요금이 많이 나올 수 있습니다.";
+
+"qr.action.openInApp" = "앱에서 열기";
+"qr.action.openInPaymentApp" = "결제 앱에서 열기";
+"qr.action.joinWiFi" = "네트워크 연결";
+"qr.action.addToContacts" = "연락처에 추가";
+"qr.action.addToCalendar" = "캘린더에 추가";
+"qr.action.copy" = "복사";
+"qr.action.copyAll" = "모두 복사";
+"qr.action.copyIBAN" = "IBAN 복사";
+"qr.action.copyAddress" = "주소 복사";
+"qr.action.copyPassword" = "비밀번호 복사";
+
+"content.done" = "완료";
+"content.copied" = "복사됨";
+"content.raw.show" = "원본 내용 보기";
+"content.raw.hide" = "원본 내용 숨기기";
+"content.raw.secretHidden" = "비밀 부분은 제외했어요.";
+"content.secret.show" = "숨긴 텍스트 보기";
+"content.secret.hide" = "텍스트 숨기기";
+"content.noApp.title" = "열 수 있는 앱이 없어요";
+"content.noApp.message" = "이 휴대폰에는 이것을 열 수 있는 앱이 없어요.";
+"content.wifi.failed.title" = "네트워크에 연결할 수 없어요";
+"content.wifi.failed.message" = "네트워크가 범위 안에 있는지 확인하세요. 비밀번호를 복사해 설정에서 직접 연결할 수도 있어요.";
+"content.history.redacted" = "비밀번호, 코드, 비밀 키는 기록에 보관되지 않아요.";
+
+/* History */
+"history.title" = "지난 스캔";
+"history.note" = "기록은 이 휴대폰에만 남습니다.";
+"history.clear" = "모두 지우기";
+"history.clear.confirm.title" = "기록을 모두 지울까요?";
+"history.clear.confirm.message" = "이 휴대폰에서 지난 스캔이 모두 삭제됩니다.";
+"history.clear.confirm.action" = "모두 지우기";
+"history.empty.title" = "아직 스캔한 항목이 없어요";
+"history.empty.message" = "스캔한 QR 코드가 여기에 표시됩니다. 목록은 이 휴대폰에만 남습니다.";
+"history.unchecked" = "확인 안 됨";
+"history.failed" = "확인할 수 없었음";
+"history.delete" = "삭제";

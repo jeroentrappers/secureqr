@@ -1,0 +1,230 @@
+/* SecureQR, বাংলা. Keys are stable; values may be translated. */
+
+/* Common */
+"common.ok" = "ঠিক আছে";
+"common.cancel" = "বাতিল";
+"common.yes" = "হ্যাঁ";
+"common.no" = "না";
+"common.none" = "নেই";
+
+/* Scanner */
+"scan.hint.before" = "একটি QR কোডের দিকে ক্যামেরা ধরুন। আপনি না বলা পর্যন্ত ";
+"scan.hint.strong" = "কিছুই খুলবে না";
+"scan.hint.after" = "।";
+"scan.torch.on" = "লাইট চালু করুন";
+"scan.torch.off" = "লাইট বন্ধ করুন";
+"scan.photo" = "ছবি স্ক্যান করুন";
+"scan.history" = "হিস্ট্রি";
+"scan.photo.none.title" = "কোনো QR কোড পাওয়া যায়নি";
+"scan.photo.none.message" = "ওই ছবিতে আমরা কোনো QR কোড খুঁজে পাইনি। আরও পরিষ্কার বা কাছ থেকে তোলা ছবি দিয়ে চেষ্টা করুন।";
+"scan.permission.title" = "ক্যামেরার অনুমতি";
+"scan.permission.message" = "SecureQR ক্যামেরা শুধু QR কোড পড়ার জন্য ব্যবহার করে। কিছুই রেকর্ড করা হয় না, আর আপনি না বলা পর্যন্ত কিছুই খোলে না।";
+"scan.permission.continue" = "এগিয়ে যান";
+"scan.denied.title" = "ক্যামেরা বন্ধ আছে";
+"scan.denied.message" = "SecureQR-কে ক্যামেরা ব্যবহারের অনুমতি দেওয়া হয়নি। সেটিংসে গিয়ে অনুমতি দিতে পারেন, অথবা নিচের বোতাম দিয়ে একটি ছবি থেকে QR কোড স্ক্যান করতে পারেন।";
+"scan.denied.settings" = "সেটিংস খুলুন";
+"scan.unavailable.title" = "কোনো ক্যামেরা নেই";
+"scan.unavailable.message" = "নিচের বোতাম দিয়ে আপনি তবুও একটি ছবি থেকে QR কোড স্ক্যান করতে পারেন।";
+
+/* Checking */
+"checking.says" = "QR কোডে লেখা";
+"checking.following" = "আপনার হয়ে লিংকটি অনুসরণ করা হচ্ছে";
+"checking.contacting" = "সার্ভারের সাথে যোগাযোগ করা হচ্ছে";
+"checking.step.active" = "চলছে";
+"checking.step.done" = "সম্পন্ন";
+"checking.step.opening" = "লিংকটি খোলা হচ্ছে…";
+"checking.step.following" = "রিডাইরেক্ট অনুসরণ করা হচ্ছে…";
+"checking.step.screenshot" = "স্ক্রিনশট নেওয়া হচ্ছে…";
+"checking.note" = "আমরা লিংকটি আমাদের সার্ভারে খুলি, কখনো আপনার ফোনে নয়।";
+
+/* Verdict headlines. "ok" must never be worded as "safe". */
+"verdict.ok" = "কোনো সতর্কসংকেত পাওয়া যায়নি";
+"verdict.caution" = "যাচাই করে নিন";
+"verdict.danger" = "এটি ঝুঁকিপূর্ণ মনে হচ্ছে";
+
+/* Decide */
+"decide.landOn" = "আপনি পৌঁছাবেন";
+"decide.chip.https" = "HTTPS";
+"decide.chip.notEncrypted" = "এনক্রিপ্ট করা নয়";
+"decide.chip.redirects.none" = "কোনো রিডাইরেক্ট নেই";
+"decide.chip.redirects.one" = "1টি রিডাইরেক্ট";
+"decide.chip.redirects.many" = "%dটি রিডাইরেক্ট";
+"decide.chip.blocklisted" = "ব্লকলিস্টে আছে";
+"decide.chip.notBlocklisted" = "ব্লকলিস্টে নেই";
+"decide.hops.show" = "পথটি দেখুন";
+"decide.hops.hide" = "পথটি লুকান";
+"decide.open" = "খুলুন";
+"decide.openAnyway" = "তবুও খুলুন";
+"decide.dontOpen" = "খুলবেন না";
+"decide.screenshot.more" = "পুরো পেজ দেখুন";
+"decide.screenshot.less" = "কম দেখুন";
+"decide.checked.now" = "এক মিনিটেরও কম আগে যাচাই করা হয়েছে";
+"decide.checked.one" = "1 মিনিট আগে যাচাই করা হয়েছে";
+"decide.checked.many" = "%d মিনিট আগে যাচাই করা হয়েছে";
+"decide.screenshot.label" = "পেজের স্ক্রিনশট";
+"decide.screenshot.none" = "পেজটি দেখানো যায়নি।";
+"decide.screenshot.failed" = "স্ক্রিনশটটি আর পাওয়া যাচ্ছে না।";
+
+/* Hops */
+"hop.start" = "স্ক্যান করা লিংক";
+"hop.http" = "রিডাইরেক্ট";
+"hop.client" = "পেজের করা রিডাইরেক্ট";
+"hop.unknown" = "ধাপ";
+
+/* Failures */
+"failure.offline.title" = "সংযোগ নেই";
+"failure.offline.message" = "আমরা SecureQR-এর সাথে যোগাযোগ করতে পারিনি। ইন্টারনেট সংযোগ দেখে আবার চেষ্টা করুন।";
+"failure.timeout.title" = "অনেক বেশি সময় লাগছে";
+"failure.timeout.message" = "যাচাই সময়মতো শেষ হয়নি। একটু পরে আবার চেষ্টা করুন।";
+"failure.generic.title" = "এই লিংকটি যাচাই করা যায়নি";
+"failure.generic.message" = "আমাদের দিকে কিছু একটা ভুল হয়েছে। একটু পরে আবার চেষ্টা করুন।";
+"failure.server.invalid_url.title" = "এই লিংকটি আমরা যাচাই করতে পারি না";
+"failure.server.invalid_url.message" = "লিংকটি সঠিক ওয়েব ঠিকানা নয়, অথবা খুব বেশি লম্বা।";
+"failure.server.unauthorized.title" = "আপডেট প্রয়োজন";
+"failure.server.unauthorized.message" = "অ্যাপের এই সংস্করণ দিয়ে আর সেবাটি ব্যবহার করা যাবে না। SecureQR আপডেট করে আবার চেষ্টা করুন।";
+"failure.server.blocked_target.title" = "এই লিংকটি একটি প্রাইভেট ঠিকানার দিকে";
+"failure.server.blocked_target.message" = "এটি একটি প্রাইভেট বা অভ্যন্তরীণ নেটওয়ার্কে নিয়ে যায়, যেখানে আমরা যাই না।";
+"failure.server.unreachable.title" = "সাইটটি সাড়া দেয়নি";
+"failure.server.unreachable.message" = "সাইটটি খুঁজে পাওয়া যায়নি, অথবা সংযোগ প্রত্যাখ্যান করেছে।";
+"failure.server.rate_limited.title" = "অনেক বেশি যাচাই";
+"failure.server.rate_limited.message" = "অল্প সময়ে আপনি অনেক লিংক যাচাই করেছেন। একটু অপেক্ষা করে আবার চেষ্টা করুন।";
+"failure.server.timeout.title" = "পেজটিতে অনেক বেশি সময় লেগেছে";
+"failure.server.timeout.message" = "পেজটি সময়মতো লোড হয়নি।";
+"failure.server.internal.title" = "এই লিংকটি যাচাই করা যায়নি";
+"failure.server.internal.message" = "আমাদের দিকে কিছু একটা ভুল হয়েছে। একটু পরে আবার চেষ্টা করুন।";
+"failure.unchecked.note" = "এই লিংকটি যাচাই করা হয়নি। এটি কোথায় নিয়ে যায়, আমরা বলতে পারছি না।";
+"failure.retry" = "আবার চেষ্টা করুন";
+"failure.confirm.title" = "যাচাই ছাড়াই খুলবেন?";
+"failure.confirm.message" = "আমরা এই লিংকটি যাচাই করতে পারিনি, তাই এটি কোথায় নিয়ে যায় বা এতে কোনো সতর্কসংকেত আছে কি না, তা বলতে পারছি না।";
+
+/* Typed cards */
+"qr.type.login" = "অন্য ডিভাইসের সাইন-ইন কোড";
+"qr.type.chat" = "চ্যাট লিংক";
+"qr.type.swissqr" = "ব্যাংক ট্রান্সফার";
+"qr.type.spd" = "ব্যাংক ট্রান্সফার";
+"qr.type.otpexport" = "অথেন্টিকেটর এক্সপোর্ট";
+"qr.type.esim" = "eSIM";
+"qr.type.device" = "স্মার্ট-হোম সেটআপ কোড";
+"qr.type.healthcert" = "স্বাস্থ্য সনদ";
+"qr.type.unsafe" = "অনিরাপদ লিংক";
+"qr.type.paylink" = "পেমেন্ট লিংক";
+"qr.type.url" = "লিংক";
+"qr.type.epc" = "ব্যাংক ট্রান্সফার";
+"qr.type.emv" = "পেমেন্ট";
+"qr.type.upi" = "UPI পেমেন্ট";
+"qr.type.crypto" = "ক্রিপ্টো পেমেন্ট";
+"qr.type.wifi" = "Wi-Fi নেটওয়ার্ক";
+"qr.type.contact" = "কন্টাক্ট";
+"qr.type.event" = "ক্যালেন্ডার ইভেন্ট";
+"qr.type.email" = "ইমেইল";
+"qr.type.phone" = "ফোন নম্বর";
+"qr.type.sms" = "SMS";
+"qr.type.geo" = "অবস্থান";
+"qr.type.otp" = "সাইন-ইন কোড সেটআপ";
+"qr.type.applink" = "অ্যাপ লিংক";
+"qr.type.text" = "টেক্সট";
+
+"qr.field.beneficiary" = "প্রাপক";
+"qr.field.iban" = "IBAN";
+"qr.field.bic" = "BIC";
+"qr.field.amount" = "পরিমাণ";
+"qr.field.reference" = "রেফারেন্স";
+"qr.field.message" = "বার্তা";
+"qr.field.merchant" = "বিক্রেতা";
+"qr.field.city" = "শহর";
+"qr.field.country" = "দেশ";
+"qr.field.currency" = "মুদ্রা";
+"qr.field.payeeName" = "প্রাপকের নাম";
+"qr.field.payeeAddress" = "প্রাপকের ঠিকানা";
+"qr.field.note" = "নোট";
+"qr.field.network" = "নেটওয়ার্ক";
+"qr.field.address" = "ঠিকানা";
+"qr.field.label" = "লেবেল";
+"qr.field.security" = "নিরাপত্তা";
+"qr.field.password" = "পাসওয়ার্ড";
+"qr.field.hidden" = "লুকানো";
+"qr.field.name" = "নাম";
+"qr.field.phone" = "ফোন";
+"qr.field.email" = "ইমেইল";
+"qr.field.organisation" = "প্রতিষ্ঠান";
+"qr.field.url" = "URL";
+"qr.field.title" = "শিরোনাম";
+"qr.field.start" = "শুরু";
+"qr.field.end" = "শেষ";
+"qr.field.location" = "স্থান";
+"qr.field.details" = "বিবরণ";
+"qr.field.to" = "প্রাপক";
+"qr.field.subject" = "বিষয়";
+"qr.field.body" = "মূল লেখা";
+"qr.field.number" = "নম্বর";
+"qr.field.latitude" = "অক্ষাংশ";
+"qr.field.longitude" = "দ্রাঘিমাংশ";
+"qr.field.issuer" = "প্রদানকারী";
+"qr.field.account" = "অ্যাকাউন্ট";
+"qr.field.type" = "ধরন";
+"qr.field.scheme" = "স্কিম";
+"qr.field.content" = "কনটেন্ট";
+"qr.field.service" = "সেবা";
+"qr.field.handle" = "হ্যান্ডেল";
+"qr.field.provider" = "প্রোভাইডার";
+"qr.field.activationCode" = "অ্যাক্টিভেশন কোড";
+
+"qr.value.inviteLink" = "আমন্ত্রণ লিংক";
+
+"qr.notice.paymentRequest" = "এটি একটি পেমেন্টের অনুরোধ। পেমেন্ট করার আগে নাম, অ্যাকাউন্ট ও পরিমাণ মিলিয়ে নিন। পেমেন্ট ফেরানো কঠিন।";
+"qr.notice.paymentRequestInApp" = "এটি একটি পেমেন্টের অনুরোধ। নিশ্চিত করার আগে আপনার পেমেন্ট অ্যাপে নাম ও পরিমাণ মিলিয়ে নিন। পেমেন্ট ফেরানো কঠিন।";
+"qr.notice.scanWithBankingApp" = "পেমেন্ট করতে আপনার ব্যাংকিং অ্যাপ খুলে সেটি দিয়ে এই QR কোড স্ক্যান করুন।";
+"qr.notice.cryptoIrreversible" = "ক্রিপ্টো পেমেন্ট ফেরানো যায় না।";
+"qr.notice.invalidIBAN" = "অ্যাকাউন্ট নম্বরটি সঠিক IBAN নয়।";
+"qr.notice.signInSecret" = "এটি একটি সাইন-ইন সিক্রেট। শুধু আপনার নিজের অথেন্টিকেটর অ্যাপে এটি স্ক্যান করুন, আর কখনো কাউকে দেবেন না।";
+"qr.notice.openNetwork" = "এই নেটওয়ার্কের কোনো পাসওয়ার্ড নেই। আশেপাশের যে কেউ আপনার ডেটা আদান-প্রদান দেখতে পারে।";
+"qr.notice.shortCode" = "ছোট নম্বরে মেসেজ পাঠাতে টাকা লাগতে পারে।";
+"qr.notice.opensOtherApp" = "এটি অন্য একটি অ্যাপ খোলে। আপনি এটি আশা করে থাকলেই এগিয়ে যান।";
+"qr.notice.readOnDevice" = "এটি আপনার ফোনেই পড়া হয়েছে এবং কোথাও পাঠানো হয়নি।";
+"qr.notice.signsInOtherDevice" = "এই কোড অন্য একটি ডিভাইসকে আপনার অ্যাকাউন্টে সাইন ইন করায়। শুধু সেই অ্যাপের ভেতর থেকে, নিজে খোলা কোনো স্ক্রিনে এটি স্ক্যান করুন। কেউ আপনাকে এটি পাঠিয়ে থাকলে, এটি প্রতারণা।";
+"qr.notice.chatWithStranger" = "এটি এমন কারও সাথে চ্যাট শুরু করে যাকে আপনি হয়তো চেনেন না। প্রতারকেরা বিশ্বস্ত সাইট থেকে কথোপকথন সরিয়ে নিতে চ্যাট লিংক ব্যবহার করে।";
+"qr.notice.authenticatorExport" = "এই কোডে একটি অথেন্টিকেটর অ্যাপের প্রতিটি অ্যাকাউন্টের সিক্রেট থাকে। যে এটি স্ক্যান করবে, সে আপনার সাইন-ইন কোড তৈরি করতে পারবে। শুধু আপনার নিজের নতুন ফোন দিয়ে এটি স্ক্যান করুন, আর কখনো কাউকে দেবেন না।";
+"qr.notice.installESIM" = "ইনস্টল করতে আপনার ফোনের মোবাইল নেটওয়ার্ক সেটিংস খুলে একটি eSIM যোগ করুন।";
+"qr.notice.mobilePlan" = "এটি আপনার ফোনে একটি মোবাইল প্ল্যান (eSIM) ইনস্টল করে। এটি আপনার নিজের মোবাইল অপারেটরের কাছ থেকে এলেই এগিয়ে যান।";
+"qr.notice.deviceSetupCode" = "এটি একটি স্মার্ট-হোম ডিভাইসের সেটআপ কোড। যে এটি স্ক্যান করবে, সে ডিভাইসটি নিজের বাড়িতে যোগ করতে পারবে। শুধু আপনার স্মার্ট-হোম অ্যাপ দিয়ে, নিজের ডিভাইসের জন্য এটি স্ক্যান করুন।";
+"qr.notice.healthCertificate" = "এটি একটি স্বাস্থ্য সনদ। এতে একটি নাম, জন্মতারিখ ও চিকিৎসা-সংক্রান্ত তথ্য থাকে। এটি আপনার ফোনেই পড়া হয়েছে এবং কোথাও পাঠানো হয়নি। এটি কাউকে দেবেন না।";
+"qr.notice.unsafeLink" = "এটি কোনো ওয়েব ঠিকানা নয়। এ ধরনের লিংক আপনার ফোনে কোড চালাতে বা ফাইল খুলতে পারে। এটি খুলবেন না।";
+"qr.notice.serviceCode" = "এটি একটি ফোন সার্ভিস কোড, সাধারণ নম্বর নয়। এ ধরনের কোড আপনার কল অন্য নম্বরে পাঠাতে, সেটিংস বদলাতে বা টাকা কাটতে পারে। আপনার অপারেটর বলে থাকলেই এটি ডায়াল করুন।";
+"qr.notice.premiumNumber" = "এটি একটি প্রিমিয়াম-রেট নম্বর বলে মনে হচ্ছে। এতে কল করলে প্রতি মিনিটে অনেক টাকা লাগতে পারে।";
+
+"qr.action.openInApp" = "অ্যাপে খুলুন";
+"qr.action.openInPaymentApp" = "পেমেন্ট অ্যাপে খুলুন";
+"qr.action.joinWiFi" = "নেটওয়ার্কে যুক্ত হন";
+"qr.action.addToContacts" = "কন্টাক্টে যোগ করুন";
+"qr.action.addToCalendar" = "ক্যালেন্ডারে যোগ করুন";
+"qr.action.copy" = "কপি করুন";
+"qr.action.copyAll" = "সব কপি করুন";
+"qr.action.copyIBAN" = "IBAN কপি করুন";
+"qr.action.copyAddress" = "ঠিকানা কপি করুন";
+"qr.action.copyPassword" = "পাসওয়ার্ড কপি করুন";
+
+"content.done" = "সম্পন্ন";
+"content.copied" = "কপি হয়েছে";
+"content.raw.show" = "মূল কনটেন্ট দেখুন";
+"content.raw.hide" = "মূল কনটেন্ট লুকান";
+"content.raw.secretHidden" = "গোপন অংশগুলো বাদ রাখা হয়েছে।";
+"content.secret.show" = "লুকানো লেখা দেখুন";
+"content.secret.hide" = "লেখা লুকান";
+"content.noApp.title" = "এটি খোলার মতো কিছু নেই";
+"content.noApp.message" = "এই ফোনের কোনো অ্যাপ এটি খুলতে পারে না।";
+"content.wifi.failed.title" = "নেটওয়ার্কে যুক্ত হওয়া যায়নি";
+"content.wifi.failed.message" = "নেটওয়ার্কটি কাছাকাছি আছে কি না দেখুন। পাসওয়ার্ড কপি করে সেটিংসেও যুক্ত হতে পারেন।";
+"content.history.redacted" = "পাসওয়ার্ড, কোড ও গোপন তথ্য হিস্ট্রিতে রাখা হয় না।";
+
+/* History */
+"history.title" = "আগের স্ক্যান";
+"history.note" = "আপনার হিস্ট্রি এই ফোনেই থাকে।";
+"history.clear" = "সব মুছুন";
+"history.clear.confirm.title" = "পুরো হিস্ট্রি মুছবেন?";
+"history.clear.confirm.message" = "এতে এই ফোন থেকে আগের প্রতিটি স্ক্যান মুছে যাবে।";
+"history.clear.confirm.action" = "সব মুছুন";
+"history.empty.title" = "এখনো কোনো স্ক্যান নেই";
+"history.empty.message" = "আপনার স্ক্যান করা QR কোড এখানে দেখা যাবে। তালিকাটি এই ফোনেই থাকে।";
+"history.unchecked" = "যাচাই করা হয়নি";
+"history.failed" = "যাচাই করা যায়নি";
+"history.delete" = "মুছুন";

@@ -1,0 +1,4 @@
+"NSCameraUsageDescription" = "O SecureQR usa a câmera para ler QR codes. Nada é gravado.";
+"NSContactsUsageDescription" = "O SecureQR adiciona um contato lido aos seus contatos só quando você toca em Adicionar aos contatos. Ele nunca lê os seus contatos.";
+"NSCalendarsUsageDescription" = "O SecureQR adiciona um evento lido à sua agenda só quando você toca em Adicionar à agenda. Ele nunca lê a sua agenda.";
+"NSCalendarsWriteOnlyAccessUsageDescription" = "O SecureQR adiciona um evento lido à sua agenda só quando você toca em Adicionar à agenda.";

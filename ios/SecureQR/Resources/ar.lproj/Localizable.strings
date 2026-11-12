@@ -1,0 +1,230 @@
+/* SecureQR, Arabic. Keys are stable; values may be translated. */
+
+/* Common */
+"common.ok" = "حسنًا";
+"common.cancel" = "إلغاء";
+"common.yes" = "نعم";
+"common.no" = "لا";
+"common.none" = "لا شيء";
+
+/* Scanner */
+"scan.hint.before" = "وجّه الكاميرا إلى رمز QR. ";
+"scan.hint.strong" = "لن يُفتح شيء";
+"scan.hint.after" = " حتى توافق.";
+"scan.torch.on" = "شغّل الضوء";
+"scan.torch.off" = "أطفئ الضوء";
+"scan.photo" = "امسح صورة";
+"scan.history" = "السجل";
+"scan.photo.none.title" = "لم يُعثر على رمز QR";
+"scan.photo.none.message" = "لم نجد رمز QR في هذه الصورة. جرّب صورة أوضح أو أقرب.";
+"scan.permission.title" = "الوصول إلى الكاميرا";
+"scan.permission.message" = "يستخدم SecureQR الكاميرا لقراءة رموز QR فقط. لا يُسجَّل أي شيء، ولا يُفتح شيء حتى توافق.";
+"scan.permission.continue" = "متابعة";
+"scan.denied.title" = "الكاميرا متوقفة";
+"scan.denied.message" = "لا يُسمح لـ SecureQR باستخدام الكاميرا. يمكنك السماح بذلك من الإعدادات، أو مسح رمز QR من صورة بالزر أدناه.";
+"scan.denied.settings" = "افتح الإعدادات";
+"scan.unavailable.title" = "لا تتوفر كاميرا";
+"scan.unavailable.message" = "لا يزال بإمكانك مسح رمز QR من صورة بالزر أدناه.";
+
+/* Checking */
+"checking.says" = "يقول رمز QR";
+"checking.following" = "نتتبّع الرابط نيابةً عنك";
+"checking.contacting" = "الاتصال بالخادم";
+"checking.step.active" = "قيد التنفيذ";
+"checking.step.done" = "تم";
+"checking.step.opening" = "فتح الرابط…";
+"checking.step.following" = "تتبّع عمليات إعادة التوجيه…";
+"checking.step.screenshot" = "التقاط صورة…";
+"checking.note" = "نفتح الرابط على خادمنا، لا على هاتفك أبدًا.";
+
+/* Verdict headlines. "ok" must never be worded as "safe". */
+"verdict.ok" = "لم نجد علامات تحذير";
+"verdict.caution" = "تحقّق من هذا";
+"verdict.danger" = "يبدو هذا خطرًا";
+
+/* Decide */
+"decide.landOn" = "ستصل إلى";
+"decide.chip.https" = "HTTPS";
+"decide.chip.notEncrypted" = "غير مشفّر";
+"decide.chip.redirects.none" = "بلا إعادة توجيه";
+"decide.chip.redirects.one" = "إعادة توجيه واحدة";
+"decide.chip.redirects.many" = "عمليات إعادة التوجيه: %d";
+"decide.chip.blocklisted" = "في قائمة حظر";
+"decide.chip.notBlocklisted" = "غير محظور";
+"decide.hops.show" = "اعرض المسار";
+"decide.hops.hide" = "أخفِ المسار";
+"decide.open" = "افتح";
+"decide.openAnyway" = "افتح على أي حال";
+"decide.dontOpen" = "لا تفتح";
+"decide.screenshot.more" = "اعرض الصفحة كاملة";
+"decide.screenshot.less" = "اعرض أقل";
+"decide.checked.now" = "فُحص قبل أقل من دقيقة";
+"decide.checked.one" = "فُحص قبل دقيقة واحدة";
+"decide.checked.many" = "فُحص قبل %d د";
+"decide.screenshot.label" = "صورة للصفحة";
+"decide.screenshot.none" = "تعذّر عرض الصفحة.";
+"decide.screenshot.failed" = "لم تعد الصورة متوفرة.";
+
+/* Hops */
+"hop.start" = "الرابط الممسوح";
+"hop.http" = "إعادة توجيه";
+"hop.client" = "إعادة توجيه من الصفحة";
+"hop.unknown" = "خطوة";
+
+/* Failures */
+"failure.offline.title" = "لا يوجد اتصال";
+"failure.offline.message" = "تعذّر علينا الوصول إلى SecureQR. تحقّق من اتصالك بالإنترنت وأعد المحاولة.";
+"failure.timeout.title" = "يستغرق هذا وقتًا طويلاً";
+"failure.timeout.message" = "لم ينتهِ الفحص في الوقت المحدد. أعد المحاولة بعد قليل.";
+"failure.generic.title" = "تعذّر فحص هذا الرابط";
+"failure.generic.message" = "حدث خطأ من جهتنا. أعد المحاولة بعد قليل.";
+"failure.server.invalid_url.title" = "هذا ليس رابطًا يمكننا فحصه";
+"failure.server.invalid_url.message" = "الرابط ليس عنوان ويب صالحًا، أو أنه طويل جدًا.";
+"failure.server.unauthorized.title" = "يلزم التحديث";
+"failure.server.unauthorized.message" = "لم يعد بإمكان هذه النسخة من التطبيق استخدام الخدمة. حدّث SecureQR وأعد المحاولة.";
+"failure.server.blocked_target.title" = "يشير هذا الرابط إلى عنوان خاص";
+"failure.server.blocked_target.message" = "يقود إلى شبكة خاصة أو داخلية، ونحن لا نزورها.";
+"failure.server.unreachable.title" = "لم يستجب الموقع";
+"failure.server.unreachable.message" = "تعذّر العثور على الموقع أو رفض الاتصال.";
+"failure.server.rate_limited.title" = "عمليات فحص كثيرة جدًا";
+"failure.server.rate_limited.message" = "فحصت روابط كثيرة في وقت قصير. انتظر قليلاً وأعد المحاولة.";
+"failure.server.timeout.title" = "استغرقت الصفحة وقتًا طويلاً";
+"failure.server.timeout.message" = "لم ينتهِ تحميل الصفحة في الوقت المحدد.";
+"failure.server.internal.title" = "تعذّر فحص هذا الرابط";
+"failure.server.internal.message" = "حدث خطأ من جهتنا. أعد المحاولة بعد قليل.";
+"failure.unchecked.note" = "لم يُفحص هذا الرابط. لا يمكننا أن نخبرك إلى أين يقود.";
+"failure.retry" = "أعد المحاولة";
+"failure.confirm.title" = "أتفتحه دون فحص؟";
+"failure.confirm.message" = "تعذّر علينا فحص هذا الرابط، لذا لا يمكننا أن نخبرك إلى أين يقود أو هل فيه علامات تحذير.";
+
+/* Typed cards */
+"qr.type.login" = "رمز تسجيل دخول لجهاز آخر";
+"qr.type.chat" = "رابط دردشة";
+"qr.type.swissqr" = "تحويل مصرفي";
+"qr.type.spd" = "تحويل مصرفي";
+"qr.type.otpexport" = "تصدير من تطبيق المصادقة";
+"qr.type.esim" = "eSIM";
+"qr.type.device" = "رمز إعداد منزل ذكي";
+"qr.type.healthcert" = "شهادة صحية";
+"qr.type.unsafe" = "رابط غير آمن";
+"qr.type.paylink" = "رابط دفع";
+"qr.type.url" = "رابط";
+"qr.type.epc" = "تحويل مصرفي";
+"qr.type.emv" = "دفع";
+"qr.type.upi" = "دفع عبر UPI";
+"qr.type.crypto" = "دفع بالعملات المشفّرة";
+"qr.type.wifi" = "شبكة Wi-Fi";
+"qr.type.contact" = "جهة اتصال";
+"qr.type.event" = "حدث في التقويم";
+"qr.type.email" = "بريد إلكتروني";
+"qr.type.phone" = "رقم هاتف";
+"qr.type.sms" = "رسالة نصية";
+"qr.type.geo" = "موقع";
+"qr.type.otp" = "إعداد رموز تسجيل الدخول";
+"qr.type.applink" = "رابط تطبيق";
+"qr.type.text" = "نص";
+
+"qr.field.beneficiary" = "المستفيد";
+"qr.field.iban" = "IBAN";
+"qr.field.bic" = "BIC";
+"qr.field.amount" = "المبلغ";
+"qr.field.reference" = "المرجع";
+"qr.field.message" = "الرسالة";
+"qr.field.merchant" = "التاجر";
+"qr.field.city" = "المدينة";
+"qr.field.country" = "البلد";
+"qr.field.currency" = "العملة";
+"qr.field.payeeName" = "اسم المستفيد";
+"qr.field.payeeAddress" = "عنوان المستفيد";
+"qr.field.note" = "ملاحظة";
+"qr.field.network" = "الشبكة";
+"qr.field.address" = "العنوان";
+"qr.field.label" = "التسمية";
+"qr.field.security" = "الأمان";
+"qr.field.password" = "كلمة المرور";
+"qr.field.hidden" = "مخفية";
+"qr.field.name" = "الاسم";
+"qr.field.phone" = "الهاتف";
+"qr.field.email" = "البريد الإلكتروني";
+"qr.field.organisation" = "المؤسسة";
+"qr.field.url" = "URL";
+"qr.field.title" = "العنوان";
+"qr.field.start" = "البداية";
+"qr.field.end" = "النهاية";
+"qr.field.location" = "المكان";
+"qr.field.details" = "الوصف";
+"qr.field.to" = "إلى";
+"qr.field.subject" = "الموضوع";
+"qr.field.body" = "النص";
+"qr.field.number" = "الرقم";
+"qr.field.latitude" = "خط العرض";
+"qr.field.longitude" = "خط الطول";
+"qr.field.issuer" = "الجهة المُصدِرة";
+"qr.field.account" = "الحساب";
+"qr.field.type" = "النوع";
+"qr.field.scheme" = "المخطط";
+"qr.field.content" = "المحتوى";
+"qr.field.service" = "الخدمة";
+"qr.field.handle" = "المعرّف";
+"qr.field.provider" = "المزوّد";
+"qr.field.activationCode" = "رمز التفعيل";
+
+"qr.value.inviteLink" = "رابط دعوة";
+
+"qr.notice.paymentRequest" = "هذا طلب دفع. تحقّق من الاسم والحساب والمبلغ قبل أن تدفع. يصعب التراجع عن المدفوعات.";
+"qr.notice.paymentRequestInApp" = "هذا طلب دفع. تحقّق من الاسم والمبلغ في تطبيق الدفع قبل أن تؤكد. يصعب التراجع عن المدفوعات.";
+"qr.notice.scanWithBankingApp" = "للدفع، افتح تطبيق البنك وامسح رمز QR هذا به.";
+"qr.notice.cryptoIrreversible" = "لا يمكن التراجع عن المدفوعات بالعملات المشفّرة.";
+"qr.notice.invalidIBAN" = "رقم الحساب ليس رقم IBAN صالحًا.";
+"qr.notice.signInSecret" = "هذا مفتاح تسجيل دخول سري. لا تمسحه إلا في تطبيق المصادقة الخاص بك، ولا تشاركه أبدًا.";
+"qr.notice.openNetwork" = "هذه الشبكة بلا كلمة مرور. يمكن لأي شخص قريب أن يرى ما ترسله وتستقبله.";
+"qr.notice.shortCode" = "قد تكلّف الرسائل إلى الأرقام القصيرة مالاً.";
+"qr.notice.opensOtherApp" = "هذا يفتح تطبيقًا آخر. لا تتابع إلا إذا كنت تتوقع ذلك.";
+"qr.notice.readOnDevice" = "قُرئ هذا على هاتفك ولم يُرسل إلى أي مكان.";
+"qr.notice.signsInOtherDevice" = "هذا الرمز يسجّل دخول جهاز آخر إلى حسابك. لا تمسحه إلا من داخل ذلك التطبيق، على شاشة فتحتها بنفسك. إذا أرسله إليك أحد، فهو احتيال.";
+"qr.notice.chatWithStranger" = "هذا يبدأ محادثة مع شخص قد لا تعرفه. يستخدم المحتالون روابط الدردشة لنقل المحادثة بعيدًا عن موقع تثق به.";
+"qr.notice.authenticatorExport" = "يحتوي هذا الرمز على أسرار كل الحسابات في تطبيق مصادقة. من يمسحه يستطيع إنشاء رموز تسجيل الدخول الخاصة بك. لا تمسحه إلا بهاتفك الجديد، ولا تشاركه أبدًا.";
+"qr.notice.installESIM" = "لتثبيته، افتح إعدادات شبكة الجوال في هاتفك وأضف eSIM.";
+"qr.notice.mobilePlan" = "هذا يثبّت باقة جوال (eSIM) على هاتفك. لا تتابع إلا إذا كانت من مزوّد خدمة الجوال الخاص بك.";
+"qr.notice.deviceSetupCode" = "هذا رمز إعداد لجهاز منزل ذكي. من يمسحه يستطيع إضافة الجهاز إلى منزله. لا تمسحه إلا بتطبيق المنزل الذكي الخاص بك، ولجهاز تملكه.";
+"qr.notice.healthCertificate" = "هذه شهادة صحية. تحتوي على اسم وتاريخ ميلاد وبيانات طبية. قُرئت على هاتفك ولم تُرسل إلى أي مكان. لا تشاركها.";
+"qr.notice.unsafeLink" = "هذا ليس عنوان ويب. روابط من هذا النوع قد تشغّل تعليمات برمجية أو تفتح ملفات على هاتفك. لا تفتحه.";
+"qr.notice.serviceCode" = "هذا رمز خدمة هاتفية، وليس رقمًا عاديًا. قد تحوّل هذه الرموز مكالماتك أو تغيّر الإعدادات أو تكلّف مالاً. لا تطلبه إلا إذا طلب منك مزوّد الخدمة ذلك.";
+"qr.notice.premiumNumber" = "يبدو هذا رقمًا بتعرفة مرتفعة. قد يكلّفك الاتصال به الكثير في الدقيقة.";
+
+"qr.action.openInApp" = "افتح في التطبيق";
+"qr.action.openInPaymentApp" = "افتح في تطبيق الدفع";
+"qr.action.joinWiFi" = "اتصل بالشبكة";
+"qr.action.addToContacts" = "أضف إلى جهات الاتصال";
+"qr.action.addToCalendar" = "أضف إلى التقويم";
+"qr.action.copy" = "نسخ";
+"qr.action.copyAll" = "نسخ الكل";
+"qr.action.copyIBAN" = "نسخ IBAN";
+"qr.action.copyAddress" = "نسخ العنوان";
+"qr.action.copyPassword" = "نسخ كلمة المرور";
+
+"content.done" = "تم";
+"content.copied" = "تم النسخ";
+"content.raw.show" = "اعرض المحتوى الخام";
+"content.raw.hide" = "أخفِ المحتوى الخام";
+"content.raw.secretHidden" = "الأجزاء السرية محذوفة.";
+"content.secret.show" = "اعرض النص المخفي";
+"content.secret.hide" = "أخفِ النص";
+"content.noApp.title" = "لا شيء يمكنه فتح هذا";
+"content.noApp.message" = "لا يوجد تطبيق على هذا الهاتف يمكنه فتح هذا.";
+"content.wifi.failed.title" = "تعذّر الاتصال بالشبكة";
+"content.wifi.failed.message" = "تأكد أن الشبكة في النطاق. يمكنك أيضًا نسخ كلمة المرور والاتصال بها من الإعدادات.";
+"content.history.redacted" = "لا تُحفظ كلمات المرور والرموز والأسرار في السجل.";
+
+/* History */
+"history.title" = "عمليات المسح السابقة";
+"history.note" = "يبقى سجلك على هذا الهاتف.";
+"history.clear" = "مسح الكل";
+"history.clear.confirm.title" = "مسح السجل كله؟";
+"history.clear.confirm.message" = "يحذف هذا كل عمليات المسح السابقة من هذا الهاتف.";
+"history.clear.confirm.action" = "مسح الكل";
+"history.empty.title" = "لا توجد عمليات مسح بعد";
+"history.empty.message" = "ستظهر هنا رموز QR التي تمسحها. تبقى القائمة على هذا الهاتف.";
+"history.unchecked" = "لم يُفحص";
+"history.failed" = "تعذّر فحصه";
+"history.delete" = "حذف";

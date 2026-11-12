@@ -1,0 +1,4 @@
+"NSCameraUsageDescription" = "SecureQR 使用相机读取二维码。不会录制任何内容。";
+"NSContactsUsageDescription" = "只有当你轻点“添加到通讯录”时，SecureQR 才会把扫描到的联系人添加到你的通讯录。它从不读取你的通讯录。";
+"NSCalendarsUsageDescription" = "只有当你轻点“添加到日历”时，SecureQR 才会把扫描到的活动添加到你的日历。它从不读取你的日历。";
+"NSCalendarsWriteOnlyAccessUsageDescription" = "只有当你轻点“添加到日历”时，SecureQR 才会把扫描到的活动添加到你的日历。";

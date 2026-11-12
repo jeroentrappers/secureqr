@@ -1,0 +1,230 @@
+/* SecureQR, Vietnamese. Keys are stable; values may be translated. */
+
+/* Common */
+"common.ok" = "OK";
+"common.cancel" = "Hủy";
+"common.yes" = "Có";
+"common.no" = "Không";
+"common.none" = "Không có";
+
+/* Scanner */
+"scan.hint.before" = "Hướng camera vào mã QR. ";
+"scan.hint.strong" = "Không có gì được mở";
+"scan.hint.after" = " cho đến khi bạn đồng ý.";
+"scan.torch.on" = "Bật đèn";
+"scan.torch.off" = "Tắt đèn";
+"scan.photo" = "Quét ảnh";
+"scan.history" = "Lịch sử";
+"scan.photo.none.title" = "Không tìm thấy mã QR";
+"scan.photo.none.message" = "Chúng tôi không tìm thấy mã QR trong ảnh đó. Hãy thử ảnh rõ hơn hoặc chụp gần hơn.";
+"scan.permission.title" = "Quyền dùng camera";
+"scan.permission.message" = "SecureQR chỉ dùng camera để đọc mã QR. Không có gì được ghi lại, và không có gì được mở cho đến khi bạn đồng ý.";
+"scan.permission.continue" = "Tiếp tục";
+"scan.denied.title" = "Camera đang tắt";
+"scan.denied.message" = "SecureQR không được phép dùng camera. Bạn có thể cho phép trong Cài đặt, hoặc quét mã QR từ ảnh bằng nút bên dưới.";
+"scan.denied.settings" = "Mở Cài đặt";
+"scan.unavailable.title" = "Không có camera";
+"scan.unavailable.message" = "Bạn vẫn có thể quét mã QR từ ảnh bằng nút bên dưới.";
+
+/* Checking */
+"checking.says" = "Mã QR chứa";
+"checking.following" = "Đang đi theo link giúp bạn";
+"checking.contacting" = "Đang kết nối với máy chủ";
+"checking.step.active" = "đang thực hiện";
+"checking.step.done" = "xong";
+"checking.step.opening" = "Đang mở link…";
+"checking.step.following" = "Đang đi theo các lần chuyển hướng…";
+"checking.step.screenshot" = "Đang chụp ảnh màn hình…";
+"checking.note" = "Chúng tôi mở link trên máy chủ của mình, không bao giờ trên điện thoại của bạn.";
+
+/* Verdict headlines. "ok" must never be worded as "safe". */
+"verdict.ok" = "Không thấy dấu hiệu cảnh báo";
+"verdict.caution" = "Nên kiểm tra";
+"verdict.danger" = "Link này có vẻ nguy hiểm";
+
+/* Decide */
+"decide.landOn" = "Bạn sẽ đến";
+"decide.chip.https" = "HTTPS";
+"decide.chip.notEncrypted" = "Không mã hóa";
+"decide.chip.redirects.none" = "Không chuyển hướng";
+"decide.chip.redirects.one" = "1 lần chuyển hướng";
+"decide.chip.redirects.many" = "%d lần chuyển hướng";
+"decide.chip.blocklisted" = "Trong danh sách chặn";
+"decide.chip.notBlocklisted" = "Không trong danh sách chặn";
+"decide.hops.show" = "Hiện đường đi";
+"decide.hops.hide" = "Ẩn đường đi";
+"decide.open" = "Mở";
+"decide.openAnyway" = "Vẫn mở";
+"decide.dontOpen" = "Không mở";
+"decide.screenshot.more" = "Hiện toàn bộ trang";
+"decide.screenshot.less" = "Thu gọn";
+"decide.checked.now" = "Kiểm tra chưa đầy một phút trước";
+"decide.checked.one" = "Đã kiểm tra 1 phút trước";
+"decide.checked.many" = "Đã kiểm tra %d phút trước";
+"decide.screenshot.label" = "Ảnh chụp màn hình của trang";
+"decide.screenshot.none" = "Không hiển thị được trang.";
+"decide.screenshot.failed" = "Ảnh chụp màn hình không còn nữa.";
+
+/* Hops */
+"hop.start" = "Link đã quét";
+"hop.http" = "Chuyển hướng";
+"hop.client" = "Trang tự chuyển hướng";
+"hop.unknown" = "Bước";
+
+/* Failures */
+"failure.offline.title" = "Không có kết nối";
+"failure.offline.message" = "Chúng tôi không kết nối được với SecureQR. Hãy kiểm tra kết nối internet rồi thử lại.";
+"failure.timeout.title" = "Mất quá nhiều thời gian";
+"failure.timeout.message" = "Việc kiểm tra không xong kịp. Hãy thử lại sau giây lát.";
+"failure.generic.title" = "Không kiểm tra được link này";
+"failure.generic.message" = "Đã xảy ra lỗi ở phía chúng tôi. Hãy thử lại sau giây lát.";
+"failure.server.invalid_url.title" = "Chúng tôi không kiểm tra được link này";
+"failure.server.invalid_url.message" = "Link không phải là địa chỉ web hợp lệ, hoặc quá dài.";
+"failure.server.unauthorized.title" = "Cần cập nhật";
+"failure.server.unauthorized.message" = "Phiên bản ứng dụng này không còn dùng được dịch vụ. Hãy cập nhật SecureQR rồi thử lại.";
+"failure.server.blocked_target.title" = "Link này trỏ đến một địa chỉ riêng";
+"failure.server.blocked_target.message" = "Nó dẫn đến một mạng riêng hoặc mạng nội bộ, nơi chúng tôi không truy cập.";
+"failure.server.unreachable.title" = "Trang web không phản hồi";
+"failure.server.unreachable.message" = "Không tìm thấy trang web, hoặc trang web từ chối kết nối.";
+"failure.server.rate_limited.title" = "Quá nhiều lượt kiểm tra";
+"failure.server.rate_limited.message" = "Bạn đã kiểm tra rất nhiều link trong thời gian ngắn. Hãy chờ một lát rồi thử lại.";
+"failure.server.timeout.title" = "Trang tải quá lâu";
+"failure.server.timeout.message" = "Trang không tải xong kịp.";
+"failure.server.internal.title" = "Không kiểm tra được link này";
+"failure.server.internal.message" = "Đã xảy ra lỗi ở phía chúng tôi. Hãy thử lại sau giây lát.";
+"failure.unchecked.note" = "Link này chưa được kiểm tra. Chúng tôi không thể cho bạn biết nó dẫn đến đâu.";
+"failure.retry" = "Thử lại";
+"failure.confirm.title" = "Mở mà không kiểm tra?";
+"failure.confirm.message" = "Chúng tôi không kiểm tra được link này, nên không thể cho bạn biết nó dẫn đến đâu hay có dấu hiệu cảnh báo nào không.";
+
+/* Typed cards */
+"qr.type.login" = "Mã đăng nhập cho thiết bị khác";
+"qr.type.chat" = "Link trò chuyện";
+"qr.type.swissqr" = "Chuyển khoản ngân hàng";
+"qr.type.spd" = "Chuyển khoản ngân hàng";
+"qr.type.otpexport" = "Bản xuất ứng dụng xác thực";
+"qr.type.esim" = "eSIM";
+"qr.type.device" = "Mã cài đặt nhà thông minh";
+"qr.type.healthcert" = "Giấy chứng nhận y tế";
+"qr.type.unsafe" = "Link nguy hiểm";
+"qr.type.paylink" = "Link thanh toán";
+"qr.type.url" = "Link";
+"qr.type.epc" = "Chuyển khoản ngân hàng";
+"qr.type.emv" = "Thanh toán";
+"qr.type.upi" = "Thanh toán UPI";
+"qr.type.crypto" = "Thanh toán tiền mã hóa";
+"qr.type.wifi" = "Mạng Wi-Fi";
+"qr.type.contact" = "Liên hệ";
+"qr.type.event" = "Sự kiện lịch";
+"qr.type.email" = "Email";
+"qr.type.phone" = "Số điện thoại";
+"qr.type.sms" = "Tin nhắn";
+"qr.type.geo" = "Vị trí";
+"qr.type.otp" = "Thiết lập mã đăng nhập";
+"qr.type.applink" = "Link ứng dụng";
+"qr.type.text" = "Văn bản";
+
+"qr.field.beneficiary" = "Người thụ hưởng";
+"qr.field.iban" = "IBAN";
+"qr.field.bic" = "BIC";
+"qr.field.amount" = "Số tiền";
+"qr.field.reference" = "Mã tham chiếu";
+"qr.field.message" = "Lời nhắn";
+"qr.field.merchant" = "Người bán";
+"qr.field.city" = "Thành phố";
+"qr.field.country" = "Quốc gia";
+"qr.field.currency" = "Tiền tệ";
+"qr.field.payeeName" = "Tên người nhận";
+"qr.field.payeeAddress" = "Địa chỉ người nhận";
+"qr.field.note" = "Ghi chú";
+"qr.field.network" = "Mạng";
+"qr.field.address" = "Địa chỉ";
+"qr.field.label" = "Nhãn";
+"qr.field.security" = "Bảo mật";
+"qr.field.password" = "Mật khẩu";
+"qr.field.hidden" = "Ẩn";
+"qr.field.name" = "Tên";
+"qr.field.phone" = "Điện thoại";
+"qr.field.email" = "Email";
+"qr.field.organisation" = "Tổ chức";
+"qr.field.url" = "URL";
+"qr.field.title" = "Tiêu đề";
+"qr.field.start" = "Bắt đầu";
+"qr.field.end" = "Kết thúc";
+"qr.field.location" = "Địa điểm";
+"qr.field.details" = "Mô tả";
+"qr.field.to" = "Đến";
+"qr.field.subject" = "Chủ đề";
+"qr.field.body" = "Nội dung";
+"qr.field.number" = "Số";
+"qr.field.latitude" = "Vĩ độ";
+"qr.field.longitude" = "Kinh độ";
+"qr.field.issuer" = "Nhà phát hành";
+"qr.field.account" = "Tài khoản";
+"qr.field.type" = "Loại";
+"qr.field.scheme" = "Giao thức";
+"qr.field.content" = "Nội dung";
+"qr.field.service" = "Dịch vụ";
+"qr.field.handle" = "Tên người dùng";
+"qr.field.provider" = "Nhà cung cấp";
+"qr.field.activationCode" = "Mã kích hoạt";
+
+"qr.value.inviteLink" = "Link mời";
+
+"qr.notice.paymentRequest" = "Đây là yêu cầu thanh toán. Hãy kiểm tra tên, tài khoản và số tiền trước khi trả. Thanh toán rất khó hoàn lại.";
+"qr.notice.paymentRequestInApp" = "Đây là yêu cầu thanh toán. Hãy kiểm tra tên và số tiền trong ứng dụng thanh toán trước khi xác nhận. Thanh toán rất khó hoàn lại.";
+"qr.notice.scanWithBankingApp" = "Để thanh toán, hãy mở ứng dụng ngân hàng và quét mã QR này bằng ứng dụng đó.";
+"qr.notice.cryptoIrreversible" = "Thanh toán bằng tiền mã hóa không thể hoàn lại.";
+"qr.notice.invalidIBAN" = "Số tài khoản không phải là IBAN hợp lệ.";
+"qr.notice.signInSecret" = "Đây là khóa bí mật đăng nhập. Chỉ quét nó vào ứng dụng xác thực của chính bạn, và không bao giờ chia sẻ.";
+"qr.notice.openNetwork" = "Mạng này không có mật khẩu. Người ở gần có thể xem dữ liệu bạn gửi và nhận.";
+"qr.notice.shortCode" = "Tin nhắn đến đầu số ngắn có thể tốn tiền.";
+"qr.notice.opensOtherApp" = "Link này mở một ứng dụng khác. Chỉ tiếp tục nếu bạn đã biết trước điều đó.";
+"qr.notice.readOnDevice" = "Nội dung này được đọc trên điện thoại của bạn và không được gửi đi đâu.";
+"qr.notice.signsInOtherDevice" = "Mã này đăng nhập một thiết bị khác vào tài khoản của bạn. Chỉ quét nó từ bên trong ứng dụng đó, trên màn hình do chính bạn mở. Nếu ai đó gửi mã này cho bạn, đó là lừa đảo.";
+"qr.notice.chatWithStranger" = "Link này mở cuộc trò chuyện với người bạn có thể không quen. Kẻ lừa đảo dùng link trò chuyện để kéo cuộc nói chuyện ra khỏi trang web bạn tin tưởng.";
+"qr.notice.authenticatorExport" = "Mã này chứa khóa bí mật của mọi tài khoản trong một ứng dụng xác thực. Ai quét được mã này đều có thể tạo mã đăng nhập của bạn. Chỉ quét bằng điện thoại mới của chính bạn, và không bao giờ chia sẻ.";
+"qr.notice.installESIM" = "Để cài đặt, hãy mở phần cài đặt mạng di động trên điện thoại và thêm eSIM.";
+"qr.notice.mobilePlan" = "Mã này cài một gói di động (eSIM) lên điện thoại của bạn. Chỉ tiếp tục nếu nó đến từ nhà mạng của chính bạn.";
+"qr.notice.deviceSetupCode" = "Đây là mã cài đặt cho thiết bị nhà thông minh. Ai quét được mã này đều có thể thêm thiết bị vào nhà của họ. Chỉ quét bằng ứng dụng nhà thông minh của bạn, cho thiết bị bạn sở hữu.";
+"qr.notice.healthCertificate" = "Đây là giấy chứng nhận y tế. Nó chứa tên, ngày sinh và thông tin y tế. Mã được đọc trên điện thoại của bạn và không được gửi đi đâu. Đừng chia sẻ nó.";
+"qr.notice.unsafeLink" = "Đây không phải là địa chỉ web. Loại link này có thể chạy mã hoặc mở tệp trên điện thoại của bạn. Đừng mở nó.";
+"qr.notice.serviceCode" = "Đây là mã dịch vụ điện thoại, không phải số thường. Các mã như vậy có thể chuyển tiếp cuộc gọi, thay đổi cài đặt hoặc tốn tiền. Chỉ gọi nếu nhà mạng của bạn yêu cầu.";
+"qr.notice.premiumNumber" = "Đây có vẻ là số dịch vụ giá cao. Gọi đến số này có thể tốn nhiều tiền mỗi phút.";
+
+"qr.action.openInApp" = "Mở trong ứng dụng";
+"qr.action.openInPaymentApp" = "Mở trong ứng dụng thanh toán";
+"qr.action.joinWiFi" = "Kết nối mạng";
+"qr.action.addToContacts" = "Thêm vào danh bạ";
+"qr.action.addToCalendar" = "Thêm vào lịch";
+"qr.action.copy" = "Sao chép";
+"qr.action.copyAll" = "Sao chép tất cả";
+"qr.action.copyIBAN" = "Sao chép IBAN";
+"qr.action.copyAddress" = "Sao chép địa chỉ";
+"qr.action.copyPassword" = "Sao chép mật khẩu";
+
+"content.done" = "Xong";
+"content.copied" = "Đã sao chép";
+"content.raw.show" = "Hiện nội dung gốc";
+"content.raw.hide" = "Ẩn nội dung gốc";
+"content.raw.secretHidden" = "Các phần bí mật được lược bỏ.";
+"content.secret.show" = "Hiện nội dung ẩn";
+"content.secret.hide" = "Ẩn nội dung";
+"content.noApp.title" = "Không mở được nội dung này";
+"content.noApp.message" = "Không có ứng dụng nào trên điện thoại này mở được nội dung này.";
+"content.wifi.failed.title" = "Không kết nối được mạng";
+"content.wifi.failed.message" = "Hãy kiểm tra xem mạng có trong vùng phủ sóng không. Bạn cũng có thể sao chép mật khẩu và kết nối trong Cài đặt.";
+"content.history.redacted" = "Mật khẩu, mã và thông tin bí mật không được lưu trong lịch sử.";
+
+/* History */
+"history.title" = "Các lần quét trước";
+"history.note" = "Lịch sử chỉ lưu trên điện thoại này.";
+"history.clear" = "Xóa tất cả";
+"history.clear.confirm.title" = "Xóa toàn bộ lịch sử?";
+"history.clear.confirm.message" = "Thao tác này xóa mọi lần quét trước đây khỏi điện thoại này.";
+"history.clear.confirm.action" = "Xóa tất cả";
+"history.empty.title" = "Chưa có lần quét nào";
+"history.empty.message" = "Các mã QR bạn quét sẽ được liệt kê ở đây. Danh sách chỉ lưu trên điện thoại này.";
+"history.unchecked" = "Chưa kiểm tra";
+"history.failed" = "Không kiểm tra được";
+"history.delete" = "Xóa";

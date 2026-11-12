@@ -1,0 +1,4 @@
+"NSCameraUsageDescription" = "SecureQR gebruikt de camera om QR-codes te lezen. Er wordt niets opgenomen.";
+"NSContactsUsageDescription" = "SecureQR voegt een gescand contact alleen aan je contacten toe als je op Aan contacten toevoegen tikt. Het leest je contacten nooit.";
+"NSCalendarsUsageDescription" = "SecureQR voegt een gescande afspraak alleen aan je agenda toe als je op Aan agenda toevoegen tikt. Het leest je agenda nooit.";
+"NSCalendarsWriteOnlyAccessUsageDescription" = "SecureQR voegt een gescande afspraak alleen aan je agenda toe als je op Aan agenda toevoegen tikt.";

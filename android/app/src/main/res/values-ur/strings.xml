@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Common actions -->
+    <string name="action_back">واپس</string>
+    <string name="action_open">کھولیں</string>
+    <string name="action_cancel">منسوخ کریں</string>
+    <string name="action_open_anyway">پھر بھی کھولیں</string>
+    <string name="action_dont_open">نہ کھولیں</string>
+    <string name="action_retry">دوبارہ کوشش کریں</string>
+    <string name="action_open_in_app">ایپ میں کھولیں</string>
+    <string name="action_open_in_payment_app">ادائیگی کی ایپ میں کھولیں</string>
+    <string name="action_join_wifi">نیٹ ورک سے جڑیں</string>
+    <string name="action_add_contact">رابطوں میں شامل کریں</string>
+    <string name="action_add_event">کیلنڈر میں شامل کریں</string>
+    <string name="action_copy">کاپی کریں</string>
+    <string name="action_copy_all">سب کاپی کریں</string>
+    <string name="action_copy_iban">IBAN کاپی کریں</string>
+    <string name="action_copy_address">پتہ کاپی کریں</string>
+    <string name="action_copy_password">پاس ورڈ کاپی کریں</string>
+    <string name="copied">کاپی ہو گیا</string>
+
+    <!-- Scan -->
+    <!-- %1$s is scan_hint_emphasis, shown highlighted -->
+    <string name="scan_hint">کیمرا QR کوڈ کی طرف کریں۔ جب تک آپ نہ کہیں، %1$s۔</string>
+    <string name="scan_hint_emphasis">کچھ نہیں کھلے گا</string>
+    <string name="scan_torch_on">ٹارچ آن کریں</string>
+    <string name="scan_torch_off">ٹارچ بند کریں</string>
+    <string name="scan_pick_image">گیلری کی تصویر اسکین کریں</string>
+    <string name="scan_history">ہسٹری</string>
+    <string name="scan_no_qr_in_image">اس تصویر میں کوئی QR کوڈ نہیں ملا۔</string>
+    <string name="scan_image_failed">یہ تصویر پڑھی نہیں جا سکی۔</string>
+    <string name="scan_camera_failed">کیمرا شروع نہیں ہو سکا۔</string>
+
+    <!-- Camera permission -->
+    <string name="permission_title">SecureQR کو آپ کا کیمرا چاہیے</string>
+    <string name="permission_rationale">کیمرا صرف QR کوڈ پڑھنے کے لیے استعمال ہوتا ہے۔ کچھ ریکارڈ نہیں ہوتا، اور تصویریں کبھی آپ کے فون سے باہر نہیں جاتیں۔</string>
+    <string name="permission_allow">کیمرے کی اجازت دیں</string>
+    <string name="permission_denied_title">کیمرا بند ہے</string>
+    <string name="permission_denied_body">SecureQR کیمرے کے بغیر اسکین نہیں کر سکتا۔ آپ اسے سیٹنگز میں آن کر سکتے ہیں، یا اس کے بجائے گیلری کی کوئی تصویر اسکین کر سکتے ہیں۔</string>
+    <string name="permission_open_settings">سیٹنگز کھولیں</string>
+    <string name="permission_pick_image">اس کے بجائے تصویر اسکین کریں</string>
+
+    <!-- Checking -->
+    <string name="checking_label_says">QR کوڈ میں لکھا ہے</string>
+    <string name="checking_label_following">آپ کی جگہ لنک کھولا جا رہا ہے</string>
+    <string name="checking_contacting">سرور سے رابطہ ہو رہا ہے</string>
+    <string name="checking_step_done">مکمل</string>
+    <string name="checking_progress">ایک بند، محفوظ براؤزر میں کھولا جا رہا ہے…</string>
+    <string name="checking_note">ہم لنک اپنے سرور پر کھولتے ہیں، کبھی آپ کے فون پر نہیں۔</string>
+
+    <!-- Decide -->
+    <string name="verdict_ok">خطرے کی کوئی علامت نہیں ملی</string>
+    <string name="verdict_caution">اسے جانچ لیں</string>
+    <string name="verdict_danger">یہ خطرناک لگتا ہے</string>
+    <string name="decide_checked_just_now">ابھی جانچا گیا</string>
+    <plurals name="decide_checked_minutes">
+        <item quantity="one">%d منٹ پہلے جانچا گیا</item>
+        <item quantity="other">%d منٹ پہلے جانچا گیا</item>
+    </plurals>
+    <string name="decide_label_land">آپ یہاں پہنچیں گے</string>
+    <string name="decide_label_path">لنک کا راستہ</string>
+    <string name="decide_show_path">ہر قدم دکھائیں</string>
+    <string name="decide_hide_path">قدم چھپائیں</string>
+    <string name="chip_https">HTTPS</string>
+    <string name="chip_not_encrypted">انکرپٹڈ نہیں</string>
+    <string name="chip_no_redirects">کوئی ری ڈائریکٹ نہیں</string>
+    <plurals name="chip_redirects">
+        <item quantity="one">%d ری ڈائریکٹ</item>
+        <item quantity="other">%d ری ڈائریکٹ</item>
+    </plurals>
+    <string name="chip_blocklisted">بلاک لسٹ میں ہے</string>
+    <string name="chip_not_blocklisted">بلاک لسٹ میں نہیں</string>
+    <string name="hop_start">اسکین کیا گیا لنک</string>
+    <string name="hop_http">ری ڈائریکٹ</string>
+    <string name="hop_client">صفحے کی طرف سے ری ڈائریکٹ</string>
+    <!-- %1$s is the kind of step, %2$d the HTTP status code -->
+    <string name="hop_with_status">%1$s · %2$d</string>
+    <string name="screenshot_description">اس صفحے کا اسکرین شاٹ جہاں آپ پہنچیں گے</string>
+    <string name="screenshot_loading">اسکرین شاٹ لوڈ ہو رہا ہے…</string>
+    <string name="screenshot_expand">پورا صفحہ دکھائیں</string>
+    <string name="screenshot_collapse">کم دکھائیں</string>
+    <string name="screenshot_unavailable">کوئی اسکرین شاٹ دستیاب نہیں</string>
+
+    <!-- Check failed -->
+    <string name="error_title">یہ لنک جانچا نہیں جا سکا</string>
+    <string name="error_offline">SecureQR تک رسائی نہیں ہو سکی۔ اپنا انٹرنیٹ کنکشن چیک کریں اور دوبارہ کوشش کریں۔</string>
+    <string name="error_generic">اس لنک کی جانچ کے دوران کچھ غلط ہو گیا۔</string>
+    <!-- The server no longer accepts this version of the app -->
+    <string name="error_update_title">اپ ڈیٹ ضروری ہے</string>
+    <string name="error_update_needed">ایپ کا یہ ورژن اب سروس استعمال نہیں کر سکتا۔ SecureQR اپ ڈیٹ کریں اور دوبارہ کوشش کریں۔</string>
+    <string name="error_unchecked_warning">یہ لنک جانچا نہیں گیا۔ اگر آپ پھر بھی اسے کھولیں تو وہاں پہنچنے تک آپ کو معلوم نہیں ہو گا کہ یہ کہاں لے جاتا ہے۔</string>
+    <string name="error_no_browser">یہ لنک کھولنے کے لیے کوئی براؤزر نہیں ملا۔</string>
+
+    <!-- Typed cards: titles -->
+    <string name="type_login">سائن اِن کوڈ</string>
+    <string name="type_chat">چیٹ لنک</string>
+    <string name="type_swissqr">سوئس QR بل</string>
+    <string name="type_otp_export">آتھینٹیکیٹر ایکسپورٹ</string>
+    <string name="type_esim">eSIM موبائل پلان</string>
+    <string name="type_device">اسمارٹ ہوم ڈیوائس</string>
+    <string name="type_healthcert">صحت کا سرٹیفکیٹ</string>
+    <string name="type_unsafe">غیر محفوظ لنک</string>
+    <string name="type_paylink">ادائیگی کا لنک</string>
+    <string name="type_url">لنک</string>
+    <string name="type_epc">بینک ٹرانسفر</string>
+    <string name="type_emv">ادائیگی کا کوڈ</string>
+    <string name="type_upi">UPI ادائیگی</string>
+    <string name="type_crypto">کرپٹو ادائیگی</string>
+    <string name="type_wifi">Wi-Fi نیٹ ورک</string>
+    <string name="type_contact">رابطہ</string>
+    <string name="type_event">کیلنڈر ایونٹ</string>
+    <string name="type_email">ای میل</string>
+    <string name="type_phone">فون نمبر</string>
+    <string name="type_sms">ٹیکسٹ میسج</string>
+    <string name="type_geo">مقام</string>
+    <string name="type_otp">سائن اِن کا خفیہ کوڈ</string>
+    <string name="type_applink">ایپ لنک</string>
+    <string name="type_text">متن</string>
+
+    <!-- Typed cards: field labels -->
+    <string name="field_beneficiary">وصول کنندہ</string>
+    <string name="field_iban">IBAN</string>
+    <string name="field_bic">BIC</string>
+    <string name="field_amount">رقم</string>
+    <string name="field_reference">حوالہ</string>
+    <string name="field_message">پیغام</string>
+    <string name="field_merchant">دکاندار</string>
+    <string name="field_city">شہر</string>
+    <string name="field_country">ملک</string>
+    <string name="field_currency">کرنسی</string>
+    <string name="field_payee_name">وصول کنندہ کا نام</string>
+    <string name="field_payee_address">وصول کنندہ کا پتہ</string>
+    <string name="field_note">نوٹ</string>
+    <string name="field_network">نیٹ ورک</string>
+    <string name="field_address">پتہ</string>
+    <string name="field_label">لیبل</string>
+    <string name="field_security">سیکیورٹی</string>
+    <string name="field_password">پاس ورڈ</string>
+    <string name="field_hidden">پوشیدہ</string>
+    <string name="field_name">نام</string>
+    <string name="field_phone">فون</string>
+    <string name="field_email">ای میل</string>
+    <string name="field_organisation">ادارہ</string>
+    <string name="field_url">URL</string>
+    <string name="field_title">عنوان</string>
+    <string name="field_start">آغاز</string>
+    <string name="field_end">اختتام</string>
+    <string name="field_location">مقام</string>
+    <string name="field_description">تفصیل</string>
+    <string name="field_to">بنام</string>
+    <string name="field_subject">موضوع</string>
+    <string name="field_body">متن</string>
+    <string name="field_number">نمبر</string>
+    <string name="field_latitude">عرض بلد</string>
+    <string name="field_longitude">طول بلد</string>
+    <string name="field_issuer">جاری کنندہ</string>
+    <string name="field_account">اکاؤنٹ</string>
+    <string name="field_type">قسم</string>
+    <string name="field_scheme">اسکیم</string>
+    <string name="field_text">متن</string>
+    <string name="field_provider">فراہم کنندہ</string>
+    <string name="field_service">سروس</string>
+    <string name="field_handle">ہینڈل</string>
+    <string name="field_activation_code">ایکٹیویشن کوڈ</string>
+    <string name="value_invite">دعوتی لنک</string>
+    <string name="value_none">کوئی نہیں</string>
+    <string name="value_yes">ہاں</string>
+
+    <!-- Typed cards: notices -->
+    <string name="notice_payment">یہ ادائیگی کی درخواست ہے۔ ادائیگی سے پہلے نام، اکاؤنٹ اور رقم چیک کریں۔ ادائیگی واپس لینا مشکل ہوتا ہے۔</string>
+    <string name="notice_paylink">یہ ادائیگی کی درخواست ہے۔ تصدیق سے پہلے اپنی ادائیگی کی ایپ میں نام اور رقم چیک کریں۔ ادائیگی واپس لینا مشکل ہوتا ہے۔</string>
+    <string name="notice_epc_instruction">ادائیگی کے لیے اپنی بینکنگ ایپ کھولیں اور اس سے یہ QR کوڈ اسکین کریں۔</string>
+    <string name="notice_crypto">کرپٹو ادائیگیاں واپس نہیں ہو سکتیں۔</string>
+    <string name="notice_invalid_iban">اکاؤنٹ نمبر درست IBAN نہیں ہے۔</string>
+    <string name="notice_otp">یہ سائن اِن کا خفیہ کوڈ ہے۔ اسے صرف اپنی آتھینٹیکیٹر ایپ میں اسکین کریں، اور کبھی کسی کو نہ دیں۔</string>
+    <string name="notice_wifi_open">اس نیٹ ورک کا کوئی پاس ورڈ نہیں۔ قریب موجود کوئی بھی آپ کا ڈیٹا دیکھ سکتا ہے۔</string>
+    <string name="notice_sms_short_code">مختصر نمبروں پر میسج بھیجنے کے پیسے لگ سکتے ہیں۔</string>
+    <string name="notice_app_link">یہ کوئی دوسری ایپ کھولتا ہے۔ صرف تب آگے بڑھیں جب آپ کو اس کی توقع ہو۔</string>
+    <string name="notice_login_code">یہ کوڈ کسی دوسری ڈیوائس کو آپ کے اکاؤنٹ میں سائن اِن کر دیتا ہے۔ اسے صرف اسی ایپ کے اندر سے، اپنی کھولی ہوئی اسکرین پر اسکین کریں۔ اگر کسی نے یہ آپ کو بھیجا ہے تو یہ فراڈ ہے۔</string>
+    <string name="notice_chat_link">یہ کسی ایسے شخص سے چیٹ شروع کرتا ہے جسے شاید آپ نہیں جانتے۔ فراڈ کرنے والے چیٹ لنک کے ذریعے بات چیت کو کسی بھروسے والی سائٹ سے دور لے جاتے ہیں۔</string>
+    <string name="notice_otp_export">اس کوڈ میں آتھینٹیکیٹر ایپ کے ہر اکاؤنٹ کے خفیہ کوڈ موجود ہیں۔ جو بھی اسے اسکین کرے، وہ آپ کے سائن اِن کوڈ بنا سکتا ہے۔ اسے صرف اپنے نئے فون سے اسکین کریں، اور کبھی کسی کو نہ دیں۔</string>
+    <string name="notice_esim_instruction">انسٹال کرنے کے لیے اپنے فون کی موبائل نیٹ ورک سیٹنگز کھولیں اور eSIM شامل کریں۔</string>
+    <string name="notice_esim">یہ آپ کے فون پر ایک موبائل پلان (eSIM) انسٹال کرتا ہے۔ صرف تب آگے بڑھیں جب یہ آپ کی اپنی موبائل کمپنی کی طرف سے ہو۔</string>
+    <string name="notice_device_setup">یہ اسمارٹ ہوم ڈیوائس کا سیٹ اپ کوڈ ہے۔ جو بھی اسے اسکین کرے، وہ ڈیوائس کو اپنے گھر میں شامل کر سکتا ہے۔ اسے صرف اپنی اسمارٹ ہوم ایپ سے، اپنی ہی ڈیوائس کے لیے اسکین کریں۔</string>
+    <string name="notice_health_cert">یہ صحت کا سرٹیفکیٹ ہے۔ اس میں نام، تاریخ پیدائش اور طبی تفصیلات ہیں۔ اسے آپ کے فون پر پڑھا گیا اور کہیں نہیں بھیجا گیا۔ اسے کسی کو نہ دیں۔</string>
+    <string name="notice_unsafe_link">یہ ویب ایڈریس نہیں ہے۔ اس قسم کے لنک آپ کے فون پر کوڈ چلا سکتے ہیں یا فائلیں کھول سکتے ہیں۔ اسے نہ کھولیں۔</string>
+    <string name="notice_dialer_code">یہ فون سروس کوڈ ہے، عام نمبر نہیں۔ ایسے کوڈ آپ کی کالیں آگے بھیج سکتے ہیں، سیٹنگز بدل سکتے ہیں یا پیسے کاٹ سکتے ہیں۔ اسے صرف تب ڈائل کریں جب آپ کی موبائل کمپنی نے کہا ہو۔</string>
+    <string name="notice_premium_number">یہ پریمیم ریٹ نمبر لگتا ہے۔ اس پر کال کرنے سے فی منٹ کافی پیسے لگ سکتے ہیں۔</string>
+    <string name="notice_local_only">اسے آپ کے فون پر پڑھا گیا اور کہیں نہیں بھیجا گیا۔</string>
+
+    <!-- Typed cards: other -->
+    <string name="content_no_payment_app">اس فون پر کوئی ایپ یہ ادائیگی کا لنک نہیں کھول سکتی۔</string>
+    <string name="content_show_raw">اصل مواد دکھائیں</string>
+    <string name="content_hide_raw">اصل مواد چھپائیں</string>
+    <string name="content_reveal">دکھائیں</string>
+    <string name="content_conceal">چھپائیں</string>
+    <string name="wifi_password_copied">پاس ورڈ کاپی ہو گیا۔ جڑنے کے لیے نیٹ ورک منتخب کریں۔</string>
+    <string name="wifi_choose_in_settings">جڑنے کے لیے نیٹ ورک منتخب کریں۔</string>
+    <string name="wifi_cannot_join">Wi-Fi سیٹنگز نہیں کھل سکیں۔</string>
+    <string name="content_no_app">اس فون پر کوئی ایپ اسے نہیں کھول سکتی۔</string>
+    <string name="content_secret_hidden">خفیہ حصہ یہاں شامل نہیں کیا گیا۔</string>
+    <string name="content_from_history_redacted">خفیہ معلومات کبھی ہسٹری میں محفوظ نہیں ہوتیں، اس لیے یہ اندراج نامکمل ہے۔ پورا دیکھنے کے لیے کوڈ دوبارہ اسکین کریں۔</string>
+
+    <!-- History -->
+    <string name="history_title">ہسٹری</string>
+    <string name="history_note">صرف اس فون پر محفوظ ہے۔</string>
+    <string name="history_empty">ابھی تک کچھ اسکین نہیں ہوا۔</string>
+    <string name="history_clear">سب صاف کریں</string>
+    <string name="history_clear_title">ہسٹری صاف کریں؟</string>
+    <string name="history_clear_body">اس سے اس فون سے پچھلے تمام اسکین ہٹ جائیں گے۔</string>
+    <string name="history_clear_confirm">صاف کریں</string>
+    <!-- %1$s is the kind of content (for example "Link"), %2$s a relative time (for example "5 minutes ago") -->
+    <string name="history_subtitle">%1$s · %2$s</string>
+    <string name="history_just_now">ابھی ابھی</string>
+    <string name="history_level_ok">خطرے کی کوئی علامت نہیں ملی</string>
+    <string name="history_level_caution">جانچ ضروری ہے</string>
+    <string name="history_level_danger">خطرناک لگا</string>
+    <string name="history_level_neutral">کوئی انتباہ نہیں</string>
+    <string name="history_level_unchecked">جانچا نہیں گیا</string>
+    <string name="history_level_failed">جانچا نہیں جا سکا</string>
+    <!-- %1$s is the kind of content, %2$s the outcome (history_level_failed), %3$s a relative time -->
+    <string name="history_subtitle_with_state">%1$s · %2$s · %3$s</string>
+    <string name="history_delete">حذف کریں</string>
+    <string name="history_entry_options">اس اندراج کے اختیارات</string>
+</resources>

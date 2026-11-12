@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Common actions -->
+    <string name="action_back">رجوع</string>
+    <string name="action_open">افتح</string>
+    <string name="action_cancel">إلغاء</string>
+    <string name="action_open_anyway">افتح على أي حال</string>
+    <string name="action_dont_open">لا تفتح</string>
+    <string name="action_retry">أعد المحاولة</string>
+    <string name="action_open_in_app">افتح في التطبيق</string>
+    <string name="action_open_in_payment_app">افتح في تطبيق الدفع</string>
+    <string name="action_join_wifi">اتصل بالشبكة</string>
+    <string name="action_add_contact">أضف إلى جهات الاتصال</string>
+    <string name="action_add_event">أضف إلى التقويم</string>
+    <string name="action_copy">نسخ</string>
+    <string name="action_copy_all">نسخ الكل</string>
+    <string name="action_copy_iban">نسخ IBAN</string>
+    <string name="action_copy_address">نسخ العنوان</string>
+    <string name="action_copy_password">نسخ كلمة المرور</string>
+    <string name="copied">تم النسخ</string>
+
+    <!-- Scan -->
+    <!-- %1$s is scan_hint_emphasis, shown highlighted -->
+    <string name="scan_hint">وجّه الكاميرا إلى رمز QR. %1$s حتى توافق.</string>
+    <string name="scan_hint_emphasis">لن يُفتح شيء</string>
+    <string name="scan_torch_on">شغّل المصباح</string>
+    <string name="scan_torch_off">أطفئ المصباح</string>
+    <string name="scan_pick_image">امسح صورة من معرض الصور</string>
+    <string name="scan_history">السجل</string>
+    <string name="scan_no_qr_in_image">لم يُعثر على رمز QR في هذه الصورة.</string>
+    <string name="scan_image_failed">تعذّرت قراءة هذه الصورة.</string>
+    <string name="scan_camera_failed">تعذّر تشغيل الكاميرا.</string>
+
+    <!-- Camera permission -->
+    <string name="permission_title">يحتاج SecureQR إلى الكاميرا</string>
+    <string name="permission_rationale">تُستخدم الكاميرا لقراءة رموز QR فقط. لا يُسجَّل أي شيء، ولا تغادر الصور هاتفك أبدًا.</string>
+    <string name="permission_allow">اسمح بالكاميرا</string>
+    <string name="permission_denied_title">الكاميرا متوقفة</string>
+    <string name="permission_denied_body">لا يستطيع SecureQR المسح دون الكاميرا. يمكنك تشغيلها من الإعدادات، أو مسح صورة من معرض الصور بدلاً من ذلك.</string>
+    <string name="permission_open_settings">افتح الإعدادات</string>
+    <string name="permission_pick_image">امسح صورة بدلاً من ذلك</string>
+
+    <!-- Checking -->
+    <string name="checking_label_says">يقول رمز QR</string>
+    <string name="checking_label_following">نتتبّع الرابط نيابةً عنك</string>
+    <string name="checking_contacting">الاتصال بالخادم</string>
+    <string name="checking_step_done">تم</string>
+    <string name="checking_progress">نفتحه في متصفح معزول…</string>
+    <string name="checking_note">نفتح الرابط على خادمنا، لا على هاتفك أبدًا.</string>
+
+    <!-- Decide -->
+    <string name="verdict_ok">لم نجد علامات تحذير</string>
+    <string name="verdict_caution">تحقّق من هذا</string>
+    <string name="verdict_danger">يبدو هذا خطرًا</string>
+    <string name="decide_checked_just_now">فُحص للتو</string>
+    <plurals name="decide_checked_minutes">
+        <item quantity="zero">فُحص قبل أقل من دقيقة</item>
+        <item quantity="one">فُحص قبل دقيقة واحدة</item>
+        <item quantity="two">فُحص قبل دقيقتين</item>
+        <item quantity="few">فُحص قبل %d دقائق</item>
+        <item quantity="many">فُحص قبل %d دقيقة</item>
+        <item quantity="other">فُحص قبل %d دقيقة</item>
+    </plurals>
+    <string name="decide_label_land">ستصل إلى</string>
+    <string name="decide_label_path">المسار الذي سلكه</string>
+    <string name="decide_show_path">اعرض كل الخطوات</string>
+    <string name="decide_hide_path">أخفِ الخطوات</string>
+    <string name="chip_https">HTTPS</string>
+    <string name="chip_not_encrypted">غير مشفّر</string>
+    <string name="chip_no_redirects">بلا إعادة توجيه</string>
+    <plurals name="chip_redirects">
+        <item quantity="zero">بلا إعادة توجيه</item>
+        <item quantity="one">إعادة توجيه واحدة</item>
+        <item quantity="two">إعادتا توجيه</item>
+        <item quantity="few">%d عمليات إعادة توجيه</item>
+        <item quantity="many">%d عملية إعادة توجيه</item>
+        <item quantity="other">%d عملية إعادة توجيه</item>
+    </plurals>
+    <string name="chip_blocklisted">في قائمة حظر</string>
+    <string name="chip_not_blocklisted">غير محظور</string>
+    <string name="hop_start">الرابط الممسوح</string>
+    <string name="hop_http">إعادة توجيه</string>
+    <string name="hop_client">إعادة توجيه من الصفحة</string>
+    <!-- %1$s is the kind of step, %2$d the HTTP status code -->
+    <string name="hop_with_status">%1$s · %2$d</string>
+    <string name="screenshot_description">صورة للصفحة التي ستصل إليها</string>
+    <string name="screenshot_loading">جارٍ تحميل الصورة…</string>
+    <string name="screenshot_expand">اعرض الصفحة كاملة</string>
+    <string name="screenshot_collapse">اعرض أقل</string>
+    <string name="screenshot_unavailable">لا تتوفر صورة</string>
+
+    <!-- Check failed -->
+    <string name="error_title">تعذّر فحص هذا الرابط</string>
+    <string name="error_offline">تعذّر الوصول إلى SecureQR. تحقّق من اتصالك بالإنترنت وأعد المحاولة.</string>
+    <string name="error_generic">حدث خطأ أثناء فحص هذا الرابط.</string>
+    <!-- The server no longer accepts this version of the app -->
+    <string name="error_update_title">يلزم التحديث</string>
+    <string name="error_update_needed">لم يعد بإمكان هذه النسخة من التطبيق استخدام الخدمة. حدّث SecureQR وأعد المحاولة.</string>
+    <string name="error_unchecked_warning">لم يُفحص هذا الرابط. إذا فتحته على أي حال، فلن تعرف إلى أين يقودك حتى تصل.</string>
+    <string name="error_no_browser">لم يُعثر على متصفح لفتح هذا الرابط.</string>
+
+    <!-- Typed cards: titles -->
+    <string name="type_login">رمز تسجيل دخول</string>
+    <string name="type_chat">رابط دردشة</string>
+    <string name="type_swissqr">فاتورة QR سويسرية</string>
+    <string name="type_otp_export">تصدير من تطبيق المصادقة</string>
+    <string name="type_esim">باقة جوال eSIM</string>
+    <string name="type_device">جهاز منزل ذكي</string>
+    <string name="type_healthcert">شهادة صحية</string>
+    <string name="type_unsafe">رابط غير آمن</string>
+    <string name="type_paylink">رابط دفع</string>
+    <string name="type_url">رابط</string>
+    <string name="type_epc">تحويل مصرفي</string>
+    <string name="type_emv">رمز دفع</string>
+    <string name="type_upi">دفع عبر UPI</string>
+    <string name="type_crypto">دفع بالعملات المشفّرة</string>
+    <string name="type_wifi">شبكة Wi-Fi</string>
+    <string name="type_contact">جهة اتصال</string>
+    <string name="type_event">حدث في التقويم</string>
+    <string name="type_email">بريد إلكتروني</string>
+    <string name="type_phone">رقم هاتف</string>
+    <string name="type_sms">رسالة نصية</string>
+    <string name="type_geo">موقع</string>
+    <string name="type_otp">مفتاح تسجيل دخول سري</string>
+    <string name="type_applink">رابط تطبيق</string>
+    <string name="type_text">نص</string>
+
+    <!-- Typed cards: field labels -->
+    <string name="field_beneficiary">المستفيد</string>
+    <string name="field_iban">IBAN</string>
+    <string name="field_bic">BIC</string>
+    <string name="field_amount">المبلغ</string>
+    <string name="field_reference">المرجع</string>
+    <string name="field_message">الرسالة</string>
+    <string name="field_merchant">التاجر</string>
+    <string name="field_city">المدينة</string>
+    <string name="field_country">البلد</string>
+    <string name="field_currency">العملة</string>
+    <string name="field_payee_name">اسم المستفيد</string>
+    <string name="field_payee_address">عنوان المستفيد</string>
+    <string name="field_note">ملاحظة</string>
+    <string name="field_network">الشبكة</string>
+    <string name="field_address">العنوان</string>
+    <string name="field_label">التسمية</string>
+    <string name="field_security">الأمان</string>
+    <string name="field_password">كلمة المرور</string>
+    <string name="field_hidden">مخفية</string>
+    <string name="field_name">الاسم</string>
+    <string name="field_phone">الهاتف</string>
+    <string name="field_email">البريد الإلكتروني</string>
+    <string name="field_organisation">المؤسسة</string>
+    <string name="field_url">URL</string>
+    <string name="field_title">العنوان</string>
+    <string name="field_start">البداية</string>
+    <string name="field_end">النهاية</string>
+    <string name="field_location">المكان</string>
+    <string name="field_description">الوصف</string>
+    <string name="field_to">إلى</string>
+    <string name="field_subject">الموضوع</string>
+    <string name="field_body">النص</string>
+    <string name="field_number">الرقم</string>
+    <string name="field_latitude">خط العرض</string>
+    <string name="field_longitude">خط الطول</string>
+    <string name="field_issuer">الجهة المُصدِرة</string>
+    <string name="field_account">الحساب</string>
+    <string name="field_type">النوع</string>
+    <string name="field_scheme">المخطط</string>
+    <string name="field_text">النص</string>
+    <string name="field_provider">المزوّد</string>
+    <string name="field_service">الخدمة</string>
+    <string name="field_handle">المعرّف</string>
+    <string name="field_activation_code">رمز التفعيل</string>
+    <string name="value_invite">رابط دعوة</string>
+    <string name="value_none">لا شيء</string>
+    <string name="value_yes">نعم</string>
+
+    <!-- Typed cards: notices -->
+    <string name="notice_payment">هذا طلب دفع. تحقّق من الاسم والحساب والمبلغ قبل أن تدفع. يصعب التراجع عن المدفوعات.</string>
+    <string name="notice_paylink">هذا طلب دفع. تحقّق من الاسم والمبلغ في تطبيق الدفع قبل أن تؤكد. يصعب التراجع عن المدفوعات.</string>
+    <string name="notice_epc_instruction">للدفع، افتح تطبيق البنك وامسح رمز QR هذا به.</string>
+    <string name="notice_crypto">لا يمكن التراجع عن المدفوعات بالعملات المشفّرة.</string>
+    <string name="notice_invalid_iban">رقم الحساب ليس رقم IBAN صالحًا.</string>
+    <string name="notice_otp">هذا مفتاح تسجيل دخول سري. لا تمسحه إلا في تطبيق المصادقة الخاص بك، ولا تشاركه أبدًا.</string>
+    <string name="notice_wifi_open">هذه الشبكة بلا كلمة مرور. يمكن لأي شخص قريب أن يرى ما ترسله وتستقبله.</string>
+    <string name="notice_sms_short_code">قد تكلّف الرسائل إلى الأرقام القصيرة مالاً.</string>
+    <string name="notice_app_link">هذا يفتح تطبيقًا آخر. لا تتابع إلا إذا كنت تتوقع ذلك.</string>
+    <string name="notice_login_code">هذا الرمز يسجّل دخول جهاز آخر إلى حسابك. لا تمسحه إلا من داخل ذلك التطبيق، على شاشة فتحتها بنفسك. إذا أرسله إليك أحد، فهو احتيال.</string>
+    <string name="notice_chat_link">هذا يبدأ محادثة مع شخص قد لا تعرفه. يستخدم المحتالون روابط الدردشة لنقل المحادثة بعيدًا عن موقع تثق به.</string>
+    <string name="notice_otp_export">يحتوي هذا الرمز على أسرار كل الحسابات في تطبيق مصادقة. من يمسحه يستطيع إنشاء رموز تسجيل الدخول الخاصة بك. لا تمسحه إلا بهاتفك الجديد، ولا تشاركه أبدًا.</string>
+    <string name="notice_esim_instruction">لتثبيته، افتح إعدادات شبكة الجوال في هاتفك وأضف eSIM.</string>
+    <string name="notice_esim">هذا يثبّت باقة جوال (eSIM) على هاتفك. لا تتابع إلا إذا كانت من مزوّد خدمة الجوال الخاص بك.</string>
+    <string name="notice_device_setup">هذا رمز إعداد لجهاز منزل ذكي. من يمسحه يستطيع إضافة الجهاز إلى منزله. لا تمسحه إلا بتطبيق المنزل الذكي الخاص بك، ولجهاز تملكه.</string>
+    <string name="notice_health_cert">هذه شهادة صحية. تحتوي على اسم وتاريخ ميلاد وبيانات طبية. قُرئت على هاتفك ولم تُرسل إلى أي مكان. لا تشاركها.</string>
+    <string name="notice_unsafe_link">هذا ليس عنوان ويب. روابط من هذا النوع قد تشغّل تعليمات برمجية أو تفتح ملفات على هاتفك. لا تفتحه.</string>
+    <string name="notice_dialer_code">هذا رمز خدمة هاتفية، وليس رقمًا عاديًا. قد تحوّل هذه الرموز مكالماتك أو تغيّر الإعدادات أو تكلّف مالاً. لا تطلبه إلا إذا طلب منك مزوّد الخدمة ذلك.</string>
+    <string name="notice_premium_number">يبدو هذا رقمًا بتعرفة مرتفعة. قد يكلّفك الاتصال به الكثير في الدقيقة.</string>
+    <string name="notice_local_only">قُرئ هذا على هاتفك ولم يُرسل إلى أي مكان.</string>
+
+    <!-- Typed cards: other -->
+    <string name="content_no_payment_app">لا يوجد على هذا الهاتف ما يمكنه فتح رابط الدفع هذا.</string>
+    <string name="content_show_raw">اعرض المحتوى الخام</string>
+    <string name="content_hide_raw">أخفِ المحتوى الخام</string>
+    <string name="content_reveal">إظهار</string>
+    <string name="content_conceal">إخفاء</string>
+    <string name="wifi_password_copied">نُسخت كلمة المرور. اختر الشبكة للاتصال بها.</string>
+    <string name="wifi_choose_in_settings">اختر الشبكة للاتصال بها.</string>
+    <string name="wifi_cannot_join">تعذّر فتح إعدادات Wi-Fi.</string>
+    <string name="content_no_app">لا يوجد تطبيق على هذا الهاتف يمكنه فتح هذا.</string>
+    <string name="content_secret_hidden">الجزء السري محذوف هنا.</string>
+    <string name="content_from_history_redacted">لا تُحفظ الأسرار في السجل أبدًا، لذا هذا الإدخال غير مكتمل. امسح الرمز مرة أخرى لترى كل محتواه.</string>
+
+    <!-- History -->
+    <string name="history_title">السجل</string>
+    <string name="history_note">محفوظ على هذا الهاتف فقط.</string>
+    <string name="history_empty">لم تمسح شيئًا بعد.</string>
+    <string name="history_clear">مسح الكل</string>
+    <string name="history_clear_title">مسح السجل؟</string>
+    <string name="history_clear_body">يحذف هذا كل عمليات المسح السابقة من هذا الهاتف.</string>
+    <string name="history_clear_confirm">مسح</string>
+    <!-- %1$s is the kind of content (for example "Link"), %2$s a relative time (for example "5 minutes ago") -->
+    <string name="history_subtitle">%1$s · %2$s</string>
+    <string name="history_just_now">الآن</string>
+    <string name="history_level_ok">لم نجد علامات تحذير</string>
+    <string name="history_level_caution">يحتاج إلى تحقّق</string>
+    <string name="history_level_danger">بدا خطرًا</string>
+    <string name="history_level_neutral">بلا تحذيرات</string>
+    <string name="history_level_unchecked">لم يُفحص</string>
+    <string name="history_level_failed">تعذّر فحصه</string>
+    <!-- %1$s is the kind of content, %2$s the outcome (history_level_failed), %3$s a relative time -->
+    <string name="history_subtitle_with_state">%1$s · %2$s · %3$s</string>
+    <string name="history_delete">حذف</string>
+    <string name="history_entry_options">خيارات هذا الإدخال</string>
+</resources>

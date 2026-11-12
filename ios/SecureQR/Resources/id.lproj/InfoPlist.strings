@@ -1,0 +1,4 @@
+"NSCameraUsageDescription" = "SecureQR memakai kamera untuk membaca kode QR. Tidak ada yang direkam.";
+"NSContactsUsageDescription" = "SecureQR menambahkan kontak yang dipindai ke kontak Anda hanya jika Anda mengetuk Tambah ke kontak. SecureQR tidak pernah membaca kontak Anda.";
+"NSCalendarsUsageDescription" = "SecureQR menambahkan acara yang dipindai ke kalender Anda hanya jika Anda mengetuk Tambah ke kalender. SecureQR tidak pernah membaca kalender Anda.";
+"NSCalendarsWriteOnlyAccessUsageDescription" = "SecureQR menambahkan acara yang dipindai ke kalender Anda hanya jika Anda mengetuk Tambah ke kalender.";

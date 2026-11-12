@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Common actions -->
+    <string name="action_back">戻る</string>
+    <string name="action_open">開く</string>
+    <string name="action_cancel">キャンセル</string>
+    <string name="action_open_anyway">それでも開く</string>
+    <string name="action_dont_open">開かない</string>
+    <string name="action_retry">再試行</string>
+    <string name="action_open_in_app">アプリで開く</string>
+    <string name="action_open_in_payment_app">決済アプリで開く</string>
+    <string name="action_join_wifi">ネットワークに接続</string>
+    <string name="action_add_contact">連絡先に追加</string>
+    <string name="action_add_event">カレンダーに追加</string>
+    <string name="action_copy">コピー</string>
+    <string name="action_copy_all">すべてコピー</string>
+    <string name="action_copy_iban">IBANをコピー</string>
+    <string name="action_copy_address">アドレスをコピー</string>
+    <string name="action_copy_password">パスワードをコピー</string>
+    <string name="copied">コピーしました</string>
+
+    <!-- Scan -->
+    <!-- %1$s is scan_hint_emphasis, shown highlighted -->
+    <string name="scan_hint">QRコードにカメラを向けてください。許可するまで%1$s。</string>
+    <string name="scan_hint_emphasis">何も開きません</string>
+    <string name="scan_torch_on">ライトをつける</string>
+    <string name="scan_torch_off">ライトを消す</string>
+    <string name="scan_pick_image">ギャラリーの画像をスキャン</string>
+    <string name="scan_history">履歴</string>
+    <string name="scan_no_qr_in_image">その画像にQRコードが見つかりません。</string>
+    <string name="scan_image_failed">その画像を読み取れませんでした。</string>
+    <string name="scan_camera_failed">カメラを起動できませんでした。</string>
+
+    <!-- Camera permission -->
+    <string name="permission_title">SecureQRにはカメラが必要です</string>
+    <string name="permission_rationale">カメラはQRコードの読み取りにのみ使います。録画や録音はせず、画像がスマートフォンの外に出ることもありません。</string>
+    <string name="permission_allow">カメラを許可</string>
+    <string name="permission_denied_title">カメラがオフになっています</string>
+    <string name="permission_denied_body">カメラがないとSecureQRはスキャンできません。設定でオンにするか、代わりにギャラリーの画像をスキャンしてください。</string>
+    <string name="permission_open_settings">設定を開く</string>
+    <string name="permission_pick_image">代わりに画像をスキャン</string>
+
+    <!-- Checking -->
+    <string name="checking_label_says">QRコードの内容</string>
+    <string name="checking_label_following">代わりにリンクをたどっています</string>
+    <string name="checking_contacting">サーバーに接続中</string>
+    <string name="checking_step_done">完了</string>
+    <string name="checking_progress">隔離されたブラウザで開いています…</string>
+    <string name="checking_note">リンクは当社のサーバーで開きます。お使いのスマートフォンで開くことはありません。</string>
+
+    <!-- Decide -->
+    <string name="verdict_ok">警告のサインなし</string>
+    <string name="verdict_caution">要確認</string>
+    <string name="verdict_danger">危険な可能性があります</string>
+    <string name="decide_checked_just_now">たった今確認</string>
+    <plurals name="decide_checked_minutes">
+        <item quantity="other">%d分前に確認</item>
+    </plurals>
+    <string name="decide_label_land">最終的な行き先</string>
+    <string name="decide_label_path">たどった経路</string>
+    <string name="decide_show_path">すべての経路を表示</string>
+    <string name="decide_hide_path">経路を隠す</string>
+    <string name="chip_https">HTTPS</string>
+    <string name="chip_not_encrypted">暗号化なし</string>
+    <string name="chip_no_redirects">リダイレクトなし</string>
+    <plurals name="chip_redirects">
+        <item quantity="other">リダイレクト%d回</item>
+    </plurals>
+    <string name="chip_blocklisted">ブロックリスト該当</string>
+    <string name="chip_not_blocklisted">リスト該当なし</string>
+    <string name="hop_start">スキャンしたリンク</string>
+    <string name="hop_http">リダイレクト</string>
+    <string name="hop_client">ページによるリダイレクト</string>
+    <!-- %1$s is the kind of step, %2$d the HTTP status code -->
+    <string name="hop_with_status">%1$s · %2$d</string>
+    <string name="screenshot_description">最終的な行き先のページのスクリーンショット</string>
+    <string name="screenshot_loading">スクリーンショットを読み込み中…</string>
+    <string name="screenshot_expand">ページ全体を表示</string>
+    <string name="screenshot_collapse">折りたたむ</string>
+    <string name="screenshot_unavailable">スクリーンショットはありません</string>
+
+    <!-- Check failed -->
+    <string name="error_title">このリンクを確認できませんでした</string>
+    <string name="error_offline">SecureQRに接続できませんでした。インターネット接続を確認して、もう一度お試しください。</string>
+    <string name="error_generic">このリンクの確認中に問題が発生しました。</string>
+    <!-- The server no longer accepts this version of the app -->
+    <string name="error_update_title">アップデートが必要です</string>
+    <string name="error_update_needed">このバージョンのアプリでは、サービスを利用できなくなりました。SecureQRをアップデートして、もう一度お試しください。</string>
+    <string name="error_unchecked_warning">このリンクは確認されていません。それでも開くと、実際に開くまで行き先はわかりません。</string>
+    <string name="error_no_browser">このリンクを開くブラウザが見つかりません。</string>
+
+    <!-- Typed cards: titles -->
+    <string name="type_login">ログイン用コード</string>
+    <string name="type_chat">チャットのリンク</string>
+    <string name="type_swissqr">スイスQR請求書</string>
+    <string name="type_otp_export">認証アプリのエクスポート</string>
+    <string name="type_esim">eSIMモバイルプラン</string>
+    <string name="type_device">スマートホーム機器</string>
+    <string name="type_healthcert">健康証明書</string>
+    <string name="type_unsafe">危険なリンク</string>
+    <string name="type_paylink">支払いリンク</string>
+    <string name="type_url">リンク</string>
+    <string name="type_epc">銀行振込</string>
+    <string name="type_emv">支払いコード</string>
+    <string name="type_upi">UPI支払い</string>
+    <string name="type_crypto">暗号資産での支払い</string>
+    <string name="type_wifi">Wi-Fiネットワーク</string>
+    <string name="type_contact">連絡先</string>
+    <string name="type_event">カレンダーの予定</string>
+    <string name="type_email">メール</string>
+    <string name="type_phone">電話番号</string>
+    <string name="type_sms">SMS</string>
+    <string name="type_geo">位置情報</string>
+    <string name="type_otp">ログイン用シークレット</string>
+    <string name="type_applink">アプリのリンク</string>
+    <string name="type_text">テキスト</string>
+
+    <!-- Typed cards: field labels -->
+    <string name="field_beneficiary">受取人</string>
+    <string name="field_iban">IBAN</string>
+    <string name="field_bic">BIC</string>
+    <string name="field_amount">金額</string>
+    <string name="field_reference">参照番号</string>
+    <string name="field_message">メッセージ</string>
+    <string name="field_merchant">店舗</string>
+    <string name="field_city">都市</string>
+    <string name="field_country">国</string>
+    <string name="field_currency">通貨</string>
+    <string name="field_payee_name">受取人名</string>
+    <string name="field_payee_address">受取人アドレス</string>
+    <string name="field_note">メモ</string>
+    <string name="field_network">ネットワーク</string>
+    <string name="field_address">アドレス</string>
+    <string name="field_label">ラベル</string>
+    <string name="field_security">セキュリティ</string>
+    <string name="field_password">パスワード</string>
+    <string name="field_hidden">非公開</string>
+    <string name="field_name">名前</string>
+    <string name="field_phone">電話</string>
+    <string name="field_email">メール</string>
+    <string name="field_organisation">組織</string>
+    <string name="field_url">URL</string>
+    <string name="field_title">タイトル</string>
+    <string name="field_start">開始</string>
+    <string name="field_end">終了</string>
+    <string name="field_location">場所</string>
+    <string name="field_description">説明</string>
+    <string name="field_to">宛先</string>
+    <string name="field_subject">件名</string>
+    <string name="field_body">本文</string>
+    <string name="field_number">番号</string>
+    <string name="field_latitude">緯度</string>
+    <string name="field_longitude">経度</string>
+    <string name="field_issuer">発行元</string>
+    <string name="field_account">アカウント</string>
+    <string name="field_type">種類</string>
+    <string name="field_scheme">スキーム</string>
+    <string name="field_text">テキスト</string>
+    <string name="field_provider">事業者</string>
+    <string name="field_service">サービス</string>
+    <string name="field_handle">ID</string>
+    <string name="field_activation_code">アクティベーションコード</string>
+    <string name="value_invite">招待リンク</string>
+    <string name="value_none">なし</string>
+    <string name="value_yes">はい</string>
+
+    <!-- Typed cards: notices -->
+    <string name="notice_payment">これは支払いの請求です。支払う前に、名前、口座、金額を確認してください。支払いは取り消しが困難です。</string>
+    <string name="notice_paylink">これは支払いの請求です。確定する前に、決済アプリで名前と金額を確認してください。支払いは取り消しが困難です。</string>
+    <string name="notice_epc_instruction">支払うには、銀行アプリを開いて、このQRコードをスキャンしてください。</string>
+    <string name="notice_crypto">暗号資産での支払いは取り消せません。</string>
+    <string name="notice_invalid_iban">口座番号が有効なIBANではありません。</string>
+    <string name="notice_otp">これはログイン用シークレットです。ご自身の認証アプリでのみスキャンし、絶対に他人と共有しないでください。</string>
+    <string name="notice_wifi_open">このネットワークにはパスワードがありません。近くにいる人は誰でも通信内容を見ることができます。</string>
+    <string name="notice_sms_short_code">短い番号へのメッセージは料金がかかる場合があります。</string>
+    <string name="notice_app_link">別のアプリが開きます。想定どおりの場合にのみ続けてください。</string>
+    <string name="notice_login_code">このコードは、別の端末をあなたのアカウントにログインさせます。そのアプリ内の、ご自身で開いた画面からのみスキャンしてください。誰かから送られてきたものなら、それは詐欺です。</string>
+    <string name="notice_chat_link">知らない相手とのチャットが始まる可能性があります。詐欺師はチャットのリンクを使って、信頼できるサイトから会話を移そうとします。</string>
+    <string name="notice_otp_export">このコードには、認証アプリ内のすべてのアカウントのシークレットが含まれています。スキャンした人は誰でも、あなたのログイン用コードを作れます。ご自身の新しいスマートフォンでのみスキャンし、絶対に他人と共有しないでください。</string>
+    <string name="notice_esim_instruction">インストールするには、スマートフォンのモバイルネットワーク設定を開いて、eSIMを追加してください。</string>
+    <string name="notice_esim">スマートフォンにモバイルプラン（eSIM）がインストールされます。ご契約の通信事業者から届いたものである場合にのみ続けてください。</string>
+    <string name="notice_device_setup">これはスマートホーム機器のセットアップコードです。スキャンした人は誰でも、その機器を自分の家に追加できます。ご自身の機器について、スマートホームアプリでのみスキャンしてください。</string>
+    <string name="notice_health_cert">これは健康証明書です。名前、生年月日、医療情報が含まれています。スマートフォン上で読み取られ、どこにも送信されていません。他人と共有しないでください。</string>
+    <string name="notice_unsafe_link">これはWebアドレスではありません。この種類のリンクは、スマートフォン上でコードを実行したりファイルを開いたりすることがあります。開かないでください。</string>
+    <string name="notice_dialer_code">これは通常の番号ではなく、電話のサービスコードです。通話の転送、設定の変更、料金の発生につながることがあります。通信事業者から指示された場合にのみ発信してください。</string>
+    <string name="notice_premium_number">有料番号のようです。発信すると1分ごとに高額な料金がかかることがあります。</string>
+    <string name="notice_local_only">スマートフォン上で読み取られ、どこにも送信されていません。</string>
+
+    <!-- Typed cards: other -->
+    <string name="content_no_payment_app">この支払いリンクを開けるアプリがこのスマートフォンにありません。</string>
+    <string name="content_show_raw">元のデータを表示</string>
+    <string name="content_hide_raw">元のデータを隠す</string>
+    <string name="content_reveal">表示</string>
+    <string name="content_conceal">隠す</string>
+    <string name="wifi_password_copied">パスワードをコピーしました。ネットワークを選んで接続してください。</string>
+    <string name="wifi_choose_in_settings">ネットワークを選んで接続してください。</string>
+    <string name="wifi_cannot_join">Wi-Fi設定を開けませんでした。</string>
+    <string name="content_no_app">これを開けるアプリがこのスマートフォンにありません。</string>
+    <string name="content_secret_hidden">シークレットの部分はここでは表示しません。</string>
+    <string name="content_from_history_redacted">シークレットは履歴に保存されないため、この項目は一部のみです。すべて表示するには、もう一度コードをスキャンしてください。</string>
+
+    <!-- History -->
+    <string name="history_title">履歴</string>
+    <string name="history_note">このスマートフォンにのみ保存されます。</string>
+    <string name="history_empty">まだスキャンしていません。</string>
+    <string name="history_clear">すべて消去</string>
+    <string name="history_clear_title">履歴を消去しますか？</string>
+    <string name="history_clear_body">このスマートフォンから過去のスキャンがすべて削除されます。</string>
+    <string name="history_clear_confirm">消去</string>
+    <!-- %1$s is the kind of content (for example "Link"), %2$s a relative time (for example "5 minutes ago") -->
+    <string name="history_subtitle">%1$s · %2$s</string>
+    <string name="history_just_now">たった今</string>
+    <string name="history_level_ok">警告のサインなし</string>
+    <string name="history_level_caution">要確認</string>
+    <string name="history_level_danger">危険な可能性あり</string>
+    <string name="history_level_neutral">警告なし</string>
+    <string name="history_level_unchecked">未確認</string>
+    <string name="history_level_failed">確認できませんでした</string>
+    <!-- %1$s is the kind of content, %2$s the outcome (history_level_failed), %3$s a relative time -->
+    <string name="history_subtitle_with_state">%1$s · %2$s · %3$s</string>
+    <string name="history_delete">削除</string>
+    <string name="history_entry_options">この項目のオプション</string>
+</resources>

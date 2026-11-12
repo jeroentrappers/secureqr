@@ -261,6 +261,15 @@
     group: root
     mode: "0755"
 
+- name: Build the landing page in every language (on the control machine)
+  ansible.builtin.command:
+    cmd: node site/build.mjs --strict
+    chdir: "{{ playbook_dir }}/../.."
+  delegate_to: localhost
+  become: false
+  run_once: true
+  changed_when: false
+
 - name: Copy the landing page
   ansible.builtin.copy:
     src: "{{ secureqr_site_src }}/"

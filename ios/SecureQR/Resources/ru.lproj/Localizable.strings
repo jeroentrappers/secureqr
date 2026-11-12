@@ -1,0 +1,230 @@
+/* SecureQR, Russian. Keys are stable; values may be translated. */
+
+/* Common */
+"common.ok" = "OK";
+"common.cancel" = "Отмена";
+"common.yes" = "Да";
+"common.no" = "Нет";
+"common.none" = "Нет";
+
+/* Scanner */
+"scan.hint.before" = "Наведите камеру на QR-код. ";
+"scan.hint.strong" = "Ничего не откроется";
+"scan.hint.after" = ", пока вы не решите.";
+"scan.torch.on" = "Включить фонарик";
+"scan.torch.off" = "Выключить фонарик";
+"scan.photo" = "Сканировать фото";
+"scan.history" = "История";
+"scan.photo.none.title" = "QR-код не найден";
+"scan.photo.none.message" = "Мы не нашли QR-код на этом фото. Попробуйте более чёткий снимок или снимите ближе.";
+"scan.permission.title" = "Доступ к камере";
+"scan.permission.message" = "SecureQR использует камеру только для чтения QR-кодов. Ничего не записывается, и ничего не откроется, пока вы не решите.";
+"scan.permission.continue" = "Продолжить";
+"scan.denied.title" = "Камера выключена";
+"scan.denied.message" = "SecureQR не разрешено пользоваться камерой. Это можно разрешить в настройках или сканировать QR-код с фото кнопкой ниже.";
+"scan.denied.settings" = "Открыть настройки";
+"scan.unavailable.title" = "Камера недоступна";
+"scan.unavailable.message" = "Вы всё равно можете сканировать QR-код с фото кнопкой ниже.";
+
+/* Checking */
+"checking.says" = "В QR-коде";
+"checking.following" = "Проходим по ссылке за вас";
+"checking.contacting" = "Связь с сервером";
+"checking.step.active" = "выполняется";
+"checking.step.done" = "готово";
+"checking.step.opening" = "Открываем ссылку…";
+"checking.step.following" = "Проходим по перенаправлениям…";
+"checking.step.screenshot" = "Делаем снимок страницы…";
+"checking.note" = "Мы открываем ссылку на нашем сервере, а не на вашем телефоне.";
+
+/* Verdict headlines. "ok" must never be worded as "safe". */
+"verdict.ok" = "Тревожных признаков нет";
+"verdict.caution" = "Будьте внимательны";
+"verdict.danger" = "Выглядит опасно";
+
+/* Decide */
+"decide.landOn" = "Вы попадёте на";
+"decide.chip.https" = "HTTPS";
+"decide.chip.notEncrypted" = "Не зашифровано";
+"decide.chip.redirects.none" = "Без перенаправлений";
+"decide.chip.redirects.one" = "1 перенаправление";
+"decide.chip.redirects.many" = "Перенаправлений: %d";
+"decide.chip.blocklisted" = "В списке угроз";
+"decide.chip.notBlocklisted" = "Нет в списках";
+"decide.hops.show" = "Показать путь";
+"decide.hops.hide" = "Скрыть путь";
+"decide.open" = "Открыть";
+"decide.openAnyway" = "Всё равно открыть";
+"decide.dontOpen" = "Не открывать";
+"decide.screenshot.more" = "Показать всю страницу";
+"decide.screenshot.less" = "Свернуть";
+"decide.checked.now" = "Проверено меньше минуты назад";
+"decide.checked.one" = "Проверено 1 мин назад";
+"decide.checked.many" = "Проверено %d мин назад";
+"decide.screenshot.label" = "Снимок страницы";
+"decide.screenshot.none" = "Не удалось показать страницу.";
+"decide.screenshot.failed" = "Снимок больше недоступен.";
+
+/* Hops */
+"hop.start" = "Отсканированная ссылка";
+"hop.http" = "Перенаправление";
+"hop.client" = "Перенаправление страницей";
+"hop.unknown" = "Шаг";
+
+/* Failures */
+"failure.offline.title" = "Нет соединения";
+"failure.offline.message" = "Нет связи с SecureQR. Проверьте подключение к интернету и попробуйте снова.";
+"failure.timeout.title" = "Это занимает слишком долго";
+"failure.timeout.message" = "Проверка не успела завершиться. Попробуйте ещё раз чуть позже.";
+"failure.generic.title" = "Не удалось проверить ссылку";
+"failure.generic.message" = "У нас что-то пошло не так. Попробуйте ещё раз чуть позже.";
+"failure.server.invalid_url.title" = "Эту ссылку нельзя проверить";
+"failure.server.invalid_url.message" = "Ссылка не является корректным веб-адресом или слишком длинная.";
+"failure.server.unauthorized.title" = "Нужно обновление";
+"failure.server.unauthorized.message" = "Эта версия приложения больше не может пользоваться сервисом. Обновите SecureQR и попробуйте снова.";
+"failure.server.blocked_target.title" = "Ссылка ведёт на частный адрес";
+"failure.server.blocked_target.message" = "Она ведёт в частную или внутреннюю сеть, а такие адреса мы не открываем.";
+"failure.server.unreachable.title" = "Сайт не ответил";
+"failure.server.unreachable.message" = "Сайт не найден или отказал в соединении.";
+"failure.server.rate_limited.title" = "Слишком много проверок";
+"failure.server.rate_limited.message" = "Вы проверили много ссылок за короткое время. Подождите немного и попробуйте снова.";
+"failure.server.timeout.title" = "Страница грузилась слишком долго";
+"failure.server.timeout.message" = "Страница не успела загрузиться.";
+"failure.server.internal.title" = "Не удалось проверить ссылку";
+"failure.server.internal.message" = "У нас что-то пошло не так. Попробуйте ещё раз чуть позже.";
+"failure.unchecked.note" = "Эта ссылка не проверена. Мы не можем сказать, куда она ведёт.";
+"failure.retry" = "Попробовать снова";
+"failure.confirm.title" = "Открыть без проверки?";
+"failure.confirm.message" = "Мы не смогли проверить эту ссылку, поэтому не можем сказать, куда она ведёт и есть ли тревожные признаки.";
+
+/* Typed cards */
+"qr.type.login" = "Код для входа на другом устройстве";
+"qr.type.chat" = "Ссылка на чат";
+"qr.type.swissqr" = "Банковский перевод";
+"qr.type.spd" = "Банковский перевод";
+"qr.type.otpexport" = "Экспорт из аутентификатора";
+"qr.type.esim" = "eSIM";
+"qr.type.device" = "Код настройки умного дома";
+"qr.type.healthcert" = "Медицинский сертификат";
+"qr.type.unsafe" = "Небезопасная ссылка";
+"qr.type.paylink" = "Платёжная ссылка";
+"qr.type.url" = "Ссылка";
+"qr.type.epc" = "Банковский перевод";
+"qr.type.emv" = "Платёж";
+"qr.type.upi" = "Платёж UPI";
+"qr.type.crypto" = "Криптоплатёж";
+"qr.type.wifi" = "Сеть Wi-Fi";
+"qr.type.contact" = "Контакт";
+"qr.type.event" = "Событие календаря";
+"qr.type.email" = "Эл. почта";
+"qr.type.phone" = "Номер телефона";
+"qr.type.sms" = "СМС";
+"qr.type.geo" = "Местоположение";
+"qr.type.otp" = "Настройка кодов для входа";
+"qr.type.applink" = "Ссылка на приложение";
+"qr.type.text" = "Текст";
+
+"qr.field.beneficiary" = "Получатель";
+"qr.field.iban" = "IBAN";
+"qr.field.bic" = "BIC";
+"qr.field.amount" = "Сумма";
+"qr.field.reference" = "Назначение";
+"qr.field.message" = "Сообщение";
+"qr.field.merchant" = "Продавец";
+"qr.field.city" = "Город";
+"qr.field.country" = "Страна";
+"qr.field.currency" = "Валюта";
+"qr.field.payeeName" = "Имя получателя";
+"qr.field.payeeAddress" = "Адрес получателя";
+"qr.field.note" = "Примечание";
+"qr.field.network" = "Сеть";
+"qr.field.address" = "Адрес";
+"qr.field.label" = "Метка";
+"qr.field.security" = "Защита";
+"qr.field.password" = "Пароль";
+"qr.field.hidden" = "Скрытая";
+"qr.field.name" = "Имя";
+"qr.field.phone" = "Телефон";
+"qr.field.email" = "Эл. почта";
+"qr.field.organisation" = "Организация";
+"qr.field.url" = "URL";
+"qr.field.title" = "Название";
+"qr.field.start" = "Начало";
+"qr.field.end" = "Конец";
+"qr.field.location" = "Место";
+"qr.field.details" = "Описание";
+"qr.field.to" = "Кому";
+"qr.field.subject" = "Тема";
+"qr.field.body" = "Текст";
+"qr.field.number" = "Номер";
+"qr.field.latitude" = "Широта";
+"qr.field.longitude" = "Долгота";
+"qr.field.issuer" = "Сервис";
+"qr.field.account" = "Аккаунт";
+"qr.field.type" = "Тип";
+"qr.field.scheme" = "Схема";
+"qr.field.content" = "Содержимое";
+"qr.field.service" = "Сервис";
+"qr.field.handle" = "Имя пользователя";
+"qr.field.provider" = "Оператор";
+"qr.field.activationCode" = "Код активации";
+
+"qr.value.inviteLink" = "Ссылка-приглашение";
+
+"qr.notice.paymentRequest" = "Это запрос на оплату. Проверьте имя, счёт и сумму, прежде чем платить. Платёж трудно отменить.";
+"qr.notice.paymentRequestInApp" = "Это запрос на оплату. Проверьте имя и сумму в платёжном приложении, прежде чем подтвердить. Платёж трудно отменить.";
+"qr.notice.scanWithBankingApp" = "Чтобы оплатить, откройте банковское приложение и отсканируйте этот QR-код в нём.";
+"qr.notice.cryptoIrreversible" = "Криптоплатежи нельзя отменить.";
+"qr.notice.invalidIBAN" = "Номер счёта не является корректным IBAN.";
+"qr.notice.signInSecret" = "Это секрет для входа. Сканируйте его только в своё приложение-аутентификатор и никому не передавайте.";
+"qr.notice.openNetwork" = "У этой сети нет пароля. Любой человек поблизости может видеть ваш трафик.";
+"qr.notice.shortCode" = "Сообщения на короткие номера могут быть платными.";
+"qr.notice.opensOtherApp" = "Это откроет другое приложение. Продолжайте, только если вы этого ожидали.";
+"qr.notice.readOnDevice" = "Это прочитано на вашем телефоне и никуда не отправлено.";
+"qr.notice.signsInOtherDevice" = "Этот код выполняет вход в ваш аккаунт на другом устройстве. Сканируйте его только из самого приложения, на экране, который вы открыли сами. Если код вам кто-то прислал, это мошенничество.";
+"qr.notice.chatWithStranger" = "Это начнёт чат с человеком, которого вы, возможно, не знаете. Мошенники используют ссылки на чаты, чтобы увести разговор с сайта, которому вы доверяете.";
+"qr.notice.authenticatorExport" = "В этом коде хранятся секреты всех аккаунтов из приложения-аутентификатора. Тот, кто его отсканирует, сможет создавать ваши коды для входа. Сканируйте его только своим новым телефоном и никому не передавайте.";
+"qr.notice.installESIM" = "Чтобы установить, откройте настройки мобильной сети на телефоне и добавьте eSIM.";
+"qr.notice.mobilePlan" = "Это установит на ваш телефон мобильный тариф (eSIM). Продолжайте, только если код получен от вашего оператора связи.";
+"qr.notice.deviceSetupCode" = "Это код настройки устройства умного дома. Тот, кто его отсканирует, сможет добавить устройство в свой дом. Сканируйте его только в своём приложении для умного дома и только для своего устройства.";
+"qr.notice.healthCertificate" = "Это медицинский сертификат. В нём есть имя, дата рождения и медицинские данные. Он прочитан на вашем телефоне и никуда не отправлен. Не передавайте его другим.";
+"qr.notice.unsafeLink" = "Это не веб-адрес. Такие ссылки могут запускать код или открывать файлы на вашем телефоне. Не открывайте её.";
+"qr.notice.serviceCode" = "Это служебный код телефона, а не обычный номер. Такие коды могут переадресовать ваши звонки, изменить настройки или стоить денег. Набирайте его, только если так сказал ваш оператор.";
+"qr.notice.premiumNumber" = "Похоже на платный номер. Звонок на него может стоить дорого за каждую минуту.";
+
+"qr.action.openInApp" = "Открыть в приложении";
+"qr.action.openInPaymentApp" = "Открыть в платёжном приложении";
+"qr.action.joinWiFi" = "Подключиться";
+"qr.action.addToContacts" = "Добавить в контакты";
+"qr.action.addToCalendar" = "Добавить в календарь";
+"qr.action.copy" = "Копировать";
+"qr.action.copyAll" = "Копировать всё";
+"qr.action.copyIBAN" = "Копировать IBAN";
+"qr.action.copyAddress" = "Копировать адрес";
+"qr.action.copyPassword" = "Копировать пароль";
+
+"content.done" = "Готово";
+"content.copied" = "Скопировано";
+"content.raw.show" = "Показать исходное содержимое";
+"content.raw.hide" = "Скрыть исходное содержимое";
+"content.raw.secretHidden" = "Секретные части не показаны.";
+"content.secret.show" = "Показать скрытый текст";
+"content.secret.hide" = "Скрыть текст";
+"content.noApp.title" = "Нечем открыть";
+"content.noApp.message" = "На этом телефоне нет приложения, которое может это открыть.";
+"content.wifi.failed.title" = "Не удалось подключиться к сети";
+"content.wifi.failed.message" = "Проверьте, что сеть в зоне действия. Можно также скопировать пароль и подключиться в настройках.";
+"content.history.redacted" = "Пароли, коды и секреты не сохраняются в истории.";
+
+/* History */
+"history.title" = "История сканирования";
+"history.note" = "История хранится только на этом телефоне.";
+"history.clear" = "Очистить всё";
+"history.clear.confirm.title" = "Очистить всю историю?";
+"history.clear.confirm.message" = "Все прошлые сканирования будут удалены с этого телефона.";
+"history.clear.confirm.action" = "Очистить всё";
+"history.empty.title" = "Сканирований пока нет";
+"history.empty.message" = "Здесь появятся отсканированные QR-коды. Список хранится только на этом телефоне.";
+"history.unchecked" = "Не проверено";
+"history.failed" = "Не удалось проверить";
+"history.delete" = "Удалить";

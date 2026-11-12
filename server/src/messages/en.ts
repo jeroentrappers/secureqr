@@ -1,0 +1,52 @@
+// English: the source text. Every other language has the same keys.
+// {name} is filled in by the server. A value with plural forms is chosen by {count},
+// using the forms the language has (zero, one, two, few, many, other); "other" is required.
+export default {
+  // Why a link got its verdict
+  'reason.known_malicious': 'Listed as malicious by {providers}',
+  'reason.download': 'The link tried to download a file',
+  'reason.not_https': 'The final page is not encrypted',
+  'reason.ip_address': 'The address is a bare number, not a name',
+  'reason.lookalike_domain': 'The address uses look-alike characters',
+  'reason.embedded_credentials': 'The link hides a login name inside the address',
+  'reason.domain_changed': 'Ends at a different site than it starts',
+  'reason.opens_app': 'The link tries to open another app ({scheme})',
+  'reason.asks_for_payment': 'The page asks for card details',
+  'reason.asks_for_password': 'The page asks for a password',
+  'reason.many_redirects': { one: 'Passed through {count} redirect', other: 'Passed through {count} redirects' },
+
+  // Progress of a check, shown while it runs
+  'step.blocklists': 'Checking threat blocklists',
+  'step.listed': 'Listed as malicious by {providers}',
+  'step.not_listed': { one: 'Not on the blocklist', other: 'Not on {count} blocklists' },
+  'step.lists_unreachable': 'Blocklists could not be reached',
+  'step.address': 'Looking up the address',
+  'step.address_done': 'Address found',
+  'step.follow': 'Following the link',
+  'step.redirects': { zero: 'No redirects', one: '{count} redirect', other: '{count} redirects' },
+  'step.page': 'Loading the page',
+  'step.page_done': 'Page loaded',
+  'step.forms': 'Looking for sign-in and payment forms',
+  'step.forms_both': 'Asks for a password and card details',
+  'step.forms_password': 'Asks for a password',
+  'step.forms_card': 'Asks for card details',
+  'step.forms_none': 'No sign-in or payment forms',
+  'step.picture': 'Taking a picture of the page',
+  'step.picture_done': 'Picture taken',
+  'step.picture_none': 'No picture could be taken',
+
+  // Errors
+  'error.invalid_url': 'That is not a link we can check',
+  'error.only_web': 'Only web links can be checked',
+  'error.unauthorized': 'This copy of the app can no longer use the service. Update SecureQR and try again.',
+  'error.busy': 'The service is busy. Try again in a moment',
+  'error.too_many': 'Too many scans. Wait a minute and try again',
+  'error.not_found_site': 'That site could not be found',
+  'error.timeout': 'The page took too long to load',
+  'error.bad_certificate': 'The site has a broken security certificate',
+  'error.no_response': 'The site did not respond',
+  'error.private_network': 'This link points at a private network address, so it cannot be previewed',
+  'error.internal': 'Something went wrong on our side',
+  'error.not_found': 'Not found',
+  'error.expired': 'This preview has expired',
+} as const;

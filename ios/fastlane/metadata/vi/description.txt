@@ -1,0 +1,20 @@
+Mã QR không cho bạn biết nó dẫn đến đâu. SecureQR kiểm tra trước.
+
+Khi bạn quét một mã có chứa link web, SecureQR không mở link đó. Máy chủ của chúng tôi truy cập link giúp bạn, đi theo mọi lần chuyển hướng và chụp ảnh trang cuối cùng. Bạn thấy đích đến thật, ảnh chụp và mọi dấu hiệu cảnh báo, rồi bạn tự quyết định.
+
+Ứng dụng kiểm tra những gì
+• Link thật sự kết thúc ở đâu, kèm mọi điểm dừng trên đường đi
+• Trang web có trong danh sách mối đe dọa của Quad9, Cloudflare và DNS4EU, và trong một danh sách mở các trang lừa đảo đang hoạt động
+• Trang yêu cầu mật khẩu hoặc thông tin thẻ, không được mã hóa, dùng ký tự trông giống nhau, hoặc cố tải xuống một tệp
+• Link cố mở một ứng dụng khác
+
+Mã thanh toán và mã khác
+Chuyển khoản ngân hàng, yêu cầu thanh toán, mạng Wi-Fi, danh bạ và mã đăng nhập được đọc ngay trên điện thoại và hiển thị bằng lời dễ hiểu trước khi có gì xảy ra. Chúng không bao giờ được gửi cho chúng tôi.
+
+Riêng tư ngay từ thiết kế
+• Không tài khoản, không quảng cáo, không công cụ phân tích
+• Chỉ link web được gửi đến máy chủ của chúng tôi; mọi thứ khác ở lại trên điện thoại của bạn
+• Kết quả và ảnh chụp trang được lưu trong một giờ rồi bị xóa
+• Lịch sử quét ở lại trên điện thoại của bạn, và bạn có thể xóa bất cứ lúc nào
+
+Kết quả không có cảnh báo nghĩa là chúng tôi không tìm thấy dấu hiệu cảnh báo nào. Đó không phải là bảo đảm.

@@ -1,0 +1,4 @@
+"NSCameraUsageDescription" = "SecureQR usa la cámara para leer códigos QR. No se graba nada.";
+"NSContactsUsageDescription" = "SecureQR añade un contacto escaneado a tus contactos solo cuando tocas Añadir a contactos. Nunca lee tus contactos.";
+"NSCalendarsUsageDescription" = "SecureQR añade un evento escaneado a tu calendario solo cuando tocas Añadir al calendario. Nunca lee tu calendario.";
+"NSCalendarsWriteOnlyAccessUsageDescription" = "SecureQR añade un evento escaneado a tu calendario solo cuando tocas Añadir al calendario.";

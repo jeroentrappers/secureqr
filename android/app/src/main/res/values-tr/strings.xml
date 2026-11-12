@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Ortak eylemler -->
+    <string name="action_back">Geri</string>
+    <string name="action_open">Aç</string>
+    <string name="action_cancel">İptal</string>
+    <string name="action_open_anyway">Yine de aç</string>
+    <string name="action_dont_open">Açma</string>
+    <string name="action_retry">Tekrar dene</string>
+    <string name="action_open_in_app">Uygulamada aç</string>
+    <string name="action_open_in_payment_app">Ödeme uygulamasında aç</string>
+    <string name="action_join_wifi">Ağa bağlan</string>
+    <string name="action_add_contact">Kişilere ekle</string>
+    <string name="action_add_event">Takvime ekle</string>
+    <string name="action_copy">Kopyala</string>
+    <string name="action_copy_all">Tümünü kopyala</string>
+    <string name="action_copy_iban">IBAN\'ı kopyala</string>
+    <string name="action_copy_address">Adresi kopyala</string>
+    <string name="action_copy_password">Şifreyi kopyala</string>
+    <string name="copied">Kopyalandı</string>
+
+    <!-- Tarama -->
+    <!-- %1$s, scan_hint_emphasis metnidir ve vurgulanarak gösterilir -->
+    <string name="scan_hint">Bir QR koda doğrultun. Siz istemedikçe %1$s.</string>
+    <string name="scan_hint_emphasis">hiçbir şey açılmaz</string>
+    <string name="scan_torch_on">Feneri aç</string>
+    <string name="scan_torch_off">Feneri kapat</string>
+    <string name="scan_pick_image">Galeriden bir resim tarayın</string>
+    <string name="scan_history">Geçmiş</string>
+    <string name="scan_no_qr_in_image">Bu resimde QR kod bulunamadı.</string>
+    <string name="scan_image_failed">Bu resim okunamadı.</string>
+    <string name="scan_camera_failed">Kamera başlatılamadı.</string>
+
+    <!-- Kamera izni -->
+    <string name="permission_title">SecureQR kameranıza ihtiyaç duyuyor</string>
+    <string name="permission_rationale">Kamera yalnızca QR kodları okumak için kullanılır. Hiçbir şey kaydedilmez ve resimler telefonunuzdan asla çıkmaz.</string>
+    <string name="permission_allow">Kameraya izin ver</string>
+    <string name="permission_denied_title">Kamera kapalı</string>
+    <string name="permission_denied_body">SecureQR kamera olmadan tarama yapamaz. Kamerayı Ayarlar\'dan açabilir ya da bunun yerine galerinizden bir resim tarayabilirsiniz.</string>
+    <string name="permission_open_settings">Ayarları aç</string>
+    <string name="permission_pick_image">Bunun yerine resim tarayın</string>
+
+    <!-- Kontrol -->
+    <string name="checking_label_says">QR kodda yazan</string>
+    <string name="checking_label_following">Bağlantı sizin için takip ediliyor</string>
+    <string name="checking_contacting">Sunucuya bağlanılıyor</string>
+    <string name="checking_step_done">Tamam</string>
+    <string name="checking_progress">Korumalı bir tarayıcıda açılıyor…</string>
+    <string name="checking_note">Bağlantıyı telefonunuzda değil, her zaman sunucumuzda açarız.</string>
+
+    <!-- Karar -->
+    <string name="verdict_ok">Uyarı işareti bulunmadı</string>
+    <string name="verdict_caution">Buna dikkat edin</string>
+    <string name="verdict_danger">Bu riskli görünüyor</string>
+    <string name="decide_checked_just_now">Az önce kontrol edildi</string>
+    <plurals name="decide_checked_minutes">
+        <item quantity="one">%d dk önce kontrol edildi</item>
+        <item quantity="other">%d dk önce kontrol edildi</item>
+    </plurals>
+    <string name="decide_label_land">Varacağınız yer</string>
+    <string name="decide_label_path">İzlediği yol</string>
+    <string name="decide_show_path">Tüm adımları göster</string>
+    <string name="decide_hide_path">Adımları gizle</string>
+    <string name="chip_https">HTTPS</string>
+    <string name="chip_not_encrypted">Şifrelenmemiş</string>
+    <string name="chip_no_redirects">Yönlendirme yok</string>
+    <plurals name="chip_redirects">
+        <item quantity="one">%d yönlendirme</item>
+        <item quantity="other">%d yönlendirme</item>
+    </plurals>
+    <string name="chip_blocklisted">Engel listesinde</string>
+    <string name="chip_not_blocklisted">Engel listesinde yok</string>
+    <string name="hop_start">Taranan bağlantı</string>
+    <string name="hop_http">Yönlendirme</string>
+    <string name="hop_client">Sayfanın yönlendirmesi</string>
+    <!-- %1$s adımın türü, %2$d HTTP durum kodudur -->
+    <string name="hop_with_status">%1$s · %2$d</string>
+    <string name="screenshot_description">Varacağınız sayfanın ekran görüntüsü</string>
+    <string name="screenshot_loading">Ekran görüntüsü yükleniyor…</string>
+    <string name="screenshot_expand">Sayfanın tamamını göster</string>
+    <string name="screenshot_collapse">Daha az göster</string>
+    <string name="screenshot_unavailable">Ekran görüntüsü yok</string>
+
+    <!-- Kontrol başarısız -->
+    <string name="error_title">Bu bağlantı kontrol edilemedi</string>
+    <string name="error_offline">SecureQR\'a ulaşılamadı. İnternet bağlantınızı kontrol edip tekrar deneyin.</string>
+    <string name="error_generic">Bu bağlantı kontrol edilirken bir sorun oluştu.</string>
+    <!-- Sunucu, uygulamanın bu sürümünü artık kabul etmiyor -->
+    <string name="error_update_title">Güncelleme gerekli</string>
+    <string name="error_update_needed">Uygulamanın bu sürümü artık hizmeti kullanamıyor. SecureQR\'ı güncelleyip tekrar deneyin.</string>
+    <string name="error_unchecked_warning">Bu bağlantı kontrol edilmedi. Yine de açarsanız, oraya varana kadar nereye götürdüğünü bilemezsiniz.</string>
+    <string name="error_no_browser">Bu bağlantıyı açacak bir tarayıcı bulunamadı.</string>
+
+    <!-- Kart türleri: başlıklar -->
+    <string name="type_login">Giriş kodu</string>
+    <string name="type_chat">Sohbet bağlantısı</string>
+    <string name="type_swissqr">İsviçre QR faturası</string>
+    <string name="type_otp_export">Doğrulayıcı dışa aktarımı</string>
+    <string name="type_esim">eSIM mobil hat</string>
+    <string name="type_device">Akıllı ev cihazı</string>
+    <string name="type_healthcert">Sağlık sertifikası</string>
+    <string name="type_unsafe">Güvenli olmayan bağlantı</string>
+    <string name="type_paylink">Ödeme bağlantısı</string>
+    <string name="type_url">Bağlantı</string>
+    <string name="type_epc">Banka havalesi</string>
+    <string name="type_emv">Ödeme kodu</string>
+    <string name="type_upi">UPI ödemesi</string>
+    <string name="type_crypto">Kripto ödemesi</string>
+    <string name="type_wifi">Wi-Fi ağı</string>
+    <string name="type_contact">Kişi</string>
+    <string name="type_event">Takvim etkinliği</string>
+    <string name="type_email">E-posta</string>
+    <string name="type_phone">Telefon numarası</string>
+    <string name="type_sms">Kısa mesaj</string>
+    <string name="type_geo">Konum</string>
+    <string name="type_otp">Giriş anahtarı</string>
+    <string name="type_applink">Uygulama bağlantısı</string>
+    <string name="type_text">Metin</string>
+
+    <!-- Kart türleri: alan etiketleri -->
+    <string name="field_beneficiary">Alıcı</string>
+    <string name="field_iban">IBAN</string>
+    <string name="field_bic">BIC</string>
+    <string name="field_amount">Tutar</string>
+    <string name="field_reference">Referans</string>
+    <string name="field_message">Mesaj</string>
+    <string name="field_merchant">İşyeri</string>
+    <string name="field_city">Şehir</string>
+    <string name="field_country">Ülke</string>
+    <string name="field_currency">Para birimi</string>
+    <string name="field_payee_name">Alıcı adı</string>
+    <string name="field_payee_address">Alıcı adresi</string>
+    <string name="field_note">Not</string>
+    <string name="field_network">Ağ</string>
+    <string name="field_address">Adres</string>
+    <string name="field_label">Etiket</string>
+    <string name="field_security">Güvenlik</string>
+    <string name="field_password">Şifre</string>
+    <string name="field_hidden">Gizli</string>
+    <string name="field_name">Ad</string>
+    <string name="field_phone">Telefon</string>
+    <string name="field_email">E-posta</string>
+    <string name="field_organisation">Kuruluş</string>
+    <string name="field_url">URL</string>
+    <string name="field_title">Başlık</string>
+    <string name="field_start">Başlangıç</string>
+    <string name="field_end">Bitiş</string>
+    <string name="field_location">Konum</string>
+    <string name="field_description">Açıklama</string>
+    <string name="field_to">Alıcı</string>
+    <string name="field_subject">Konu</string>
+    <string name="field_body">İleti</string>
+    <string name="field_number">Numara</string>
+    <string name="field_latitude">Enlem</string>
+    <string name="field_longitude">Boylam</string>
+    <string name="field_issuer">Veren</string>
+    <string name="field_account">Hesap</string>
+    <string name="field_type">Tür</string>
+    <string name="field_scheme">Şema</string>
+    <string name="field_text">Metin</string>
+    <string name="field_provider">Sağlayıcı</string>
+    <string name="field_service">Hizmet</string>
+    <string name="field_handle">Kullanıcı adı</string>
+    <string name="field_activation_code">Etkinleştirme kodu</string>
+    <string name="value_invite">Davet bağlantısı</string>
+    <string name="value_none">Yok</string>
+    <string name="value_yes">Evet</string>
+
+    <!-- Kart türleri: uyarılar -->
+    <string name="notice_payment">Bu bir ödeme isteğidir. Ödemeden önce adı, hesabı ve tutarı kontrol edin. Ödemeleri geri almak zordur.</string>
+    <string name="notice_paylink">Bu bir ödeme isteğidir. Onaylamadan önce ödeme uygulamanızda adı ve tutarı kontrol edin. Ödemeleri geri almak zordur.</string>
+    <string name="notice_epc_instruction">Ödemek için bankacılık uygulamanızı açın ve bu QR kodu onunla tarayın.</string>
+    <string name="notice_crypto">Kripto ödemeleri geri alınamaz.</string>
+    <string name="notice_invalid_iban">Hesap numarası geçerli bir IBAN değil.</string>
+    <string name="notice_otp">Bu bir giriş anahtarıdır. Yalnızca kendi doğrulayıcı uygulamanızla tarayın ve asla kimseyle paylaşmayın.</string>
+    <string name="notice_wifi_open">Bu ağın şifresi yok. Yakındaki herkes trafiğinizi görebilir.</string>
+    <string name="notice_sms_short_code">Kısa numaralara gönderilen mesajlar ücretli olabilir.</string>
+    <string name="notice_app_link">Bu, başka bir uygulamayı açar. Yalnızca bunu bekliyorduysanız devam edin.</string>
+    <string name="notice_login_code">Bu kod, başka bir cihazda hesabınıza giriş yapar. Yalnızca o uygulamanın içinden, kendi açtığınız bir ekranda tarayın. Biri bunu size gönderdiyse, bu bir dolandırıcılıktır.</string>
+    <string name="notice_chat_link">Bu, tanımıyor olabileceğiniz biriyle sohbet başlatır. Dolandırıcılar, konuşmayı güvendiğiniz bir siteden uzaklaştırmak için sohbet bağlantıları kullanır.</string>
+    <string name="notice_otp_export">Bu kod, bir doğrulayıcı uygulamadaki tüm hesapların gizli anahtarlarını içerir. Bunu tarayan herkes giriş kodlarınızı üretebilir. Yalnızca kendi yeni telefonunuzla tarayın ve asla kimseyle paylaşmayın.</string>
+    <string name="notice_esim_instruction">Yüklemek için telefonunuzun mobil ağ ayarlarını açın ve bir eSIM ekleyin.</string>
+    <string name="notice_esim">Bu, telefonunuza bir mobil hat (eSIM) yükler. Yalnızca kendi operatörünüzden geldiyse devam edin.</string>
+    <string name="notice_device_setup">Bu, bir akıllı ev cihazının kurulum kodudur. Bunu tarayan herkes cihazı kendi evine ekleyebilir. Yalnızca size ait bir cihaz için, akıllı ev uygulamanızla tarayın.</string>
+    <string name="notice_health_cert">Bu bir sağlık sertifikasıdır. Bir ad, doğum tarihi ve tıbbi bilgiler içerir. Telefonunuzda okundu ve hiçbir yere gönderilmedi. Kimseyle paylaşmayın.</string>
+    <string name="notice_unsafe_link">Bu bir web adresi değil. Bu tür bağlantılar telefonunuzda kod çalıştırabilir veya dosya açabilir. Açmayın.</string>
+    <string name="notice_dialer_code">Bu, normal bir numara değil, bir telefon hizmet kodudur. Bu tür kodlar aramalarınızı yönlendirebilir, ayarları değiştirebilir veya ücretli olabilir. Yalnızca operatörünüz söylediyse arayın.</string>
+    <string name="notice_premium_number">Bu, ücretli özel hizmet numarasına benziyor. Aramanın dakikası pahalı olabilir.</string>
+    <string name="notice_local_only">Bu, telefonunuzda okundu ve hiçbir yere gönderilmedi.</string>
+
+    <!-- Kart türleri: diğer -->
+    <string name="content_no_payment_app">Bu telefonda bu ödeme bağlantısını açabilecek bir uygulama yok.</string>
+    <string name="content_show_raw">Ham içeriği göster</string>
+    <string name="content_hide_raw">Ham içeriği gizle</string>
+    <string name="content_reveal">Göster</string>
+    <string name="content_conceal">Gizle</string>
+    <string name="wifi_password_copied">Şifre kopyalandı. Bağlanmak için ağı seçin.</string>
+    <string name="wifi_choose_in_settings">Bağlanmak için ağı seçin.</string>
+    <string name="wifi_cannot_join">Wi-Fi ayarları açılamadı.</string>
+    <string name="content_no_app">Bu telefonda bunu açabilecek bir uygulama yok.</string>
+    <string name="content_secret_hidden">Gizli kısım burada gösterilmiyor.</string>
+    <string name="content_from_history_redacted">Gizli bilgiler geçmişinize asla kaydedilmez, bu yüzden bu kayıt eksiktir. Tamamını görmek için kodu tekrar tarayın.</string>
+
+    <!-- Geçmiş -->
+    <string name="history_title">Geçmiş</string>
+    <string name="history_note">Yalnızca bu telefonda saklanır.</string>
+    <string name="history_empty">Henüz hiçbir şey taranmadı.</string>
+    <string name="history_clear">Tümünü sil</string>
+    <string name="history_clear_title">Geçmiş silinsin mi?</string>
+    <string name="history_clear_body">Bu, geçmiş taramaların tümünü bu telefondan siler.</string>
+    <string name="history_clear_confirm">Sil</string>
+    <!-- %1$s içeriğin türü (örneğin "Bağlantı"), %2$s göreli zaman (örneğin "5 dakika önce") -->
+    <string name="history_subtitle">%1$s · %2$s</string>
+    <string name="history_just_now">Az önce</string>
+    <string name="history_level_ok">Uyarı işareti bulunmadı</string>
+    <string name="history_level_caution">Kontrol gerekiyor</string>
+    <string name="history_level_danger">Riskli göründü</string>
+    <string name="history_level_neutral">Uyarı yok</string>
+    <string name="history_level_unchecked">Kontrol edilmedi</string>
+    <string name="history_level_failed">Kontrol edilemedi</string>
+    <!-- %1$s içeriğin türü, %2$s sonuç (history_level_failed), %3$s göreli zaman -->
+    <string name="history_subtitle_with_state">%1$s · %2$s · %3$s</string>
+    <string name="history_delete">Sil</string>
+    <string name="history_entry_options">Bu kayıt için seçenekler</string>
+</resources>

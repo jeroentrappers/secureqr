@@ -1,0 +1,20 @@
+Bir QR kod nereye götürdüğünü söylemez. SecureQR önce kontrol eder.
+
+Web bağlantısı içeren bir kodu taradığınızda SecureQR onu açmaz. Sunucumuz bağlantıyı sizin için ziyaret eder, her yönlendirmeyi takip eder ve varılan sayfanın resmini çeker. Gerçek varış yerini, resmi ve varsa uyarı işaretlerini görürsünüz, sonra kararı siz verirsiniz.
+
+Neye bakar
+• Bağlantının gerçekte nerede bittiği, yol boyunca her durakla birlikte
+• Quad9, Cloudflare ve DNS4EU tehdit listelerindeki ve etkin kimlik avı sitelerinin açık bir listesindeki siteler
+• Şifre veya kart bilgisi isteyen, şifrelenmemiş, benzer görünen karakterler kullanan ya da dosya indirmeye çalışan sayfalar
+• Başka bir uygulamayı açmaya çalışan bağlantılar
+
+Ödeme ve diğer kodlar
+Banka havaleleri, ödeme istekleri, Wi-Fi ağları, kişiler ve giriş kodları telefonunuzda okunur ve herhangi bir işlem yapılmadan önce sade bir dille gösterilir. Bunlar asla bize gönderilmez.
+
+Gizlilik esastır
+• Hesap yok, reklam yok, analiz yok
+• Sunucumuza yalnızca web bağlantıları gönderilir; diğer her şey telefonunuzda kalır
+• Sonuçlar ve sayfa resimleri bir saat saklanır, sonra silinir
+• Tarama geçmişiniz telefonunuzda kalır ve istediğiniz zaman silebilirsiniz
+
+Temiz bir sonuç, hiçbir uyarı işareti bulmadığımız anlamına gelir. Bu bir garanti değildir.

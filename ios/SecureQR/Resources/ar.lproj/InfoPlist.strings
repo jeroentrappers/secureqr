@@ -1,0 +1,4 @@
+"NSCameraUsageDescription" = "يستخدم SecureQR الكاميرا لقراءة رموز QR. لا يُسجَّل أي شيء.";
+"NSContactsUsageDescription" = "يضيف SecureQR جهة اتصال ممسوحة إلى جهات اتصالك فقط عندما تضغط على «أضف إلى جهات الاتصال». ولا يقرأ جهات اتصالك أبدًا.";
+"NSCalendarsUsageDescription" = "يضيف SecureQR حدثًا ممسوحًا إلى تقويمك فقط عندما تضغط على «أضف إلى التقويم». ولا يقرأ تقويمك أبدًا.";
+"NSCalendarsWriteOnlyAccessUsageDescription" = "يضيف SecureQR حدثًا ممسوحًا إلى تقويمك فقط عندما تضغط على «أضف إلى التقويم».";

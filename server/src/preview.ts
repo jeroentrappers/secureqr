@@ -1,6 +1,7 @@
 import { chromium, type Browser, type BrowserContext, type Frame, type Page, type Request } from 'playwright';
 import type { ResultCache } from './cache.js';
 import type { Config } from './config.js';
+import { english, type Params } from './i18n.js';
 import { GuardError, resolveTarget, type GuardOptions } from './netguard.js';
 import { startEgressProxy, type EgressProxy } from './proxy.js';
 import type { Reputation, ReputationCheck } from './reputation.js';
@@ -45,9 +46,12 @@ export interface PreviewResult {
 
 export type StepId = 'address' | 'blocklists' | 'redirects' | 'page' | 'forms' | 'picture';
 
-/** Progress of a running check, in the order things happen. Labels are English, ready to display. */
+/**
+ * Progress of a running check, in the order things happen. The label is English; key and params let the
+ * server put it into the asker's language before sending (see i18n.ts).
+ */
 export type ProgressEvent =
-  | { type: 'step'; id: StepId; state: 'active' | 'done'; label: string }
+  | { type: 'step'; id: StepId; state: 'active' | 'done'; label: string; key?: string; params?: Params }
   | { type: 'hop'; hop: Hop };
 
 export interface PreviewOptions {
@@ -308,24 +312,25 @@ export class Previewer {
         // a listener that went away must not fail the check
       }
     };
+    const step = (id: StepId, state: 'active' | 'done', key: string, params?: Params) => emit(stepEvent(id, state, key, params));
 
     // Blocklist lookups do not need the browser: start them now, alongside everything else.
     const lookups = new Map<string, Promise<unknown>>();
     const lookUp = (host: string) => {
       if (!lookups.has(host)) lookups.set(host, this.reputation([host]).catch(() => null));
     };
-    emit({ type: 'step', id: 'blocklists', state: 'active', label: 'Checking threat blocklists' });
+    step('blocklists', 'active', 'step.blocklists');
     lookUp(url.hostname.replace(/^\[|\]$/g, ''));
 
     if (!opts.skipPrecheck) {
-      emit({ type: 'step', id: 'address', state: 'active', label: 'Looking up the address' });
+      step('address', 'active', 'step.address');
       try {
         await resolveTarget(url.hostname, url.port ? Number(url.port) : url.protocol === 'https:' ? 443 : 80, guard);
       } catch (e) {
         if (e instanceof GuardError && e.reason === 'blocked') throw blockedError();
         throw new PreviewError('unreachable', 'That site could not be found', 422);
       }
-      emit({ type: 'step', id: 'address', state: 'done', label: 'Address found' });
+      step('address', 'done', 'step.address_done');
     }
 
     await this.acquire();
@@ -353,6 +358,7 @@ export class Previewer {
     lookUp: (host: string) => void,
     lookups: Map<string, Promise<unknown>>,
   ) {
+    const step = (id: StepId, state: 'active' | 'done', key: string, params?: Params) => emit(stepEvent(id, state, key, params));
     let slot: Slot | null = null;
     let disposed = false;
     const dispose = async () => {
@@ -411,7 +417,7 @@ export class Previewer {
         if (m && !/^https?$/i.test(m[1]!)) appScheme = m[1]!.toLowerCase();
       });
 
-      emit({ type: 'step', id: 'redirects', state: 'active', label: 'Following the link' });
+      step('redirects', 'active', 'step.follow');
       let navError: unknown = null;
       try {
         await page.goto(url.href, { waitUntil: 'domcontentloaded', timeout: this.cfg.navTimeoutMs });
@@ -441,17 +447,9 @@ export class Previewer {
         hosts.forEach(lookUp);
         await Promise.all(lookups.values());
         const reputation = await this.reputation(hosts).catch((): Reputation => ({ checked: [], flaggedBy: [], flaggedHost: null }));
-        emit({
-          type: 'step',
-          id: 'blocklists',
-          state: 'done',
-          label:
-            reputation.flaggedBy.length > 0
-              ? `Listed as malicious by ${reputation.flaggedBy.join(', ')}`
-              : reputation.checked.length > 0
-                ? `Not on ${reputation.checked.length === 1 ? 'the blocklist' : `${reputation.checked.length} blocklists`}`
-                : 'Blocklists could not be reached',
-        });
+        if (reputation.flaggedBy.length > 0) step('blocklists', 'done', 'step.listed', { providers: reputation.flaggedBy });
+        else if (reputation.checked.length > 0) step('blocklists', 'done', 'step.not_listed', { count: reputation.checked.length });
+        else step('blocklists', 'done', 'step.lists_unreachable');
         return reputation;
       };
       let judging: Promise<Reputation>;
@@ -462,7 +460,7 @@ export class Previewer {
       let shot = null as Buffer | null;
 
       if (committed) {
-        emit({ type: 'step', id: 'page', state: 'active', label: 'Loading the page' });
+        step('page', 'active', 'step.page');
         // Let the page finish and give script/meta redirects a chance to fire.
         await page.waitForLoadState('load', { timeout: 8000 }).catch(() => {});
         // "networkidle" already means half a second without traffic, so a page that reaches it needs a shorter look.
@@ -478,13 +476,13 @@ export class Previewer {
           await page.waitForLoadState('load', { timeout: 5000 }).catch(() => {});
         }
         const moved = new Set(hops.map((h) => h.url)).size - 1;
-        emit({ type: 'step', id: 'redirects', state: 'done', label: moved === 0 ? 'No redirects' : moved === 1 ? '1 redirect' : `${moved} redirects` });
-        emit({ type: 'step', id: 'page', state: 'done', label: 'Page loaded' });
+        step('redirects', 'done', 'step.redirects', { count: Math.max(0, moved) });
+        step('page', 'done', 'step.page_done');
         judging = sumUpBlocklists(); // every site in the chain is known now
 
         // The form check and the picture read the same settled page; do them together.
-        emit({ type: 'step', id: 'forms', state: 'active', label: 'Looking for sign-in and payment forms' });
-        emit({ type: 'step', id: 'picture', state: 'active', label: 'Taking a picture of the page' });
+        step('forms', 'active', 'step.forms');
+        step('picture', 'active', 'step.picture');
         const probing = (async () => {
           title = (await page.title().catch(() => '')).slice(0, 200);
           await Promise.all(
@@ -497,20 +495,19 @@ export class Previewer {
                 if (r?.payment) asksPayment = true;
               }),
           );
-          const found = asksPassword && asksPayment ? 'Asks for a password and card details' : asksPassword ? 'Asks for a password' : asksPayment ? 'Asks for card details' : 'No sign-in or payment forms';
-          emit({ type: 'step', id: 'forms', state: 'done', label: found });
+          step('forms', 'done', asksPassword && asksPayment ? 'step.forms_both' : asksPassword ? 'step.forms_password' : asksPayment ? 'step.forms_card' : 'step.forms_none');
         })();
         const shooting = page
           .screenshot({ type: 'jpeg', quality: 72, animations: 'disabled', caret: 'hide', timeout: 10_000 })
           .catch(() => null)
           .then((b) => {
             shot = b;
-            emit({ type: 'step', id: 'picture', state: 'done', label: b ? 'Picture taken' : 'No picture could be taken' });
+            step('picture', 'done', b ? 'step.picture_done' : 'step.picture_none');
           });
         await Promise.all([probing, shooting]);
       } else {
         const moved = new Set(hops.map((h) => h.url)).size - 1;
-        emit({ type: 'step', id: 'redirects', state: 'done', label: moved <= 0 ? 'No redirects' : moved === 1 ? '1 redirect' : `${moved} redirects` });
+        step('redirects', 'done', 'step.redirects', { count: Math.max(0, moved) });
         judging = sumUpBlocklists();
       }
 
@@ -572,6 +569,11 @@ interface Visit {
   result: PreviewResult;
   evidence: Evidence;
   shot: Buffer | null;
+}
+
+/** A progress step with its English label, and the key and values to translate it with. */
+function stepEvent(id: StepId, state: 'active' | 'done', key: string, params?: Params): ProgressEvent {
+  return { type: 'step', id, state, label: english(key, params), key, ...(params ? { params } : {}) };
 }
 
 function blockedError(): PreviewError {

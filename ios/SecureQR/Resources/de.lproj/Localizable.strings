@@ -1,0 +1,230 @@
+/* SecureQR, Deutsch. */
+
+/* Common */
+"common.ok" = "OK";
+"common.cancel" = "Abbrechen";
+"common.yes" = "Ja";
+"common.no" = "Nein";
+"common.none" = "Keine";
+
+/* Scanner */
+"scan.hint.before" = "Richten Sie die Kamera auf einen QR-Code. ";
+"scan.hint.strong" = "Nichts wird geöffnet";
+"scan.hint.after" = ", bis Sie es wollen.";
+"scan.torch.on" = "Licht einschalten";
+"scan.torch.off" = "Licht ausschalten";
+"scan.photo" = "Foto scannen";
+"scan.history" = "Verlauf";
+"scan.photo.none.title" = "Kein QR-Code gefunden";
+"scan.photo.none.message" = "In diesem Foto wurde kein QR-Code gefunden. Versuchen Sie ein schärferes oder näheres Bild.";
+"scan.permission.title" = "Kamerazugriff";
+"scan.permission.message" = "SecureQR verwendet die Kamera nur zum Lesen von QR-Codes. Es wird nichts aufgezeichnet, und nichts wird geöffnet, bis Sie es wollen.";
+"scan.permission.continue" = "Weiter";
+"scan.denied.title" = "Die Kamera ist aus";
+"scan.denied.message" = "SecureQR darf die Kamera nicht verwenden. Sie können das in den Einstellungen erlauben oder mit der Taste unten einen QR-Code aus einem Foto scannen.";
+"scan.denied.settings" = "Einstellungen öffnen";
+"scan.unavailable.title" = "Keine Kamera verfügbar";
+"scan.unavailable.message" = "Sie können trotzdem mit der Taste unten einen QR-Code aus einem Foto scannen.";
+
+/* Checking */
+"checking.says" = "Der QR-Code enthält";
+"checking.following" = "Wir folgen dem Link für Sie";
+"checking.contacting" = "Verbindung zum Server";
+"checking.step.active" = "läuft";
+"checking.step.done" = "fertig";
+"checking.step.opening" = "Link wird geöffnet…";
+"checking.step.following" = "Weiterleitungen werden verfolgt…";
+"checking.step.screenshot" = "Bildschirmfoto wird erstellt…";
+"checking.note" = "Wir öffnen den Link auf unserem Server, nie auf Ihrem Handy.";
+
+/* Verdict headlines. "ok" must never be worded as "safe". */
+"verdict.ok" = "Keine Warnzeichen gefunden";
+"verdict.caution" = "Bitte prüfen";
+"verdict.danger" = "Das sieht riskant aus";
+
+/* Decide */
+"decide.landOn" = "Sie landen auf";
+"decide.chip.https" = "HTTPS";
+"decide.chip.notEncrypted" = "Nicht verschlüsselt";
+"decide.chip.redirects.none" = "Keine Weiterleitungen";
+"decide.chip.redirects.one" = "1 Weiterleitung";
+"decide.chip.redirects.many" = "%d Weiterleitungen";
+"decide.chip.blocklisted" = "Auf einer Sperrliste";
+"decide.chip.notBlocklisted" = "Nicht auf Sperrlisten";
+"decide.hops.show" = "Weg zeigen";
+"decide.hops.hide" = "Weg ausblenden";
+"decide.open" = "Öffnen";
+"decide.openAnyway" = "Trotzdem öffnen";
+"decide.dontOpen" = "Nicht öffnen";
+"decide.screenshot.more" = "Ganze Seite zeigen";
+"decide.screenshot.less" = "Weniger zeigen";
+"decide.checked.now" = "Vor weniger als einer Minute geprüft";
+"decide.checked.one" = "Vor 1 Min. geprüft";
+"decide.checked.many" = "Vor %d Min. geprüft";
+"decide.screenshot.label" = "Bildschirmfoto der Seite";
+"decide.screenshot.none" = "Die Seite konnte nicht angezeigt werden.";
+"decide.screenshot.failed" = "Das Bildschirmfoto ist nicht mehr verfügbar.";
+
+/* Hops */
+"hop.start" = "Gescannter Link";
+"hop.http" = "Weiterleitung";
+"hop.client" = "Weiterleitung durch die Seite";
+"hop.unknown" = "Schritt";
+
+/* Failures */
+"failure.offline.title" = "Keine Verbindung";
+"failure.offline.message" = "SecureQR ist nicht erreichbar. Prüfen Sie Ihre Internetverbindung und versuchen Sie es erneut.";
+"failure.timeout.title" = "Das dauert zu lange";
+"failure.timeout.message" = "Die Prüfung wurde nicht rechtzeitig fertig. Versuchen Sie es gleich noch einmal.";
+"failure.generic.title" = "Dieser Link konnte nicht geprüft werden";
+"failure.generic.message" = "Bei uns ist etwas schiefgelaufen. Versuchen Sie es gleich noch einmal.";
+"failure.server.invalid_url.title" = "Diesen Link können wir nicht prüfen";
+"failure.server.invalid_url.message" = "Der Link ist keine gültige Webadresse oder er ist zu lang.";
+"failure.server.unauthorized.title" = "Update nötig";
+"failure.server.unauthorized.message" = "Diese Version der App kann den Dienst nicht mehr nutzen. Aktualisieren Sie SecureQR und versuchen Sie es erneut.";
+"failure.server.blocked_target.title" = "Dieser Link zeigt auf eine private Adresse";
+"failure.server.blocked_target.message" = "Er führt in ein privates oder internes Netzwerk, das wir nicht aufrufen.";
+"failure.server.unreachable.title" = "Die Website hat nicht geantwortet";
+"failure.server.unreachable.message" = "Die Website wurde nicht gefunden oder hat die Verbindung abgelehnt.";
+"failure.server.rate_limited.title" = "Zu viele Prüfungen";
+"failure.server.rate_limited.message" = "Sie haben in kurzer Zeit viele Links geprüft. Warten Sie einen Moment und versuchen Sie es erneut.";
+"failure.server.timeout.title" = "Die Seite hat zu lange gebraucht";
+"failure.server.timeout.message" = "Die Seite wurde nicht rechtzeitig fertig geladen.";
+"failure.server.internal.title" = "Dieser Link konnte nicht geprüft werden";
+"failure.server.internal.message" = "Bei uns ist etwas schiefgelaufen. Versuchen Sie es gleich noch einmal.";
+"failure.unchecked.note" = "Dieser Link wurde nicht geprüft. Wir können Ihnen nicht sagen, wohin er führt.";
+"failure.retry" = "Erneut versuchen";
+"failure.confirm.title" = "Ohne Prüfung öffnen?";
+"failure.confirm.message" = "Wir konnten diesen Link nicht prüfen. Daher können wir Ihnen nicht sagen, wohin er führt oder ob er Warnzeichen zeigt.";
+
+/* Typed cards */
+"qr.type.login" = "Anmeldecode für ein anderes Gerät";
+"qr.type.chat" = "Chat-Link";
+"qr.type.swissqr" = "Überweisung";
+"qr.type.spd" = "Überweisung";
+"qr.type.otpexport" = "Authenticator-Export";
+"qr.type.esim" = "eSIM";
+"qr.type.device" = "Smart-Home-Einrichtungscode";
+"qr.type.healthcert" = "Gesundheitszertifikat";
+"qr.type.unsafe" = "Unsicherer Link";
+"qr.type.paylink" = "Zahlungslink";
+"qr.type.url" = "Link";
+"qr.type.epc" = "Überweisung";
+"qr.type.emv" = "Zahlung";
+"qr.type.upi" = "UPI-Zahlung";
+"qr.type.crypto" = "Krypto-Zahlung";
+"qr.type.wifi" = "Wi-Fi-Netzwerk";
+"qr.type.contact" = "Kontakt";
+"qr.type.event" = "Kalendertermin";
+"qr.type.email" = "E-Mail";
+"qr.type.phone" = "Telefonnummer";
+"qr.type.sms" = "SMS";
+"qr.type.geo" = "Ort";
+"qr.type.otp" = "Einrichtung von Anmeldecodes";
+"qr.type.applink" = "App-Link";
+"qr.type.text" = "Text";
+
+"qr.field.beneficiary" = "Empfänger";
+"qr.field.iban" = "IBAN";
+"qr.field.bic" = "BIC";
+"qr.field.amount" = "Betrag";
+"qr.field.reference" = "Verwendungszweck";
+"qr.field.message" = "Nachricht";
+"qr.field.merchant" = "Händler";
+"qr.field.city" = "Ort";
+"qr.field.country" = "Land";
+"qr.field.currency" = "Währung";
+"qr.field.payeeName" = "Name des Empfängers";
+"qr.field.payeeAddress" = "Adresse des Empfängers";
+"qr.field.note" = "Notiz";
+"qr.field.network" = "Netzwerk";
+"qr.field.address" = "Adresse";
+"qr.field.label" = "Bezeichnung";
+"qr.field.security" = "Sicherheit";
+"qr.field.password" = "Passwort";
+"qr.field.hidden" = "Verborgen";
+"qr.field.name" = "Name";
+"qr.field.phone" = "Telefon";
+"qr.field.email" = "E-Mail";
+"qr.field.organisation" = "Organisation";
+"qr.field.url" = "URL";
+"qr.field.title" = "Titel";
+"qr.field.start" = "Beginn";
+"qr.field.end" = "Ende";
+"qr.field.location" = "Ort";
+"qr.field.details" = "Beschreibung";
+"qr.field.to" = "An";
+"qr.field.subject" = "Betreff";
+"qr.field.body" = "Text";
+"qr.field.number" = "Nummer";
+"qr.field.latitude" = "Breitengrad";
+"qr.field.longitude" = "Längengrad";
+"qr.field.issuer" = "Aussteller";
+"qr.field.account" = "Konto";
+"qr.field.type" = "Typ";
+"qr.field.scheme" = "Schema";
+"qr.field.content" = "Inhalt";
+"qr.field.service" = "Dienst";
+"qr.field.handle" = "Benutzername";
+"qr.field.provider" = "Anbieter";
+"qr.field.activationCode" = "Aktivierungscode";
+
+"qr.value.inviteLink" = "Einladungslink";
+
+"qr.notice.paymentRequest" = "Das ist eine Zahlungsaufforderung. Prüfen Sie Name, Konto und Betrag, bevor Sie zahlen. Zahlungen lassen sich nur schwer rückgängig machen.";
+"qr.notice.paymentRequestInApp" = "Das ist eine Zahlungsaufforderung. Prüfen Sie Name und Betrag in Ihrer Zahlungs-App, bevor Sie bestätigen. Zahlungen lassen sich nur schwer rückgängig machen.";
+"qr.notice.scanWithBankingApp" = "Zum Bezahlen öffnen Sie Ihre Banking-App und scannen diesen QR-Code damit.";
+"qr.notice.cryptoIrreversible" = "Krypto-Zahlungen lassen sich nicht rückgängig machen.";
+"qr.notice.invalidIBAN" = "Die Kontonummer ist keine gültige IBAN.";
+"qr.notice.signInSecret" = "Das ist ein Anmeldegeheimnis. Scannen Sie es nur in Ihre eigene Authenticator-App und geben Sie es nie weiter.";
+"qr.notice.openNetwork" = "Dieses Netzwerk hat kein Passwort. Jeder in der Nähe kann Ihren Datenverkehr sehen.";
+"qr.notice.shortCode" = "Nachrichten an Kurznummern können Geld kosten.";
+"qr.notice.opensOtherApp" = "Dadurch wird eine andere App geöffnet. Fahren Sie nur fort, wenn Sie das erwartet haben.";
+"qr.notice.readOnDevice" = "Das wurde auf Ihrem Handy gelesen und nirgendwohin gesendet.";
+"qr.notice.signsInOtherDevice" = "Dieser Code meldet ein anderes Gerät bei Ihrem Konto an. Scannen Sie ihn nur in der App selbst, auf einem Bildschirm, den Sie selbst geöffnet haben. Wenn Ihnen jemand diesen Code geschickt hat, ist es Betrug.";
+"qr.notice.chatWithStranger" = "Damit beginnen Sie einen Chat mit jemandem, den Sie vielleicht nicht kennen. Betrüger nutzen Chat-Links, um ein Gespräch weg von einer Website zu lenken, der Sie vertrauen.";
+"qr.notice.authenticatorExport" = "Dieser Code enthält die Geheimnisse aller Konten einer Authenticator-App. Wer ihn scannt, kann Ihre Anmeldecodes erzeugen. Scannen Sie ihn nur mit Ihrem eigenen neuen Handy und geben Sie ihn nie weiter.";
+"qr.notice.installESIM" = "Zum Installieren öffnen Sie die Mobilfunkeinstellungen Ihres Handys und fügen eine eSIM hinzu.";
+"qr.notice.mobilePlan" = "Damit wird ein Mobilfunktarif (eSIM) auf Ihrem Handy installiert. Fahren Sie nur fort, wenn er von Ihrem eigenen Mobilfunkanbieter stammt.";
+"qr.notice.deviceSetupCode" = "Das ist ein Einrichtungscode für ein Smart-Home-Gerät. Wer ihn scannt, kann das Gerät seinem eigenen Zuhause hinzufügen. Scannen Sie ihn nur mit Ihrer Smart-Home-App, für ein Gerät, das Ihnen gehört.";
+"qr.notice.healthCertificate" = "Das ist ein Gesundheitszertifikat. Es enthält einen Namen, ein Geburtsdatum und medizinische Angaben. Es wurde auf Ihrem Handy gelesen und nirgendwohin gesendet. Geben Sie es nicht weiter.";
+"qr.notice.unsafeLink" = "Das ist keine Webadresse. Links dieser Art können Code ausführen oder Dateien auf Ihrem Handy öffnen. Öffnen Sie ihn nicht.";
+"qr.notice.serviceCode" = "Das ist ein Telefon-Dienstcode, keine normale Nummer. Solche Codes können Anrufe umleiten, Einstellungen ändern oder Geld kosten. Wählen Sie ihn nur, wenn Ihr Anbieter Sie dazu aufgefordert hat.";
+"qr.notice.premiumNumber" = "Das sieht nach einer kostenpflichtigen Sondernummer aus. Ein Anruf kann pro Minute viel kosten.";
+
+"qr.action.openInApp" = "In App öffnen";
+"qr.action.openInPaymentApp" = "In Zahlungs-App öffnen";
+"qr.action.joinWiFi" = "Verbinden";
+"qr.action.addToContacts" = "Zu Kontakten hinzufügen";
+"qr.action.addToCalendar" = "Zum Kalender hinzufügen";
+"qr.action.copy" = "Kopieren";
+"qr.action.copyAll" = "Alles kopieren";
+"qr.action.copyIBAN" = "IBAN kopieren";
+"qr.action.copyAddress" = "Adresse kopieren";
+"qr.action.copyPassword" = "Passwort kopieren";
+
+"content.done" = "Fertig";
+"content.copied" = "Kopiert";
+"content.raw.show" = "Rohinhalt zeigen";
+"content.raw.hide" = "Rohinhalt ausblenden";
+"content.raw.secretHidden" = "Geheime Teile werden weggelassen.";
+"content.secret.show" = "Verborgenen Text zeigen";
+"content.secret.hide" = "Text ausblenden";
+"content.noApp.title" = "Nichts kann das öffnen";
+"content.noApp.message" = "Keine App auf diesem Handy kann das öffnen.";
+"content.wifi.failed.title" = "Verbindung mit dem Netzwerk fehlgeschlagen";
+"content.wifi.failed.message" = "Prüfen Sie, ob das Netzwerk in Reichweite ist. Sie können auch das Passwort kopieren und sich in den Einstellungen verbinden.";
+"content.history.redacted" = "Passwörter, Codes und Geheimnisse werden nicht im Verlauf gespeichert.";
+
+/* History */
+"history.title" = "Bisherige Scans";
+"history.note" = "Ihr Verlauf bleibt auf diesem Handy.";
+"history.clear" = "Alles löschen";
+"history.clear.confirm.title" = "Gesamten Verlauf löschen?";
+"history.clear.confirm.message" = "Damit werden alle bisherigen Scans von diesem Handy entfernt.";
+"history.clear.confirm.action" = "Alles löschen";
+"history.empty.title" = "Noch keine Scans";
+"history.empty.message" = "Hier erscheinen die QR-Codes, die Sie scannen. Die Liste bleibt auf diesem Handy.";
+"history.unchecked" = "Nicht geprüft";
+"history.failed" = "Konnte nicht geprüft werden";
+"history.delete" = "Löschen";

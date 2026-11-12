@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Common actions -->
+    <string name="action_back">Terug</string>
+    <string name="action_open">Openen</string>
+    <string name="action_cancel">Annuleren</string>
+    <string name="action_open_anyway">Toch openen</string>
+    <string name="action_dont_open">Niet openen</string>
+    <string name="action_retry">Opnieuw</string>
+    <string name="action_open_in_app">Openen in app</string>
+    <string name="action_open_in_payment_app">Openen in betaalapp</string>
+    <string name="action_join_wifi">Verbinden</string>
+    <string name="action_add_contact">Aan contacten toevoegen</string>
+    <string name="action_add_event">Aan agenda toevoegen</string>
+    <string name="action_copy">Kopiëren</string>
+    <string name="action_copy_all">Alles kopiëren</string>
+    <string name="action_copy_iban">IBAN kopiëren</string>
+    <string name="action_copy_address">Adres kopiëren</string>
+    <string name="action_copy_password">Wachtwoord kopiëren</string>
+    <string name="copied">Gekopieerd</string>
+
+    <!-- Scan -->
+    <!-- %1$s is scan_hint_emphasis, shown highlighted -->
+    <string name="scan_hint">Richt op een QR-code. %1$s tot jij het zegt.</string>
+    <string name="scan_hint_emphasis">Er opent niets</string>
+    <string name="scan_torch_on">Zaklamp aanzetten</string>
+    <string name="scan_torch_off">Zaklamp uitzetten</string>
+    <string name="scan_pick_image">Een foto uit je galerij scannen</string>
+    <string name="scan_history">Geschiedenis</string>
+    <string name="scan_no_qr_in_image">Geen QR-code gevonden in die foto.</string>
+    <string name="scan_image_failed">Die foto kon niet gelezen worden.</string>
+    <string name="scan_camera_failed">De camera kon niet gestart worden.</string>
+
+    <!-- Camera permission -->
+    <string name="permission_title">SecureQR heeft je camera nodig</string>
+    <string name="permission_rationale">De camera wordt alleen gebruikt om QR-codes te lezen. Er wordt niets opgenomen en beelden verlaten je telefoon nooit.</string>
+    <string name="permission_allow">Camera toestaan</string>
+    <string name="permission_denied_title">De camera staat uit</string>
+    <string name="permission_denied_body">SecureQR kan niet scannen zonder camera. Je kunt hem aanzetten in Instellingen, of in plaats daarvan een foto uit je galerij scannen.</string>
+    <string name="permission_open_settings">Instellingen openen</string>
+    <string name="permission_pick_image">Een foto scannen</string>
+
+    <!-- Checking -->
+    <string name="checking_label_says">De QR-code bevat</string>
+    <string name="checking_label_following">We volgen de link voor je</string>
+    <string name="checking_contacting">Verbinden met de server</string>
+    <string name="checking_step_done">Klaar</string>
+    <string name="checking_progress">Openen in een afgeschermde browser…</string>
+    <string name="checking_note">We openen de link op onze server, nooit op je telefoon.</string>
+
+    <!-- Decide -->
+    <string name="verdict_ok">Geen waarschuwingen gevonden</string>
+    <string name="verdict_caution">Even opletten</string>
+    <string name="verdict_danger">Dit lijkt riskant</string>
+    <string name="decide_checked_just_now">Net gecontroleerd</string>
+    <plurals name="decide_checked_minutes">
+        <item quantity="one">%d min geleden gecontroleerd</item>
+        <item quantity="other">%d min geleden gecontroleerd</item>
+    </plurals>
+    <string name="decide_label_land">Je komt uit op</string>
+    <string name="decide_label_path">De weg die de link nam</string>
+    <string name="decide_show_path">Elke stap tonen</string>
+    <string name="decide_hide_path">Stappen verbergen</string>
+    <string name="chip_https">HTTPS</string>
+    <string name="chip_not_encrypted">Niet versleuteld</string>
+    <string name="chip_no_redirects">Geen doorverwijzingen</string>
+    <plurals name="chip_redirects">
+        <item quantity="one">%d doorverwijzing</item>
+        <item quantity="other">%d doorverwijzingen</item>
+    </plurals>
+    <string name="chip_blocklisted">Op een blokkeerlijst</string>
+    <string name="chip_not_blocklisted">Niet op blokkeerlijsten</string>
+    <string name="hop_start">Gescande link</string>
+    <string name="hop_http">Doorverwijzing</string>
+    <string name="hop_client">Doorverwijzing door de pagina</string>
+    <!-- %1$s is the kind of step, %2$d the HTTP status code -->
+    <string name="hop_with_status">%1$s · %2$d</string>
+    <string name="screenshot_description">Foto van de pagina waar je zou uitkomen</string>
+    <string name="screenshot_loading">Foto laden…</string>
+    <string name="screenshot_expand">Hele pagina tonen</string>
+    <string name="screenshot_collapse">Minder tonen</string>
+    <string name="screenshot_unavailable">Geen foto beschikbaar</string>
+
+    <!-- Check failed -->
+    <string name="error_title">Deze link kon niet gecontroleerd worden</string>
+    <string name="error_offline">SecureQR is niet bereikbaar. Controleer je internetverbinding en probeer opnieuw.</string>
+    <string name="error_generic">Er ging iets mis bij het controleren van deze link.</string>
+    <!-- The server no longer accepts this version of the app -->
+    <string name="error_update_title">Update nodig</string>
+    <string name="error_update_needed">Deze versie van de app kan de dienst niet meer gebruiken. Werk SecureQR bij en probeer opnieuw.</string>
+    <string name="error_unchecked_warning">Deze link is niet gecontroleerd. Als je hem toch opent, weet je pas waar hij naartoe leidt als je er bent.</string>
+    <string name="error_no_browser">Geen browser gevonden om deze link te openen.</string>
+
+    <!-- Typed cards: titles -->
+    <string name="type_login">Aanmeldcode</string>
+    <string name="type_chat">Chatlink</string>
+    <string name="type_swissqr">Zwitserse QR-factuur</string>
+    <string name="type_otp_export">Export van authenticator</string>
+    <string name="type_esim">eSIM-abonnement</string>
+    <string name="type_device">Smarthome-apparaat</string>
+    <string name="type_healthcert">Gezondheidscertificaat</string>
+    <string name="type_unsafe">Onveilige link</string>
+    <string name="type_paylink">Betaallink</string>
+    <string name="type_url">Link</string>
+    <string name="type_epc">Overschrijving</string>
+    <string name="type_emv">Betaalcode</string>
+    <string name="type_upi">UPI-betaling</string>
+    <string name="type_crypto">Cryptobetaling</string>
+    <string name="type_wifi">Wi-Fi-netwerk</string>
+    <string name="type_contact">Contact</string>
+    <string name="type_event">Agenda-afspraak</string>
+    <string name="type_email">E-mail</string>
+    <string name="type_phone">Telefoonnummer</string>
+    <string name="type_sms">Sms</string>
+    <string name="type_geo">Locatie</string>
+    <string name="type_otp">Aanmeldgeheim</string>
+    <string name="type_applink">App-link</string>
+    <string name="type_text">Tekst</string>
+
+    <!-- Typed cards: field labels -->
+    <string name="field_beneficiary">Begunstigde</string>
+    <string name="field_iban">IBAN</string>
+    <string name="field_bic">BIC</string>
+    <string name="field_amount">Bedrag</string>
+    <string name="field_reference">Mededeling</string>
+    <string name="field_message">Bericht</string>
+    <string name="field_merchant">Handelaar</string>
+    <string name="field_city">Plaats</string>
+    <string name="field_country">Land</string>
+    <string name="field_currency">Munteenheid</string>
+    <string name="field_payee_name">Naam ontvanger</string>
+    <string name="field_payee_address">Adres ontvanger</string>
+    <string name="field_note">Notitie</string>
+    <string name="field_network">Netwerk</string>
+    <string name="field_address">Adres</string>
+    <string name="field_label">Label</string>
+    <string name="field_security">Beveiliging</string>
+    <string name="field_password">Wachtwoord</string>
+    <string name="field_hidden">Verborgen</string>
+    <string name="field_name">Naam</string>
+    <string name="field_phone">Telefoon</string>
+    <string name="field_email">E-mail</string>
+    <string name="field_organisation">Organisatie</string>
+    <string name="field_url">URL</string>
+    <string name="field_title">Titel</string>
+    <string name="field_start">Begin</string>
+    <string name="field_end">Einde</string>
+    <string name="field_location">Locatie</string>
+    <string name="field_description">Beschrijving</string>
+    <string name="field_to">Aan</string>
+    <string name="field_subject">Onderwerp</string>
+    <string name="field_body">Tekst</string>
+    <string name="field_number">Nummer</string>
+    <string name="field_latitude">Breedtegraad</string>
+    <string name="field_longitude">Lengtegraad</string>
+    <string name="field_issuer">Uitgever</string>
+    <string name="field_account">Account</string>
+    <string name="field_type">Type</string>
+    <string name="field_scheme">Schema</string>
+    <string name="field_text">Tekst</string>
+    <string name="field_provider">Aanbieder</string>
+    <string name="field_service">Dienst</string>
+    <string name="field_handle">Gebruikersnaam</string>
+    <string name="field_activation_code">Activeringscode</string>
+    <string name="value_invite">Uitnodigingslink</string>
+    <string name="value_none">Geen</string>
+    <string name="value_yes">Ja</string>
+
+    <!-- Typed cards: notices -->
+    <string name="notice_payment">Dit is een betaalverzoek. Controleer de naam, de rekening en het bedrag voor je betaalt. Betalingen zijn moeilijk terug te draaien.</string>
+    <string name="notice_paylink">Dit is een betaalverzoek. Controleer de naam en het bedrag in je betaalapp voor je bevestigt. Betalingen zijn moeilijk terug te draaien.</string>
+    <string name="notice_epc_instruction">Open je bankapp en scan deze QR-code daarmee om te betalen.</string>
+    <string name="notice_crypto">Cryptobetalingen kunnen niet teruggedraaid worden.</string>
+    <string name="notice_invalid_iban">Het rekeningnummer is geen geldig IBAN.</string>
+    <string name="notice_otp">Dit is een aanmeldgeheim. Scan het alleen in je eigen authenticator-app en deel het nooit.</string>
+    <string name="notice_wifi_open">Dit netwerk heeft geen wachtwoord. Iedereen in de buurt kan je verkeer zien.</string>
+    <string name="notice_sms_short_code">Berichten naar korte nummers kunnen geld kosten.</string>
+    <string name="notice_app_link">Dit opent een andere app. Ga alleen verder als je dat verwachtte.</string>
+    <string name="notice_login_code">Met deze code meld je een ander toestel aan op je account. Scan hem alleen vanuit die app, op een scherm dat je zelf geopend hebt. Heeft iemand hem je gestuurd, dan is het oplichting.</string>
+    <string name="notice_chat_link">Dit start een chat met iemand die je misschien niet kent. Oplichters gebruiken chatlinks om een gesprek weg te halen van een site die je vertrouwt.</string>
+    <string name="notice_otp_export">Deze code bevat de geheimen van alle accounts in een authenticator-app. Wie hem scant, kan jouw aanmeldcodes maken. Scan hem alleen met je eigen nieuwe telefoon en deel hem nooit.</string>
+    <string name="notice_esim_instruction">Open de instellingen voor het mobiele netwerk van je telefoon en voeg een eSIM toe om hem te installeren.</string>
+    <string name="notice_esim">Dit installeert een mobiel abonnement (eSIM) op je telefoon. Ga alleen verder als het van je eigen provider komt.</string>
+    <string name="notice_device_setup">Dit is een installatiecode voor een smarthome-apparaat. Wie hem scant, kan het apparaat aan zijn eigen woning toevoegen. Scan hem alleen met je smarthome-app, voor een apparaat dat van jou is.</string>
+    <string name="notice_health_cert">Dit is een gezondheidscertificaat. Het bevat een naam, een geboortedatum en medische gegevens. Het is op je telefoon gelezen en nergens naartoe gestuurd. Deel het niet.</string>
+    <string name="notice_unsafe_link">Dit is geen webadres. Links van dit soort kunnen code uitvoeren of bestanden openen op je telefoon. Open hem niet.</string>
+    <string name="notice_dialer_code">Dit is een servicecode voor je telefoon, geen gewoon nummer. Zulke codes kunnen je oproepen doorschakelen, instellingen wijzigen of geld kosten. Bel hem alleen als je provider je dat gevraagd heeft.</string>
+    <string name="notice_premium_number">Dit lijkt een betaalnummer. Bellen kan veel kosten per minuut.</string>
+    <string name="notice_local_only">Dit is op je telefoon gelezen en nergens naartoe gestuurd.</string>
+
+    <!-- Typed cards: other -->
+    <string name="content_no_payment_app">Niets op deze telefoon kan deze betaallink openen.</string>
+    <string name="content_show_raw">Ruwe inhoud tonen</string>
+    <string name="content_hide_raw">Ruwe inhoud verbergen</string>
+    <string name="content_reveal">Tonen</string>
+    <string name="content_conceal">Verbergen</string>
+    <string name="wifi_password_copied">Wachtwoord gekopieerd. Kies het netwerk om te verbinden.</string>
+    <string name="wifi_choose_in_settings">Kies het netwerk om te verbinden.</string>
+    <string name="wifi_cannot_join">De Wi-Fi-instellingen konden niet geopend worden.</string>
+    <string name="content_no_app">Geen app op deze telefoon kan dit openen.</string>
+    <string name="content_secret_hidden">Het geheime deel wordt hier weggelaten.</string>
+    <string name="content_from_history_redacted">Geheimen worden nooit in je geschiedenis bewaard, dus dit item is onvolledig. Scan de code opnieuw om alles te zien.</string>
+
+    <!-- History -->
+    <string name="history_title">Geschiedenis</string>
+    <string name="history_note">Alleen op deze telefoon bewaard.</string>
+    <string name="history_empty">Nog niets gescand.</string>
+    <string name="history_clear">Alles wissen</string>
+    <string name="history_clear_title">Geschiedenis wissen?</string>
+    <string name="history_clear_body">Dit verwijdert alle eerdere scans van deze telefoon.</string>
+    <string name="history_clear_confirm">Wissen</string>
+    <!-- %1$s is the kind of content (for example "Link"), %2$s a relative time (for example "5 minutes ago") -->
+    <string name="history_subtitle">%1$s · %2$s</string>
+    <string name="history_just_now">Net nu</string>
+    <string name="history_level_ok">Geen waarschuwingen gevonden</string>
+    <string name="history_level_caution">Even opletten</string>
+    <string name="history_level_danger">Leek riskant</string>
+    <string name="history_level_neutral">Geen waarschuwingen</string>
+    <string name="history_level_unchecked">Niet gecontroleerd</string>
+    <string name="history_level_failed">Kon niet gecontroleerd worden</string>
+    <!-- %1$s is the kind of content, %2$s the outcome (history_level_failed), %3$s a relative time -->
+    <string name="history_subtitle_with_state">%1$s · %2$s · %3$s</string>
+    <string name="history_delete">Verwijderen</string>
+    <string name="history_entry_options">Opties voor dit item</string>
+</resources>

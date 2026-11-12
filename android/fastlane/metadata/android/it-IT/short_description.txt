@@ -1,0 +1,1 @@
+Controlla dove porta un codice QR prima di aprirlo.

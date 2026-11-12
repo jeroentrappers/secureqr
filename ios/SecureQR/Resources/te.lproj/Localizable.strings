@@ -1,0 +1,230 @@
+/* SecureQR, Telugu. Keys are stable; values may be translated. */
+
+/* Common */
+"common.ok" = "సరే";
+"common.cancel" = "రద్దు చేయండి";
+"common.yes" = "అవును";
+"common.no" = "కాదు";
+"common.none" = "ఏదీ లేదు";
+
+/* Scanner */
+"scan.hint.before" = "QR కోడ్ వైపు కెమెరా పెట్టండి. మీరు చెప్పే వరకు ";
+"scan.hint.strong" = "ఏదీ తెరుచుకోదు";
+"scan.hint.after" = ".";
+"scan.torch.on" = "లైట్ ఆన్ చేయండి";
+"scan.torch.off" = "లైట్ ఆఫ్ చేయండి";
+"scan.photo" = "ఫోటోను స్కాన్ చేయండి";
+"scan.history" = "చరిత్ర";
+"scan.photo.none.title" = "QR కోడ్ కనిపించలేదు";
+"scan.photo.none.message" = "ఆ ఫోటోలో మాకు QR కోడ్ కనిపించలేదు. మరింత స్పష్టమైన లేదా దగ్గరగా తీసిన చిత్రంతో ప్రయత్నించండి.";
+"scan.permission.title" = "కెమెరా యాక్సెస్";
+"scan.permission.message" = "SecureQR కెమెరాను QR కోడ్‌లను చదవడానికి మాత్రమే ఉపయోగిస్తుంది. ఏదీ రికార్డ్ చేయబడదు, మీరు చెప్పే వరకు ఏదీ తెరుచుకోదు.";
+"scan.permission.continue" = "కొనసాగండి";
+"scan.denied.title" = "కెమెరా ఆఫ్‌లో ఉంది";
+"scan.denied.message" = "SecureQRకి కెమెరాను ఉపయోగించే అనుమతి లేదు. మీరు దాన్ని సెట్టింగ్‌లలో అనుమతించవచ్చు, లేదా కింది బటన్‌తో ఫోటో నుండి QR కోడ్‌ను స్కాన్ చేయవచ్చు.";
+"scan.denied.settings" = "సెట్టింగ్‌లు తెరవండి";
+"scan.unavailable.title" = "కెమెరా అందుబాటులో లేదు";
+"scan.unavailable.message" = "మీరు ఇప్పటికీ కింది బటన్‌తో ఫోటో నుండి QR కోడ్‌ను స్కాన్ చేయవచ్చు.";
+
+/* Checking */
+"checking.says" = "QR కోడ్‌లో ఉన్నది";
+"checking.following" = "మీ కోసం లింక్‌ను అనుసరిస్తున్నాం";
+"checking.contacting" = "సర్వర్‌ను సంప్రదిస్తోంది";
+"checking.step.active" = "జరుగుతోంది";
+"checking.step.done" = "పూర్తయింది";
+"checking.step.opening" = "లింక్‌ను తెరుస్తోంది…";
+"checking.step.following" = "రీడైరెక్ట్‌లను అనుసరిస్తోంది…";
+"checking.step.screenshot" = "స్క్రీన్‌షాట్ తీస్తోంది…";
+"checking.note" = "లింక్‌ను మేము మా సర్వర్‌లో తెరుస్తాం, మీ ఫోన్‌లో ఎప్పుడూ కాదు.";
+
+/* Verdict headlines. "ok" must never be worded as "safe". */
+"verdict.ok" = "హెచ్చరిక సంకేతాలు లేవు";
+"verdict.caution" = "దీన్ని పరిశీలించండి";
+"verdict.danger" = "ఇది ప్రమాదకరంగా ఉంది";
+
+/* Decide */
+"decide.landOn" = "మీరు చేరేది";
+"decide.chip.https" = "HTTPS";
+"decide.chip.notEncrypted" = "ఎన్‌క్రిప్ట్ కాలేదు";
+"decide.chip.redirects.none" = "రీడైరెక్ట్‌లు లేవు";
+"decide.chip.redirects.one" = "1 రీడైరెక్ట్";
+"decide.chip.redirects.many" = "%d రీడైరెక్ట్‌లు";
+"decide.chip.blocklisted" = "బ్లాక్‌లిస్ట్‌లో ఉంది";
+"decide.chip.notBlocklisted" = "బ్లాక్‌లిస్ట్‌లో లేదు";
+"decide.hops.show" = "దారిని చూపించండి";
+"decide.hops.hide" = "దారిని దాచండి";
+"decide.open" = "తెరవండి";
+"decide.openAnyway" = "అయినా తెరవండి";
+"decide.dontOpen" = "తెరవవద్దు";
+"decide.screenshot.more" = "పూర్తి పేజీని చూపించండి";
+"decide.screenshot.less" = "తక్కువ చూపించండి";
+"decide.checked.now" = "ఒక నిమిషం లోపే తనిఖీ చేశాం";
+"decide.checked.one" = "1 నిమి. క్రితం తనిఖీ చేశాం";
+"decide.checked.many" = "%d నిమి. క్రితం తనిఖీ చేశాం";
+"decide.screenshot.label" = "పేజీ స్క్రీన్‌షాట్";
+"decide.screenshot.none" = "పేజీని చూపించలేకపోయాం.";
+"decide.screenshot.failed" = "స్క్రీన్‌షాట్ ఇప్పుడు అందుబాటులో లేదు.";
+
+/* Hops */
+"hop.start" = "స్కాన్ చేసిన లింక్";
+"hop.http" = "రీడైరెక్ట్";
+"hop.client" = "పేజీ చేసిన రీడైరెక్ట్";
+"hop.unknown" = "దశ";
+
+/* Failures */
+"failure.offline.title" = "కనెక్షన్ లేదు";
+"failure.offline.message" = "SecureQRని చేరుకోలేకపోయాం. మీ ఇంటర్నెట్ కనెక్షన్‌ను చూసి మళ్లీ ప్రయత్నించండి.";
+"failure.timeout.title" = "దీనికి చాలా సమయం పడుతోంది";
+"failure.timeout.message" = "తనిఖీ సమయానికి పూర్తి కాలేదు. కాసేపట్లో మళ్లీ ప్రయత్నించండి.";
+"failure.generic.title" = "ఈ లింక్‌ను తనిఖీ చేయలేకపోయాం";
+"failure.generic.message" = "మా వైపు ఏదో పొరపాటు జరిగింది. కాసేపట్లో మళ్లీ ప్రయత్నించండి.";
+"failure.server.invalid_url.title" = "ఇది మేము తనిఖీ చేయగల లింక్ కాదు";
+"failure.server.invalid_url.message" = "ఈ లింక్ చెల్లుబాటయ్యే వెబ్ చిరునామా కాదు, లేదా చాలా పొడవుగా ఉంది.";
+"failure.server.unauthorized.title" = "అప్‌డేట్ అవసరం";
+"failure.server.unauthorized.message" = "యాప్ యొక్క ఈ వెర్షన్ ఇకపై సేవను ఉపయోగించలేదు. SecureQRని అప్‌డేట్ చేసి మళ్లీ ప్రయత్నించండి.";
+"failure.server.blocked_target.title" = "ఈ లింక్ ప్రైవేట్ చిరునామాను సూచిస్తోంది";
+"failure.server.blocked_target.message" = "ఇది ప్రైవేట్ లేదా అంతర్గత నెట్‌వర్క్‌కు దారితీస్తుంది, వాటిని మేము సందర్శించము.";
+"failure.server.unreachable.title" = "సైట్ స్పందించలేదు";
+"failure.server.unreachable.message" = "సైట్ కనిపించలేదు లేదా కనెక్షన్‌ను నిరాకరించింది.";
+"failure.server.rate_limited.title" = "చాలా ఎక్కువ తనిఖీలు";
+"failure.server.rate_limited.message" = "మీరు తక్కువ సమయంలో చాలా లింక్‌లను తనిఖీ చేశారు. కాసేపు ఆగి మళ్లీ ప్రయత్నించండి.";
+"failure.server.timeout.title" = "పేజీకి చాలా సమయం పట్టింది";
+"failure.server.timeout.message" = "పేజీ సమయానికి లోడ్ కాలేదు.";
+"failure.server.internal.title" = "ఈ లింక్‌ను తనిఖీ చేయలేకపోయాం";
+"failure.server.internal.message" = "మా వైపు ఏదో పొరపాటు జరిగింది. కాసేపట్లో మళ్లీ ప్రయత్నించండి.";
+"failure.unchecked.note" = "ఈ లింక్ తనిఖీ కాలేదు. అది ఎక్కడికి తీసుకెళ్తుందో మేము చెప్పలేము.";
+"failure.retry" = "మళ్లీ ప్రయత్నించండి";
+"failure.confirm.title" = "తనిఖీ లేకుండా తెరవాలా?";
+"failure.confirm.message" = "మేము ఈ లింక్‌ను తనిఖీ చేయలేకపోయాం, కాబట్టి అది ఎక్కడికి తీసుకెళ్తుందో, హెచ్చరిక సంకేతాలు ఉన్నాయో లేదో చెప్పలేము.";
+
+/* Typed cards */
+"qr.type.login" = "మరో పరికరం కోసం సైన్-ఇన్ కోడ్";
+"qr.type.chat" = "చాట్ లింక్";
+"qr.type.swissqr" = "బ్యాంక్ బదిలీ";
+"qr.type.spd" = "బ్యాంక్ బదిలీ";
+"qr.type.otpexport" = "ఆథెంటికేటర్ ఎగుమతి";
+"qr.type.esim" = "eSIM";
+"qr.type.device" = "స్మార్ట్-హోమ్ సెటప్ కోడ్";
+"qr.type.healthcert" = "ఆరోగ్య ధృవపత్రం";
+"qr.type.unsafe" = "ప్రమాదకర లింక్";
+"qr.type.paylink" = "చెల్లింపు లింక్";
+"qr.type.url" = "లింక్";
+"qr.type.epc" = "బ్యాంక్ బదిలీ";
+"qr.type.emv" = "చెల్లింపు";
+"qr.type.upi" = "UPI చెల్లింపు";
+"qr.type.crypto" = "క్రిప్టో చెల్లింపు";
+"qr.type.wifi" = "Wi-Fi నెట్‌వర్క్";
+"qr.type.contact" = "కాంటాక్ట్";
+"qr.type.event" = "క్యాలెండర్ ఈవెంట్";
+"qr.type.email" = "ఈమెయిల్";
+"qr.type.phone" = "ఫోన్ నంబర్";
+"qr.type.sms" = "SMS సందేశం";
+"qr.type.geo" = "స్థానం";
+"qr.type.otp" = "సైన్-ఇన్ కోడ్ సెటప్";
+"qr.type.applink" = "యాప్ లింక్";
+"qr.type.text" = "టెక్స్ట్";
+
+"qr.field.beneficiary" = "లబ్ధిదారు";
+"qr.field.iban" = "IBAN";
+"qr.field.bic" = "BIC";
+"qr.field.amount" = "మొత్తం";
+"qr.field.reference" = "రిఫరెన్స్";
+"qr.field.message" = "సందేశం";
+"qr.field.merchant" = "వ్యాపారి";
+"qr.field.city" = "నగరం";
+"qr.field.country" = "దేశం";
+"qr.field.currency" = "కరెన్సీ";
+"qr.field.payeeName" = "గ్రహీత పేరు";
+"qr.field.payeeAddress" = "గ్రహీత చిరునామా";
+"qr.field.note" = "గమనిక";
+"qr.field.network" = "నెట్‌వర్క్";
+"qr.field.address" = "చిరునామా";
+"qr.field.label" = "లేబుల్";
+"qr.field.security" = "భద్రత";
+"qr.field.password" = "పాస్‌వర్డ్";
+"qr.field.hidden" = "దాచబడింది";
+"qr.field.name" = "పేరు";
+"qr.field.phone" = "ఫోన్";
+"qr.field.email" = "ఈమెయిల్";
+"qr.field.organisation" = "సంస్థ";
+"qr.field.url" = "URL";
+"qr.field.title" = "శీర్షిక";
+"qr.field.start" = "ప్రారంభం";
+"qr.field.end" = "ముగింపు";
+"qr.field.location" = "స్థలం";
+"qr.field.details" = "వివరణ";
+"qr.field.to" = "ఎవరికి";
+"qr.field.subject" = "విషయం";
+"qr.field.body" = "సందేశ పాఠం";
+"qr.field.number" = "నంబర్";
+"qr.field.latitude" = "అక్షాంశం";
+"qr.field.longitude" = "రేఖాంశం";
+"qr.field.issuer" = "జారీదారు";
+"qr.field.account" = "ఖాతా";
+"qr.field.type" = "రకం";
+"qr.field.scheme" = "స్కీమ్";
+"qr.field.content" = "కంటెంట్";
+"qr.field.service" = "సేవ";
+"qr.field.handle" = "హ్యాండిల్";
+"qr.field.provider" = "ప్రొవైడర్";
+"qr.field.activationCode" = "యాక్టివేషన్ కోడ్";
+
+"qr.value.inviteLink" = "ఆహ్వాన లింక్";
+
+"qr.notice.paymentRequest" = "ఇది చెల్లింపు అభ్యర్థన. చెల్లించే ముందు పేరు, ఖాతా, మొత్తాన్ని సరిచూసుకోండి. చెల్లింపులను వెనక్కి తీసుకోవడం కష్టం.";
+"qr.notice.paymentRequestInApp" = "ఇది చెల్లింపు అభ్యర్థన. నిర్ధారించే ముందు మీ చెల్లింపు యాప్‌లో పేరు, మొత్తాన్ని సరిచూసుకోండి. చెల్లింపులను వెనక్కి తీసుకోవడం కష్టం.";
+"qr.notice.scanWithBankingApp" = "చెల్లించడానికి, మీ బ్యాంకింగ్ యాప్‌ను తెరిచి ఈ QR కోడ్‌ను దానితో స్కాన్ చేయండి.";
+"qr.notice.cryptoIrreversible" = "క్రిప్టో చెల్లింపులను వెనక్కి తీసుకోలేరు.";
+"qr.notice.invalidIBAN" = "ఖాతా నంబర్ చెల్లుబాటయ్యే IBAN కాదు.";
+"qr.notice.signInSecret" = "ఇది సైన్-ఇన్ రహస్యం. దీన్ని మీ సొంత ఆథెంటికేటర్ యాప్‌లో మాత్రమే స్కాన్ చేయండి, ఎవరితోనూ పంచుకోవద్దు.";
+"qr.notice.openNetwork" = "ఈ నెట్‌వర్క్‌కు పాస్‌వర్డ్ లేదు. సమీపంలో ఉన్న ఎవరైనా మీ ట్రాఫిక్‌ను చూడగలరు.";
+"qr.notice.shortCode" = "షార్ట్ నంబర్‌లకు పంపే సందేశాలకు డబ్బు ఖర్చు కావచ్చు.";
+"qr.notice.opensOtherApp" = "ఇది మరో యాప్‌ను తెరుస్తుంది. మీరు అది ఆశించినట్లయితేనే కొనసాగండి.";
+"qr.notice.readOnDevice" = "ఇది మీ ఫోన్‌లోనే చదవబడింది, ఎక్కడికీ పంపబడలేదు.";
+"qr.notice.signsInOtherDevice" = "ఈ కోడ్ మరో పరికరాన్ని మీ ఖాతాలోకి సైన్ ఇన్ చేస్తుంది. ఆ యాప్ లోపలి నుండే, మీరే తెరిచిన స్క్రీన్‌లో మాత్రమే దీన్ని స్కాన్ చేయండి. ఎవరైనా దీన్ని మీకు పంపితే, అది మోసం.";
+"qr.notice.chatWithStranger" = "ఇది మీకు తెలియని వ్యక్తితో చాట్ ప్రారంభించవచ్చు. మోసగాళ్లు మీరు నమ్మే సైట్ నుండి సంభాషణను దూరం చేయడానికి చాట్ లింక్‌లను వాడతారు.";
+"qr.notice.authenticatorExport" = "ఈ కోడ్‌లో ఆథెంటికేటర్ యాప్‌లోని ప్రతి ఖాతా రహస్యాలు ఉంటాయి. దీన్ని స్కాన్ చేసిన ఎవరైనా మీ సైన్-ఇన్ కోడ్‌లను తయారు చేయగలరు. మీ సొంత కొత్త ఫోన్‌తో మాత్రమే స్కాన్ చేయండి, ఎవరితోనూ పంచుకోవద్దు.";
+"qr.notice.installESIM" = "ఇన్‌స్టాల్ చేయడానికి, మీ ఫోన్ మొబైల్ నెట్‌వర్క్ సెట్టింగ్‌లను తెరిచి eSIMను జోడించండి.";
+"qr.notice.mobilePlan" = "ఇది మీ ఫోన్‌లో మొబైల్ ప్లాన్ (eSIM)ను ఇన్‌స్టాల్ చేస్తుంది. ఇది మీ సొంత మొబైల్ ప్రొవైడర్ నుండి వచ్చినదైతేనే కొనసాగండి.";
+"qr.notice.deviceSetupCode" = "ఇది స్మార్ట్-హోమ్ పరికరం సెటప్ కోడ్. దీన్ని స్కాన్ చేసిన ఎవరైనా ఆ పరికరాన్ని తమ ఇంటికి జోడించుకోగలరు. మీ సొంత పరికరం కోసం, మీ స్మార్ట్-హోమ్ యాప్‌తో మాత్రమే స్కాన్ చేయండి.";
+"qr.notice.healthCertificate" = "ఇది ఆరోగ్య ధృవపత్రం. ఇందులో పేరు, పుట్టిన తేదీ, వైద్య వివరాలు ఉంటాయి. ఇది మీ ఫోన్‌లోనే చదవబడింది, ఎక్కడికీ పంపబడలేదు. దీన్ని పంచుకోవద్దు.";
+"qr.notice.unsafeLink" = "ఇది వెబ్ చిరునామా కాదు. ఈ రకమైన లింక్‌లు మీ ఫోన్‌లో కోడ్‌ను నడపగలవు లేదా ఫైల్‌లను తెరవగలవు. దీన్ని తెరవవద్దు.";
+"qr.notice.serviceCode" = "ఇది ఫోన్ సర్వీస్ కోడ్, సాధారణ నంబర్ కాదు. ఇలాంటి కోడ్‌లు మీ కాల్‌లను ఫార్వర్డ్ చేయగలవు, సెట్టింగ్‌లను మార్చగలవు లేదా డబ్బు ఖర్చు చేయించగలవు. మీ ప్రొవైడర్ చెప్పినప్పుడు మాత్రమే డయల్ చేయండి.";
+"qr.notice.premiumNumber" = "ఇది ప్రీమియం-రేట్ నంబర్ లాగా ఉంది. దీనికి కాల్ చేస్తే నిమిషానికి చాలా ఖర్చు కావచ్చు.";
+
+"qr.action.openInApp" = "యాప్‌లో తెరవండి";
+"qr.action.openInPaymentApp" = "చెల్లింపు యాప్‌లో తెరవండి";
+"qr.action.joinWiFi" = "నెట్‌వర్క్‌లో చేరండి";
+"qr.action.addToContacts" = "కాంటాక్ట్‌లకు జోడించండి";
+"qr.action.addToCalendar" = "క్యాలెండర్‌కు జోడించండి";
+"qr.action.copy" = "కాపీ చేయండి";
+"qr.action.copyAll" = "అన్నీ కాపీ చేయండి";
+"qr.action.copyIBAN" = "IBAN కాపీ చేయండి";
+"qr.action.copyAddress" = "చిరునామా కాపీ చేయండి";
+"qr.action.copyPassword" = "పాస్‌వర్డ్ కాపీ చేయండి";
+
+"content.done" = "పూర్తయింది";
+"content.copied" = "కాపీ అయింది";
+"content.raw.show" = "అసలు కంటెంట్ చూపించండి";
+"content.raw.hide" = "అసలు కంటెంట్ దాచండి";
+"content.raw.secretHidden" = "రహస్య భాగాలు చూపబడలేదు.";
+"content.secret.show" = "దాచిన టెక్స్ట్ చూపించండి";
+"content.secret.hide" = "టెక్స్ట్ దాచండి";
+"content.noApp.title" = "దీన్ని తెరవగలిగేది ఏదీ లేదు";
+"content.noApp.message" = "ఈ ఫోన్‌లో దీన్ని తెరవగల యాప్ ఏదీ లేదు.";
+"content.wifi.failed.title" = "నెట్‌వర్క్‌లో చేరలేకపోయాం";
+"content.wifi.failed.message" = "నెట్‌వర్క్ పరిధిలో ఉందో లేదో చూడండి. మీరు పాస్‌వర్డ్‌ను కాపీ చేసి సెట్టింగ్‌లలో కూడా చేరవచ్చు.";
+"content.history.redacted" = "పాస్‌వర్డ్‌లు, కోడ్‌లు, రహస్యాలు చరిత్రలో ఉంచబడవు.";
+
+/* History */
+"history.title" = "గత స్కాన్‌లు";
+"history.note" = "మీ చరిత్ర ఈ ఫోన్‌లోనే ఉంటుంది.";
+"history.clear" = "అన్నీ తొలగించండి";
+"history.clear.confirm.title" = "చరిత్రనంతా తొలగించాలా?";
+"history.clear.confirm.message" = "ఇది ఈ ఫోన్ నుండి ప్రతి గత స్కాన్‌ను తొలగిస్తుంది.";
+"history.clear.confirm.action" = "అన్నీ తొలగించండి";
+"history.empty.title" = "ఇంకా స్కాన్‌లు లేవు";
+"history.empty.message" = "మీరు స్కాన్ చేసే QR కోడ్‌లు ఇక్కడ కనిపిస్తాయి. ఈ జాబితా ఈ ఫోన్‌లోనే ఉంటుంది.";
+"history.unchecked" = "తనిఖీ చేయలేదు";
+"history.failed" = "తనిఖీ చేయలేకపోయాం";
+"history.delete" = "తొలగించండి";

@@ -1,0 +1,4 @@
+"NSCameraUsageDescription" = "SecureQR은 QR 코드를 읽기 위해 카메라를 사용합니다. 아무것도 녹화되지 않습니다.";
+"NSContactsUsageDescription" = "SecureQR은 연락처에 추가를 탭할 때만 스캔한 연락처를 추가합니다. 연락처를 읽지 않습니다.";
+"NSCalendarsUsageDescription" = "SecureQR은 캘린더에 추가를 탭할 때만 스캔한 일정을 캘린더에 추가합니다. 캘린더를 읽지 않습니다.";
+"NSCalendarsWriteOnlyAccessUsageDescription" = "SecureQR은 캘린더에 추가를 탭할 때만 스캔한 일정을 캘린더에 추가합니다.";

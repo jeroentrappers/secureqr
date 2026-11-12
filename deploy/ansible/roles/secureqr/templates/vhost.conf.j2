@@ -30,6 +30,9 @@ server {
     root {{ secureqr_www }};
     location = / { try_files /index.html =404; }
     location ~ ^/(privacy|support|terms)$ { try_files /$1.html =404; }
+    # The landing page in other languages: /de/, /ja/, ... (built by site/build.mjs).
+    location ~ ^/([a-z]{2})/$ { try_files /$1/index.html =404; }
+    location ~ ^/([a-z]{2})$ { return 301 /$1/; }
     location /assets/ { try_files $uri =404; expires 1h; }
 
     location ~ ^/(v1/|healthz$) {

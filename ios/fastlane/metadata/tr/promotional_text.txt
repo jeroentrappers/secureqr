@@ -1,0 +1,1 @@
+Bir QR kodun nereye götürdüğünü açmadan önce kontrol edin. Sunucumuz bağlantıyı sizin için takip eder; gerçek varış yerini, sayfanın resmini ve uyarıları gösterir.

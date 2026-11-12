@@ -1,0 +1,230 @@
+/* SecureQR, Bahasa Indonesia. Keys are stable; values may be translated. */
+
+/* Common */
+"common.ok" = "OK";
+"common.cancel" = "Batal";
+"common.yes" = "Ya";
+"common.no" = "Tidak";
+"common.none" = "Tidak ada";
+
+/* Scanner */
+"scan.hint.before" = "Arahkan ke kode QR. ";
+"scan.hint.strong" = "Tidak ada yang terbuka";
+"scan.hint.after" = " sampai Anda memintanya.";
+"scan.torch.on" = "Nyalakan lampu";
+"scan.torch.off" = "Matikan lampu";
+"scan.photo" = "Pindai foto";
+"scan.history" = "Riwayat";
+"scan.photo.none.title" = "Kode QR tidak ditemukan";
+"scan.photo.none.message" = "Kami tidak menemukan kode QR di foto itu. Coba foto yang lebih tajam atau lebih dekat.";
+"scan.permission.title" = "Akses kamera";
+"scan.permission.message" = "SecureQR memakai kamera hanya untuk membaca kode QR. Tidak ada yang direkam, dan tidak ada yang terbuka sampai Anda memintanya.";
+"scan.permission.continue" = "Lanjutkan";
+"scan.denied.title" = "Kamera dimatikan";
+"scan.denied.message" = "SecureQR tidak diizinkan memakai kamera. Anda bisa mengizinkannya di Pengaturan, atau memindai kode QR dari foto dengan tombol di bawah.";
+"scan.denied.settings" = "Buka Pengaturan";
+"scan.unavailable.title" = "Kamera tidak tersedia";
+"scan.unavailable.message" = "Anda tetap bisa memindai kode QR dari foto dengan tombol di bawah.";
+
+/* Checking */
+"checking.says" = "Isi kode QR";
+"checking.following" = "Mengikuti tautan untuk Anda";
+"checking.contacting" = "Menghubungi server";
+"checking.step.active" = "sedang berjalan";
+"checking.step.done" = "selesai";
+"checking.step.opening" = "Membuka tautan…";
+"checking.step.following" = "Mengikuti pengalihan…";
+"checking.step.screenshot" = "Mengambil gambar halaman…";
+"checking.note" = "Kami membuka tautan di server kami, tidak pernah di ponsel Anda.";
+
+/* Verdict headlines. "ok" must never be worded as "safe". */
+"verdict.ok" = "Tidak ada tanda peringatan";
+"verdict.caution" = "Periksa dulu";
+"verdict.danger" = "Ini tampak berisiko";
+
+/* Decide */
+"decide.landOn" = "Anda akan tiba di";
+"decide.chip.https" = "HTTPS";
+"decide.chip.notEncrypted" = "Tidak terenkripsi";
+"decide.chip.redirects.none" = "Tanpa pengalihan";
+"decide.chip.redirects.one" = "1 pengalihan";
+"decide.chip.redirects.many" = "%d pengalihan";
+"decide.chip.blocklisted" = "Di daftar blokir";
+"decide.chip.notBlocklisted" = "Tidak diblokir";
+"decide.hops.show" = "Tampilkan rute";
+"decide.hops.hide" = "Sembunyikan rute";
+"decide.open" = "Buka";
+"decide.openAnyway" = "Tetap buka";
+"decide.dontOpen" = "Jangan buka";
+"decide.screenshot.more" = "Tampilkan seluruh halaman";
+"decide.screenshot.less" = "Tampilkan lebih sedikit";
+"decide.checked.now" = "Diperiksa kurang dari semenit lalu";
+"decide.checked.one" = "Diperiksa 1 mnt lalu";
+"decide.checked.many" = "Diperiksa %d mnt lalu";
+"decide.screenshot.label" = "Gambar halaman";
+"decide.screenshot.none" = "Halaman tidak dapat ditampilkan.";
+"decide.screenshot.failed" = "Gambar halaman sudah tidak tersedia.";
+
+/* Hops */
+"hop.start" = "Tautan yang dipindai";
+"hop.http" = "Pengalihan";
+"hop.client" = "Pengalihan oleh halaman";
+"hop.unknown" = "Langkah";
+
+/* Failures */
+"failure.offline.title" = "Tidak ada koneksi";
+"failure.offline.message" = "Kami tidak dapat menghubungi SecureQR. Periksa koneksi internet Anda, lalu coba lagi.";
+"failure.timeout.title" = "Ini terlalu lama";
+"failure.timeout.message" = "Pemeriksaan tidak selesai tepat waktu. Coba lagi sebentar lagi.";
+"failure.generic.title" = "Tautan ini tidak dapat diperiksa";
+"failure.generic.message" = "Terjadi masalah di pihak kami. Coba lagi sebentar lagi.";
+"failure.server.invalid_url.title" = "Ini bukan tautan yang bisa kami periksa";
+"failure.server.invalid_url.message" = "Tautan ini bukan alamat web yang valid, atau terlalu panjang.";
+"failure.server.unauthorized.title" = "Perlu diperbarui";
+"failure.server.unauthorized.message" = "Versi aplikasi ini tidak bisa lagi memakai layanan. Perbarui SecureQR, lalu coba lagi.";
+"failure.server.blocked_target.title" = "Tautan ini mengarah ke alamat pribadi";
+"failure.server.blocked_target.message" = "Tautan ini menuju jaringan pribadi atau internal, yang tidak kami kunjungi.";
+"failure.server.unreachable.title" = "Situs tidak merespons";
+"failure.server.unreachable.message" = "Situs tidak ditemukan atau menolak koneksi.";
+"failure.server.rate_limited.title" = "Terlalu banyak pemeriksaan";
+"failure.server.rate_limited.message" = "Anda sudah memeriksa banyak tautan dalam waktu singkat. Tunggu sebentar, lalu coba lagi.";
+"failure.server.timeout.title" = "Halaman terlalu lama dimuat";
+"failure.server.timeout.message" = "Halaman tidak selesai dimuat tepat waktu.";
+"failure.server.internal.title" = "Tautan ini tidak dapat diperiksa";
+"failure.server.internal.message" = "Terjadi masalah di pihak kami. Coba lagi sebentar lagi.";
+"failure.unchecked.note" = "Tautan ini belum diperiksa. Kami tidak bisa memberi tahu ke mana arahnya.";
+"failure.retry" = "Coba lagi";
+"failure.confirm.title" = "Buka tanpa diperiksa?";
+"failure.confirm.message" = "Kami tidak dapat memeriksa tautan ini, jadi kami tidak bisa memberi tahu ke mana arahnya atau apakah ada tanda peringatan.";
+
+/* Typed cards */
+"qr.type.login" = "Kode masuk untuk perangkat lain";
+"qr.type.chat" = "Tautan chat";
+"qr.type.swissqr" = "Transfer bank";
+"qr.type.spd" = "Transfer bank";
+"qr.type.otpexport" = "Ekspor autentikator";
+"qr.type.esim" = "eSIM";
+"qr.type.device" = "Kode penyiapan rumah pintar";
+"qr.type.healthcert" = "Sertifikat kesehatan";
+"qr.type.unsafe" = "Tautan tidak aman";
+"qr.type.paylink" = "Tautan pembayaran";
+"qr.type.url" = "Tautan";
+"qr.type.epc" = "Transfer bank";
+"qr.type.emv" = "Pembayaran";
+"qr.type.upi" = "Pembayaran UPI";
+"qr.type.crypto" = "Pembayaran kripto";
+"qr.type.wifi" = "Jaringan Wi-Fi";
+"qr.type.contact" = "Kontak";
+"qr.type.event" = "Acara kalender";
+"qr.type.email" = "Email";
+"qr.type.phone" = "Nomor telepon";
+"qr.type.sms" = "SMS";
+"qr.type.geo" = "Lokasi";
+"qr.type.otp" = "Penyiapan kode masuk";
+"qr.type.applink" = "Tautan aplikasi";
+"qr.type.text" = "Teks";
+
+"qr.field.beneficiary" = "Penerima";
+"qr.field.iban" = "IBAN";
+"qr.field.bic" = "BIC";
+"qr.field.amount" = "Jumlah";
+"qr.field.reference" = "Referensi";
+"qr.field.message" = "Pesan";
+"qr.field.merchant" = "Penjual";
+"qr.field.city" = "Kota";
+"qr.field.country" = "Negara";
+"qr.field.currency" = "Mata uang";
+"qr.field.payeeName" = "Nama penerima";
+"qr.field.payeeAddress" = "Alamat penerima";
+"qr.field.note" = "Catatan";
+"qr.field.network" = "Jaringan";
+"qr.field.address" = "Alamat";
+"qr.field.label" = "Label";
+"qr.field.security" = "Keamanan";
+"qr.field.password" = "Kata sandi";
+"qr.field.hidden" = "Tersembunyi";
+"qr.field.name" = "Nama";
+"qr.field.phone" = "Telepon";
+"qr.field.email" = "Email";
+"qr.field.organisation" = "Organisasi";
+"qr.field.url" = "URL";
+"qr.field.title" = "Judul";
+"qr.field.start" = "Mulai";
+"qr.field.end" = "Selesai";
+"qr.field.location" = "Lokasi";
+"qr.field.details" = "Deskripsi";
+"qr.field.to" = "Kepada";
+"qr.field.subject" = "Subjek";
+"qr.field.body" = "Isi";
+"qr.field.number" = "Nomor";
+"qr.field.latitude" = "Lintang";
+"qr.field.longitude" = "Bujur";
+"qr.field.issuer" = "Penerbit";
+"qr.field.account" = "Akun";
+"qr.field.type" = "Jenis";
+"qr.field.scheme" = "Skema";
+"qr.field.content" = "Isi";
+"qr.field.service" = "Layanan";
+"qr.field.handle" = "Nama pengguna";
+"qr.field.provider" = "Penyedia";
+"qr.field.activationCode" = "Kode aktivasi";
+
+"qr.value.inviteLink" = "Tautan undangan";
+
+"qr.notice.paymentRequest" = "Ini permintaan pembayaran. Periksa nama, rekening, dan jumlahnya sebelum membayar. Pembayaran sulit dibatalkan.";
+"qr.notice.paymentRequestInApp" = "Ini permintaan pembayaran. Periksa nama dan jumlahnya di aplikasi pembayaran sebelum mengonfirmasi. Pembayaran sulit dibatalkan.";
+"qr.notice.scanWithBankingApp" = "Untuk membayar, buka aplikasi bank Anda dan pindai kode QR ini dengan aplikasi tersebut.";
+"qr.notice.cryptoIrreversible" = "Pembayaran kripto tidak dapat dibatalkan.";
+"qr.notice.invalidIBAN" = "Nomor rekening ini bukan IBAN yang valid.";
+"qr.notice.signInSecret" = "Ini kunci rahasia untuk masuk. Pindai hanya ke aplikasi autentikator milik Anda sendiri, dan jangan pernah membagikannya.";
+"qr.notice.openNetwork" = "Jaringan ini tidak memakai kata sandi. Siapa pun di sekitar dapat melihat lalu lintas data Anda.";
+"qr.notice.shortCode" = "Pesan ke nomor pendek bisa dikenai biaya.";
+"qr.notice.opensOtherApp" = "Ini membuka aplikasi lain. Lanjutkan hanya jika Anda memang mengharapkannya.";
+"qr.notice.readOnDevice" = "Ini dibaca di ponsel Anda dan tidak dikirim ke mana pun.";
+"qr.notice.signsInOtherDevice" = "Kode ini memasukkan perangkat lain ke akun Anda. Pindai hanya dari dalam aplikasi itu, di layar yang Anda buka sendiri. Jika seseorang mengirimkannya kepada Anda, itu penipuan.";
+"qr.notice.chatWithStranger" = "Ini memulai chat dengan orang yang mungkin tidak Anda kenal. Penipu memakai tautan chat untuk memindahkan percakapan dari situs yang Anda percayai.";
+"qr.notice.authenticatorExport" = "Kode ini berisi kunci rahasia semua akun di aplikasi autentikator. Siapa pun yang memindainya bisa membuat kode masuk Anda. Pindai hanya dengan ponsel baru milik Anda sendiri, dan jangan pernah membagikannya.";
+"qr.notice.installESIM" = "Untuk memasangnya, buka pengaturan jaringan seluler di ponsel Anda dan tambahkan eSIM.";
+"qr.notice.mobilePlan" = "Ini memasang paket seluler (eSIM) di ponsel Anda. Lanjutkan hanya jika berasal dari operator seluler Anda sendiri.";
+"qr.notice.deviceSetupCode" = "Ini kode penyiapan untuk perangkat rumah pintar. Siapa pun yang memindainya bisa menambahkan perangkat itu ke rumah mereka. Pindai hanya dengan aplikasi rumah pintar Anda, untuk perangkat milik Anda.";
+"qr.notice.healthCertificate" = "Ini sertifikat kesehatan. Isinya nama, tanggal lahir, dan data medis. Kode ini dibaca di ponsel Anda dan tidak dikirim ke mana pun. Jangan membagikannya.";
+"qr.notice.unsafeLink" = "Ini bukan alamat web. Tautan seperti ini bisa menjalankan kode atau membuka file di ponsel Anda. Jangan membukanya.";
+"qr.notice.serviceCode" = "Ini kode layanan telepon, bukan nomor biasa. Kode seperti ini bisa mengalihkan panggilan, mengubah pengaturan, atau dikenai biaya. Hubungi hanya jika operator Anda memintanya.";
+"qr.notice.premiumNumber" = "Ini tampak seperti nomor premium. Menelepon nomor ini bisa sangat mahal per menit.";
+
+"qr.action.openInApp" = "Buka di aplikasi";
+"qr.action.openInPaymentApp" = "Buka di aplikasi pembayaran";
+"qr.action.joinWiFi" = "Sambungkan";
+"qr.action.addToContacts" = "Tambah ke kontak";
+"qr.action.addToCalendar" = "Tambah ke kalender";
+"qr.action.copy" = "Salin";
+"qr.action.copyAll" = "Salin semua";
+"qr.action.copyIBAN" = "Salin IBAN";
+"qr.action.copyAddress" = "Salin alamat";
+"qr.action.copyPassword" = "Salin kata sandi";
+
+"content.done" = "Selesai";
+"content.copied" = "Disalin";
+"content.raw.show" = "Tampilkan isi asli";
+"content.raw.hide" = "Sembunyikan isi asli";
+"content.raw.secretHidden" = "Bagian rahasia tidak ditampilkan.";
+"content.secret.show" = "Tampilkan teks tersembunyi";
+"content.secret.hide" = "Sembunyikan teks";
+"content.noApp.title" = "Tidak ada yang bisa membuka ini";
+"content.noApp.message" = "Tidak ada aplikasi di ponsel ini yang bisa membukanya.";
+"content.wifi.failed.title" = "Tidak dapat tersambung ke jaringan";
+"content.wifi.failed.message" = "Pastikan jaringan dalam jangkauan. Anda juga bisa menyalin kata sandi dan menyambungkannya di Pengaturan.";
+"content.history.redacted" = "Kata sandi, kode, dan rahasia tidak disimpan di riwayat.";
+
+/* History */
+"history.title" = "Pindaian sebelumnya";
+"history.note" = "Riwayat Anda tetap di ponsel ini.";
+"history.clear" = "Hapus semua";
+"history.clear.confirm.title" = "Hapus semua riwayat?";
+"history.clear.confirm.message" = "Ini menghapus semua pindaian sebelumnya dari ponsel ini.";
+"history.clear.confirm.action" = "Hapus semua";
+"history.empty.title" = "Belum ada pindaian";
+"history.empty.message" = "Kode QR yang Anda pindai akan tercantum di sini. Daftarnya tetap di ponsel ini.";
+"history.unchecked" = "Belum diperiksa";
+"history.failed" = "Tidak dapat diperiksa";
+"history.delete" = "Hapus";

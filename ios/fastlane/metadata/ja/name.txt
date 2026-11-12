@@ -1,0 +1,1 @@
+SecureQR: 安全なQRスキャナー

@@ -1,0 +1,1 @@
+kod,kimlik avı,bağlantı kontrolü,dolandırıcılık,yönlendirme,güvenlik,önizleme,barkod,wifi,okuyucu

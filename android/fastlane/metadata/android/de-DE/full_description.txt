@@ -1,0 +1,20 @@
+Ein QR-Code verrät nicht, wohin er führt. SecureQR prüft das zuerst.
+
+Wenn Sie einen Code mit einem Weblink scannen, öffnet SecureQR ihn nicht. Unser Server ruft den Link für Sie auf, folgt jeder Weiterleitung und macht ein Bild der Seite, auf der er endet. Sie sehen das echte Ziel, das Bild und alle Warnzeichen, und dann entscheiden Sie.
+
+▌Worauf die App achtet
+• Wo der Link wirklich endet, mit jeder Station unterwegs
+• Websites auf den Bedrohungslisten von Quad9, Cloudflare und DNS4EU und auf einer offenen Liste aktiver Phishing-Websites
+• Seiten, die ein Passwort oder Kartendaten verlangen, nicht verschlüsselt sind, ähnlich aussehende Zeichen verwenden oder eine Datei herunterladen wollen
+• Links, die eine andere App öffnen wollen
+
+▌Zahlungs- und andere Codes
+Überweisungen, Zahlungsaufforderungen, Wi-Fi-Netzwerke, Kontakte und Anmeldecodes werden auf Ihrem Handy gelesen und in klaren Worten angezeigt, bevor etwas passiert. Sie werden nie an uns gesendet.
+
+▌Datenschutz von Anfang an
+• Kein Konto, keine Werbung und keine eigenen Analysetools
+• Nur Weblinks werden an unseren Server gesendet; alles andere bleibt auf Ihrem Handy
+• Ergebnisse und Seitenbilder werden eine Stunde lang aufbewahrt und dann gelöscht
+• Ihr Scan-Verlauf bleibt auf Ihrem Handy, und Sie können ihn jederzeit löschen
+
+Ein unauffälliges Ergebnis heißt, dass wir keine Warnzeichen gefunden haben. Es ist keine Garantie.

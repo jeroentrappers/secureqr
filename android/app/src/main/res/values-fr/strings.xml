@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Common actions -->
+    <string name="action_back">Retour</string>
+    <string name="action_open">Ouvrir</string>
+    <string name="action_cancel">Annuler</string>
+    <string name="action_open_anyway">Ouvrir quand même</string>
+    <string name="action_dont_open">Ne pas ouvrir</string>
+    <string name="action_retry">Réessayer</string>
+    <string name="action_open_in_app">Ouvrir dans l\'app</string>
+    <string name="action_open_in_payment_app">Ouvrir l\'app de paiement</string>
+    <string name="action_join_wifi">Se connecter</string>
+    <string name="action_add_contact">Ajouter aux contacts</string>
+    <string name="action_add_event">Ajouter au calendrier</string>
+    <string name="action_copy">Copier</string>
+    <string name="action_copy_all">Tout copier</string>
+    <string name="action_copy_iban">Copier l\'IBAN</string>
+    <string name="action_copy_address">Copier l\'adresse</string>
+    <string name="action_copy_password">Copier le mot de passe</string>
+    <string name="copied">Copié</string>
+
+    <!-- Scan -->
+    <!-- %1$s is scan_hint_emphasis, shown highlighted -->
+    <string name="scan_hint">Visez un QR code. %1$s sans votre accord.</string>
+    <string name="scan_hint_emphasis">Rien ne s\'ouvre</string>
+    <string name="scan_torch_on">Allumer la lampe</string>
+    <string name="scan_torch_off">Éteindre la lampe</string>
+    <string name="scan_pick_image">Scanner une image de votre galerie</string>
+    <string name="scan_history">Historique</string>
+    <string name="scan_no_qr_in_image">Aucun QR code trouvé dans cette image.</string>
+    <string name="scan_image_failed">Cette image n\'a pas pu être lue.</string>
+    <string name="scan_camera_failed">L\'appareil photo n\'a pas pu démarrer.</string>
+
+    <!-- Camera permission -->
+    <string name="permission_title">SecureQR a besoin de l\'appareil photo</string>
+    <string name="permission_rationale">L\'appareil photo sert uniquement à lire les QR codes. Rien n\'est enregistré, et les images ne quittent jamais votre téléphone.</string>
+    <string name="permission_allow">Autoriser l\'appareil photo</string>
+    <string name="permission_denied_title">L\'appareil photo est désactivé</string>
+    <string name="permission_denied_body">SecureQR ne peut pas scanner sans l\'appareil photo. Vous pouvez l\'activer dans les Paramètres, ou scanner plutôt une image de votre galerie.</string>
+    <string name="permission_open_settings">Ouvrir les Paramètres</string>
+    <string name="permission_pick_image">Scanner plutôt une image</string>
+
+    <!-- Checking -->
+    <string name="checking_label_says">Le QR code indique</string>
+    <string name="checking_label_following">On suit le lien pour vous</string>
+    <string name="checking_contacting">Connexion au serveur</string>
+    <string name="checking_step_done">Terminé</string>
+    <string name="checking_progress">Ouverture dans un navigateur verrouillé…</string>
+    <string name="checking_note">Nous ouvrons le lien sur notre serveur, jamais sur votre téléphone.</string>
+
+    <!-- Decide -->
+    <string name="verdict_ok">Aucun signal d\'alerte</string>
+    <string name="verdict_caution">À vérifier</string>
+    <string name="verdict_danger">Cela semble risqué</string>
+    <string name="decide_checked_just_now">Vérifié à l\'instant</string>
+    <plurals name="decide_checked_minutes">
+        <item quantity="one">Vérifié il y a %d min</item>
+        <item quantity="many">Vérifié il y a %d min</item>
+        <item quantity="other">Vérifié il y a %d min</item>
+    </plurals>
+    <string name="decide_label_land">Vous arriveriez sur</string>
+    <string name="decide_label_path">Le chemin parcouru</string>
+    <string name="decide_show_path">Voir chaque étape</string>
+    <string name="decide_hide_path">Masquer les étapes</string>
+    <string name="chip_https">HTTPS</string>
+    <string name="chip_not_encrypted">Non chiffré</string>
+    <string name="chip_no_redirects">Aucune redirection</string>
+    <plurals name="chip_redirects">
+        <item quantity="one">%d redirection</item>
+        <item quantity="many">%d redirections</item>
+        <item quantity="other">%d redirections</item>
+    </plurals>
+    <string name="chip_blocklisted">Sur liste noire</string>
+    <string name="chip_not_blocklisted">Pas sur liste noire</string>
+    <string name="hop_start">Lien scanné</string>
+    <string name="hop_http">Redirection</string>
+    <string name="hop_client">Redirection par la page</string>
+    <!-- %1$s is the kind of step, %2$d the HTTP status code -->
+    <string name="hop_with_status">%1$s · %2$d</string>
+    <string name="screenshot_description">Capture de la page sur laquelle vous arriveriez</string>
+    <string name="screenshot_loading">Chargement de la capture…</string>
+    <string name="screenshot_expand">Voir toute la page</string>
+    <string name="screenshot_collapse">Voir moins</string>
+    <string name="screenshot_unavailable">Aucune capture disponible</string>
+
+    <!-- Check failed -->
+    <string name="error_title">Ce lien n\'a pas pu être vérifié</string>
+    <string name="error_offline">Impossible de joindre SecureQR. Vérifiez votre connexion Internet et réessayez.</string>
+    <string name="error_generic">Un problème est survenu pendant la vérification de ce lien.</string>
+    <!-- The server no longer accepts this version of the app -->
+    <string name="error_update_title">Mise à jour nécessaire</string>
+    <string name="error_update_needed">Cette version de l\'application ne peut plus utiliser le service. Mettez SecureQR à jour et réessayez.</string>
+    <string name="error_unchecked_warning">Ce lien n\'a pas été vérifié. Si vous l\'ouvrez quand même, vous ne saurez pas où il mène avant d\'y être.</string>
+    <string name="error_no_browser">Aucun navigateur trouvé pour ouvrir ce lien.</string>
+
+    <!-- Typed cards: titles -->
+    <string name="type_login">Code de connexion</string>
+    <string name="type_chat">Lien de discussion</string>
+    <string name="type_swissqr">QR-facture suisse</string>
+    <string name="type_otp_export">Export d\'authentificateur</string>
+    <string name="type_esim">Forfait mobile eSIM</string>
+    <string name="type_device">Appareil connecté</string>
+    <string name="type_healthcert">Certificat sanitaire</string>
+    <string name="type_unsafe">Lien dangereux</string>
+    <string name="type_paylink">Lien de paiement</string>
+    <string name="type_url">Lien</string>
+    <string name="type_epc">Virement bancaire</string>
+    <string name="type_emv">Code de paiement</string>
+    <string name="type_upi">Paiement UPI</string>
+    <string name="type_crypto">Paiement en cryptomonnaie</string>
+    <string name="type_wifi">Réseau Wi-Fi</string>
+    <string name="type_contact">Contact</string>
+    <string name="type_event">Événement</string>
+    <string name="type_email">E-mail</string>
+    <string name="type_phone">Numéro de téléphone</string>
+    <string name="type_sms">SMS</string>
+    <string name="type_geo">Lieu</string>
+    <string name="type_otp">Secret de connexion</string>
+    <string name="type_applink">Lien d\'application</string>
+    <string name="type_text">Texte</string>
+
+    <!-- Typed cards: field labels -->
+    <string name="field_beneficiary">Bénéficiaire</string>
+    <string name="field_iban">IBAN</string>
+    <string name="field_bic">BIC</string>
+    <string name="field_amount">Montant</string>
+    <string name="field_reference">Référence</string>
+    <string name="field_message">Message</string>
+    <string name="field_merchant">Commerçant</string>
+    <string name="field_city">Ville</string>
+    <string name="field_country">Pays</string>
+    <string name="field_currency">Devise</string>
+    <string name="field_payee_name">Nom du bénéficiaire</string>
+    <string name="field_payee_address">Adresse du bénéficiaire</string>
+    <string name="field_note">Note</string>
+    <string name="field_network">Réseau</string>
+    <string name="field_address">Adresse</string>
+    <string name="field_label">Libellé</string>
+    <string name="field_security">Sécurité</string>
+    <string name="field_password">Mot de passe</string>
+    <string name="field_hidden">Masqué</string>
+    <string name="field_name">Nom</string>
+    <string name="field_phone">Téléphone</string>
+    <string name="field_email">E-mail</string>
+    <string name="field_organisation">Organisation</string>
+    <string name="field_url">URL</string>
+    <string name="field_title">Titre</string>
+    <string name="field_start">Début</string>
+    <string name="field_end">Fin</string>
+    <string name="field_location">Lieu</string>
+    <string name="field_description">Description</string>
+    <string name="field_to">À</string>
+    <string name="field_subject">Objet</string>
+    <string name="field_body">Texte</string>
+    <string name="field_number">Numéro</string>
+    <string name="field_latitude">Latitude</string>
+    <string name="field_longitude">Longitude</string>
+    <string name="field_issuer">Émetteur</string>
+    <string name="field_account">Compte</string>
+    <string name="field_type">Type</string>
+    <string name="field_scheme">Schéma</string>
+    <string name="field_text">Texte</string>
+    <string name="field_provider">Fournisseur</string>
+    <string name="field_service">Service</string>
+    <string name="field_handle">Identifiant</string>
+    <string name="field_activation_code">Code d\'activation</string>
+    <string name="value_invite">Lien d\'invitation</string>
+    <string name="value_none">Aucun</string>
+    <string name="value_yes">Oui</string>
+
+    <!-- Typed cards: notices -->
+    <string name="notice_payment">Ceci est une demande de paiement. Vérifiez le nom, le compte et le montant avant de payer. Un paiement est difficile à annuler.</string>
+    <string name="notice_paylink">Ceci est une demande de paiement. Vérifiez le nom et le montant dans votre app de paiement avant de confirmer. Un paiement est difficile à annuler.</string>
+    <string name="notice_epc_instruction">Pour payer, ouvrez l\'app de votre banque et scannez ce QR code avec elle.</string>
+    <string name="notice_crypto">Les paiements en cryptomonnaie sont irréversibles.</string>
+    <string name="notice_invalid_iban">Le numéro de compte n\'est pas un IBAN valide.</string>
+    <string name="notice_otp">Ceci est un secret de connexion. Ne le scannez que dans votre propre app d\'authentification, et ne le partagez jamais.</string>
+    <string name="notice_wifi_open">Ce réseau n\'a pas de mot de passe. Toute personne à proximité peut voir votre trafic.</string>
+    <string name="notice_sms_short_code">Les messages vers des numéros courts peuvent être payants.</string>
+    <string name="notice_app_link">Ceci ouvre une autre application. Ne continuez que si vous vous y attendiez.</string>
+    <string name="notice_login_code">Ce code connecte un autre appareil à votre compte. Ne le scannez que depuis cette app, sur un écran que vous avez ouvert vous-même. Si quelqu\'un vous l\'a envoyé, c\'est une arnaque.</string>
+    <string name="notice_chat_link">Ceci ouvre une discussion avec quelqu\'un que vous ne connaissez peut-être pas. Les escrocs utilisent ces liens pour vous éloigner d\'un site de confiance.</string>
+    <string name="notice_otp_export">Ce code contient les secrets de tous les comptes d\'une app d\'authentification. Quiconque le scanne peut générer vos codes de connexion. Ne le scannez qu\'avec votre propre nouveau téléphone, et ne le partagez jamais.</string>
+    <string name="notice_esim_instruction">Pour l\'installer, ouvrez les réglages de réseau mobile de votre téléphone et ajoutez une eSIM.</string>
+    <string name="notice_esim">Ceci installe un forfait mobile (eSIM) sur votre téléphone. Ne continuez que s\'il vient de votre propre opérateur.</string>
+    <string name="notice_device_setup">Ceci est un code de configuration pour un appareil connecté. Quiconque le scanne peut ajouter l\'appareil à son propre domicile. Ne le scannez qu\'avec votre app de maison connectée, pour un appareil qui vous appartient.</string>
+    <string name="notice_health_cert">Ceci est un certificat sanitaire. Il contient un nom, une date de naissance et des données médicales. Il a été lu sur votre téléphone et n\'a été envoyé nulle part. Ne le partagez pas.</string>
+    <string name="notice_unsafe_link">Ceci n\'est pas une adresse web. Ce type de lien peut exécuter du code ou ouvrir des fichiers sur votre téléphone. Ne l\'ouvrez pas.</string>
+    <string name="notice_dialer_code">Ceci est un code de service téléphonique, pas un numéro normal. Ces codes peuvent renvoyer vos appels, modifier des réglages ou être payants. Ne le composez que si votre opérateur vous l\'a demandé.</string>
+    <string name="notice_premium_number">Ceci ressemble à un numéro surtaxé. L\'appeler peut coûter cher à la minute.</string>
+    <string name="notice_local_only">Ceci a été lu sur votre téléphone et n\'a été envoyé nulle part.</string>
+
+    <!-- Typed cards: other -->
+    <string name="content_no_payment_app">Aucune app de ce téléphone ne peut ouvrir ce lien de paiement.</string>
+    <string name="content_show_raw">Voir le contenu brut</string>
+    <string name="content_hide_raw">Masquer le contenu brut</string>
+    <string name="content_reveal">Afficher</string>
+    <string name="content_conceal">Masquer</string>
+    <string name="wifi_password_copied">Mot de passe copié. Choisissez le réseau pour vous y connecter.</string>
+    <string name="wifi_choose_in_settings">Choisissez le réseau pour vous y connecter.</string>
+    <string name="wifi_cannot_join">Les réglages Wi-Fi n\'ont pas pu être ouverts.</string>
+    <string name="content_no_app">Aucune app de ce téléphone ne peut ouvrir ceci.</string>
+    <string name="content_secret_hidden">La partie secrète n\'est pas affichée ici.</string>
+    <string name="content_from_history_redacted">Les secrets ne sont jamais enregistrés dans votre historique, cette entrée est donc incomplète. Scannez à nouveau le code pour tout voir.</string>
+
+    <!-- History -->
+    <string name="history_title">Historique</string>
+    <string name="history_note">Conservé uniquement sur ce téléphone.</string>
+    <string name="history_empty">Aucun scan pour l\'instant.</string>
+    <string name="history_clear">Tout effacer</string>
+    <string name="history_clear_title">Effacer l\'historique ?</string>
+    <string name="history_clear_body">Cela supprime tous les scans précédents de ce téléphone.</string>
+    <string name="history_clear_confirm">Effacer</string>
+    <!-- %1$s is the kind of content (for example "Link"), %2$s a relative time (for example "5 minutes ago") -->
+    <string name="history_subtitle">%1$s · %2$s</string>
+    <string name="history_just_now">À l\'instant</string>
+    <string name="history_level_ok">Aucun signal d\'alerte</string>
+    <string name="history_level_caution">À vérifier</string>
+    <string name="history_level_danger">Semblait risqué</string>
+    <string name="history_level_neutral">Aucune alerte</string>
+    <string name="history_level_unchecked">Non vérifié</string>
+    <string name="history_level_failed">Vérification impossible</string>
+    <!-- %1$s is the kind of content, %2$s the outcome (history_level_failed), %3$s a relative time -->
+    <string name="history_subtitle_with_state">%1$s · %2$s · %3$s</string>
+    <string name="history_delete">Supprimer</string>
+    <string name="history_entry_options">Options pour cette entrée</string>
+</resources>

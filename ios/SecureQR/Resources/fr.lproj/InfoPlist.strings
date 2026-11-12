@@ -1,0 +1,4 @@
+"NSCameraUsageDescription" = "SecureQR utilise l’appareil photo pour lire les QR codes. Rien n’est enregistré.";
+"NSContactsUsageDescription" = "SecureQR ajoute un contact scanné à vos contacts uniquement quand vous touchez Ajouter aux contacts. Il ne lit jamais vos contacts.";
+"NSCalendarsUsageDescription" = "SecureQR ajoute un événement scanné à votre calendrier uniquement quand vous touchez Ajouter au calendrier. Il ne lit jamais votre calendrier.";
+"NSCalendarsWriteOnlyAccessUsageDescription" = "SecureQR ajoute un événement scanné à votre calendrier uniquement quand vous touchez Ajouter au calendrier.";

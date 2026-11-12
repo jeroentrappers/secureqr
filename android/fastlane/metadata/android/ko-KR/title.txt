@@ -1,0 +1,1 @@
+SecureQR: 안전한 QR 스캐너

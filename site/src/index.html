@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="{{_lang.hreflang}}" dir="{{_lang.dir}}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{title}}</title>
+<meta name="description" content="{{description}}">
+<meta name="theme-color" content="#3B5BFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0E1324" media="(prefers-color-scheme: dark)">
+<link rel="canonical" href="{{@url}}">
+{{@alternates}}
+<link rel="icon" href="/assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/site.css">
+<script src="/assets/theme.js"></script>
+</head>
+<body>
+<header class="top wrap">
+  <a class="brand" href="{{@home}}"><img src="/assets/mark.svg" alt="" width="34" height="34"><span dir="ltr">Secure<b>QR</b></span></a>
+  <nav><a href="#demo">{{nav_demo}}</a><a href="#how">{{nav_how}}</a><a href="#privacy">{{nav_privacy}}</a></nav>
+  <div class="tools">
+    <details class="langs">
+      <summary aria-label="{{language}}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Zm-9 9h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3Z"/></svg><span>{{_lang.name}}</span></summary>
+      <ul>{{@languages}}</ul>
+    </details>
+    <button class="theme" type="button" aria-label="{{theme}}" data-label-system="{{theme_system}}" data-label-light="{{theme_light}}" data-label-dark="{{theme_dark}}"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 4a8 8 0 0 1 0 16Z" fill="currentColor"/></svg></button>
+  </div>
+</header>
+
+<main>
+<section class="hero wrap">
+  <div class="pitch">
+    <h1>{{hero_title}}</h1>
+    <p class="lead">{{hero_lead}}</p>
+    <div class="get">
+      <a class="store" href="{{@playUrl}}"><small>{{store_play_small}}</small>Google Play</a>
+      {{@appStore}}
+    </div>
+    <p class="soon">{{hero_free_html}}</p>
+    <a class="btn p" href="#demo">{{hero_cta}}</a>
+  </div>
+  <div class="phones" aria-hidden="true">
+    <div class="phone scan">
+      <div class="cam"></div>
+      <div class="bar"><img src="/assets/mark.svg" alt="" width="22" height="22"><span>SecureQR</span></div>
+      <div class="ret"><div id="qr"></div><i></i><i></i><i></i><i></i></div>
+      <div class="hint">{{mock_hint_html}}</div>
+    </div>
+    <div class="phone">
+      <div class="bar"><img src="/assets/mark.svg" alt="" width="22" height="22"><span>SecureQR</span></div>
+      <div class="body">
+        <div class="verdict warn"><span>⚠</span><div>{{mock_verdict}}<small>{{mock_verdict_sub}}</small></div></div>
+        <div class="shot"><div class="chrome">🔒 pay-fee.parcel-track.example</div>
+          <div class="pg"><div class="brandbar"></div><h5>{{mock_page_title}}</h5>{{mock_page_text}}<div class="f">{{mock_card_number}}</div><div class="b">{{mock_pay_now}}</div></div></div>
+        <div class="card"><div class="lbl">{{mock_land}}</div>
+          <div class="final">pay-fee.<em>parcel-track.example</em></div>
+          <div class="chips"><span>HTTPS</span><span>{{mock_redirects}}</span></div></div>
+        <div class="row"><div class="btn g">{{mock_open}}</div><div class="btn p">{{mock_dont}}</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="demo" class="wrap">
+  <h2>{{demo_title}}</h2>
+  <p class="sub">{{demo_sub}}</p>
+  <div class="picks" role="group" aria-label="{{demo_group}}">
+    <button class="pick" type="button" data-demo="parcel">{{demo_pick_parcel}}</button>
+    <button class="pick" type="button" data-demo="menu">{{demo_pick_menu}}</button>
+    <button class="pick" type="button" data-demo="prize">{{demo_pick_prize}}</button>
+  </div>
+  <div class="demo">
+    <div class="card">
+      <div class="lbl">{{demo_says}}</div>
+      <div class="final" id="d-url"></div>
+      <div class="lbl sp">{{demo_following}}</div>
+      <ul id="d-steps" class="dsteps" role="status" aria-live="polite"></ul>
+    </div>
+    <div id="d-result" class="result" hidden>
+      <div id="d-verdict" class="verdict"><span id="d-icon"></span><div><span id="d-head"></span><small id="d-sub"></small></div></div>
+      <div class="cols">
+        <div class="shot big"><div class="chrome" id="d-chrome"></div><div class="pg" id="d-page"></div></div>
+        <div class="facts">
+          <div class="card" id="d-finalcard"><div class="lbl">{{mock_land}}</div><div class="final" id="d-final"></div><div class="chips" id="d-chips"></div></div>
+          <div class="card"><div class="lbl">{{demo_why}}</div><ul id="d-reasons" class="reasons"></ul></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="fine">{{demo_fine}}</p>
+</section>
+
+<section id="how" class="wrap">
+  <h2>{{how_title}}</h2>
+  <div class="steps">
+    <div class="card"><div class="n">1</div><h3>{{how_1_title}}</h3><p>{{how_1_text}}</p></div>
+    <div class="card"><div class="n">2</div><h3>{{how_2_title}}</h3><p>{{how_2_text}}</p></div>
+    <div class="card"><div class="n">3</div><h3>{{how_3_title}}</h3><p>{{how_3_text}}</p></div>
+  </div>
+
+  <h2 class="gap">{{looks_title}}</h2>
+  <ul class="checks">
+    <li>{{looks_1_html}}</li>
+    <li>{{looks_2_html}}</li>
+    <li>{{looks_3_html}}</li>
+    <li>{{looks_4_html}}</li>
+    <li>{{looks_5_html}}</li>
+  </ul>
+  <p class="fine">{{looks_fine}}</p>
+</section>
+
+<section id="privacy" class="wrap">
+  <h2>{{privacy_title}}</h2>
+  <ul class="checks">
+    <li>{{privacy_1_html}}</li>
+    <li>{{privacy_2_html}}</li>
+    <li>{{privacy_3_html}}</li>
+    <li>{{privacy_4_html}}</li>
+    <li>{{privacy_5_html}}</li>
+    <li>{{privacy_6_html}}</li>
+    <li>{{privacy_7_html}}</li>
+  </ul>
+</section>
+</main>
+
+<footer class="wrap"><span>© 2026 Appmire CommV</span><span><a href="/privacy">{{footer_privacy}}</a> · <a href="/terms">{{footer_terms}}</a> · <a href="/support">{{footer_support}}</a> · <a href="https://github.com/jeroentrappers/secureqr">GitHub</a>{{@englishNote}}</span></footer>
+<script type="application/json" id="i18n">{{@demoJson}}</script>
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

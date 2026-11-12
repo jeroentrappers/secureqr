@@ -1,0 +1,230 @@
+/* SecureQR, Tamil. Keys are stable; values may be translated. */
+
+/* Common */
+"common.ok" = "சரி";
+"common.cancel" = "ரத்துசெய்";
+"common.yes" = "ஆம்";
+"common.no" = "இல்லை";
+"common.none" = "எதுவுமில்லை";
+
+/* Scanner */
+"scan.hint.before" = "QR குறியீட்டை நோக்கிக் காட்டுங்கள். நீங்கள் சொல்லும் வரை ";
+"scan.hint.strong" = "எதுவும் திறக்காது";
+"scan.hint.after" = ".";
+"scan.torch.on" = "விளக்கை இயக்கு";
+"scan.torch.off" = "விளக்கை அணை";
+"scan.photo" = "படத்தை ஸ்கேன் செய்";
+"scan.history" = "வரலாறு";
+"scan.photo.none.title" = "QR குறியீடு கிடைக்கவில்லை";
+"scan.photo.none.message" = "அந்தப் படத்தில் QR குறியீட்டைக் கண்டறிய முடியவில்லை. தெளிவான அல்லது அருகில் எடுத்த படத்தை முயலுங்கள்.";
+"scan.permission.title" = "கேமரா அனுமதி";
+"scan.permission.message" = "QR குறியீடுகளைப் படிக்க மட்டுமே SecureQR கேமராவைப் பயன்படுத்துகிறது. எதுவும் பதிவு செய்யப்படுவதில்லை, நீங்கள் சொல்லும் வரை எதுவும் திறக்காது.";
+"scan.permission.continue" = "தொடர்க";
+"scan.denied.title" = "கேமரா அணைக்கப்பட்டுள்ளது";
+"scan.denied.message" = "கேமராவைப் பயன்படுத்த SecureQR-க்கு அனுமதி இல்லை. அமைப்புகளில் அனுமதிக்கலாம், அல்லது கீழே உள்ள பட்டனைக் கொண்டு படத்திலிருந்து QR குறியீட்டை ஸ்கேன் செய்யலாம்.";
+"scan.denied.settings" = "அமைப்புகளைத் திற";
+"scan.unavailable.title" = "கேமரா இல்லை";
+"scan.unavailable.message" = "கீழே உள்ள பட்டனைக் கொண்டு படத்திலிருந்து QR குறியீட்டை இன்னும் ஸ்கேன் செய்யலாம்.";
+
+/* Checking */
+"checking.says" = "QR குறியீட்டில் உள்ளது";
+"checking.following" = "உங்களுக்காக இணைப்பைப் பின்தொடர்கிறோம்";
+"checking.contacting" = "சர்வரைத் தொடர்புகொள்கிறது";
+"checking.step.active" = "நடைபெறுகிறது";
+"checking.step.done" = "முடிந்தது";
+"checking.step.opening" = "இணைப்பைத் திறக்கிறது…";
+"checking.step.following" = "திசைதிருப்பல்களைப் பின்தொடர்கிறது…";
+"checking.step.screenshot" = "ஸ்கிரீன்ஷாட் எடுக்கிறது…";
+"checking.note" = "இணைப்பை எங்கள் சர்வரில் திறக்கிறோம், ஒருபோதும் உங்கள் ஃபோனில் அல்ல.";
+
+/* Verdict headlines. "ok" must never be worded as "safe". */
+"verdict.ok" = "எச்சரிக்கை அறிகுறிகள் இல்லை";
+"verdict.caution" = "இதைச் சரிபாருங்கள்";
+"verdict.danger" = "இது ஆபத்தாகத் தெரிகிறது";
+
+/* Decide */
+"decide.landOn" = "நீங்கள் சென்றடையும் இடம்";
+"decide.chip.https" = "HTTPS";
+"decide.chip.notEncrypted" = "என்க்ரிப்ட் இல்லை";
+"decide.chip.redirects.none" = "திசைதிருப்பல் இல்லை";
+"decide.chip.redirects.one" = "1 திசைதிருப்பல்";
+"decide.chip.redirects.many" = "%d திசைதிருப்பல்கள்";
+"decide.chip.blocklisted" = "பட்டியலில் உள்ளது";
+"decide.chip.notBlocklisted" = "பட்டியலில் இல்லை";
+"decide.hops.show" = "பாதையைக் காட்டு";
+"decide.hops.hide" = "பாதையை மறை";
+"decide.open" = "திற";
+"decide.openAnyway" = "இருந்தாலும் திற";
+"decide.dontOpen" = "திறக்க வேண்டாம்";
+"decide.screenshot.more" = "முழுப் பக்கத்தையும் காட்டு";
+"decide.screenshot.less" = "குறைவாகக் காட்டு";
+"decide.checked.now" = "ஒரு நிமிடத்துக்குள் சரிபார்க்கப்பட்டது";
+"decide.checked.one" = "1 நிமி. முன் சரிபார்க்கப்பட்டது";
+"decide.checked.many" = "%d நிமி. முன் சரிபார்க்கப்பட்டது";
+"decide.screenshot.label" = "பக்கத்தின் ஸ்கிரீன்ஷாட்";
+"decide.screenshot.none" = "பக்கத்தைக் காட்ட முடியவில்லை.";
+"decide.screenshot.failed" = "ஸ்கிரீன்ஷாட் இப்போது கிடைக்கவில்லை.";
+
+/* Hops */
+"hop.start" = "ஸ்கேன் செய்த இணைப்பு";
+"hop.http" = "திசைதிருப்பல்";
+"hop.client" = "பக்கம் செய்த திசைதிருப்பல்";
+"hop.unknown" = "படி";
+
+/* Failures */
+"failure.offline.title" = "இணைப்பு இல்லை";
+"failure.offline.message" = "SecureQR-ஐ அடைய முடியவில்லை. உங்கள் இணைய இணைப்பைச் சரிபார்த்து மீண்டும் முயலுங்கள்.";
+"failure.timeout.title" = "இது அதிக நேரம் எடுக்கிறது";
+"failure.timeout.message" = "சரிபார்ப்பு நேரத்துக்குள் முடியவில்லை. சிறிது நேரம் கழித்து மீண்டும் முயலுங்கள்.";
+"failure.generic.title" = "இந்த இணைப்பைச் சரிபார்க்க முடியவில்லை";
+"failure.generic.message" = "எங்கள் பக்கத்தில் ஏதோ தவறு நடந்தது. சிறிது நேரம் கழித்து மீண்டும் முயலுங்கள்.";
+"failure.server.invalid_url.title" = "இதை எங்களால் சரிபார்க்க முடியாது";
+"failure.server.invalid_url.message" = "இந்த இணைப்பு சரியான இணைய முகவரி அல்ல, அல்லது மிக நீளமாக உள்ளது.";
+"failure.server.unauthorized.title" = "புதுப்பிக்க வேண்டும்";
+"failure.server.unauthorized.message" = "ஆப்பின் இந்தப் பதிப்பால் இனி சேவையைப் பயன்படுத்த முடியாது. SecureQR-ஐப் புதுப்பித்து மீண்டும் முயலுங்கள்.";
+"failure.server.blocked_target.title" = "இந்த இணைப்பு ஒரு தனிப்பட்ட முகவரியைக் குறிக்கிறது";
+"failure.server.blocked_target.message" = "இது ஒரு தனிப்பட்ட அல்லது உள் நெட்வொர்க்குக்குச் செல்கிறது; அவற்றை நாங்கள் பார்வையிடுவதில்லை.";
+"failure.server.unreachable.title" = "தளம் பதிலளிக்கவில்லை";
+"failure.server.unreachable.message" = "தளத்தைக் கண்டறிய முடியவில்லை, அல்லது அது இணைப்பை மறுத்துவிட்டது.";
+"failure.server.rate_limited.title" = "அதிகமான சரிபார்ப்புகள்";
+"failure.server.rate_limited.message" = "குறுகிய நேரத்தில் நிறைய இணைப்புகளைச் சரிபார்த்துள்ளீர்கள். சிறிது நேரம் காத்திருந்து மீண்டும் முயலுங்கள்.";
+"failure.server.timeout.title" = "பக்கம் அதிக நேரம் எடுத்தது";
+"failure.server.timeout.message" = "பக்கம் நேரத்துக்குள் ஏற்றப்படவில்லை.";
+"failure.server.internal.title" = "இந்த இணைப்பைச் சரிபார்க்க முடியவில்லை";
+"failure.server.internal.message" = "எங்கள் பக்கத்தில் ஏதோ தவறு நடந்தது. சிறிது நேரம் கழித்து மீண்டும் முயலுங்கள்.";
+"failure.unchecked.note" = "இந்த இணைப்பு சரிபார்க்கப்படவில்லை. இது எங்கே கொண்டு செல்கிறது என்று எங்களால் சொல்ல முடியாது.";
+"failure.retry" = "மீண்டும் முயல்";
+"failure.confirm.title" = "சரிபார்க்காமல் திறக்கவா?";
+"failure.confirm.message" = "இந்த இணைப்பைச் சரிபார்க்க முடியவில்லை. எனவே இது எங்கே கொண்டு செல்கிறது, எச்சரிக்கை அறிகுறிகள் உள்ளனவா என்று எங்களால் சொல்ல முடியாது.";
+
+/* Typed cards */
+"qr.type.login" = "வேறொரு சாதனத்துக்கான உள்நுழைவுக் குறியீடு";
+"qr.type.chat" = "அரட்டை இணைப்பு";
+"qr.type.swissqr" = "வங்கிப் பரிமாற்றம்";
+"qr.type.spd" = "வங்கிப் பரிமாற்றம்";
+"qr.type.otpexport" = "அங்கீகரிப்பு ஆப் ஏற்றுமதி";
+"qr.type.esim" = "eSIM";
+"qr.type.device" = "ஸ்மார்ட்-ஹோம் அமைவுக் குறியீடு";
+"qr.type.healthcert" = "சுகாதாரச் சான்றிதழ்";
+"qr.type.unsafe" = "பாதுகாப்பற்ற இணைப்பு";
+"qr.type.paylink" = "கட்டண இணைப்பு";
+"qr.type.url" = "இணைப்பு";
+"qr.type.epc" = "வங்கிப் பரிமாற்றம்";
+"qr.type.emv" = "கட்டணம்";
+"qr.type.upi" = "UPI கட்டணம்";
+"qr.type.crypto" = "கிரிப்டோ கட்டணம்";
+"qr.type.wifi" = "Wi-Fi நெட்வொர்க்";
+"qr.type.contact" = "தொடர்பு";
+"qr.type.event" = "கேலெண்டர் நிகழ்வு";
+"qr.type.email" = "மின்னஞ்சல்";
+"qr.type.phone" = "ஃபோன் எண்";
+"qr.type.sms" = "குறுஞ்செய்தி";
+"qr.type.geo" = "இருப்பிடம்";
+"qr.type.otp" = "உள்நுழைவுக் குறியீடு அமைப்பு";
+"qr.type.applink" = "ஆப் இணைப்பு";
+"qr.type.text" = "உரை";
+
+"qr.field.beneficiary" = "பெறுநர்";
+"qr.field.iban" = "IBAN";
+"qr.field.bic" = "BIC";
+"qr.field.amount" = "தொகை";
+"qr.field.reference" = "குறிப்பு எண்";
+"qr.field.message" = "செய்தி";
+"qr.field.merchant" = "வணிகர்";
+"qr.field.city" = "நகரம்";
+"qr.field.country" = "நாடு";
+"qr.field.currency" = "நாணயம்";
+"qr.field.payeeName" = "பெறுநர் பெயர்";
+"qr.field.payeeAddress" = "பெறுநர் முகவரி";
+"qr.field.note" = "குறிப்பு";
+"qr.field.network" = "நெட்வொர்க்";
+"qr.field.address" = "முகவரி";
+"qr.field.label" = "லேபிள்";
+"qr.field.security" = "பாதுகாப்பு";
+"qr.field.password" = "கடவுச்சொல்";
+"qr.field.hidden" = "மறைக்கப்பட்டது";
+"qr.field.name" = "பெயர்";
+"qr.field.phone" = "ஃபோன்";
+"qr.field.email" = "மின்னஞ்சல்";
+"qr.field.organisation" = "நிறுவனம்";
+"qr.field.url" = "URL";
+"qr.field.title" = "தலைப்பு";
+"qr.field.start" = "தொடக்கம்";
+"qr.field.end" = "முடிவு";
+"qr.field.location" = "இடம்";
+"qr.field.details" = "விவரம்";
+"qr.field.to" = "பெறுநர்";
+"qr.field.subject" = "பொருள்";
+"qr.field.body" = "உள்ளடக்கம்";
+"qr.field.number" = "எண்";
+"qr.field.latitude" = "அட்சரேகை";
+"qr.field.longitude" = "தீர்க்கரேகை";
+"qr.field.issuer" = "வழங்குநர்";
+"qr.field.account" = "கணக்கு";
+"qr.field.type" = "வகை";
+"qr.field.scheme" = "திட்டம்";
+"qr.field.content" = "உள்ளடக்கம்";
+"qr.field.service" = "சேவை";
+"qr.field.handle" = "பயனர்பெயர்";
+"qr.field.provider" = "சேவை வழங்குநர்";
+"qr.field.activationCode" = "செயல்படுத்தும் குறியீடு";
+
+"qr.value.inviteLink" = "அழைப்பு இணைப்பு";
+
+"qr.notice.paymentRequest" = "இது ஒரு பணக் கோரிக்கை. பணம் செலுத்தும் முன் பெயர், கணக்கு, தொகை ஆகியவற்றைச் சரிபாருங்கள். செலுத்திய பணத்தைத் திரும்பப் பெறுவது கடினம்.";
+"qr.notice.paymentRequestInApp" = "இது ஒரு பணக் கோரிக்கை. உறுதிசெய்யும் முன் உங்கள் கட்டண ஆப்பில் பெயரையும் தொகையையும் சரிபாருங்கள். செலுத்திய பணத்தைத் திரும்பப் பெறுவது கடினம்.";
+"qr.notice.scanWithBankingApp" = "பணம் செலுத்த, உங்கள் வங்கி ஆப்பைத் திறந்து அதில் இந்த QR குறியீட்டை ஸ்கேன் செய்யுங்கள்.";
+"qr.notice.cryptoIrreversible" = "கிரிப்டோ கட்டணங்களைத் திரும்பப் பெற முடியாது.";
+"qr.notice.invalidIBAN" = "இந்தக் கணக்கு எண் சரியான IBAN அல்ல.";
+"qr.notice.signInSecret" = "இது ஓர் உள்நுழைவு ரகசியம். உங்கள் சொந்த அங்கீகரிப்பு ஆப்பில் மட்டுமே ஸ்கேன் செய்யுங்கள், யாருடனும் பகிர வேண்டாம்.";
+"qr.notice.openNetwork" = "இந்த நெட்வொர்க்குக்குக் கடவுச்சொல் இல்லை. அருகில் உள்ள எவரும் உங்கள் இணையப் போக்குவரத்தைப் பார்க்க முடியும்.";
+"qr.notice.shortCode" = "குறுகிய எண்களுக்கு அனுப்பும் செய்திகளுக்குக் கட்டணம் வசூலிக்கப்படலாம்.";
+"qr.notice.opensOtherApp" = "இது வேறொரு ஆப்பைத் திறக்கும். நீங்கள் இதை எதிர்பார்த்திருந்தால் மட்டும் தொடருங்கள்.";
+"qr.notice.readOnDevice" = "இது உங்கள் ஃபோனிலேயே படிக்கப்பட்டது, எங்கும் அனுப்பப்படவில்லை.";
+"qr.notice.signsInOtherDevice" = "இந்தக் குறியீடு வேறொரு சாதனத்தை உங்கள் கணக்கில் உள்நுழைய வைக்கும். அந்த ஆப்பின் உள்ளே, நீங்களே திறந்த திரையில் மட்டுமே இதை ஸ்கேன் செய்யுங்கள். யாராவது இதை உங்களுக்கு அனுப்பியிருந்தால், அது ஒரு மோசடி.";
+"qr.notice.chatWithStranger" = "இது உங்களுக்குத் தெரியாத ஒருவருடன் அரட்டையைத் தொடங்கக்கூடும். நீங்கள் நம்பும் தளத்திலிருந்து உரையாடலை வெளியே நகர்த்த மோசடிக்காரர்கள் அரட்டை இணைப்புகளைப் பயன்படுத்துகின்றனர்.";
+"qr.notice.authenticatorExport" = "அங்கீகரிப்பு ஆப்பில் உள்ள எல்லாக் கணக்குகளின் ரகசியங்களும் இந்தக் குறியீட்டில் உள்ளன. இதை ஸ்கேன் செய்யும் எவரும் உங்கள் உள்நுழைவுக் குறியீடுகளை உருவாக்க முடியும். உங்கள் சொந்தப் புதிய ஃபோனில் மட்டுமே ஸ்கேன் செய்யுங்கள், யாருடனும் பகிர வேண்டாம்.";
+"qr.notice.installESIM" = "இதை நிறுவ, உங்கள் ஃபோனின் மொபைல் நெட்வொர்க் அமைப்புகளைத் திறந்து eSIM-ஐச் சேருங்கள்.";
+"qr.notice.mobilePlan" = "இது உங்கள் ஃபோனில் ஒரு மொபைல் திட்டத்தை (eSIM) நிறுவும். இது உங்கள் சொந்த மொபைல் நிறுவனத்திடமிருந்து வந்திருந்தால் மட்டும் தொடருங்கள்.";
+"qr.notice.deviceSetupCode" = "இது ஒரு ஸ்மார்ட்-ஹோம் சாதனத்தின் அமைவுக் குறியீடு. இதை ஸ்கேன் செய்யும் எவரும் அந்தச் சாதனத்தைத் தங்கள் வீட்டில் சேர்க்க முடியும். உங்களுக்குச் சொந்தமான சாதனத்துக்கு, உங்கள் ஸ்மார்ட்-ஹோம் ஆப்பில் மட்டுமே ஸ்கேன் செய்யுங்கள்.";
+"qr.notice.healthCertificate" = "இது ஒரு சுகாதாரச் சான்றிதழ். இதில் ஒரு பெயர், பிறந்த தேதி, மருத்துவ விவரங்கள் உள்ளன. இது உங்கள் ஃபோனிலேயே படிக்கப்பட்டது, எங்கும் அனுப்பப்படவில்லை. இதைப் பகிர வேண்டாம்.";
+"qr.notice.unsafeLink" = "இது இணைய முகவரி அல்ல. இந்த வகை இணைப்புகள் உங்கள் ஃபோனில் குறியீட்டை இயக்கலாம் அல்லது கோப்புகளைத் திறக்கலாம். இதைத் திறக்க வேண்டாம்.";
+"qr.notice.serviceCode" = "இது சாதாரண எண் அல்ல, ஃபோன் சேவைக் குறியீடு. இத்தகைய குறியீடுகள் உங்கள் அழைப்புகளைத் திருப்பிவிடலாம், அமைப்புகளை மாற்றலாம் அல்லது கட்டணம் ஏற்படுத்தலாம். உங்கள் சேவை வழங்குநர் சொன்னால் மட்டுமே டயல் செய்யுங்கள்.";
+"qr.notice.premiumNumber" = "இது கூடுதல் கட்டண எண் போலத் தெரிகிறது. இதை அழைத்தால் நிமிடத்துக்கு அதிகக் கட்டணம் ஆகலாம்.";
+
+"qr.action.openInApp" = "ஆப்பில் திற";
+"qr.action.openInPaymentApp" = "கட்டண ஆப்பில் திற";
+"qr.action.joinWiFi" = "நெட்வொர்க்கில் இணை";
+"qr.action.addToContacts" = "தொடர்புகளில் சேர்";
+"qr.action.addToCalendar" = "கேலெண்டரில் சேர்";
+"qr.action.copy" = "நகலெடு";
+"qr.action.copyAll" = "அனைத்தையும் நகலெடு";
+"qr.action.copyIBAN" = "IBAN-ஐ நகலெடு";
+"qr.action.copyAddress" = "முகவரியை நகலெடு";
+"qr.action.copyPassword" = "கடவுச்சொல்லை நகலெடு";
+
+"content.done" = "முடிந்தது";
+"content.copied" = "நகலெடுக்கப்பட்டது";
+"content.raw.show" = "மூல உள்ளடக்கத்தைக் காட்டு";
+"content.raw.hide" = "மூல உள்ளடக்கத்தை மறை";
+"content.raw.secretHidden" = "ரகசியப் பகுதிகள் காட்டப்படவில்லை.";
+"content.secret.show" = "மறைந்த உரையைக் காட்டு";
+"content.secret.hide" = "உரையை மறை";
+"content.noApp.title" = "இதைத் திறக்க எதுவும் இல்லை";
+"content.noApp.message" = "இதைத் திறக்க இந்த ஃபோனில் எந்த ஆப்பும் இல்லை.";
+"content.wifi.failed.title" = "நெட்வொர்க்கில் இணைய முடியவில்லை";
+"content.wifi.failed.message" = "நெட்வொர்க் அருகில் உள்ளதா எனச் சரிபாருங்கள். கடவுச்சொல்லை நகலெடுத்து அமைப்புகளிலும் இணையலாம்.";
+"content.history.redacted" = "கடவுச்சொற்கள், குறியீடுகள், ரகசியங்கள் வரலாற்றில் வைக்கப்படுவதில்லை.";
+
+/* History */
+"history.title" = "முந்தைய ஸ்கேன்கள்";
+"history.note" = "உங்கள் வரலாறு இந்த ஃபோனிலேயே இருக்கும்.";
+"history.clear" = "அனைத்தையும் அழி";
+"history.clear.confirm.title" = "முழு வரலாற்றையும் அழிக்கவா?";
+"history.clear.confirm.message" = "இது இந்த ஃபோனில் உள்ள முந்தைய ஸ்கேன்கள் அனைத்தையும் நீக்கும்.";
+"history.clear.confirm.action" = "அனைத்தையும் அழி";
+"history.empty.title" = "இன்னும் ஸ்கேன்கள் இல்லை";
+"history.empty.message" = "நீங்கள் ஸ்கேன் செய்யும் QR குறியீடுகள் இங்கே பட்டியலிடப்படும். இந்தப் பட்டியல் இந்த ஃபோனிலேயே இருக்கும்.";
+"history.unchecked" = "சரிபார்க்கப்படவில்லை";
+"history.failed" = "சரிபார்க்க முடியவில்லை";
+"history.delete" = "நீக்கு";

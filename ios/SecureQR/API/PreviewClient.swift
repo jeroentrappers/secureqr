@@ -38,6 +38,8 @@ struct PreviewClient {
         request.timeoutInterval = timeout
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue(accept, forHTTPHeaderField: "Accept")
+        // The server words its warnings and steps in the language the app is shown in.
+        request.setValue(Bundle.main.preferredLocalizations.first ?? "en", forHTTPHeaderField: "Accept-Language")
         if !apiKey.isEmpty {
             request.setValue(apiKey, forHTTPHeaderField: PreviewClient.apiKeyHeader)
         }

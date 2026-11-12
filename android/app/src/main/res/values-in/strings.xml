@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Common actions -->
+    <string name="action_back">Kembali</string>
+    <string name="action_open">Buka</string>
+    <string name="action_cancel">Batal</string>
+    <string name="action_open_anyway">Tetap buka</string>
+    <string name="action_dont_open">Jangan buka</string>
+    <string name="action_retry">Coba lagi</string>
+    <string name="action_open_in_app">Buka di aplikasi</string>
+    <string name="action_open_in_payment_app">Buka di aplikasi pembayaran</string>
+    <string name="action_join_wifi">Sambungkan</string>
+    <string name="action_add_contact">Tambah ke kontak</string>
+    <string name="action_add_event">Tambah ke kalender</string>
+    <string name="action_copy">Salin</string>
+    <string name="action_copy_all">Salin semua</string>
+    <string name="action_copy_iban">Salin IBAN</string>
+    <string name="action_copy_address">Salin alamat</string>
+    <string name="action_copy_password">Salin kata sandi</string>
+    <string name="copied">Disalin</string>
+
+    <!-- Scan -->
+    <!-- %1$s is scan_hint_emphasis, shown highlighted -->
+    <string name="scan_hint">Arahkan ke kode QR. %1$s sampai Anda memintanya.</string>
+    <string name="scan_hint_emphasis">Tidak ada yang terbuka</string>
+    <string name="scan_torch_on">Nyalakan senter</string>
+    <string name="scan_torch_off">Matikan senter</string>
+    <string name="scan_pick_image">Pindai gambar dari galeri</string>
+    <string name="scan_history">Riwayat</string>
+    <string name="scan_no_qr_in_image">Tidak ada kode QR di gambar itu.</string>
+    <string name="scan_image_failed">Gambar itu tidak dapat dibaca.</string>
+    <string name="scan_camera_failed">Kamera tidak dapat dinyalakan.</string>
+
+    <!-- Camera permission -->
+    <string name="permission_title">SecureQR memerlukan kamera Anda</string>
+    <string name="permission_rationale">Kamera hanya dipakai untuk membaca kode QR. Tidak ada yang direkam, dan gambar tidak pernah keluar dari ponsel Anda.</string>
+    <string name="permission_allow">Izinkan kamera</string>
+    <string name="permission_denied_title">Kamera dimatikan</string>
+    <string name="permission_denied_body">SecureQR tidak bisa memindai tanpa kamera. Anda bisa menyalakannya di Setelan, atau memindai gambar dari galeri.</string>
+    <string name="permission_open_settings">Buka Setelan</string>
+    <string name="permission_pick_image">Pindai gambar saja</string>
+
+    <!-- Checking -->
+    <string name="checking_label_says">Isi kode QR</string>
+    <string name="checking_label_following">Mengikuti tautan untuk Anda</string>
+    <string name="checking_contacting">Menghubungi server</string>
+    <string name="checking_step_done">Selesai</string>
+    <string name="checking_progress">Membukanya di browser tertutup…</string>
+    <string name="checking_note">Kami membuka tautan di server kami, tidak pernah di ponsel Anda.</string>
+
+    <!-- Decide -->
+    <string name="verdict_ok">Tidak ada tanda peringatan</string>
+    <string name="verdict_caution">Periksa dulu</string>
+    <string name="verdict_danger">Ini tampak berisiko</string>
+    <string name="decide_checked_just_now">Baru saja diperiksa</string>
+    <plurals name="decide_checked_minutes">
+        <item quantity="other">Diperiksa %d mnt lalu</item>
+    </plurals>
+    <string name="decide_label_land">Anda akan tiba di</string>
+    <string name="decide_label_path">Jalur yang dilalui</string>
+    <string name="decide_show_path">Tampilkan setiap langkah</string>
+    <string name="decide_hide_path">Sembunyikan langkah</string>
+    <string name="chip_https">HTTPS</string>
+    <string name="chip_not_encrypted">Tidak terenkripsi</string>
+    <string name="chip_no_redirects">Tanpa pengalihan</string>
+    <plurals name="chip_redirects">
+        <item quantity="other">%d pengalihan</item>
+    </plurals>
+    <string name="chip_blocklisted">Di daftar blokir</string>
+    <string name="chip_not_blocklisted">Tidak diblokir</string>
+    <string name="hop_start">Tautan yang dipindai</string>
+    <string name="hop_http">Pengalihan</string>
+    <string name="hop_client">Pengalihan oleh halaman</string>
+    <!-- %1$s is the kind of step, %2$d the HTTP status code -->
+    <string name="hop_with_status">%1$s · %2$d</string>
+    <string name="screenshot_description">Gambar halaman tempat Anda akan tiba</string>
+    <string name="screenshot_loading">Memuat gambar halaman…</string>
+    <string name="screenshot_expand">Tampilkan seluruh halaman</string>
+    <string name="screenshot_collapse">Tampilkan lebih sedikit</string>
+    <string name="screenshot_unavailable">Gambar halaman tidak tersedia</string>
+
+    <!-- Check failed -->
+    <string name="error_title">Tautan ini tidak dapat diperiksa</string>
+    <string name="error_offline">SecureQR tidak dapat dihubungi. Periksa koneksi internet Anda, lalu coba lagi.</string>
+    <string name="error_generic">Terjadi masalah saat memeriksa tautan ini.</string>
+    <!-- The server no longer accepts this version of the app -->
+    <string name="error_update_title">Perlu diperbarui</string>
+    <string name="error_update_needed">Versi aplikasi ini tidak bisa lagi memakai layanan. Perbarui SecureQR, lalu coba lagi.</string>
+    <string name="error_unchecked_warning">Tautan ini belum diperiksa. Jika Anda tetap membukanya, Anda tidak akan tahu ke mana arahnya sampai Anda tiba di sana.</string>
+    <string name="error_no_browser">Tidak ada browser untuk membuka tautan ini.</string>
+
+    <!-- Typed cards: titles -->
+    <string name="type_login">Kode masuk</string>
+    <string name="type_chat">Tautan chat</string>
+    <string name="type_swissqr">QR-bill Swiss</string>
+    <string name="type_otp_export">Ekspor autentikator</string>
+    <string name="type_esim">Paket seluler eSIM</string>
+    <string name="type_device">Perangkat rumah pintar</string>
+    <string name="type_healthcert">Sertifikat kesehatan</string>
+    <string name="type_unsafe">Tautan tidak aman</string>
+    <string name="type_paylink">Tautan pembayaran</string>
+    <string name="type_url">Tautan</string>
+    <string name="type_epc">Transfer bank</string>
+    <string name="type_emv">Kode pembayaran</string>
+    <string name="type_upi">Pembayaran UPI</string>
+    <string name="type_crypto">Pembayaran kripto</string>
+    <string name="type_wifi">Jaringan Wi-Fi</string>
+    <string name="type_contact">Kontak</string>
+    <string name="type_event">Acara kalender</string>
+    <string name="type_email">Email</string>
+    <string name="type_phone">Nomor telepon</string>
+    <string name="type_sms">SMS</string>
+    <string name="type_geo">Lokasi</string>
+    <string name="type_otp">Kunci rahasia masuk</string>
+    <string name="type_applink">Tautan aplikasi</string>
+    <string name="type_text">Teks</string>
+
+    <!-- Typed cards: field labels -->
+    <string name="field_beneficiary">Penerima</string>
+    <string name="field_iban">IBAN</string>
+    <string name="field_bic">BIC</string>
+    <string name="field_amount">Jumlah</string>
+    <string name="field_reference">Referensi</string>
+    <string name="field_message">Pesan</string>
+    <string name="field_merchant">Penjual</string>
+    <string name="field_city">Kota</string>
+    <string name="field_country">Negara</string>
+    <string name="field_currency">Mata uang</string>
+    <string name="field_payee_name">Nama penerima</string>
+    <string name="field_payee_address">Alamat penerima</string>
+    <string name="field_note">Catatan</string>
+    <string name="field_network">Jaringan</string>
+    <string name="field_address">Alamat</string>
+    <string name="field_label">Label</string>
+    <string name="field_security">Keamanan</string>
+    <string name="field_password">Kata sandi</string>
+    <string name="field_hidden">Tersembunyi</string>
+    <string name="field_name">Nama</string>
+    <string name="field_phone">Telepon</string>
+    <string name="field_email">Email</string>
+    <string name="field_organisation">Organisasi</string>
+    <string name="field_url">URL</string>
+    <string name="field_title">Judul</string>
+    <string name="field_start">Mulai</string>
+    <string name="field_end">Selesai</string>
+    <string name="field_location">Lokasi</string>
+    <string name="field_description">Deskripsi</string>
+    <string name="field_to">Kepada</string>
+    <string name="field_subject">Subjek</string>
+    <string name="field_body">Isi</string>
+    <string name="field_number">Nomor</string>
+    <string name="field_latitude">Lintang</string>
+    <string name="field_longitude">Bujur</string>
+    <string name="field_issuer">Penerbit</string>
+    <string name="field_account">Akun</string>
+    <string name="field_type">Jenis</string>
+    <string name="field_scheme">Skema</string>
+    <string name="field_text">Teks</string>
+    <string name="field_provider">Penyedia</string>
+    <string name="field_service">Layanan</string>
+    <string name="field_handle">Nama pengguna</string>
+    <string name="field_activation_code">Kode aktivasi</string>
+    <string name="value_invite">Tautan undangan</string>
+    <string name="value_none">Tidak ada</string>
+    <string name="value_yes">Ya</string>
+
+    <!-- Typed cards: notices -->
+    <string name="notice_payment">Ini permintaan pembayaran. Periksa nama, rekening, dan jumlahnya sebelum membayar. Pembayaran sulit dibatalkan.</string>
+    <string name="notice_paylink">Ini permintaan pembayaran. Periksa nama dan jumlahnya di aplikasi pembayaran sebelum mengonfirmasi. Pembayaran sulit dibatalkan.</string>
+    <string name="notice_epc_instruction">Untuk membayar, buka aplikasi bank Anda dan pindai kode QR ini dengan aplikasi tersebut.</string>
+    <string name="notice_crypto">Pembayaran kripto tidak dapat dibatalkan.</string>
+    <string name="notice_invalid_iban">Nomor rekening ini bukan IBAN yang valid.</string>
+    <string name="notice_otp">Ini kunci rahasia untuk masuk. Pindai hanya ke aplikasi autentikator milik Anda sendiri, dan jangan pernah membagikannya.</string>
+    <string name="notice_wifi_open">Jaringan ini tidak memakai kata sandi. Siapa pun di sekitar dapat melihat lalu lintas data Anda.</string>
+    <string name="notice_sms_short_code">Pesan ke nomor pendek bisa dikenai biaya.</string>
+    <string name="notice_app_link">Ini membuka aplikasi lain. Lanjutkan hanya jika Anda memang mengharapkannya.</string>
+    <string name="notice_login_code">Kode ini memasukkan perangkat lain ke akun Anda. Pindai hanya dari dalam aplikasi itu, di layar yang Anda buka sendiri. Jika seseorang mengirimkannya kepada Anda, itu penipuan.</string>
+    <string name="notice_chat_link">Ini memulai chat dengan orang yang mungkin tidak Anda kenal. Penipu memakai tautan chat untuk memindahkan percakapan dari situs yang Anda percayai.</string>
+    <string name="notice_otp_export">Kode ini berisi kunci rahasia semua akun di aplikasi autentikator. Siapa pun yang memindainya bisa membuat kode masuk Anda. Pindai hanya dengan ponsel baru milik Anda sendiri, dan jangan pernah membagikannya.</string>
+    <string name="notice_esim_instruction">Untuk memasangnya, buka setelan jaringan seluler di ponsel Anda dan tambahkan eSIM.</string>
+    <string name="notice_esim">Ini memasang paket seluler (eSIM) di ponsel Anda. Lanjutkan hanya jika berasal dari operator seluler Anda sendiri.</string>
+    <string name="notice_device_setup">Ini kode penyiapan untuk perangkat rumah pintar. Siapa pun yang memindainya bisa menambahkan perangkat itu ke rumah mereka. Pindai hanya dengan aplikasi rumah pintar Anda, untuk perangkat milik Anda.</string>
+    <string name="notice_health_cert">Ini sertifikat kesehatan. Isinya nama, tanggal lahir, dan data medis. Kode ini dibaca di ponsel Anda dan tidak dikirim ke mana pun. Jangan membagikannya.</string>
+    <string name="notice_unsafe_link">Ini bukan alamat web. Tautan seperti ini bisa menjalankan kode atau membuka file di ponsel Anda. Jangan membukanya.</string>
+    <string name="notice_dialer_code">Ini kode layanan telepon, bukan nomor biasa. Kode seperti ini bisa mengalihkan panggilan, mengubah setelan, atau dikenai biaya. Hubungi hanya jika operator Anda memintanya.</string>
+    <string name="notice_premium_number">Ini tampak seperti nomor premium. Menelepon nomor ini bisa sangat mahal per menit.</string>
+    <string name="notice_local_only">Ini dibaca di ponsel Anda dan tidak dikirim ke mana pun.</string>
+
+    <!-- Typed cards: other -->
+    <string name="content_no_payment_app">Tidak ada aplikasi di ponsel ini yang bisa membuka tautan pembayaran ini.</string>
+    <string name="content_show_raw">Tampilkan isi asli</string>
+    <string name="content_hide_raw">Sembunyikan isi asli</string>
+    <string name="content_reveal">Tampilkan</string>
+    <string name="content_conceal">Sembunyikan</string>
+    <string name="wifi_password_copied">Kata sandi disalin. Pilih jaringannya untuk tersambung.</string>
+    <string name="wifi_choose_in_settings">Pilih jaringannya untuk tersambung.</string>
+    <string name="wifi_cannot_join">Setelan Wi-Fi tidak dapat dibuka.</string>
+    <string name="content_no_app">Tidak ada aplikasi di ponsel ini yang bisa membukanya.</string>
+    <string name="content_secret_hidden">Bagian rahasianya tidak ditampilkan di sini.</string>
+    <string name="content_from_history_redacted">Rahasia tidak pernah disimpan di riwayat, jadi entri ini tidak lengkap. Pindai kodenya lagi untuk melihat semuanya.</string>
+
+    <!-- History -->
+    <string name="history_title">Riwayat</string>
+    <string name="history_note">Hanya disimpan di ponsel ini.</string>
+    <string name="history_empty">Belum ada yang dipindai.</string>
+    <string name="history_clear">Hapus semua</string>
+    <string name="history_clear_title">Hapus riwayat?</string>
+    <string name="history_clear_body">Ini menghapus semua pindaian sebelumnya dari ponsel ini.</string>
+    <string name="history_clear_confirm">Hapus</string>
+    <!-- %1$s is the kind of content (for example "Link"), %2$s a relative time (for example "5 minutes ago") -->
+    <string name="history_subtitle">%1$s · %2$s</string>
+    <string name="history_just_now">Baru saja</string>
+    <string name="history_level_ok">Tidak ada tanda peringatan</string>
+    <string name="history_level_caution">Perlu diperiksa</string>
+    <string name="history_level_danger">Tampak berisiko</string>
+    <string name="history_level_neutral">Tanpa peringatan</string>
+    <string name="history_level_unchecked">Belum diperiksa</string>
+    <string name="history_level_failed">Tidak dapat diperiksa</string>
+    <!-- %1$s is the kind of content, %2$s the outcome (history_level_failed), %3$s a relative time -->
+    <string name="history_subtitle_with_state">%1$s · %2$s · %3$s</string>
+    <string name="history_delete">Hapus</string>
+    <string name="history_entry_options">Opsi untuk entri ini</string>
+</resources>

@@ -1,0 +1,230 @@
+/* SecureQR, Simplified Chinese. Keys are stable; values may be translated. */
+
+/* Common */
+"common.ok" = "好";
+"common.cancel" = "取消";
+"common.yes" = "是";
+"common.no" = "否";
+"common.none" = "无";
+
+/* Scanner */
+"scan.hint.before" = "对准一个二维码。在你同意之前，";
+"scan.hint.strong" = "什么都不会打开";
+"scan.hint.after" = "。";
+"scan.torch.on" = "打开手电筒";
+"scan.torch.off" = "关闭手电筒";
+"scan.photo" = "扫描照片";
+"scan.history" = "记录";
+"scan.photo.none.title" = "没有找到二维码";
+"scan.photo.none.message" = "这张照片中没有找到二维码。请换一张更清晰或离得更近的照片。";
+"scan.permission.title" = "相机权限";
+"scan.permission.message" = "SecureQR 只用相机读取二维码。不会录制任何内容，在你同意之前什么都不会打开。";
+"scan.permission.continue" = "继续";
+"scan.denied.title" = "相机已关闭";
+"scan.denied.message" = "SecureQR 未获准使用相机。你可以在设置中允许，或者用下面的按钮从照片中扫描二维码。";
+"scan.denied.settings" = "打开设置";
+"scan.unavailable.title" = "没有可用的相机";
+"scan.unavailable.message" = "你仍然可以用下面的按钮从照片中扫描二维码。";
+
+/* Checking */
+"checking.says" = "二维码内容";
+"checking.following" = "正在为你跟随链接";
+"checking.contacting" = "正在连接服务器";
+"checking.step.active" = "进行中";
+"checking.step.done" = "完成";
+"checking.step.opening" = "正在打开链接…";
+"checking.step.following" = "正在跟随跳转…";
+"checking.step.screenshot" = "正在截图…";
+"checking.note" = "我们在自己的服务器上打开链接，绝不在你的手机上打开。";
+
+/* Verdict headlines. "ok" must never be worded as "safe". */
+"verdict.ok" = "未发现警示信号";
+"verdict.caution" = "请留意";
+"verdict.danger" = "看起来有风险";
+
+/* Decide */
+"decide.landOn" = "最终将到达";
+"decide.chip.https" = "HTTPS";
+"decide.chip.notEncrypted" = "未加密";
+"decide.chip.redirects.none" = "无跳转";
+"decide.chip.redirects.one" = "1 次跳转";
+"decide.chip.redirects.many" = "%d 次跳转";
+"decide.chip.blocklisted" = "在黑名单中";
+"decide.chip.notBlocklisted" = "不在黑名单";
+"decide.hops.show" = "显示路径";
+"decide.hops.hide" = "隐藏路径";
+"decide.open" = "打开";
+"decide.openAnyway" = "仍然打开";
+"decide.dontOpen" = "不打开";
+"decide.screenshot.more" = "显示整个页面";
+"decide.screenshot.less" = "收起";
+"decide.checked.now" = "不到一分钟前检查";
+"decide.checked.one" = "1 分钟前检查";
+"decide.checked.many" = "%d 分钟前检查";
+"decide.screenshot.label" = "页面截图";
+"decide.screenshot.none" = "无法显示这个页面。";
+"decide.screenshot.failed" = "截图已不可用。";
+
+/* Hops */
+"hop.start" = "扫描的链接";
+"hop.http" = "跳转";
+"hop.client" = "页面发起的跳转";
+"hop.unknown" = "步骤";
+
+/* Failures */
+"failure.offline.title" = "没有网络连接";
+"failure.offline.message" = "无法连接 SecureQR。请检查网络连接后重试。";
+"failure.timeout.title" = "耗时太长";
+"failure.timeout.message" = "检查没有及时完成。请稍后重试。";
+"failure.generic.title" = "无法检查这个链接";
+"failure.generic.message" = "我们这边出了问题。请稍后重试。";
+"failure.server.invalid_url.title" = "这不是我们能检查的链接";
+"failure.server.invalid_url.message" = "这个链接不是有效的网址，或者太长了。";
+"failure.server.unauthorized.title" = "需要更新";
+"failure.server.unauthorized.message" = "这个版本的应用已无法使用本服务。请更新 SecureQR 后重试。";
+"failure.server.blocked_target.title" = "这个链接指向私有地址";
+"failure.server.blocked_target.message" = "它通向私有网络或内部网络，我们不会访问。";
+"failure.server.unreachable.title" = "网站没有响应";
+"failure.server.unreachable.message" = "找不到这个网站，或者它拒绝了连接。";
+"failure.server.rate_limited.title" = "检查次数太多";
+"failure.server.rate_limited.message" = "你在短时间内检查了很多链接。请稍等片刻再试。";
+"failure.server.timeout.title" = "页面加载太久";
+"failure.server.timeout.message" = "页面没有及时加载完成。";
+"failure.server.internal.title" = "无法检查这个链接";
+"failure.server.internal.message" = "我们这边出了问题。请稍后重试。";
+"failure.unchecked.note" = "这个链接没有经过检查。我们无法告诉你它通向哪里。";
+"failure.retry" = "重试";
+"failure.confirm.title" = "不检查就打开？";
+"failure.confirm.message" = "我们无法检查这个链接，所以无法告诉你它通向哪里，也无法告诉你是否有警示信号。";
+
+/* Typed cards */
+"qr.type.login" = "其他设备的登录码";
+"qr.type.chat" = "聊天链接";
+"qr.type.swissqr" = "银行转账";
+"qr.type.spd" = "银行转账";
+"qr.type.otpexport" = "验证器导出";
+"qr.type.esim" = "eSIM";
+"qr.type.device" = "智能家居设置码";
+"qr.type.healthcert" = "健康证明";
+"qr.type.unsafe" = "不安全的链接";
+"qr.type.paylink" = "支付链接";
+"qr.type.url" = "链接";
+"qr.type.epc" = "银行转账";
+"qr.type.emv" = "支付";
+"qr.type.upi" = "UPI 支付";
+"qr.type.crypto" = "加密货币支付";
+"qr.type.wifi" = "Wi-Fi 网络";
+"qr.type.contact" = "联系人";
+"qr.type.event" = "日历活动";
+"qr.type.email" = "电子邮件";
+"qr.type.phone" = "电话号码";
+"qr.type.sms" = "短信";
+"qr.type.geo" = "位置";
+"qr.type.otp" = "登录验证码设置";
+"qr.type.applink" = "应用链接";
+"qr.type.text" = "文本";
+
+"qr.field.beneficiary" = "收款人";
+"qr.field.iban" = "IBAN";
+"qr.field.bic" = "BIC";
+"qr.field.amount" = "金额";
+"qr.field.reference" = "参考号";
+"qr.field.message" = "附言";
+"qr.field.merchant" = "商户";
+"qr.field.city" = "城市";
+"qr.field.country" = "国家/地区";
+"qr.field.currency" = "货币";
+"qr.field.payeeName" = "收款人姓名";
+"qr.field.payeeAddress" = "收款人地址";
+"qr.field.note" = "备注";
+"qr.field.network" = "网络";
+"qr.field.address" = "地址";
+"qr.field.label" = "标签";
+"qr.field.security" = "安全类型";
+"qr.field.password" = "密码";
+"qr.field.hidden" = "隐藏网络";
+"qr.field.name" = "姓名";
+"qr.field.phone" = "电话";
+"qr.field.email" = "电子邮件";
+"qr.field.organisation" = "单位";
+"qr.field.url" = "网址";
+"qr.field.title" = "标题";
+"qr.field.start" = "开始";
+"qr.field.end" = "结束";
+"qr.field.location" = "地点";
+"qr.field.details" = "描述";
+"qr.field.to" = "收件人";
+"qr.field.subject" = "主题";
+"qr.field.body" = "正文";
+"qr.field.number" = "号码";
+"qr.field.latitude" = "纬度";
+"qr.field.longitude" = "经度";
+"qr.field.issuer" = "发行方";
+"qr.field.account" = "账户";
+"qr.field.type" = "类型";
+"qr.field.scheme" = "协议";
+"qr.field.content" = "内容";
+"qr.field.service" = "服务";
+"qr.field.handle" = "用户名";
+"qr.field.provider" = "运营商";
+"qr.field.activationCode" = "激活码";
+
+"qr.value.inviteLink" = "邀请链接";
+
+"qr.notice.paymentRequest" = "这是一个付款请求。付款前请核对姓名、账户和金额。付款很难撤回。";
+"qr.notice.paymentRequestInApp" = "这是一个付款请求。确认前请在支付应用中核对姓名和金额。付款很难撤回。";
+"qr.notice.scanWithBankingApp" = "如需付款，请打开你的银行应用，用它扫描这个二维码。";
+"qr.notice.cryptoIrreversible" = "加密货币付款无法撤回。";
+"qr.notice.invalidIBAN" = "这个账号不是有效的 IBAN。";
+"qr.notice.signInSecret" = "这是一个登录密钥。只能用你自己的验证器应用扫描，绝不要分享给他人。";
+"qr.notice.openNetwork" = "这个网络没有密码。附近的任何人都能看到你的网络流量。";
+"qr.notice.shortCode" = "发送到短号码的短信可能会产生费用。";
+"qr.notice.opensOtherApp" = "这会打开另一个应用。只有在你预期如此时才继续。";
+"qr.notice.readOnDevice" = "这些内容在你的手机上读取，没有发送到任何地方。";
+"qr.notice.signsInOtherDevice" = "这个码会让另一台设备登录你的账户。只能在那个应用内、在你自己打开的页面上扫描。如果是别人发给你的，那就是诈骗。";
+"qr.notice.chatWithStranger" = "这会和一个你可能不认识的人开始聊天。骗子会用聊天链接把对话从你信任的网站上转移走。";
+"qr.notice.authenticatorExport" = "这个码包含验证器应用中所有账户的密钥。任何扫描它的人都能生成你的登录验证码。只能用你自己的新手机扫描，绝不要分享给他人。";
+"qr.notice.installESIM" = "如需安装，请打开手机的移动网络设置并添加 eSIM。";
+"qr.notice.mobilePlan" = "这会在你的手机上安装一个移动套餐（eSIM）。只有当它来自你自己的运营商时才继续。";
+"qr.notice.deviceSetupCode" = "这是智能家居设备的设置码。任何扫描它的人都能把这台设备添加到自己家里。只能用你的智能家居应用扫描，而且必须是你自己的设备。";
+"qr.notice.healthCertificate" = "这是一份健康证明，包含姓名、出生日期和医疗信息。它在你的手机上读取，没有发送到任何地方。请不要分享。";
+"qr.notice.unsafeLink" = "这不是网址。这类链接可以在你的手机上运行代码或打开文件。请不要打开。";
+"qr.notice.serviceCode" = "这是电话服务代码，不是普通号码。这类代码可以转接你的来电、更改设置或产生费用。只有在运营商要求你拨打时才拨打。";
+"qr.notice.premiumNumber" = "这看起来是一个收费号码。拨打它每分钟可能花费很多。";
+
+"qr.action.openInApp" = "在应用中打开";
+"qr.action.openInPaymentApp" = "在支付应用中打开";
+"qr.action.joinWiFi" = "加入网络";
+"qr.action.addToContacts" = "添加到通讯录";
+"qr.action.addToCalendar" = "添加到日历";
+"qr.action.copy" = "复制";
+"qr.action.copyAll" = "全部复制";
+"qr.action.copyIBAN" = "复制 IBAN";
+"qr.action.copyAddress" = "复制地址";
+"qr.action.copyPassword" = "复制密码";
+
+"content.done" = "完成";
+"content.copied" = "已复制";
+"content.raw.show" = "显示原始内容";
+"content.raw.hide" = "隐藏原始内容";
+"content.raw.secretHidden" = "保密部分已省略。";
+"content.secret.show" = "显示隐藏的文字";
+"content.secret.hide" = "隐藏文字";
+"content.noApp.title" = "无法打开";
+"content.noApp.message" = "这台手机上没有可以打开它的应用。";
+"content.wifi.failed.title" = "无法加入网络";
+"content.wifi.failed.message" = "请确认网络在信号范围内。你也可以复制密码，然后在设置中加入。";
+"content.history.redacted" = "密码、验证码和密钥不会保存在记录中。";
+
+/* History */
+"history.title" = "扫描记录";
+"history.note" = "你的记录只保存在这台手机上。";
+"history.clear" = "全部清除";
+"history.clear.confirm.title" = "清除全部记录？";
+"history.clear.confirm.message" = "这会删除这台手机上所有的扫描记录。";
+"history.clear.confirm.action" = "全部清除";
+"history.empty.title" = "还没有扫描记录";
+"history.empty.message" = "你扫描的二维码会列在这里。列表只保存在这台手机上。";
+"history.unchecked" = "未检查";
+"history.failed" = "无法检查";
+"history.delete" = "删除";

@@ -1,0 +1,20 @@
+Kode QR tidak memberi tahu ke mana arahnya. SecureQR memeriksanya lebih dulu.
+
+Saat Anda memindai kode yang berisi tautan web, SecureQR tidak membukanya. Server kami mengunjungi tautan itu untuk Anda, mengikuti setiap pengalihan, dan mengambil gambar halaman terakhirnya. Anda melihat tujuan sebenarnya, gambarnya, dan tanda peringatan apa pun, lalu Anda yang memutuskan.
+
+▌Apa yang diperiksa
+• Ke mana tautan sebenarnya berakhir, dengan setiap persinggahan di sepanjang jalan
+• Situs yang ada di daftar ancaman Quad9, Cloudflare, dan DNS4EU, serta di daftar terbuka situs phishing yang aktif
+• Halaman yang meminta kata sandi atau data kartu, tidak terenkripsi, memakai karakter yang mirip, atau mencoba mengunduh file
+• Tautan yang mencoba membuka aplikasi lain
+
+▌Kode pembayaran dan lainnya
+Transfer bank, permintaan pembayaran, jaringan Wi-Fi, kontak, dan kode masuk dibaca di ponsel Anda dan dijelaskan dengan bahasa sederhana sebelum terjadi apa pun. Semua itu tidak pernah dikirim ke kami.
+
+▌Privasi sejak awal
+• Tanpa akun, tanpa iklan, dan tanpa analitik kami sendiri
+• Hanya tautan web yang dikirim ke server kami; semua yang lain tetap di ponsel Anda
+• Hasil dan gambar halaman disimpan selama satu jam, lalu dihapus
+• Riwayat pindaian tetap di ponsel Anda, dan Anda bisa menghapusnya kapan saja
+
+Hasil bersih berarti kami tidak menemukan tanda peringatan. Itu bukan jaminan.

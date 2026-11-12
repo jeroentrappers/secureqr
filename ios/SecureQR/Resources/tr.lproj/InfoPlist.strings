@@ -1,0 +1,4 @@
+"NSCameraUsageDescription" = "SecureQR, kamerayı QR kodları okumak için kullanır. Hiçbir şey kaydedilmez.";
+"NSContactsUsageDescription" = "SecureQR, taranan bir kişiyi yalnızca Kişilere ekle'ye dokunduğunuzda kişilerinize ekler. Kişilerinizi asla okumaz.";
+"NSCalendarsUsageDescription" = "SecureQR, taranan bir etkinliği yalnızca Takvime ekle'ye dokunduğunuzda takviminize ekler. Takviminizi asla okumaz.";
+"NSCalendarsWriteOnlyAccessUsageDescription" = "SecureQR, taranan bir etkinliği yalnızca Takvime ekle'ye dokunduğunuzda takviminize ekler.";

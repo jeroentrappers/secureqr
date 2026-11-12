@@ -1,11 +1,16 @@
 import { isIP } from 'node:net';
 import { getDomain } from 'tldts';
+import { english, type Params } from './i18n.js';
 
 export type Level = 'ok' | 'caution' | 'danger';
 export interface Reason {
   code: string;
+  /** English; put into the asker's language from code and params when the answer is sent. */
   message: string;
+  params?: Params;
 }
+
+const reason = (code: string, params?: Params): Reason => ({ code, message: english(`reason.${code}`, params), ...(params ? { params } : {}) });
 export interface Verdict {
   level: Level;
   reasons: Reason[];
@@ -42,13 +47,13 @@ export function judge(e: Evidence): Verdict {
   const finalHost = bareHost(final);
 
   if (e.flaggedBy?.length) {
-    danger.push({ code: 'known_malicious', message: `Listed as malicious by ${new Intl.ListFormat('en', { type: 'conjunction' }).format(e.flaggedBy)}` });
+    danger.push(reason('known_malicious', { providers: e.flaggedBy }));
   }
-  if (e.download) danger.push({ code: 'download', message: 'The link tried to download a file' });
-  if (final.protocol !== 'https:') danger.push({ code: 'not_https', message: 'The final page is not encrypted' });
-  if (isIP(finalHost)) danger.push({ code: 'ip_address', message: 'The address is a bare number, not a name' });
+  if (e.download) danger.push(reason('download'));
+  if (final.protocol !== 'https:') danger.push(reason('not_https'));
+  if (isIP(finalHost)) danger.push(reason('ip_address'));
   if (finalHost.split('.').some((l) => l.startsWith('xn--'))) {
-    danger.push({ code: 'lookalike_domain', message: 'The address uses look-alike characters' });
+    danger.push(reason('lookalike_domain'));
   }
   const hasCreds = [e.requestedUrl, ...e.hopUrls].some((raw) => {
     try {
@@ -58,15 +63,15 @@ export function judge(e: Evidence): Verdict {
       return false;
     }
   });
-  if (hasCreds) danger.push({ code: 'embedded_credentials', message: 'The link hides a login name inside the address' });
+  if (hasCreds) danger.push(reason('embedded_credentials'));
 
   if (registrableDomain(bareHost(start)) !== registrableDomain(finalHost)) {
-    caution.push({ code: 'domain_changed', message: 'Ends at a different site than it starts' });
+    caution.push(reason('domain_changed'));
   }
-  if (e.appScheme) caution.push({ code: 'opens_app', message: `The link tries to open another app (${e.appScheme})` });
-  if (e.asksPayment) caution.push({ code: 'asks_for_payment', message: 'The page asks for card details' });
-  if (e.asksPassword) caution.push({ code: 'asks_for_password', message: 'The page asks for a password' });
-  if (e.redirects >= 3) caution.push({ code: 'many_redirects', message: `Passed through ${e.redirects} redirects` });
+  if (e.appScheme) caution.push(reason('opens_app', { scheme: e.appScheme }));
+  if (e.asksPayment) caution.push(reason('asks_for_payment'));
+  if (e.asksPassword) caution.push(reason('asks_for_password'));
+  if (e.redirects >= 3) caution.push(reason('many_redirects', { count: e.redirects }));
 
   return { level: danger.length ? 'danger' : caution.length ? 'caution' : 'ok', reasons: [...danger, ...caution] };
 }

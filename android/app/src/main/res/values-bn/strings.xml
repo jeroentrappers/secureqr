@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Common actions -->
+    <string name="action_back">ফিরে যান</string>
+    <string name="action_open">খুলুন</string>
+    <string name="action_cancel">বাতিল</string>
+    <string name="action_open_anyway">তবুও খুলুন</string>
+    <string name="action_dont_open">খুলবেন না</string>
+    <string name="action_retry">আবার চেষ্টা করুন</string>
+    <string name="action_open_in_app">অ্যাপে খুলুন</string>
+    <string name="action_open_in_payment_app">পেমেন্ট অ্যাপে খুলুন</string>
+    <string name="action_join_wifi">নেটওয়ার্কে যুক্ত হন</string>
+    <string name="action_add_contact">কন্টাক্টে যোগ করুন</string>
+    <string name="action_add_event">ক্যালেন্ডারে যোগ করুন</string>
+    <string name="action_copy">কপি করুন</string>
+    <string name="action_copy_all">সব কপি করুন</string>
+    <string name="action_copy_iban">IBAN কপি করুন</string>
+    <string name="action_copy_address">ঠিকানা কপি করুন</string>
+    <string name="action_copy_password">পাসওয়ার্ড কপি করুন</string>
+    <string name="copied">কপি হয়েছে</string>
+
+    <!-- Scan -->
+    <!-- %1$s is scan_hint_emphasis, shown highlighted -->
+    <string name="scan_hint">একটি QR কোডের দিকে ক্যামেরা ধরুন। আপনি না বলা পর্যন্ত %1$s।</string>
+    <string name="scan_hint_emphasis">কিছুই খুলবে না</string>
+    <string name="scan_torch_on">টর্চ চালু করুন</string>
+    <string name="scan_torch_off">টর্চ বন্ধ করুন</string>
+    <string name="scan_pick_image">গ্যালারির ছবি থেকে স্ক্যান করুন</string>
+    <string name="scan_history">হিস্ট্রি</string>
+    <string name="scan_no_qr_in_image">ওই ছবিতে কোনো QR কোড পাওয়া যায়নি।</string>
+    <string name="scan_image_failed">ওই ছবিটি পড়া যায়নি।</string>
+    <string name="scan_camera_failed">ক্যামেরা চালু করা যায়নি।</string>
+
+    <!-- Camera permission -->
+    <string name="permission_title">SecureQR-এর আপনার ক্যামেরা প্রয়োজন</string>
+    <string name="permission_rationale">ক্যামেরা শুধু QR কোড পড়ার জন্য ব্যবহার করা হয়। কিছুই রেকর্ড করা হয় না, আর ছবি কখনো আপনার ফোনের বাইরে যায় না।</string>
+    <string name="permission_allow">ক্যামেরার অনুমতি দিন</string>
+    <string name="permission_denied_title">ক্যামেরা বন্ধ আছে</string>
+    <string name="permission_denied_body">ক্যামেরা ছাড়া SecureQR স্ক্যান করতে পারে না। সেটিংসে গিয়ে এটি চালু করতে পারেন, অথবা গ্যালারির একটি ছবি থেকে স্ক্যান করতে পারেন।</string>
+    <string name="permission_open_settings">সেটিংস খুলুন</string>
+    <string name="permission_pick_image">বরং একটি ছবি স্ক্যান করুন</string>
+
+    <!-- Checking -->
+    <string name="checking_label_says">QR কোডে লেখা</string>
+    <string name="checking_label_following">আপনার হয়ে লিংকটি অনুসরণ করা হচ্ছে</string>
+    <string name="checking_contacting">সার্ভারের সাথে যোগাযোগ করা হচ্ছে</string>
+    <string name="checking_step_done">সম্পন্ন</string>
+    <string name="checking_progress">একটি আলাদা, সুরক্ষিত ব্রাউজারে খোলা হচ্ছে…</string>
+    <string name="checking_note">আমরা লিংকটি আমাদের সার্ভারে খুলি, কখনো আপনার ফোনে নয়।</string>
+
+    <!-- Decide -->
+    <string name="verdict_ok">কোনো সতর্কসংকেত পাওয়া যায়নি</string>
+    <string name="verdict_caution">যাচাই করে নিন</string>
+    <string name="verdict_danger">এটি ঝুঁকিপূর্ণ মনে হচ্ছে</string>
+    <string name="decide_checked_just_now">এইমাত্র যাচাই করা হয়েছে</string>
+    <plurals name="decide_checked_minutes">
+        <item quantity="one">%d মিনিট আগে যাচাই করা হয়েছে</item>
+        <item quantity="other">%d মিনিট আগে যাচাই করা হয়েছে</item>
+    </plurals>
+    <string name="decide_label_land">আপনি পৌঁছাবেন</string>
+    <string name="decide_label_path">লিংকটি যে পথে গেছে</string>
+    <string name="decide_show_path">প্রতিটি ধাপ দেখুন</string>
+    <string name="decide_hide_path">ধাপগুলো লুকান</string>
+    <string name="chip_https">HTTPS</string>
+    <string name="chip_not_encrypted">এনক্রিপ্ট করা নয়</string>
+    <string name="chip_no_redirects">কোনো রিডাইরেক্ট নেই</string>
+    <plurals name="chip_redirects">
+        <item quantity="one">%dটি রিডাইরেক্ট</item>
+        <item quantity="other">%dটি রিডাইরেক্ট</item>
+    </plurals>
+    <string name="chip_blocklisted">ব্লকলিস্টে আছে</string>
+    <string name="chip_not_blocklisted">ব্লকলিস্টে নেই</string>
+    <string name="hop_start">স্ক্যান করা লিংক</string>
+    <string name="hop_http">রিডাইরেক্ট</string>
+    <string name="hop_client">পেজের করা রিডাইরেক্ট</string>
+    <!-- %1$s is the kind of step, %2$d the HTTP status code -->
+    <string name="hop_with_status">%1$s · %2$d</string>
+    <string name="screenshot_description">যে পেজে পৌঁছাবেন তার স্ক্রিনশট</string>
+    <string name="screenshot_loading">স্ক্রিনশট লোড হচ্ছে…</string>
+    <string name="screenshot_expand">পুরো পেজ দেখুন</string>
+    <string name="screenshot_collapse">কম দেখুন</string>
+    <string name="screenshot_unavailable">কোনো স্ক্রিনশট নেই</string>
+
+    <!-- Check failed -->
+    <string name="error_title">এই লিংকটি যাচাই করা যায়নি</string>
+    <string name="error_offline">SecureQR-এর সাথে যোগাযোগ করা যায়নি। ইন্টারনেট সংযোগ দেখে আবার চেষ্টা করুন।</string>
+    <string name="error_generic">এই লিংকটি যাচাই করার সময় কিছু একটা ভুল হয়েছে।</string>
+    <!-- The server no longer accepts this version of the app -->
+    <string name="error_update_title">আপডেট প্রয়োজন</string>
+    <string name="error_update_needed">অ্যাপের এই সংস্করণ দিয়ে আর সেবাটি ব্যবহার করা যাবে না। SecureQR আপডেট করে আবার চেষ্টা করুন।</string>
+    <string name="error_unchecked_warning">এই লিংকটি যাচাই করা হয়নি। তবুও খুললে, সেখানে না পৌঁছানো পর্যন্ত আপনি জানবেন না এটি কোথায় নিয়ে যায়।</string>
+    <string name="error_no_browser">এই লিংকটি খোলার মতো কোনো ব্রাউজার পাওয়া যায়নি।</string>
+
+    <!-- Typed cards: titles -->
+    <string name="type_login">সাইন-ইন কোড</string>
+    <string name="type_chat">চ্যাট লিংক</string>
+    <string name="type_swissqr">সুইস QR-বিল</string>
+    <string name="type_otp_export">অথেন্টিকেটর এক্সপোর্ট</string>
+    <string name="type_esim">eSIM মোবাইল প্ল্যান</string>
+    <string name="type_device">স্মার্ট-হোম ডিভাইস</string>
+    <string name="type_healthcert">স্বাস্থ্য সনদ</string>
+    <string name="type_unsafe">অনিরাপদ লিংক</string>
+    <string name="type_paylink">পেমেন্ট লিংক</string>
+    <string name="type_url">লিংক</string>
+    <string name="type_epc">ব্যাংক ট্রান্সফার</string>
+    <string name="type_emv">পেমেন্ট কোড</string>
+    <string name="type_upi">UPI পেমেন্ট</string>
+    <string name="type_crypto">ক্রিপ্টো পেমেন্ট</string>
+    <string name="type_wifi">Wi-Fi নেটওয়ার্ক</string>
+    <string name="type_contact">কন্টাক্ট</string>
+    <string name="type_event">ক্যালেন্ডার ইভেন্ট</string>
+    <string name="type_email">ইমেইল</string>
+    <string name="type_phone">ফোন নম্বর</string>
+    <string name="type_sms">SMS</string>
+    <string name="type_geo">অবস্থান</string>
+    <string name="type_otp">সাইন-ইন সিক্রেট</string>
+    <string name="type_applink">অ্যাপ লিংক</string>
+    <string name="type_text">টেক্সট</string>
+
+    <!-- Typed cards: field labels -->
+    <string name="field_beneficiary">প্রাপক</string>
+    <string name="field_iban">IBAN</string>
+    <string name="field_bic">BIC</string>
+    <string name="field_amount">পরিমাণ</string>
+    <string name="field_reference">রেফারেন্স</string>
+    <string name="field_message">বার্তা</string>
+    <string name="field_merchant">বিক্রেতা</string>
+    <string name="field_city">শহর</string>
+    <string name="field_country">দেশ</string>
+    <string name="field_currency">মুদ্রা</string>
+    <string name="field_payee_name">প্রাপকের নাম</string>
+    <string name="field_payee_address">প্রাপকের ঠিকানা</string>
+    <string name="field_note">নোট</string>
+    <string name="field_network">নেটওয়ার্ক</string>
+    <string name="field_address">ঠিকানা</string>
+    <string name="field_label">লেবেল</string>
+    <string name="field_security">নিরাপত্তা</string>
+    <string name="field_password">পাসওয়ার্ড</string>
+    <string name="field_hidden">লুকানো</string>
+    <string name="field_name">নাম</string>
+    <string name="field_phone">ফোন</string>
+    <string name="field_email">ইমেইল</string>
+    <string name="field_organisation">প্রতিষ্ঠান</string>
+    <string name="field_url">URL</string>
+    <string name="field_title">শিরোনাম</string>
+    <string name="field_start">শুরু</string>
+    <string name="field_end">শেষ</string>
+    <string name="field_location">স্থান</string>
+    <string name="field_description">বিবরণ</string>
+    <string name="field_to">প্রাপক</string>
+    <string name="field_subject">বিষয়</string>
+    <string name="field_body">মূল লেখা</string>
+    <string name="field_number">নম্বর</string>
+    <string name="field_latitude">অক্ষাংশ</string>
+    <string name="field_longitude">দ্রাঘিমাংশ</string>
+    <string name="field_issuer">প্রদানকারী</string>
+    <string name="field_account">অ্যাকাউন্ট</string>
+    <string name="field_type">ধরন</string>
+    <string name="field_scheme">স্কিম</string>
+    <string name="field_text">টেক্সট</string>
+    <string name="field_provider">প্রোভাইডার</string>
+    <string name="field_service">সেবা</string>
+    <string name="field_handle">হ্যান্ডেল</string>
+    <string name="field_activation_code">অ্যাক্টিভেশন কোড</string>
+    <string name="value_invite">আমন্ত্রণ লিংক</string>
+    <string name="value_none">নেই</string>
+    <string name="value_yes">হ্যাঁ</string>
+
+    <!-- Typed cards: notices -->
+    <string name="notice_payment">এটি একটি পেমেন্টের অনুরোধ। পেমেন্ট করার আগে নাম, অ্যাকাউন্ট ও পরিমাণ মিলিয়ে নিন। পেমেন্ট ফেরানো কঠিন।</string>
+    <string name="notice_paylink">এটি একটি পেমেন্টের অনুরোধ। নিশ্চিত করার আগে আপনার পেমেন্ট অ্যাপে নাম ও পরিমাণ মিলিয়ে নিন। পেমেন্ট ফেরানো কঠিন।</string>
+    <string name="notice_epc_instruction">পেমেন্ট করতে আপনার ব্যাংকিং অ্যাপ খুলে সেটি দিয়ে এই QR কোড স্ক্যান করুন।</string>
+    <string name="notice_crypto">ক্রিপ্টো পেমেন্ট ফেরানো যায় না।</string>
+    <string name="notice_invalid_iban">অ্যাকাউন্ট নম্বরটি সঠিক IBAN নয়।</string>
+    <string name="notice_otp">এটি একটি সাইন-ইন সিক্রেট। শুধু আপনার নিজের অথেন্টিকেটর অ্যাপে এটি স্ক্যান করুন, আর কখনো কাউকে দেবেন না।</string>
+    <string name="notice_wifi_open">এই নেটওয়ার্কের কোনো পাসওয়ার্ড নেই। আশেপাশের যে কেউ আপনার ডেটা আদান-প্রদান দেখতে পারে।</string>
+    <string name="notice_sms_short_code">ছোট নম্বরে মেসেজ পাঠাতে টাকা লাগতে পারে।</string>
+    <string name="notice_app_link">এটি অন্য একটি অ্যাপ খোলে। আপনি এটি আশা করে থাকলেই এগিয়ে যান।</string>
+    <string name="notice_login_code">এই কোড অন্য একটি ডিভাইসকে আপনার অ্যাকাউন্টে সাইন ইন করায়। শুধু সেই অ্যাপের ভেতর থেকে, নিজে খোলা কোনো স্ক্রিনে এটি স্ক্যান করুন। কেউ আপনাকে এটি পাঠিয়ে থাকলে, এটি প্রতারণা।</string>
+    <string name="notice_chat_link">এটি এমন কারও সাথে চ্যাট শুরু করে যাকে আপনি হয়তো চেনেন না। প্রতারকেরা বিশ্বস্ত সাইট থেকে কথোপকথন সরিয়ে নিতে চ্যাট লিংক ব্যবহার করে।</string>
+    <string name="notice_otp_export">এই কোডে একটি অথেন্টিকেটর অ্যাপের প্রতিটি অ্যাকাউন্টের সিক্রেট থাকে। যে এটি স্ক্যান করবে, সে আপনার সাইন-ইন কোড তৈরি করতে পারবে। শুধু আপনার নিজের নতুন ফোন দিয়ে এটি স্ক্যান করুন, আর কখনো কাউকে দেবেন না।</string>
+    <string name="notice_esim_instruction">ইনস্টল করতে আপনার ফোনের মোবাইল নেটওয়ার্ক সেটিংস খুলে একটি eSIM যোগ করুন।</string>
+    <string name="notice_esim">এটি আপনার ফোনে একটি মোবাইল প্ল্যান (eSIM) ইনস্টল করে। এটি আপনার নিজের মোবাইল অপারেটরের কাছ থেকে এলেই এগিয়ে যান।</string>
+    <string name="notice_device_setup">এটি একটি স্মার্ট-হোম ডিভাইসের সেটআপ কোড। যে এটি স্ক্যান করবে, সে ডিভাইসটি নিজের বাড়িতে যোগ করতে পারবে। শুধু আপনার স্মার্ট-হোম অ্যাপ দিয়ে, নিজের ডিভাইসের জন্য এটি স্ক্যান করুন।</string>
+    <string name="notice_health_cert">এটি একটি স্বাস্থ্য সনদ। এতে একটি নাম, জন্মতারিখ ও চিকিৎসা-সংক্রান্ত তথ্য থাকে। এটি আপনার ফোনেই পড়া হয়েছে এবং কোথাও পাঠানো হয়নি। এটি কাউকে দেবেন না।</string>
+    <string name="notice_unsafe_link">এটি কোনো ওয়েব ঠিকানা নয়। এ ধরনের লিংক আপনার ফোনে কোড চালাতে বা ফাইল খুলতে পারে। এটি খুলবেন না।</string>
+    <string name="notice_dialer_code">এটি একটি ফোন সার্ভিস কোড, সাধারণ নম্বর নয়। এ ধরনের কোড আপনার কল অন্য নম্বরে পাঠাতে, সেটিংস বদলাতে বা টাকা কাটতে পারে। আপনার অপারেটর বলে থাকলেই এটি ডায়াল করুন।</string>
+    <string name="notice_premium_number">এটি একটি প্রিমিয়াম-রেট নম্বর বলে মনে হচ্ছে। এতে কল করলে প্রতি মিনিটে অনেক টাকা লাগতে পারে।</string>
+    <string name="notice_local_only">এটি আপনার ফোনেই পড়া হয়েছে এবং কোথাও পাঠানো হয়নি।</string>
+
+    <!-- Typed cards: other -->
+    <string name="content_no_payment_app">এই ফোনের কোনো অ্যাপ এই পেমেন্ট লিংক খুলতে পারে না।</string>
+    <string name="content_show_raw">মূল কনটেন্ট দেখুন</string>
+    <string name="content_hide_raw">মূল কনটেন্ট লুকান</string>
+    <string name="content_reveal">দেখুন</string>
+    <string name="content_conceal">লুকান</string>
+    <string name="wifi_password_copied">পাসওয়ার্ড কপি হয়েছে। যুক্ত হতে নেটওয়ার্কটি বেছে নিন।</string>
+    <string name="wifi_choose_in_settings">যুক্ত হতে নেটওয়ার্কটি বেছে নিন।</string>
+    <string name="wifi_cannot_join">Wi-Fi সেটিংস খোলা যায়নি।</string>
+    <string name="content_no_app">এই ফোনের কোনো অ্যাপ এটি খুলতে পারে না।</string>
+    <string name="content_secret_hidden">গোপন অংশটি এখানে বাদ রাখা হয়েছে।</string>
+    <string name="content_from_history_redacted">গোপন তথ্য কখনো আপনার হিস্ট্রিতে সংরক্ষণ করা হয় না, তাই এই এন্ট্রিটি অসম্পূর্ণ। পুরোটা দেখতে কোডটি আবার স্ক্যান করুন।</string>
+
+    <!-- History -->
+    <string name="history_title">হিস্ট্রি</string>
+    <string name="history_note">শুধু এই ফোনেই রাখা হয়।</string>
+    <string name="history_empty">এখনো কিছু স্ক্যান করা হয়নি।</string>
+    <string name="history_clear">সব মুছুন</string>
+    <string name="history_clear_title">হিস্ট্রি মুছবেন?</string>
+    <string name="history_clear_body">এতে এই ফোন থেকে আগের সব স্ক্যান মুছে যাবে।</string>
+    <string name="history_clear_confirm">মুছুন</string>
+    <!-- %1$s is the kind of content (for example "Link"), %2$s a relative time (for example "5 minutes ago") -->
+    <string name="history_subtitle">%1$s · %2$s</string>
+    <string name="history_just_now">এইমাত্র</string>
+    <string name="history_level_ok">কোনো সতর্কসংকেত পাওয়া যায়নি</string>
+    <string name="history_level_caution">যাচাই করা দরকার</string>
+    <string name="history_level_danger">ঝুঁকিপূর্ণ মনে হয়েছিল</string>
+    <string name="history_level_neutral">কোনো সতর্কবার্তা নেই</string>
+    <string name="history_level_unchecked">যাচাই করা হয়নি</string>
+    <string name="history_level_failed">যাচাই করা যায়নি</string>
+    <!-- %1$s is the kind of content, %2$s the outcome (history_level_failed), %3$s a relative time -->
+    <string name="history_subtitle_with_state">%1$s · %2$s · %3$s</string>
+    <string name="history_delete">মুছুন</string>
+    <string name="history_entry_options">এই এন্ট্রির বিকল্প</string>
+</resources>

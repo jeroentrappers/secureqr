@@ -8,13 +8,16 @@ every submission is a command someone types.
 
 | | where | how it gets to the store |
 |---|---|---|
-| Listing text (English, Dutch) | `android/fastlane/metadata/android/`, `ios/fastlane/metadata/` | `metadata_only` (Android), `store_listing` (iOS) |
+| Listing text (21 languages) | `android/fastlane/metadata/android/`, `ios/fastlane/metadata/` | `metadata_only` (Android), `store_listing` (iOS) |
 | Screenshots, Play icon and feature graphic | built by `node design/store/build.mjs` into `android/fastlane/metadata/android/en-US/images/` and `ios/fastlane/screenshots/en-US/` | same lanes |
-| Privacy policy and support page | `site/privacy.html`, `site/support.html` → `https://qr.appmire.be/privacy`, `/support` | Ansible deploy of the server |
+| Privacy policy, terms and support page | `site/static/privacy.html`, `terms.html`, `support.html` → `https://qr.appmire.be/privacy`, `/terms`, `/support` (English only) | Ansible deploy of the server |
+| Landing page, 21 languages | `site/src/index.html` (template) and `site/src/i18n/<code>.json`, built by `node site/build.mjs` into `site/public/` | Ansible deploy (builds, then copies) |
 | iOS age rating | `ios/fastlane/rating_config.json` | `store_listing` |
 | Notes for App Review | `ios/fastlane/metadata/review_information/notes.txt` | `store_listing` |
 
-The screenshots are English only; both stores show them for Dutch too. They
+The screenshots are English only. Google Play shows them for Dutch too; for the
+App Store the build script copies them to `nl-NL`, because App Store Connect
+falls back only to the primary language (nl-NL), which must have its own. They
 are built from the captures in `design/screens`. To change a headline or swap
 a capture, edit the list at the top of `design/store/build.mjs` and run it
 again. The built pictures are not in git: build them on the machine that

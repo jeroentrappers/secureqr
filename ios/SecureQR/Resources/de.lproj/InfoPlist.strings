@@ -1,0 +1,4 @@
+"NSCameraUsageDescription" = "SecureQR verwendet die Kamera, um QR-Codes zu lesen. Es wird nichts aufgezeichnet.";
+"NSContactsUsageDescription" = "SecureQR fügt einen gescannten Kontakt nur dann Ihren Kontakten hinzu, wenn Sie auf „Zu Kontakten hinzufügen“ tippen. Ihre Kontakte werden nie gelesen.";
+"NSCalendarsUsageDescription" = "SecureQR fügt einen gescannten Termin nur dann Ihrem Kalender hinzu, wenn Sie auf „Zum Kalender hinzufügen“ tippen. Ihr Kalender wird nie gelesen.";
+"NSCalendarsWriteOnlyAccessUsageDescription" = "SecureQR fügt einen gescannten Termin nur dann Ihrem Kalender hinzu, wenn Sie auf „Zum Kalender hinzufügen“ tippen.";

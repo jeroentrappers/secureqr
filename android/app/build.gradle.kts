@@ -62,6 +62,11 @@ android {
     namespace = "be.appmire.secureqr"
     compileSdk = 36
 
+    // Lists the translated languages (values-xx folders) so Android 13+ offers them under the app's language setting.
+    androidResources {
+        generateLocaleConfig = true
+    }
+
     defaultConfig {
         applicationId = "be.appmire.secureqr"
         minSdk = 26

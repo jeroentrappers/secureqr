@@ -1,0 +1,230 @@
+/* SecureQR, Türkçe. Anahtarlar sabittir; değerler çevrilebilir. */
+
+/* Common */
+"common.ok" = "Tamam";
+"common.cancel" = "İptal";
+"common.yes" = "Evet";
+"common.no" = "Hayır";
+"common.none" = "Yok";
+
+/* Scanner */
+"scan.hint.before" = "Bir QR koda doğrultun. Siz istemedikçe ";
+"scan.hint.strong" = "hiçbir şey açılmaz";
+"scan.hint.after" = ".";
+"scan.torch.on" = "Işığı aç";
+"scan.torch.off" = "Işığı kapat";
+"scan.photo" = "Fotoğraf tara";
+"scan.history" = "Geçmiş";
+"scan.photo.none.title" = "QR kod bulunamadı";
+"scan.photo.none.message" = "Bu fotoğrafta QR kod bulamadık. Daha net veya daha yakından çekilmiş bir fotoğraf deneyin.";
+"scan.permission.title" = "Kamera erişimi";
+"scan.permission.message" = "SecureQR kamerayı yalnızca QR kodları okumak için kullanır. Hiçbir şey kaydedilmez ve siz istemedikçe hiçbir şey açılmaz.";
+"scan.permission.continue" = "Devam";
+"scan.denied.title" = "Kamera kapalı";
+"scan.denied.message" = "SecureQR'ın kamerayı kullanma izni yok. Ayarlar'dan izin verebilir ya da aşağıdaki düğmeyle bir fotoğraftaki QR kodu tarayabilirsiniz.";
+"scan.denied.settings" = "Ayarları aç";
+"scan.unavailable.title" = "Kamera yok";
+"scan.unavailable.message" = "Aşağıdaki düğmeyle yine de bir fotoğraftaki QR kodu tarayabilirsiniz.";
+
+/* Checking */
+"checking.says" = "QR kodda yazan";
+"checking.following" = "Bağlantı sizin için takip ediliyor";
+"checking.contacting" = "Sunucuya bağlanılıyor";
+"checking.step.active" = "devam ediyor";
+"checking.step.done" = "tamam";
+"checking.step.opening" = "Bağlantı açılıyor…";
+"checking.step.following" = "Yönlendirmeler takip ediliyor…";
+"checking.step.screenshot" = "Ekran görüntüsü alınıyor…";
+"checking.note" = "Bağlantıyı telefonunuzda değil, her zaman sunucumuzda açarız.";
+
+/* Verdict headlines. "ok" must never be worded as "safe". */
+"verdict.ok" = "Uyarı işareti bulunmadı";
+"verdict.caution" = "Buna dikkat edin";
+"verdict.danger" = "Bu riskli görünüyor";
+
+/* Decide */
+"decide.landOn" = "Varacağınız yer";
+"decide.chip.https" = "HTTPS";
+"decide.chip.notEncrypted" = "Şifrelenmemiş";
+"decide.chip.redirects.none" = "Yönlendirme yok";
+"decide.chip.redirects.one" = "1 yönlendirme";
+"decide.chip.redirects.many" = "%d yönlendirme";
+"decide.chip.blocklisted" = "Engel listesinde";
+"decide.chip.notBlocklisted" = "Engel listesinde yok";
+"decide.hops.show" = "Yolu göster";
+"decide.hops.hide" = "Yolu gizle";
+"decide.open" = "Aç";
+"decide.openAnyway" = "Yine de aç";
+"decide.dontOpen" = "Açma";
+"decide.screenshot.more" = "Sayfanın tamamını göster";
+"decide.screenshot.less" = "Daha az göster";
+"decide.checked.now" = "Bir dakikadan kısa süre önce kontrol edildi";
+"decide.checked.one" = "1 dk önce kontrol edildi";
+"decide.checked.many" = "%d dk önce kontrol edildi";
+"decide.screenshot.label" = "Sayfanın ekran görüntüsü";
+"decide.screenshot.none" = "Sayfa gösterilemedi.";
+"decide.screenshot.failed" = "Ekran görüntüsü artık mevcut değil.";
+
+/* Hops */
+"hop.start" = "Taranan bağlantı";
+"hop.http" = "Yönlendirme";
+"hop.client" = "Sayfanın yönlendirmesi";
+"hop.unknown" = "Adım";
+
+/* Failures */
+"failure.offline.title" = "Bağlantı yok";
+"failure.offline.message" = "SecureQR'a ulaşamadık. İnternet bağlantınızı kontrol edip tekrar deneyin.";
+"failure.timeout.title" = "Bu çok uzun sürüyor";
+"failure.timeout.message" = "Kontrol zamanında bitmedi. Biraz sonra tekrar deneyin.";
+"failure.generic.title" = "Bu bağlantı kontrol edilemedi";
+"failure.generic.message" = "Bizim tarafımızda bir sorun oluştu. Biraz sonra tekrar deneyin.";
+"failure.server.invalid_url.title" = "Bu, kontrol edebileceğimiz bir bağlantı değil";
+"failure.server.invalid_url.message" = "Bağlantı geçerli bir web adresi değil ya da çok uzun.";
+"failure.server.unauthorized.title" = "Güncelleme gerekli";
+"failure.server.unauthorized.message" = "Uygulamanın bu sürümü artık hizmeti kullanamıyor. SecureQR'ı güncelleyip tekrar deneyin.";
+"failure.server.blocked_target.title" = "Bu bağlantı özel bir adrese gidiyor";
+"failure.server.blocked_target.message" = "Özel veya dahili bir ağa gidiyor; bu tür ağları ziyaret etmiyoruz.";
+"failure.server.unreachable.title" = "Site yanıt vermedi";
+"failure.server.unreachable.message" = "Site bulunamadı veya bağlantıyı reddetti.";
+"failure.server.rate_limited.title" = "Çok fazla kontrol";
+"failure.server.rate_limited.message" = "Kısa sürede çok sayıda bağlantı kontrol ettiniz. Biraz bekleyip tekrar deneyin.";
+"failure.server.timeout.title" = "Sayfa çok uzun sürdü";
+"failure.server.timeout.message" = "Sayfa zamanında yüklenemedi.";
+"failure.server.internal.title" = "Bu bağlantı kontrol edilemedi";
+"failure.server.internal.message" = "Bizim tarafımızda bir sorun oluştu. Biraz sonra tekrar deneyin.";
+"failure.unchecked.note" = "Bu bağlantı kontrol edilmedi. Nereye götürdüğünü size söyleyemeyiz.";
+"failure.retry" = "Tekrar dene";
+"failure.confirm.title" = "Kontrol etmeden açılsın mı?";
+"failure.confirm.message" = "Bu bağlantıyı kontrol edemedik, bu yüzden nereye götürdüğünü veya uyarı işareti olup olmadığını size söyleyemeyiz.";
+
+/* Typed cards */
+"qr.type.login" = "Başka bir cihaz için giriş kodu";
+"qr.type.chat" = "Sohbet bağlantısı";
+"qr.type.swissqr" = "Banka havalesi";
+"qr.type.spd" = "Banka havalesi";
+"qr.type.otpexport" = "Doğrulayıcı dışa aktarımı";
+"qr.type.esim" = "eSIM";
+"qr.type.device" = "Akıllı ev kurulum kodu";
+"qr.type.healthcert" = "Sağlık sertifikası";
+"qr.type.unsafe" = "Güvenli olmayan bağlantı";
+"qr.type.paylink" = "Ödeme bağlantısı";
+"qr.type.url" = "Bağlantı";
+"qr.type.epc" = "Banka havalesi";
+"qr.type.emv" = "Ödeme";
+"qr.type.upi" = "UPI ödemesi";
+"qr.type.crypto" = "Kripto ödemesi";
+"qr.type.wifi" = "Wi-Fi ağı";
+"qr.type.contact" = "Kişi";
+"qr.type.event" = "Takvim etkinliği";
+"qr.type.email" = "E-posta";
+"qr.type.phone" = "Telefon numarası";
+"qr.type.sms" = "Kısa mesaj";
+"qr.type.geo" = "Konum";
+"qr.type.otp" = "Giriş kodu kurulumu";
+"qr.type.applink" = "Uygulama bağlantısı";
+"qr.type.text" = "Metin";
+
+"qr.field.beneficiary" = "Alıcı";
+"qr.field.iban" = "IBAN";
+"qr.field.bic" = "BIC";
+"qr.field.amount" = "Tutar";
+"qr.field.reference" = "Referans";
+"qr.field.message" = "Mesaj";
+"qr.field.merchant" = "İşyeri";
+"qr.field.city" = "Şehir";
+"qr.field.country" = "Ülke";
+"qr.field.currency" = "Para birimi";
+"qr.field.payeeName" = "Alıcı adı";
+"qr.field.payeeAddress" = "Alıcı adresi";
+"qr.field.note" = "Not";
+"qr.field.network" = "Ağ";
+"qr.field.address" = "Adres";
+"qr.field.label" = "Etiket";
+"qr.field.security" = "Güvenlik";
+"qr.field.password" = "Şifre";
+"qr.field.hidden" = "Gizli";
+"qr.field.name" = "Ad";
+"qr.field.phone" = "Telefon";
+"qr.field.email" = "E-posta";
+"qr.field.organisation" = "Kuruluş";
+"qr.field.url" = "URL";
+"qr.field.title" = "Başlık";
+"qr.field.start" = "Başlangıç";
+"qr.field.end" = "Bitiş";
+"qr.field.location" = "Konum";
+"qr.field.details" = "Açıklama";
+"qr.field.to" = "Alıcı";
+"qr.field.subject" = "Konu";
+"qr.field.body" = "İleti";
+"qr.field.number" = "Numara";
+"qr.field.latitude" = "Enlem";
+"qr.field.longitude" = "Boylam";
+"qr.field.issuer" = "Veren";
+"qr.field.account" = "Hesap";
+"qr.field.type" = "Tür";
+"qr.field.scheme" = "Şema";
+"qr.field.content" = "İçerik";
+"qr.field.service" = "Hizmet";
+"qr.field.handle" = "Kullanıcı adı";
+"qr.field.provider" = "Sağlayıcı";
+"qr.field.activationCode" = "Etkinleştirme kodu";
+
+"qr.value.inviteLink" = "Davet bağlantısı";
+
+"qr.notice.paymentRequest" = "Bu bir ödeme isteğidir. Ödemeden önce adı, hesabı ve tutarı kontrol edin. Ödemeleri geri almak zordur.";
+"qr.notice.paymentRequestInApp" = "Bu bir ödeme isteğidir. Onaylamadan önce ödeme uygulamanızda adı ve tutarı kontrol edin. Ödemeleri geri almak zordur.";
+"qr.notice.scanWithBankingApp" = "Ödemek için bankacılık uygulamanızı açın ve bu QR kodu onunla tarayın.";
+"qr.notice.cryptoIrreversible" = "Kripto ödemeleri geri alınamaz.";
+"qr.notice.invalidIBAN" = "Hesap numarası geçerli bir IBAN değil.";
+"qr.notice.signInSecret" = "Bu bir giriş anahtarıdır. Yalnızca kendi doğrulayıcı uygulamanızla tarayın ve asla kimseyle paylaşmayın.";
+"qr.notice.openNetwork" = "Bu ağın şifresi yok. Yakındaki herkes trafiğinizi görebilir.";
+"qr.notice.shortCode" = "Kısa numaralara gönderilen mesajlar ücretli olabilir.";
+"qr.notice.opensOtherApp" = "Bu, başka bir uygulamayı açar. Yalnızca bunu bekliyorduysanız devam edin.";
+"qr.notice.readOnDevice" = "Bu, telefonunuzda okundu ve hiçbir yere gönderilmedi.";
+"qr.notice.signsInOtherDevice" = "Bu kod, başka bir cihazda hesabınıza giriş yapar. Yalnızca o uygulamanın içinden, kendi açtığınız bir ekranda tarayın. Biri bunu size gönderdiyse, bu bir dolandırıcılıktır.";
+"qr.notice.chatWithStranger" = "Bu, tanımıyor olabileceğiniz biriyle sohbet başlatır. Dolandırıcılar, konuşmayı güvendiğiniz bir siteden uzaklaştırmak için sohbet bağlantıları kullanır.";
+"qr.notice.authenticatorExport" = "Bu kod, bir doğrulayıcı uygulamadaki tüm hesapların gizli anahtarlarını içerir. Bunu tarayan herkes giriş kodlarınızı üretebilir. Yalnızca kendi yeni telefonunuzla tarayın ve asla kimseyle paylaşmayın.";
+"qr.notice.installESIM" = "Yüklemek için telefonunuzun mobil ağ ayarlarını açın ve bir eSIM ekleyin.";
+"qr.notice.mobilePlan" = "Bu, telefonunuza bir mobil hat (eSIM) yükler. Yalnızca kendi operatörünüzden geldiyse devam edin.";
+"qr.notice.deviceSetupCode" = "Bu, bir akıllı ev cihazının kurulum kodudur. Bunu tarayan herkes cihazı kendi evine ekleyebilir. Yalnızca size ait bir cihaz için, akıllı ev uygulamanızla tarayın.";
+"qr.notice.healthCertificate" = "Bu bir sağlık sertifikasıdır. Bir ad, doğum tarihi ve tıbbi bilgiler içerir. Telefonunuzda okundu ve hiçbir yere gönderilmedi. Kimseyle paylaşmayın.";
+"qr.notice.unsafeLink" = "Bu bir web adresi değil. Bu tür bağlantılar telefonunuzda kod çalıştırabilir veya dosya açabilir. Açmayın.";
+"qr.notice.serviceCode" = "Bu, normal bir numara değil, bir telefon hizmet kodudur. Bu tür kodlar aramalarınızı yönlendirebilir, ayarları değiştirebilir veya ücretli olabilir. Yalnızca operatörünüz söylediyse arayın.";
+"qr.notice.premiumNumber" = "Bu, ücretli özel hizmet numarasına benziyor. Aramanın dakikası pahalı olabilir.";
+
+"qr.action.openInApp" = "Uygulamada aç";
+"qr.action.openInPaymentApp" = "Ödeme uygulamasında aç";
+"qr.action.joinWiFi" = "Ağa bağlan";
+"qr.action.addToContacts" = "Kişilere ekle";
+"qr.action.addToCalendar" = "Takvime ekle";
+"qr.action.copy" = "Kopyala";
+"qr.action.copyAll" = "Tümünü kopyala";
+"qr.action.copyIBAN" = "IBAN'ı kopyala";
+"qr.action.copyAddress" = "Adresi kopyala";
+"qr.action.copyPassword" = "Şifreyi kopyala";
+
+"content.done" = "Tamam";
+"content.copied" = "Kopyalandı";
+"content.raw.show" = "Ham içeriği göster";
+"content.raw.hide" = "Ham içeriği gizle";
+"content.raw.secretHidden" = "Gizli kısımlar gösterilmiyor.";
+"content.secret.show" = "Gizli metni göster";
+"content.secret.hide" = "Metni gizle";
+"content.noApp.title" = "Bunu açabilecek bir şey yok";
+"content.noApp.message" = "Bu telefonda bunu açabilecek bir uygulama yok.";
+"content.wifi.failed.title" = "Ağa bağlanılamadı";
+"content.wifi.failed.message" = "Ağın menzilde olduğundan emin olun. Şifreyi kopyalayıp Ayarlar'dan da bağlanabilirsiniz.";
+"content.history.redacted" = "Şifreler, kodlar ve gizli bilgiler geçmişte saklanmaz.";
+
+/* History */
+"history.title" = "Geçmiş taramalar";
+"history.note" = "Geçmişiniz bu telefonda kalır.";
+"history.clear" = "Tümünü sil";
+"history.clear.confirm.title" = "Tüm geçmiş silinsin mi?";
+"history.clear.confirm.message" = "Bu, geçmiş taramaların tümünü bu telefondan siler.";
+"history.clear.confirm.action" = "Tümünü sil";
+"history.empty.title" = "Henüz tarama yok";
+"history.empty.message" = "Taradığınız QR kodlar burada listelenir. Liste bu telefonda kalır.";
+"history.unchecked" = "Kontrol edilmedi";
+"history.failed" = "Kontrol edilemedi";
+"history.delete" = "Sil";

@@ -1,0 +1,1 @@
+Veja para onde um QR code leva antes de abrir. Nosso servidor segue o link por você e mostra o destino real, uma imagem da página e qualquer sinal de alerta.

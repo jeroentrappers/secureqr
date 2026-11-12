@@ -73,6 +73,8 @@ class PreviewApi(
             .toRequestBody(JSON_MEDIA_TYPE)
         val request = try {
             Request.Builder().url(baseUrl + path).post(body).header("Accept", accept)
+                // The server words its warnings and steps in this language (English when it has no translation).
+                .header("Accept-Language", java.util.Locale.getDefault().toLanguageTag())
                 .apply { if (apiKey.isNotEmpty()) header(API_KEY_HEADER, apiKey) }
                 .build()
         } catch (e: IllegalArgumentException) {

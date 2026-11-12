@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Common actions -->
+    <string name="action_back">Назад</string>
+    <string name="action_open">Открыть</string>
+    <string name="action_cancel">Отмена</string>
+    <string name="action_open_anyway">Всё равно открыть</string>
+    <string name="action_dont_open">Не открывать</string>
+    <string name="action_retry">Повторить</string>
+    <string name="action_open_in_app">Открыть в приложении</string>
+    <string name="action_open_in_payment_app">Открыть в платёжном приложении</string>
+    <string name="action_join_wifi">Подключиться</string>
+    <string name="action_add_contact">Добавить в контакты</string>
+    <string name="action_add_event">Добавить в календарь</string>
+    <string name="action_copy">Копировать</string>
+    <string name="action_copy_all">Копировать всё</string>
+    <string name="action_copy_iban">Копировать IBAN</string>
+    <string name="action_copy_address">Копировать адрес</string>
+    <string name="action_copy_password">Копировать пароль</string>
+    <string name="copied">Скопировано</string>
+
+    <!-- Scan -->
+    <!-- %1$s is scan_hint_emphasis, shown highlighted -->
+    <string name="scan_hint">Наведите камеру на QR-код. %1$s, пока вы не решите.</string>
+    <string name="scan_hint_emphasis">Ничего не откроется</string>
+    <string name="scan_torch_on">Включить фонарик</string>
+    <string name="scan_torch_off">Выключить фонарик</string>
+    <string name="scan_pick_image">Сканировать снимок из галереи</string>
+    <string name="scan_history">История</string>
+    <string name="scan_no_qr_in_image">На этом снимке нет QR-кода.</string>
+    <string name="scan_image_failed">Не удалось прочитать этот снимок.</string>
+    <string name="scan_camera_failed">Не удалось включить камеру.</string>
+
+    <!-- Camera permission -->
+    <string name="permission_title">SecureQR нужна камера</string>
+    <string name="permission_rationale">Камера используется только для чтения QR-кодов. Ничего не записывается, и снимки никогда не покидают ваш телефон.</string>
+    <string name="permission_allow">Разрешить камеру</string>
+    <string name="permission_denied_title">Камера выключена</string>
+    <string name="permission_denied_body">Без камеры SecureQR не может сканировать. Её можно включить в настройках или вместо этого сканировать снимок из галереи.</string>
+    <string name="permission_open_settings">Открыть настройки</string>
+    <string name="permission_pick_image">Сканировать снимок</string>
+
+    <!-- Checking -->
+    <string name="checking_label_says">В QR-коде</string>
+    <string name="checking_label_following">Проходим по ссылке за вас</string>
+    <string name="checking_contacting">Связь с сервером</string>
+    <string name="checking_step_done">Готово</string>
+    <string name="checking_progress">Открываем в изолированном браузере…</string>
+    <string name="checking_note">Мы открываем ссылку на нашем сервере, а не на вашем телефоне.</string>
+
+    <!-- Decide -->
+    <string name="verdict_ok">Тревожных признаков нет</string>
+    <string name="verdict_caution">Будьте внимательны</string>
+    <string name="verdict_danger">Выглядит опасно</string>
+    <string name="decide_checked_just_now">Проверено только что</string>
+    <plurals name="decide_checked_minutes">
+        <item quantity="one">Проверено %d мин назад</item>
+        <item quantity="few">Проверено %d мин назад</item>
+        <item quantity="many">Проверено %d мин назад</item>
+        <item quantity="other">Проверено %d мин назад</item>
+    </plurals>
+    <string name="decide_label_land">Вы попадёте на</string>
+    <string name="decide_label_path">Путь ссылки</string>
+    <string name="decide_show_path">Показать все шаги</string>
+    <string name="decide_hide_path">Скрыть шаги</string>
+    <string name="chip_https">HTTPS</string>
+    <string name="chip_not_encrypted">Не зашифровано</string>
+    <string name="chip_no_redirects">Без перенаправлений</string>
+    <plurals name="chip_redirects">
+        <item quantity="one">%d перенаправление</item>
+        <item quantity="few">%d перенаправления</item>
+        <item quantity="many">%d перенаправлений</item>
+        <item quantity="other">%d перенаправления</item>
+    </plurals>
+    <string name="chip_blocklisted">В списке угроз</string>
+    <string name="chip_not_blocklisted">Нет в списках</string>
+    <string name="hop_start">Отсканированная ссылка</string>
+    <string name="hop_http">Перенаправление</string>
+    <string name="hop_client">Перенаправление страницей</string>
+    <!-- %1$s is the kind of step, %2$d the HTTP status code -->
+    <string name="hop_with_status">%1$s · %2$d</string>
+    <string name="screenshot_description">Снимок страницы, на которую вы попадёте</string>
+    <string name="screenshot_loading">Загрузка снимка…</string>
+    <string name="screenshot_expand">Показать всю страницу</string>
+    <string name="screenshot_collapse">Свернуть</string>
+    <string name="screenshot_unavailable">Снимок недоступен</string>
+
+    <!-- Check failed -->
+    <string name="error_title">Не удалось проверить ссылку</string>
+    <string name="error_offline">Нет связи с SecureQR. Проверьте подключение к интернету и попробуйте снова.</string>
+    <string name="error_generic">При проверке ссылки что-то пошло не так.</string>
+    <!-- The server no longer accepts this version of the app -->
+    <string name="error_update_title">Нужно обновление</string>
+    <string name="error_update_needed">Эта версия приложения больше не может пользоваться сервисом. Обновите SecureQR и попробуйте снова.</string>
+    <string name="error_unchecked_warning">Эта ссылка не проверена. Если вы всё равно её откроете, вы узнаете, куда она ведёт, только когда окажетесь там.</string>
+    <string name="error_no_browser">Нет браузера, чтобы открыть эту ссылку.</string>
+
+    <!-- Typed cards: titles -->
+    <string name="type_login">Код для входа</string>
+    <string name="type_chat">Ссылка на чат</string>
+    <string name="type_swissqr">Швейцарский QR-счёт</string>
+    <string name="type_otp_export">Экспорт из аутентификатора</string>
+    <string name="type_esim">Мобильный тариф eSIM</string>
+    <string name="type_device">Устройство умного дома</string>
+    <string name="type_healthcert">Медицинский сертификат</string>
+    <string name="type_unsafe">Небезопасная ссылка</string>
+    <string name="type_paylink">Платёжная ссылка</string>
+    <string name="type_url">Ссылка</string>
+    <string name="type_epc">Банковский перевод</string>
+    <string name="type_emv">Платёжный код</string>
+    <string name="type_upi">Платёж UPI</string>
+    <string name="type_crypto">Криптоплатёж</string>
+    <string name="type_wifi">Сеть Wi-Fi</string>
+    <string name="type_contact">Контакт</string>
+    <string name="type_event">Событие календаря</string>
+    <string name="type_email">Эл. почта</string>
+    <string name="type_phone">Номер телефона</string>
+    <string name="type_sms">СМС</string>
+    <string name="type_geo">Местоположение</string>
+    <string name="type_otp">Секрет для входа</string>
+    <string name="type_applink">Ссылка на приложение</string>
+    <string name="type_text">Текст</string>
+
+    <!-- Typed cards: field labels -->
+    <string name="field_beneficiary">Получатель</string>
+    <string name="field_iban">IBAN</string>
+    <string name="field_bic">BIC</string>
+    <string name="field_amount">Сумма</string>
+    <string name="field_reference">Назначение</string>
+    <string name="field_message">Сообщение</string>
+    <string name="field_merchant">Продавец</string>
+    <string name="field_city">Город</string>
+    <string name="field_country">Страна</string>
+    <string name="field_currency">Валюта</string>
+    <string name="field_payee_name">Имя получателя</string>
+    <string name="field_payee_address">Адрес получателя</string>
+    <string name="field_note">Примечание</string>
+    <string name="field_network">Сеть</string>
+    <string name="field_address">Адрес</string>
+    <string name="field_label">Метка</string>
+    <string name="field_security">Защита</string>
+    <string name="field_password">Пароль</string>
+    <string name="field_hidden">Скрытая</string>
+    <string name="field_name">Имя</string>
+    <string name="field_phone">Телефон</string>
+    <string name="field_email">Эл. почта</string>
+    <string name="field_organisation">Организация</string>
+    <string name="field_url">URL</string>
+    <string name="field_title">Название</string>
+    <string name="field_start">Начало</string>
+    <string name="field_end">Конец</string>
+    <string name="field_location">Место</string>
+    <string name="field_description">Описание</string>
+    <string name="field_to">Кому</string>
+    <string name="field_subject">Тема</string>
+    <string name="field_body">Текст</string>
+    <string name="field_number">Номер</string>
+    <string name="field_latitude">Широта</string>
+    <string name="field_longitude">Долгота</string>
+    <string name="field_issuer">Сервис</string>
+    <string name="field_account">Аккаунт</string>
+    <string name="field_type">Тип</string>
+    <string name="field_scheme">Схема</string>
+    <string name="field_text">Текст</string>
+    <string name="field_provider">Оператор</string>
+    <string name="field_service">Сервис</string>
+    <string name="field_handle">Имя пользователя</string>
+    <string name="field_activation_code">Код активации</string>
+    <string name="value_invite">Ссылка-приглашение</string>
+    <string name="value_none">Нет</string>
+    <string name="value_yes">Да</string>
+
+    <!-- Typed cards: notices -->
+    <string name="notice_payment">Это запрос на оплату. Проверьте имя, счёт и сумму, прежде чем платить. Платёж трудно отменить.</string>
+    <string name="notice_paylink">Это запрос на оплату. Проверьте имя и сумму в платёжном приложении, прежде чем подтвердить. Платёж трудно отменить.</string>
+    <string name="notice_epc_instruction">Чтобы оплатить, откройте банковское приложение и отсканируйте этот QR-код в нём.</string>
+    <string name="notice_crypto">Криптоплатежи нельзя отменить.</string>
+    <string name="notice_invalid_iban">Номер счёта не является корректным IBAN.</string>
+    <string name="notice_otp">Это секрет для входа. Сканируйте его только в своё приложение-аутентификатор и никому не передавайте.</string>
+    <string name="notice_wifi_open">У этой сети нет пароля. Любой человек поблизости может видеть ваш трафик.</string>
+    <string name="notice_sms_short_code">Сообщения на короткие номера могут быть платными.</string>
+    <string name="notice_app_link">Это откроет другое приложение. Продолжайте, только если вы этого ожидали.</string>
+    <string name="notice_login_code">Этот код выполняет вход в ваш аккаунт на другом устройстве. Сканируйте его только из самого приложения, на экране, который вы открыли сами. Если код вам кто-то прислал, это мошенничество.</string>
+    <string name="notice_chat_link">Это начнёт чат с человеком, которого вы, возможно, не знаете. Мошенники используют ссылки на чаты, чтобы увести разговор с сайта, которому вы доверяете.</string>
+    <string name="notice_otp_export">В этом коде хранятся секреты всех аккаунтов из приложения-аутентификатора. Тот, кто его отсканирует, сможет создавать ваши коды для входа. Сканируйте его только своим новым телефоном и никому не передавайте.</string>
+    <string name="notice_esim_instruction">Чтобы установить, откройте настройки мобильной сети на телефоне и добавьте eSIM.</string>
+    <string name="notice_esim">Это установит на ваш телефон мобильный тариф (eSIM). Продолжайте, только если код получен от вашего оператора связи.</string>
+    <string name="notice_device_setup">Это код настройки устройства умного дома. Тот, кто его отсканирует, сможет добавить устройство в свой дом. Сканируйте его только в своём приложении для умного дома и только для своего устройства.</string>
+    <string name="notice_health_cert">Это медицинский сертификат. В нём есть имя, дата рождения и медицинские данные. Он прочитан на вашем телефоне и никуда не отправлен. Не передавайте его другим.</string>
+    <string name="notice_unsafe_link">Это не веб-адрес. Такие ссылки могут запускать код или открывать файлы на вашем телефоне. Не открывайте её.</string>
+    <string name="notice_dialer_code">Это служебный код телефона, а не обычный номер. Такие коды могут переадресовать ваши звонки, изменить настройки или стоить денег. Набирайте его, только если так сказал ваш оператор.</string>
+    <string name="notice_premium_number">Похоже на платный номер. Звонок на него может стоить дорого за каждую минуту.</string>
+    <string name="notice_local_only">Это прочитано на вашем телефоне и никуда не отправлено.</string>
+
+    <!-- Typed cards: other -->
+    <string name="content_no_payment_app">На этом телефоне нечем открыть эту платёжную ссылку.</string>
+    <string name="content_show_raw">Показать исходное содержимое</string>
+    <string name="content_hide_raw">Скрыть исходное содержимое</string>
+    <string name="content_reveal">Показать</string>
+    <string name="content_conceal">Скрыть</string>
+    <string name="wifi_password_copied">Пароль скопирован. Выберите сеть, чтобы подключиться.</string>
+    <string name="wifi_choose_in_settings">Выберите сеть, чтобы подключиться.</string>
+    <string name="wifi_cannot_join">Не удалось открыть настройки Wi-Fi.</string>
+    <string name="content_no_app">На этом телефоне нет приложения, которое может это открыть.</string>
+    <string name="content_secret_hidden">Секретная часть здесь не показана.</string>
+    <string name="content_from_history_redacted">Секреты никогда не сохраняются в истории, поэтому эта запись неполная. Отсканируйте код снова, чтобы увидеть всё.</string>
+
+    <!-- History -->
+    <string name="history_title">История</string>
+    <string name="history_note">Хранится только на этом телефоне.</string>
+    <string name="history_empty">Пока ничего не отсканировано.</string>
+    <string name="history_clear">Очистить всё</string>
+    <string name="history_clear_title">Очистить историю?</string>
+    <string name="history_clear_body">Все прошлые сканирования будут удалены с этого телефона.</string>
+    <string name="history_clear_confirm">Очистить</string>
+    <!-- %1$s is the kind of content (for example "Link"), %2$s a relative time (for example "5 minutes ago") -->
+    <string name="history_subtitle">%1$s · %2$s</string>
+    <string name="history_just_now">Только что</string>
+    <string name="history_level_ok">Тревожных признаков нет</string>
+    <string name="history_level_caution">Требует внимания</string>
+    <string name="history_level_danger">Выглядело опасно</string>
+    <string name="history_level_neutral">Без предупреждений</string>
+    <string name="history_level_unchecked">Не проверено</string>
+    <string name="history_level_failed">Не удалось проверить</string>
+    <!-- %1$s is the kind of content, %2$s the outcome (history_level_failed), %3$s a relative time -->
+    <string name="history_subtitle_with_state">%1$s · %2$s · %3$s</string>
+    <string name="history_delete">Удалить</string>
+    <string name="history_entry_options">Действия с записью</string>
+</resources>

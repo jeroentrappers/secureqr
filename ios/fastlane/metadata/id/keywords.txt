@@ -1,0 +1,1 @@
+scanner,kode,phishing,cek tautan,penipuan,pengalihan,quishing,keamanan,pratinjau,barcode,wifi,tautan

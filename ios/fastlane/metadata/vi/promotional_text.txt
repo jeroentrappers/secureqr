@@ -1,0 +1,1 @@
+Kiểm tra mã QR dẫn đến đâu trước khi mở. Máy chủ của chúng tôi đi theo link giúp bạn và cho thấy đích đến thật, ảnh chụp trang và mọi dấu hiệu cảnh báo.

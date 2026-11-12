@@ -1,0 +1,1 @@
+Mira adónde lleva un código QR antes de abrirlo. Seguimos el enlace por ti y te mostramos el destino real, una imagen de la página y las señales de alerta.
