@@ -98,6 +98,15 @@
 "failure.confirm.message" = "We could not check this link, so we cannot tell you where it leads or whether it shows warning signs.";
 
 /* Typed cards */
+"qr.type.login" = "Sign-in code for another device";
+"qr.type.chat" = "Chat link";
+"qr.type.swissqr" = "Bank transfer";
+"qr.type.spd" = "Bank transfer";
+"qr.type.otpexport" = "Authenticator export";
+"qr.type.esim" = "eSIM";
+"qr.type.device" = "Smart-home setup code";
+"qr.type.healthcert" = "Health certificate";
+"qr.type.unsafe" = "Unsafe link";
 "qr.type.paylink" = "Payment link";
 "qr.type.url" = "Link";
 "qr.type.epc" = "Bank transfer";
@@ -155,6 +164,12 @@
 "qr.field.type" = "Type";
 "qr.field.scheme" = "Scheme";
 "qr.field.content" = "Content";
+"qr.field.service" = "Service";
+"qr.field.handle" = "Handle";
+"qr.field.provider" = "Provider";
+"qr.field.activationCode" = "Activation code";
+
+"qr.value.inviteLink" = "Invite link";
 
 "qr.notice.paymentRequest" = "This is a payment request. Check the name, account and amount before you pay. Payments are hard to undo.";
 "qr.notice.paymentRequestInApp" = "This is a payment request. Check the name and amount in your payment app before you confirm. Payments are hard to undo.";
@@ -166,10 +181,22 @@
 "qr.notice.shortCode" = "Messages to short numbers can cost money.";
 "qr.notice.opensOtherApp" = "This opens another app. Only continue if you expected that.";
 "qr.notice.readOnDevice" = "This was read on your phone and not sent anywhere.";
+"qr.notice.signsInOtherDevice" = "This code signs another device in to your account. Only scan it from inside that app, on a screen you opened yourself. If someone sent it to you, it is a scam.";
+"qr.notice.chatWithStranger" = "This starts a chat with someone you may not know. Scammers use chat links to move a conversation away from a site you trust.";
+"qr.notice.authenticatorExport" = "This code holds the secrets of every account in an authenticator app. Whoever scans it can make your sign-in codes. Only scan it with your own new phone, and never share it.";
+"qr.notice.installESIM" = "To install it, open your phone's mobile network settings and add an eSIM.";
+"qr.notice.mobilePlan" = "This installs a mobile plan (eSIM) on your phone. Only continue if it comes from your own mobile provider.";
+"qr.notice.deviceSetupCode" = "This is a setup code for a smart-home device. Whoever scans it can add the device to their own home. Only scan it with your smart-home app, for a device you own.";
+"qr.notice.healthCertificate" = "This is a health certificate. It holds a name, a date of birth and medical details. It was read on your phone and not sent anywhere. Do not share it.";
+"qr.notice.unsafeLink" = "This is not a web address. Links of this kind can run code or open files on your phone. Do not open it.";
+"qr.notice.serviceCode" = "This is a phone service code, not a normal number. Such codes can forward your calls, change settings or cost money. Only dial it if your provider told you to.";
+"qr.notice.premiumNumber" = "This looks like a premium-rate number. Calling it can cost a lot per minute.";
 
 "qr.action.openInApp" = "Open in app";
 "qr.action.openInPaymentApp" = "Open in payment app";
 "qr.action.joinWiFi" = "Join network";
+"qr.action.addToContacts" = "Add to contacts";
+"qr.action.addToCalendar" = "Add to calendar";
 "qr.action.copy" = "Copy";
 "qr.action.copyAll" = "Copy all";
 "qr.action.copyIBAN" = "Copy IBAN";
@@ -181,13 +208,13 @@
 "content.raw.show" = "Show raw content";
 "content.raw.hide" = "Hide raw content";
 "content.raw.secretHidden" = "Secret parts are left out.";
-"content.secret.show" = "Show password";
-"content.secret.hide" = "Hide password";
+"content.secret.show" = "Show hidden text";
+"content.secret.hide" = "Hide text";
 "content.noApp.title" = "Nothing can open this";
 "content.noApp.message" = "No app on this phone can open this.";
 "content.wifi.failed.title" = "Could not join the network";
 "content.wifi.failed.message" = "Check that the network is in range. You can also copy the password and join it in Settings.";
-"content.history.redacted" = "Passwords and sign-in secrets are not kept in history.";
+"content.history.redacted" = "Passwords, codes and secrets are not kept in history.";
 
 /* History */
 "history.title" = "Past scans";

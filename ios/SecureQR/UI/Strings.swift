@@ -18,9 +18,11 @@ extension QRType {
 
     var symbolName: String {
         switch self {
+        case .login: return "person.badge.key"
+        case .chat: return "bubble.left.and.bubble.right"
         case .paylink: return "creditcard"
         case .url: return "link"
-        case .epc: return "building.columns"
+        case .epc, .swissqr, .spd: return "building.columns"
         case .emv: return "creditcard"
         case .upi: return "indianrupeesign.circle"
         case .crypto: return "bitcoinsign.circle"
@@ -31,7 +33,11 @@ extension QRType {
         case .phone: return "phone"
         case .sms: return "message"
         case .geo: return "mappin.and.ellipse"
-        case .otp: return "key"
+        case .otp, .otpexport: return "key"
+        case .esim: return "simcard"
+        case .device: return "house"
+        case .healthcert: return "cross.case"
+        case .unsafe: return "exclamationmark.octagon"
         case .applink: return "arrow.up.forward.app"
         case .text: return "text.alignleft"
         }
@@ -44,6 +50,11 @@ extension QRFieldLabel {
 
 extension QRNoticeMessage {
     var text: String { return L("qr.notice." + rawValue) }
+
+    /// Symbol for a message shown as the card's instruction.
+    var instructionSymbolName: String {
+        return self == .installESIM ? "simcard" : "qrcode.viewfinder"
+    }
 }
 
 extension QRAction {
@@ -53,6 +64,8 @@ extension QRAction {
         switch self {
         case .openInApp, .openInPaymentApp: return "arrow.up.forward.app"
         case .joinWiFi: return "wifi"
+        case .addToContacts: return "person.crop.circle.badge.plus"
+        case .addToCalendar: return "calendar.badge.plus"
         case .copy, .copyAll, .copyIBAN, .copyAddress, .copyPassword: return "doc.on.doc"
         }
     }
@@ -67,6 +80,7 @@ extension QRFieldValue {
         case .yes: return L("common.yes")
         case .no: return L("common.no")
         case .none: return L("common.none")
+        case .inviteLink: return L("qr.value.inviteLink")
         }
     }
 }

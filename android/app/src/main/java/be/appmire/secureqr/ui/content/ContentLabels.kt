@@ -11,6 +11,15 @@ import be.appmire.secureqr.qr.QrType
 
 @StringRes
 fun QrType.titleRes(): Int = when (this) {
+    QrType.LOGIN -> R.string.type_login
+    QrType.CHAT -> R.string.type_chat
+    QrType.SWISSQR -> R.string.type_swissqr
+    QrType.SPD -> R.string.type_epc
+    QrType.OTP_EXPORT -> R.string.type_otp_export
+    QrType.ESIM -> R.string.type_esim
+    QrType.DEVICE -> R.string.type_device
+    QrType.HEALTHCERT -> R.string.type_healthcert
+    QrType.UNSAFE -> R.string.type_unsafe
     QrType.PAYLINK -> R.string.type_paylink
     QrType.URL -> R.string.type_url
     QrType.EPC -> R.string.type_epc
@@ -72,6 +81,9 @@ fun FieldLabel.labelRes(): Int = when (this) {
     FieldLabel.SCHEME -> R.string.field_scheme
     FieldLabel.TEXT -> R.string.field_text
     FieldLabel.PROVIDER -> R.string.field_provider
+    FieldLabel.SERVICE -> R.string.field_service
+    FieldLabel.HANDLE -> R.string.field_handle
+    FieldLabel.ACTIVATION_CODE -> R.string.field_activation_code
 }
 
 @StringRes
@@ -86,6 +98,16 @@ fun Notice.textRes(): Int = when (this) {
     Notice.SMS_SHORT_CODE -> R.string.notice_sms_short_code
     Notice.APP_LINK -> R.string.notice_app_link
     Notice.LOCAL_ONLY -> R.string.notice_local_only
+    Notice.LOGIN_CODE -> R.string.notice_login_code
+    Notice.OTP_EXPORT -> R.string.notice_otp_export
+    Notice.UNSAFE_LINK -> R.string.notice_unsafe_link
+    Notice.DIALER_CODE -> R.string.notice_dialer_code
+    Notice.CHAT_LINK -> R.string.notice_chat_link
+    Notice.ESIM -> R.string.notice_esim
+    Notice.ESIM_INSTRUCTION -> R.string.notice_esim_instruction
+    Notice.DEVICE_SETUP -> R.string.notice_device_setup
+    Notice.HEALTH_CERT -> R.string.notice_health_cert
+    Notice.PREMIUM_NUMBER -> R.string.notice_premium_number
 }
 
 @StringRes
@@ -93,6 +115,8 @@ fun QrAction.labelRes(): Int = when (this) {
     QrAction.OPEN_IN_APP -> R.string.action_open_in_app
     QrAction.OPEN_IN_PAYMENT_APP -> R.string.action_open_in_payment_app
     QrAction.JOIN_WIFI -> R.string.action_join_wifi
+    QrAction.ADD_CONTACT -> R.string.action_add_contact
+    QrAction.ADD_EVENT -> R.string.action_add_event
     QrAction.COPY -> R.string.action_copy
     QrAction.COPY_ALL -> R.string.action_copy_all
     QrAction.COPY_IBAN -> R.string.action_copy_iban

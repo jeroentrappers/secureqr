@@ -107,7 +107,7 @@ private struct HistoryRow: View {
         if let host = entry.host, !host.isEmpty {
             return host
         }
-        let summary = QRClassifier.classify(entry.payload).summary
+        let summary = QRClassifier.classify(stored: entry.payload, as: entry.type).summary
         return summary.isEmpty ? entry.type.title : summary
     }
 

@@ -20,11 +20,54 @@ enum QRClassifier {
         "356": "INR", "702": "SGD", "764": "THB", "986": "BRL"
     ]
 
+    /// Sign-in links on the web: host (or a subdomain of it) and path prefix.
+    static let loginHosts: [(host: String, path: String, service: String)] = [
+        ("discord.com", "/ra/", "Discord"),
+        ("discordapp.com", "/ra/", "Discord"),
+        ("s.team", "/q/", "Steam"),
+        ("login.weixin.qq.com", "/l/", "WeChat")
+    ]
+
+    /// Setup codes of smart-home devices.
+    static let devicePrefixes: [(prefix: String, kind: String)] = [
+        ("mt:", "Matter"),
+        ("x-hm://", "HomeKit"),
+        ("dpp:", "Wi-Fi Easy Connect")
+    ]
+
+    static let healthCertificatePrefixes = ["hc1:", "shc:/"]
+
+    /// Schemes that can run code or open files. Never handed to the system.
+    static let unsafeSchemes: Set<String> = [
+        "javascript", "data", "vbscript", "file", "blob", "content",
+        "intent", "android-app", "chrome", "about", "view-source", "jar"
+    ]
+
+    /// A past scan as it was stored. A sign-in code is stored without the
+    /// code, so the text alone no longer says what it was: the stored type
+    /// does. Such an entry must never be taken for a link.
+    static func classify(stored text: String, as type: QRType) -> ScannedPayload {
+        let payload = classify(text)
+        if type == .login, payload.type != .login {
+            return ScannedPayload(raw: payload.raw, content: .login(service: storedLoginService(payload.raw)))
+        }
+        return payload
+    }
+
     private static func content(for raw: String) -> QRContent {
-        // url
+        // login, chat, paylink, url
         if QRText.hasPrefix(raw, "http:") || QRText.hasPrefix(raw, "https:") {
             if let url = webURL(raw) {
-                // paylink comes before url: these links never go to the server.
+                // These come before url: such links never go to the server.
+                let components = URLComponents(string: url.absoluteString)
+                let host = components?.host ?? url.host ?? ""
+                let path = components?.path ?? url.path
+                if let service = loginService(host: host, path: path) {
+                    return .login(service: service)
+                }
+                if let chat = parseChatLink(raw, host: host, path: path) {
+                    return .chat(chat)
+                }
                 if let link = parsePayLink(raw, url: url) {
                     return .paylink(link)
                 }
@@ -34,9 +77,25 @@ enum QRClassifier {
             // handed to the system as an app link: show it as text.
             return .text
         }
+        // login
+        if let service = loginService(raw) {
+            return .login(service: service)
+        }
+        // chat
+        if let chat = parseChatScheme(raw) {
+            return .chat(chat)
+        }
         // epc
         if let payment = parseEPC(raw) {
             return .epc(payment)
+        }
+        // swissqr
+        if let payment = parseSwissQR(raw) {
+            return .swissqr(payment)
+        }
+        // spd
+        if QRText.hasPrefix(raw, "spd*") {
+            return .spd(parseSPD(raw))
         }
         // emv
         if raw.hasPrefix("000201") {
@@ -95,11 +154,168 @@ enum QRClassifier {
         if QRText.hasPrefix(raw, "otpauth://") {
             return .otp(parseOTP(raw))
         }
-        // applink
+        // otpexport
+        if QRText.hasPrefix(raw, "otpauth-migration://") {
+            return .otpexport
+        }
+        // esim
+        if QRText.hasPrefix(raw, "lpa:") {
+            return .esim(parseESIM(raw))
+        }
+        // device
+        for device in devicePrefixes where QRText.hasPrefix(raw, device.prefix) {
+            return .device(kind: device.kind)
+        }
+        // healthcert
+        for prefix in healthCertificatePrefixes where QRText.hasPrefix(raw, prefix) {
+            return .healthcert
+        }
+        // unsafe, applink
         if let scheme = appLinkScheme(raw) {
-            return .applink(scheme: scheme)
+            return unsafeSchemes.contains(scheme) ? .unsafe(scheme: scheme) : .applink(scheme: scheme)
         }
         return .text
+    }
+
+    // MARK: - login
+
+    /// True for the listed host itself or any subdomain of it.
+    static func host(_ host: String, isOrIsUnder domain: String) -> Bool {
+        var name = host.lowercased()
+        while name.hasSuffix(".") {
+            name.removeLast()
+        }
+        return name == domain || name.hasSuffix("." + domain)
+    }
+
+    /// The scheme and, for `scheme://host…`, the host. Both lower-cased.
+    static func schemeAndHost(_ raw: String) -> (scheme: String, host: String)? {
+        guard let scheme = appLinkScheme(raw), let colon = raw.firstIndex(of: ":") else { return nil }
+        let rest = raw[raw.index(after: colon)...]
+        guard rest.hasPrefix("//") else { return (scheme, "") }
+        let host = rest.dropFirst(2).prefix { $0 != "/" && $0 != "?" && $0 != "#" }
+        return (scheme, host.lowercased())
+    }
+
+    /// The service for a sign-in link on the web.
+    static func loginService(host: String, path: String) -> String? {
+        let lowerPath = path.lowercased()
+        for entry in loginHosts where QRClassifier.host(host, isOrIsUnder: entry.host) && lowerPath.hasPrefix(entry.path) {
+            return entry.service
+        }
+        return nil
+    }
+
+    /// The service for a sign-in code that is not a web link.
+    static func loginService(_ raw: String) -> String? {
+        if let link = schemeAndHost(raw) {
+            if link.scheme == "tg", link.host == "login" { return "Telegram" }
+            if link.scheme == "sgnl", link.host == "linkdevice" { return "Signal" }
+            if link.scheme == "tsdevice" { return "Signal" }
+        }
+        let whatsApp = "^[12]@[A-Za-z0-9+/=_-]{16,}(,[A-Za-z0-9+/=_-]{16,}){2,}$"
+        if raw.range(of: whatsApp, options: .regularExpression) != nil {
+            return "WhatsApp"
+        }
+        return nil
+    }
+
+    /// The service of a sign-in code from history (see `QRRedaction.loginWithoutCode`).
+    static func storedLoginService(_ stored: String) -> String {
+        if QRText.hasPrefix(stored, "http"), let scheme = stored.range(of: "://") {
+            var host = String(stored[scheme.upperBound...].prefix { $0 != "/" })
+            if let at = host.lastIndex(of: "@") {
+                host = String(host[host.index(after: at)...])
+            }
+            if let colon = host.firstIndex(of: ":") {
+                host = String(host[..<colon])
+            }
+            for entry in loginHosts where QRClassifier.host(host, isOrIsUnder: entry.host) {
+                return entry.service
+            }
+            return ""
+        }
+        if let link = schemeAndHost(stored) {
+            switch link.scheme {
+            case "tg": return "Telegram"
+            case "sgnl", "tsdevice": return "Signal"
+            default: return ""
+            }
+        }
+        return "WhatsApp"
+    }
+
+    // MARK: - chat
+
+    /// `+` and digits, or empty when the text is not a phone number.
+    private static func chatNumber(_ text: String) -> String {
+        var digits = QRText.percentDecoded(text).filter { !" -()".contains($0) }
+        if digits.hasPrefix("+") {
+            digits.removeFirst()
+        }
+        guard !digits.isEmpty, digits.allSatisfy({ QRText.isASCIIDigit($0) }) else { return "" }
+        return "+" + digits
+    }
+
+    private static func chatQuery(_ raw: String) -> [String: String] {
+        return QRText.queryItems(QRText.splitQuery(raw).query.components(separatedBy: "#")[0])
+    }
+
+    /// A chat link on the web, when the host is one of the chat services.
+    static func parseChatLink(_ raw: String, host: String, path: String) -> ChatLink? {
+        func under(_ domain: String) -> Bool { return QRClassifier.host(host, isOrIsUnder: domain) }
+        let segments = path.components(separatedBy: "/").filter { !$0.isEmpty }
+        let first = QRText.trimmed(segments.first ?? "")
+        let items = chatQuery(raw)
+        var chat = ChatLink(service: "", number: "", handle: "", isInvite: false, message: QRText.trimmed(items["text"] ?? ""))
+
+        if under("wa.me") {
+            chat.service = "WhatsApp"
+            chat.number = chatNumber(first)
+        } else if under("api.whatsapp.com") {
+            guard first.lowercased() == "send", segments.count == 1 else { return nil }
+            chat.service = "WhatsApp"
+            chat.number = chatNumber(items["phone"] ?? "")
+        } else if under("t.me") || under("telegram.me") {
+            chat.service = "Telegram"
+            if first.hasPrefix("+") || first.lowercased() == "joinchat" {
+                chat.isInvite = true
+            } else if !first.isEmpty {
+                chat.handle = first.hasPrefix("@") ? first : "@" + first
+            }
+        } else if under("m.me") {
+            chat.service = "Messenger"
+            chat.handle = first
+        } else if under("signal.me") {
+            chat.service = "Signal"
+        } else {
+            return nil
+        }
+        return chat
+    }
+
+    /// `whatsapp://send`, `tg://resolve`, `viber://chat` and `viber://add`.
+    static func parseChatScheme(_ raw: String) -> ChatLink? {
+        guard let link = schemeAndHost(raw) else { return nil }
+        let items = chatQuery(raw)
+        var chat = ChatLink(service: "", number: "", handle: "", isInvite: false, message: QRText.trimmed(items["text"] ?? ""))
+        switch (link.scheme, link.host) {
+        case ("whatsapp", "send"):
+            chat.service = "WhatsApp"
+            chat.number = chatNumber(items["phone"] ?? "")
+        case ("tg", "resolve"):
+            chat.service = "Telegram"
+            let domain = QRText.trimmed(items["domain"] ?? "")
+            if !domain.isEmpty {
+                chat.handle = domain.hasPrefix("@") ? domain : "@" + domain
+            }
+        case ("viber", "chat"), ("viber", "add"):
+            chat.service = "Viber"
+            chat.number = QRText.trimmed(items["number"] ?? "")
+        default:
+            return nil
+        }
+        return chat
     }
 
     // MARK: - url
@@ -182,6 +398,55 @@ enum QRClassifier {
         )
     }
 
+    // MARK: - swissqr
+
+    /// Swiss QR-bill: lines as for EPC, first line `SPC`.
+    static func parseSwissQR(_ raw: String) -> EPCPayment? {
+        let lines = QRText.lines(raw)
+        guard QRText.trimmed(lines[0]).uppercased() == "SPC" else { return nil }
+        func line(_ index: Int) -> String {
+            return index < lines.count ? QRText.trimmed(lines[index]) : ""
+        }
+        return EPCPayment(
+            bic: "",
+            name: line(5),
+            iban: IBAN.normalised(line(3)),
+            amount: line(18),
+            currency: line(19).uppercased(),
+            purpose: "",
+            reference: line(28),
+            message: line(29),
+            information: ""
+        )
+    }
+
+    // MARK: - spd
+
+    /// Czech payment code: `SPD*1.0*KEY:value*KEY:value`.
+    static func parseSPD(_ raw: String) -> EPCPayment {
+        var values: [String: String] = [:]
+        for part in raw.components(separatedBy: "*").dropFirst(2) {
+            guard let colon = part.firstIndex(of: ":") else { continue }
+            let key = QRText.trimmed(String(part[..<colon])).uppercased()
+            if values[key] == nil {
+                values[key] = QRText.trimmed(QRText.percentDecoded(String(part[part.index(after: colon)...])))
+            }
+        }
+        // ACC is the IBAN, optionally followed by `+` and the BIC.
+        let account = (values["ACC"] ?? "").components(separatedBy: "+")[0]
+        return EPCPayment(
+            bic: "",
+            name: values["RN"] ?? "",
+            iban: IBAN.normalised(account),
+            amount: values["AM"] ?? "",
+            currency: (values["CC"] ?? "").uppercased(),
+            purpose: "",
+            reference: values["X-VS"] ?? "",
+            message: values["MSG"] ?? "",
+            information: ""
+        )
+    }
+
     // MARK: - emv
 
     /// Parses `TT LL value` items. Nil unless the whole string is consumed.
@@ -212,14 +477,30 @@ enum QRClassifier {
             }
             return ""
         }
+        // Pix: a merchant account template (26 to 51) that names the Pix
+        // scheme. Sub-tag 01 is the key, 25 the payment link.
+        var provider = ""
+        var payeeAddress = ""
+        for item in items {
+            guard let tag = Int(item.tag), (26...51).contains(tag), let template = parseTLV(item.value),
+                  template.contains(where: { $0.tag == "00" && $0.value.lowercased() == "br.gov.bcb.pix" }) else {
+                continue
+            }
+            provider = "Pix"
+            let key = template.first(where: { $0.tag == "01" })?.value ?? ""
+            payeeAddress = QRText.trimmed(key.isEmpty ? template.first(where: { $0.tag == "25" })?.value ?? "" : key)
+            break
+        }
         let code = value("53")
         return EMVPayment(
+            provider: provider,
             merchant: value("59"),
             city: value("60"),
             country: value("58"),
             amount: value("54"),
             currencyCode: code,
-            currency: emvCurrencies[code] ?? code
+            currency: emvCurrencies[code] ?? code,
+            payeeAddress: payeeAddress
         )
     }
 
@@ -362,7 +643,7 @@ enum QRClassifier {
     // MARK: - event
 
     static func parseEvent(_ raw: String) -> CalendarEvent {
-        var event = CalendarEvent(title: "", start: "", end: "", location: "", details: "")
+        var event = CalendarEvent(title: "", start: "", end: "", location: "", details: "", startDate: nil, endDate: nil)
         let allLines = QRText.unfoldedLines(raw)
 
         // Only look inside the first VEVENT when there is one, so that a
@@ -383,8 +664,16 @@ enum QRClassifier {
             if value.isEmpty { continue }
             switch prop.name {
             case "SUMMARY": if event.title.isEmpty { event.title = QRText.unescaped(value) }
-            case "DTSTART": if event.start.isEmpty { event.start = formatDate(value) }
-            case "DTEND": if event.end.isEmpty { event.end = formatDate(value) }
+            case "DTSTART":
+                if event.start.isEmpty {
+                    event.start = formatDate(value)
+                    event.startDate = parseEventDate(value)
+                }
+            case "DTEND":
+                if event.end.isEmpty {
+                    event.end = formatDate(value)
+                    event.endDate = parseEventDate(value)
+                }
             case "LOCATION": if event.location.isEmpty { event.location = QRText.unescaped(value) }
             case "DESCRIPTION": if event.details.isEmpty { event.details = QRText.unescaped(value) }
             default: break
@@ -409,6 +698,44 @@ enum QRClassifier {
             }
         }
         return text
+    }
+
+    /// `YYYYMMDD` (an all-day date) or `YYYYMMDDTHHMM[SS][Z]`. A time
+    /// without `Z` is local time. Nil for anything else.
+    static func parseEventDate(_ value: String) -> EventDate? {
+        var chars = Array(QRText.trimmed(value))
+        var timeZone = TimeZone.current
+        if chars.count > 8, let last = chars.last, last == "Z" || last == "z" {
+            guard let utc = TimeZone(secondsFromGMT: 0) else { return nil }
+            timeZone = utc
+            chars.removeLast()
+        }
+        func number(_ range: Range<Int>) -> Int? {
+            guard chars[range].allSatisfy({ QRText.isASCIIDigit($0) }) else { return nil }
+            return Int(String(chars[range]))
+        }
+        guard chars.count == 8 || chars.count == 13 || chars.count == 15,
+              let year = number(0..<4), let month = number(4..<6), let day = number(6..<8) else {
+            return nil
+        }
+        var parts = DateComponents(year: year, month: month, day: day, hour: 0, minute: 0, second: 0)
+        let isAllDay = chars.count == 8
+        if !isAllDay {
+            guard chars[8] == "T" || chars[8] == "t", let hour = number(9..<11), let minute = number(11..<13) else {
+                return nil
+            }
+            parts.hour = hour
+            parts.minute = minute
+            if chars.count == 15 {
+                guard let second = number(13..<15) else { return nil }
+                parts.second = second
+            }
+        }
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = timeZone
+        // Rejects dates that do not exist, such as month 13 or 30 February.
+        guard parts.isValidDate(in: calendar), let date = calendar.date(from: parts) else { return nil }
+        return EventDate(date: date, isAllDay: isAllDay)
     }
 
     // MARK: - email
@@ -505,6 +832,30 @@ enum QRClassifier {
             account: QRText.trimmed(account),
             type: QRText.trimmed(type).uppercased()
         )
+    }
+
+    // MARK: - esim
+
+    /// `LPA:1$<address>$<activation code>[$…]`.
+    static func parseESIM(_ raw: String) -> ESIMProfile {
+        let parts = raw.components(separatedBy: "$")
+        var code = parts.count > 2 ? QRText.trimmed(parts[2]) : ""
+        // A past scan: the activation code was not kept.
+        if code == QRRedaction.ellipsis {
+            code = ""
+        }
+        return ESIMProfile(address: parts.count > 1 ? QRText.trimmed(parts[1]) : "", activationCode: code)
+    }
+
+    // MARK: - device, healthcert
+
+    /// Length of the prefix that names a device setup code or a health
+    /// certificate; 0 for anything else.
+    static func codePrefixLength(_ raw: String) -> Int {
+        for prefix in devicePrefixes.map({ $0.prefix }) + healthCertificatePrefixes where QRText.hasPrefix(raw, prefix) {
+            return prefix.count
+        }
+        return 0
     }
 
     // MARK: - applink

@@ -37,6 +37,7 @@ import be.appmire.secureqr.qr.QrContent
 import be.appmire.secureqr.qr.QrField
 import be.appmire.secureqr.qr.QrType
 import be.appmire.secureqr.qr.Redaction
+import be.appmire.secureqr.qr.SpecialCodes
 import be.appmire.secureqr.ui.SystemActions
 import be.appmire.secureqr.ui.components.Banner
 import be.appmire.secureqr.ui.components.BannerTone
@@ -69,7 +70,7 @@ fun ContentScreen(
         },
     ) {
         // Instructions come first, in bold: what to do with this code.
-        for (notice in content.notices.filter { it == Notice.EPC_INSTRUCTION }) {
+        for (notice in content.notices.filter { it.instruction }) {
             Banner(BannerTone.NEUTRAL, title = stringResource(notice.textRes()))
         }
 
@@ -94,7 +95,7 @@ fun ContentScreen(
 
         // One banner per level, most severe first.
         for (level in listOf(NoticeLevel.DANGER, NoticeLevel.CAUTION, NoticeLevel.NEUTRAL)) {
-            val notices = content.notices.filter { it.level == level && it != Notice.EPC_INSTRUCTION }
+            val notices = content.notices.filter { it.level == level && !it.instruction }
             if (notices.isNotEmpty()) {
                 Banner(
                     tone = when (level) {
@@ -126,6 +127,7 @@ private fun FieldRow(field: QrField) {
                 secret && !revealed -> MASK
                 field.label == FieldLabel.SECURITY && field.value.isEmpty() -> stringResource(R.string.value_none)
                 field.label == FieldLabel.HIDDEN -> stringResource(R.string.value_yes)
+                field.label == FieldLabel.HANDLE && field.value == SpecialCodes.INVITE -> stringResource(R.string.value_invite)
                 else -> field.value
             }
             Text(
@@ -237,6 +239,12 @@ private fun perform(context: Context, content: QrContent, action: QrAction) {
         // The scanned link, unchanged: the installed payment app claims it, else the provider's page opens.
         QrAction.OPEN_IN_PAYMENT_APP ->
             if (!SystemActions.openLink(context, content.raw)) SystemActions.toast(context, R.string.content_no_payment_app)
+
+        QrAction.ADD_CONTACT ->
+            if (!SystemActions.addContact(context, content)) SystemActions.toast(context, R.string.content_no_app)
+
+        QrAction.ADD_EVENT ->
+            if (!SystemActions.addEvent(context, content)) SystemActions.toast(context, R.string.content_no_app)
 
         QrAction.JOIN_WIFI -> when (SystemActions.joinWifi(context, content)) {
             SystemActions.WifiJoin.ASKED -> Unit

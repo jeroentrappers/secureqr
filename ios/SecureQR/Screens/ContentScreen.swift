@@ -16,6 +16,8 @@ struct ContentScreen: View {
     @State private var copiedAction: QRAction?
     @State private var showNoAppAlert = false
     @State private var showWiFiFailedAlert = false
+    @State private var showNewContact = false
+    @State private var showNewEvent = false
 
     var body: some View {
         ScrollView {
@@ -50,6 +52,30 @@ struct ContentScreen: View {
         } message: {
             Text(L("content.wifi.failed.message"))
         }
+        // The system's own screens: the user saves or cancels there, and the
+        // app asks for no contacts or calendar permission.
+        .sheet(isPresented: $showNewContact) {
+            NewContactScreen(contact: ContactDraft.contact(for: payload)) { showNewContact = false }
+                .ignoresSafeArea()
+        }
+        .sheet(isPresented: $showNewEvent) {
+            if #available(iOS 17.0, *) {
+                if case .event(let event) = payload.content {
+                    NewEventScreen(event: event) { showNewEvent = false }
+                        .ignoresSafeArea()
+                }
+            }
+        }
+    }
+
+    /// The model's actions, less what this system cannot do without asking
+    /// for a permission: before iOS 17 the new-event screen needs calendar
+    /// access, so "Add to calendar" is left out there.
+    private var actions: [QRAction] {
+        if #available(iOS 17.0, *) {
+            return payload.actions
+        }
+        return payload.actions.filter { $0 != .addToCalendar }
     }
 
     // MARK: - Pieces
@@ -73,7 +99,7 @@ struct ContentScreen: View {
     /// What to do with this code: first on the card, and prominent.
     private func instructionBanner(_ message: QRNoticeMessage) -> some View {
         HStack(alignment: .center, spacing: 12) {
-            Image(systemName: "qrcode.viewfinder")
+            Image(systemName: message.instructionSymbolName)
                 .font(.system(size: 26, weight: .semibold))
                 .foregroundColor(Theme.accent)
                 .accessibilityHidden(true)
@@ -129,7 +155,7 @@ struct ContentScreen: View {
 
     @ViewBuilder
     private var actionButtons: some View {
-        let actions = payload.actions
+        let actions = self.actions
         if !actions.isEmpty {
             VStack(spacing: 8) {
                 ForEach(actions, id: \.rawValue) { action in
@@ -195,13 +221,18 @@ struct ContentScreen: View {
             if case .wifi(let network) = payload.content {
                 joinWiFi(network)
             }
+        case .addToContacts:
+            showNewContact = true
+        case .addToCalendar:
+            showNewEvent = true
         case .copy:
-            // Never the secret: see `ScannedPayload.copyText`.
-            copy(payload.copyText, sensitive: false, action: action)
+            // Never the sign-in secret: see `ScannedPayload.copyText`. An
+            // eSIM activation code is copied like a password.
+            copy(payload.copyText, sensitive: payload.type == .esim, action: action)
         case .copyAll:
             copy(allFieldsText(), sensitive: false, action: action)
         case .copyIBAN:
-            if case .epc(let payment) = payload.content {
+            if let payment = payload.bankTransfer {
                 copy(payment.iban, sensitive: false, action: action)
             }
         case .copyAddress:
@@ -332,6 +363,8 @@ private struct FieldRow: View {
             plain(L("common.no"))
         case .none:
             plain(L("common.none"))
+        case .inviteLink:
+            plain(L("qr.value.inviteLink"))
         }
     }
 

@@ -14,6 +14,8 @@
     <string name="action_open_in_app">Open in app</string>
     <string name="action_open_in_payment_app">Open in payment app</string>
     <string name="action_join_wifi">Join network</string>
+    <string name="action_add_contact">Add to contacts</string>
+    <string name="action_add_event">Add to calendar</string>
     <string name="action_copy">Copy</string>
     <string name="action_copy_all">Copy all</string>
     <string name="action_copy_iban">Copy IBAN</string>
@@ -94,6 +96,14 @@
     <string name="error_no_browser">No browser found to open this link.</string>
 
     <!-- Typed cards: titles -->
+    <string name="type_login">Sign-in code</string>
+    <string name="type_chat">Chat link</string>
+    <string name="type_swissqr">Swiss QR-bill</string>
+    <string name="type_otp_export">Authenticator export</string>
+    <string name="type_esim">eSIM mobile plan</string>
+    <string name="type_device">Smart-home device</string>
+    <string name="type_healthcert">Health certificate</string>
+    <string name="type_unsafe">Unsafe link</string>
     <string name="type_paylink">Payment link</string>
     <string name="type_url">Link</string>
     <string name="type_epc">Bank transfer</string>
@@ -153,6 +163,10 @@
     <string name="field_scheme">Scheme</string>
     <string name="field_text">Text</string>
     <string name="field_provider">Provider</string>
+    <string name="field_service">Service</string>
+    <string name="field_handle">Handle</string>
+    <string name="field_activation_code">Activation code</string>
+    <string name="value_invite">Invite link</string>
     <string name="value_none">None</string>
     <string name="value_yes">Yes</string>
 
@@ -166,6 +180,16 @@
     <string name="notice_wifi_open">This network has no password. Anyone nearby can see your traffic.</string>
     <string name="notice_sms_short_code">Messages to short numbers can cost money.</string>
     <string name="notice_app_link">This opens another app. Only continue if you expected that.</string>
+    <string name="notice_login_code">This code signs another device in to your account. Only scan it from inside that app, on a screen you opened yourself. If someone sent it to you, it is a scam.</string>
+    <string name="notice_chat_link">This starts a chat with someone you may not know. Scammers use chat links to move a conversation away from a site you trust.</string>
+    <string name="notice_otp_export">This code holds the secrets of every account in an authenticator app. Whoever scans it can make your sign-in codes. Only scan it with your own new phone, and never share it.</string>
+    <string name="notice_esim_instruction">To install it, open your phone\'s mobile network settings and add an eSIM.</string>
+    <string name="notice_esim">This installs a mobile plan (eSIM) on your phone. Only continue if it comes from your own mobile provider.</string>
+    <string name="notice_device_setup">This is a setup code for a smart-home device. Whoever scans it can add the device to their own home. Only scan it with your smart-home app, for a device you own.</string>
+    <string name="notice_health_cert">This is a health certificate. It holds a name, a date of birth and medical details. It was read on your phone and not sent anywhere. Do not share it.</string>
+    <string name="notice_unsafe_link">This is not a web address. Links of this kind can run code or open files on your phone. Do not open it.</string>
+    <string name="notice_dialer_code">This is a phone service code, not a normal number. Such codes can forward your calls, change settings or cost money. Only dial it if your provider told you to.</string>
+    <string name="notice_premium_number">This looks like a premium-rate number. Calling it can cost a lot per minute.</string>
     <string name="notice_local_only">This was read on your phone and not sent anywhere.</string>
 
     <!-- Typed cards: other -->

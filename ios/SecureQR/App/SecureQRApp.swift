@@ -39,8 +39,8 @@ struct RootView: View {
         switch route {
         case .preview(let url, let historyID):
             PreviewScreen(url: url, historyID: historyID)
-        case .content(let raw, let secretsRemoved):
-            ContentScreen(payload: QRClassifier.classify(raw), secretsRemoved: secretsRemoved)
+        case .content(let raw, let type, let secretsRemoved):
+            ContentScreen(payload: QRClassifier.classify(stored: raw, as: type), secretsRemoved: secretsRemoved)
         case .history:
             HistoryScreen()
         #if DEBUG

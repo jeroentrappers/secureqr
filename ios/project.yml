@@ -41,6 +41,12 @@ targets:
         UIAppFonts:
           - NunitoSans-Variable.ttf
         NSCameraUsageDescription: SecureQR uses the camera to read QR codes. Nothing is recorded.
+        # "Add to contacts" and "Add to calendar" open the system's own screens and never read the
+        # user's contacts or calendar, so iOS shows no permission prompt. The texts are here because
+        # App Store upload requires them for any app that links these frameworks.
+        NSContactsUsageDescription: SecureQR adds a scanned contact to your contacts only when you tap Add to contacts. It never reads your contacts.
+        NSCalendarsUsageDescription: SecureQR adds a scanned event to your calendar only when you tap Add to calendar. It never reads your calendar.
+        NSCalendarsWriteOnlyAccessUsageDescription: SecureQR adds a scanned event to your calendar only when you tap Add to calendar.
         ITSAppUsesNonExemptEncryption: false
         APIBaseURL: $(API_BASE_URL)
         SecureQRAPIKey: $(SECUREQR_API_KEY)

@@ -8,6 +8,8 @@ import android.net.Uri
 import android.net.wifi.WifiNetworkSuggestion
 import android.os.Build
 import android.os.PersistableBundle
+import android.provider.CalendarContract
+import android.provider.ContactsContract
 import android.provider.Settings
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -15,6 +17,7 @@ import androidx.annotation.StringRes
 import androidx.core.net.toUri
 import be.appmire.secureqr.R
 import be.appmire.secureqr.qr.FieldLabel
+import be.appmire.secureqr.qr.QrClassifier
 import be.appmire.secureqr.qr.QrContent
 import be.appmire.secureqr.qr.QrType
 import be.appmire.secureqr.qr.WifiKind
@@ -71,6 +74,42 @@ object SystemActions {
         if (start(context, Intent(Intent.ACTION_VIEW, original))) return true
         val normalized = original.normalizeScheme()
         return normalized != original && start(context, Intent(Intent.ACTION_VIEW, normalized))
+    }
+
+    /**
+     * Opens the contacts app's new-contact screen, filled in from the scanned
+     * card. Nothing is saved until the user confirms there, and the app needs
+     * no contacts permission.
+     */
+    fun addContact(context: Context, content: QrContent): Boolean {
+        val phones = content.fields(FieldLabel.PHONE)
+        val emails = content.fields(FieldLabel.EMAIL)
+        val intent = Intent(Intent.ACTION_INSERT).setType(ContactsContract.RawContacts.CONTENT_TYPE)
+        fun put(key: String, value: String?) {
+            if (!value.isNullOrEmpty()) intent.putExtra(key, value)
+        }
+        put(ContactsContract.Intents.Insert.NAME, content.field(FieldLabel.NAME))
+        put(ContactsContract.Intents.Insert.PHONE, phones.getOrNull(0))
+        put(ContactsContract.Intents.Insert.SECONDARY_PHONE, phones.getOrNull(1))
+        put(ContactsContract.Intents.Insert.TERTIARY_PHONE, phones.getOrNull(2))
+        put(ContactsContract.Intents.Insert.EMAIL, emails.getOrNull(0))
+        put(ContactsContract.Intents.Insert.SECONDARY_EMAIL, emails.getOrNull(1))
+        put(ContactsContract.Intents.Insert.COMPANY, content.field(FieldLabel.ORGANISATION))
+        put(ContactsContract.Intents.Insert.POSTAL, content.field(FieldLabel.ADDRESS))
+        return start(context, intent)
+    }
+
+    /** Opens the calendar app's new-event screen, filled in. The user saves or cancels there. */
+    fun addEvent(context: Context, content: QrContent): Boolean {
+        val times = QrClassifier.eventTimes(content.raw) ?: return false
+        val intent = Intent(Intent.ACTION_INSERT, CalendarContract.Events.CONTENT_URI)
+            .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, times.start)
+            .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, times.end)
+            .putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, times.allDay)
+        content.field(FieldLabel.TITLE)?.let { intent.putExtra(CalendarContract.Events.TITLE, it) }
+        content.field(FieldLabel.LOCATION)?.let { intent.putExtra(CalendarContract.Events.EVENT_LOCATION, it) }
+        content.field(FieldLabel.DESCRIPTION)?.let { intent.putExtra(CalendarContract.Events.DESCRIPTION, it) }
+        return start(context, intent)
     }
 
     enum class WifiJoin { ASKED, SETTINGS_OPENED, FAILED }

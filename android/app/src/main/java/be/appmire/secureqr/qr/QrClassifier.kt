@@ -23,6 +23,10 @@ object QrClassifier {
         fun has(prefix: String) = text.startsWith(prefix, ignoreCase = true)
         fun after(prefix: String) = text.substring(prefix.length)
 
+        // Sign-in codes and chat links, as web links or in the service's own scheme. Never sent to the server.
+        SpecialCodes.login(text)?.let { return it }
+        SpecialCodes.chat(text)?.let { return it }
+
         if (has("http:") || has("https:")) {
             // Payment-app links come before ordinary links: they are never sent to the server.
             PaymentHosts.providerFor(text)?.let { return paylink(text, it) }
@@ -33,6 +37,8 @@ object QrClassifier {
         if (lines.size >= 4 && lines[0].trim().equals("BCD", true) && lines[3].trim().equals("SCT", true)) {
             return epc(text, lines)
         }
+        if (lines.size >= 4 && lines[0].trim().equals("SPC", true)) return SpecialCodes.swissQr(text, lines)
+        if (has("SPD*")) return SpecialCodes.spd(text)
         if (text.startsWith("000201")) {
             // A payload that looks like EMV but does not consume cleanly is plain text.
             return emv(text) ?: text(text)
@@ -52,6 +58,11 @@ object QrClassifier {
         if (has("sms:")) return sms(text, after("sms:"))
         if (has("geo:")) return geo(text, after("geo:"))
         if (has("otpauth://")) return otp(text, after("otpauth://"))
+        if (has("otpauth-migration://")) return SpecialCodes.otpExport(text)
+        if (has("LPA:")) return SpecialCodes.esim(text)
+        SpecialCodes.device(text)?.let { return it }
+        SpecialCodes.healthCert(text)?.let { return it }
+        SpecialCodes.unsafe(text)?.let { return it }
         APP_LINK.find(text)?.let { match ->
             return QrContent(
                 type = QrType.APPLINK,
@@ -171,15 +182,24 @@ object QrClassifier {
         val items = parseTlv(text) ?: return null
         fun tag(id: String) = items.firstOrNull { it.first == id }?.second
 
+        // Pix (Brazil): a merchant account template (tags 26 to 51) that names the Pix scheme.
+        val pix = items.asSequence()
+            .filter { (it.first.toIntOrNull() ?: 0) in 26..51 }
+            .mapNotNull { parseTlv(it.second) }
+            .firstOrNull { sub -> sub.any { it.first == "00" && it.second.equals("br.gov.bcb.pix", ignoreCase = true) } }
+        val pixKey = pix?.let { sub -> (sub.firstOrNull { it.first == "01" } ?: sub.firstOrNull { it.first == "25" })?.second }
+
         return QrContent(
             type = QrType.EMV,
             raw = text,
             fields = fieldsOf(
+                field(FieldLabel.PROVIDER, if (pix != null) "Pix" else null),
                 field(FieldLabel.MERCHANT, tag("59")),
                 field(FieldLabel.CITY, tag("60")),
                 field(FieldLabel.COUNTRY, tag("58")),
                 field(FieldLabel.AMOUNT, tag("54")),
                 field(FieldLabel.CURRENCY, tag("53")?.let { EMV_CURRENCIES[it] ?: it }),
+                field(FieldLabel.PAYEE_ADDRESS, pixKey, FieldStyle.MONO),
             ),
             notices = listOf(Notice.PAYMENT),
             actions = listOf(QrAction.COPY_ALL),
@@ -359,7 +379,7 @@ object QrClassifier {
                 field(FieldLabel.URL, url, FieldStyle.MONO),
             ),
         notices = LOCAL,
-        actions = listOf(QrAction.COPY_ALL),
+        actions = listOf(QrAction.ADD_CONTACT, QrAction.COPY_ALL),
     )
 
     private val ICAL_DATE = Regex("^(\\d{4})(\\d{2})(\\d{2})(?:T(\\d{2})(\\d{2})(?:\\d{2})?(Z)?)?$")
@@ -373,13 +393,25 @@ object QrClassifier {
         return "$date $hour:$minute" + if (utc.isNotEmpty()) " UTC" else ""
     }
 
-    private fun event(text: String): QrContent {
+    /** The properties of the first VEVENT, so a VTIMEZONE's DTSTART is not picked up. */
+    private fun eventLines(text: String): List<ContentLine> {
         val lines = contentLines(text)
-        // Only read properties of the first VEVENT, so a VTIMEZONE's DTSTART is not picked up.
         val start = lines.indexOfFirst { it.name == "BEGIN" && it.value.equals("VEVENT", true) }
-        val scoped = if (start < 0) emptyList() else lines.drop(start + 1)
+        return if (start < 0) emptyList() else lines.drop(start + 1)
             .takeWhile { !(it.name == "END" && it.value.equals("VEVENT", true)) }
+    }
+
+    /** Start and end of a scanned event for the system calendar; null when the start does not parse. */
+    internal fun eventTimes(text: String): SpecialCodes.EventTimes? {
+        val scoped = eventLines(text)
         fun value(name: String) = scoped.firstOrNull { it.name == name }?.value
+        return SpecialCodes.eventTimes(value("DTSTART"), value("DTEND"))
+    }
+
+    private fun event(text: String): QrContent {
+        val scoped = eventLines(text)
+        fun value(name: String) = scoped.firstOrNull { it.name == name }?.value
+        val times = SpecialCodes.eventTimes(value("DTSTART"), value("DTEND"))
 
         return QrContent(
             type = QrType.EVENT,
@@ -392,7 +424,7 @@ object QrClassifier {
                 field(FieldLabel.DESCRIPTION, value("DESCRIPTION")?.let(::unescapeText)),
             ),
             notices = LOCAL,
-            actions = listOf(QrAction.COPY_ALL),
+            actions = listOfNotNull(if (times != null) QrAction.ADD_EVENT else null, QrAction.COPY_ALL),
         )
     }
 
@@ -422,13 +454,22 @@ object QrClassifier {
         return email(text, value("TO"), value("SUB"), value("BODY"))
     }
 
-    private fun phone(text: String, rest: String) = QrContent(
-        type = QrType.PHONE,
-        raw = text,
-        fields = fieldsOf(field(FieldLabel.NUMBER, percentDecode(rest.removePrefix("//")), FieldStyle.MONO)),
-        notices = LOCAL,
-        actions = listOf(QrAction.OPEN_IN_APP, QrAction.COPY),
-    )
+    private fun phone(text: String, rest: String): QrContent {
+        val number = percentDecode(rest.removePrefix("//")).trim()
+        val serviceCode = SpecialCodes.isServiceCode(number)
+        return QrContent(
+            type = QrType.PHONE,
+            raw = text,
+            fields = fieldsOf(field(FieldLabel.NUMBER, number, FieldStyle.MONO)),
+            notices = when {
+                serviceCode -> listOf(Notice.DIALER_CODE)
+                SpecialCodes.isPremiumNumber(number) -> listOf(Notice.PREMIUM_NUMBER)
+                else -> LOCAL
+            },
+            // A service code is never handed to the dialler.
+            actions = if (serviceCode) listOf(QrAction.COPY) else listOf(QrAction.OPEN_IN_APP, QrAction.COPY),
+        )
+    }
 
     private val SHORT_CODE = Regex("^\\d{3,6}$")
 

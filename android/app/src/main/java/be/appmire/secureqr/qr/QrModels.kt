@@ -2,9 +2,13 @@ package be.appmire.secureqr.qr
 
 /** Payload types, in classification order (first match wins). */
 enum class QrType(val id: String) {
+    LOGIN("login"),
+    CHAT("chat"),
     PAYLINK("paylink"),
     URL("url"),
     EPC("epc"),
+    SWISSQR("swissqr"),
+    SPD("spd"),
     EMV("emv"),
     UPI("upi"),
     CRYPTO("crypto"),
@@ -16,6 +20,11 @@ enum class QrType(val id: String) {
     SMS("sms"),
     GEO("geo"),
     OTP("otp"),
+    OTP_EXPORT("otpexport"),
+    ESIM("esim"),
+    DEVICE("device"),
+    HEALTHCERT("healthcert"),
+    UNSAFE("unsafe"),
     APPLINK("applink"),
     TEXT("text");
 
@@ -27,9 +36,18 @@ enum class QrType(val id: String) {
 enum class NoticeLevel { NEUTRAL, CAUTION, DANGER }
 
 /** Notices shown on a typed card. The display copy lives in the UI layer. */
-enum class Notice(val level: NoticeLevel) {
+enum class Notice(val level: NoticeLevel, val instruction: Boolean = false) {
     INVALID_IBAN(NoticeLevel.DANGER),
     OTP_SECRET(NoticeLevel.DANGER),
+    LOGIN_CODE(NoticeLevel.DANGER),
+    OTP_EXPORT(NoticeLevel.DANGER),
+    UNSAFE_LINK(NoticeLevel.DANGER),
+    DIALER_CODE(NoticeLevel.DANGER),
+    CHAT_LINK(NoticeLevel.CAUTION),
+    ESIM(NoticeLevel.CAUTION),
+    DEVICE_SETUP(NoticeLevel.CAUTION),
+    HEALTH_CERT(NoticeLevel.CAUTION),
+    PREMIUM_NUMBER(NoticeLevel.CAUTION),
     PAYMENT(NoticeLevel.CAUTION),
     PAYLINK(NoticeLevel.CAUTION),
     CRYPTO_IRREVERSIBLE(NoticeLevel.CAUTION),
@@ -39,7 +57,10 @@ enum class Notice(val level: NoticeLevel) {
     LOCAL_ONLY(NoticeLevel.NEUTRAL),
 
     /** What to do with a bank transfer code. Shown first and prominently. */
-    EPC_INSTRUCTION(NoticeLevel.NEUTRAL),
+    EPC_INSTRUCTION(NoticeLevel.NEUTRAL, instruction = true),
+
+    /** Where an eSIM plan is installed. Shown first and prominently. */
+    ESIM_INSTRUCTION(NoticeLevel.NEUTRAL, instruction = true),
 }
 
 enum class FieldLabel {
@@ -56,6 +77,7 @@ enum class FieldLabel {
     ISSUER, ACCOUNT, TYPE,
     SCHEME, TEXT,
     PROVIDER,
+    SERVICE, HANDLE, ACTIVATION_CODE,
 }
 
 enum class FieldStyle {
@@ -91,6 +113,12 @@ enum class QrAction {
 
     /** Wi-Fi: ask the system to save the network. The system shows its own confirmation. */
     JOIN_WIFI,
+
+    /** Open the system's new-contact screen, filled in. The user saves or cancels there. */
+    ADD_CONTACT,
+
+    /** Open the system's new-event screen, filled in. The user saves or cancels there. */
+    ADD_EVENT,
     COPY,
     COPY_ALL,
     COPY_IBAN,
@@ -115,7 +143,11 @@ data class QrContent(
         get() {
             val labels = when (type) {
                 QrType.PAYLINK -> listOf(FieldLabel.PROVIDER)
-                QrType.EPC -> listOf(FieldLabel.BENEFICIARY, FieldLabel.IBAN)
+                QrType.LOGIN -> listOf(FieldLabel.SERVICE)
+                QrType.CHAT -> listOf(FieldLabel.NUMBER, FieldLabel.HANDLE, FieldLabel.SERVICE)
+                QrType.EPC, QrType.SWISSQR, QrType.SPD -> listOf(FieldLabel.BENEFICIARY, FieldLabel.IBAN)
+                QrType.ESIM -> listOf(FieldLabel.ADDRESS)
+                QrType.DEVICE -> listOf(FieldLabel.TYPE)
                 QrType.EMV -> listOf(FieldLabel.MERCHANT)
                 QrType.UPI -> listOf(FieldLabel.PAYEE_NAME, FieldLabel.PAYEE_ADDRESS)
                 QrType.CRYPTO -> listOf(FieldLabel.ADDRESS)

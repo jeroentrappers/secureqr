@@ -1,3 +1,4 @@
+import Contacts
 import XCTest
 @testable import SecureQR
 
@@ -209,13 +210,366 @@ final class QRClassifierTests: XCTestCase {
         XCTAssertEqual(card.name, "John Doe")
         XCTAssertEqual(card.phones, ["+3212345678"])
         XCTAssertEqual(payload.notice, QRNotice(level: .neutral, messages: [.readOnDevice]))
+        XCTAssertEqual(payload.actions, [.addToContacts, .copyAll])
+    }
+
+    func testEventWithStartCanBeAdded() {
+        let payload = QRClassifier.classify("BEGIN:VEVENT\nSUMMARY:Team lunch\nDTSTART:20261203T120000Z\nDTEND:20261203T130000Z\nLOCATION:Canteen\nEND:VEVENT")
+        XCTAssertEqual(payload.type, .event)
+        XCTAssertEqual(payload.actions, [.addToCalendar, .copyAll])
+        guard case .event(let event) = payload.content, let schedule = event.schedule else {
+            return XCTFail("expected an event with a start date")
+        }
+        XCTAssertEqual(event.title, "Team lunch")
+        XCTAssertEqual(event.location, "Canteen")
+        // 2026-12-03 12:00:00 UTC
+        XCTAssertEqual(schedule.start, Date(timeIntervalSince1970: 1_796_299_200))
+        XCTAssertEqual(schedule.end, Date(timeIntervalSince1970: 1_796_302_800))
+        XCTAssertFalse(schedule.isAllDay)
+    }
+
+    func testEventWithoutStartCannotBeAdded() {
+        let payload = QRClassifier.classify("BEGIN:VEVENT\nSUMMARY:No date\nEND:VEVENT")
+        XCTAssertEqual(payload.type, .event)
+        XCTAssertEqual(payload.actions, [.copyAll])
     }
 
     func testTel() {
         let payload = QRClassifier.classify("tel:+3212345678")
         XCTAssertEqual(payload.type, .phone)
         XCTAssertEqual(payload.content, .phone("+3212345678"))
+        XCTAssertEqual(payload.notice, QRNotice(level: .neutral, messages: [.readOnDevice]))
         XCTAssertEqual(payload.actions, [.openInApp, .copy])
+    }
+
+    func testTelServiceCode() {
+        let payload = QRClassifier.classify("tel:*21*0032475000000%23")
+        XCTAssertEqual(payload.type, .phone)
+        XCTAssertEqual(payload.content, .phone("*21*0032475000000#"))
+        XCTAssertEqual(payload.notice, QRNotice(level: .danger, messages: [.serviceCode]))
+        XCTAssertEqual(payload.actions, [.copy])
+    }
+
+    func testTelPremiumNumbers() {
+        for text in ["tel:090312345", "tel:+32 903 12 345"] {
+            let payload = QRClassifier.classify(text)
+            XCTAssertEqual(payload.type, .phone, text)
+            XCTAssertEqual(payload.notice, QRNotice(level: .caution, messages: [.premiumNumber]), text)
+            XCTAssertEqual(payload.actions, [.openInApp, .copy], text)
+        }
+        let premium = ["0032 (903) 12.345", "+31900123456", "+49900123", "+449012345678", "0900123", "0901-123", "0908123", "19005551234", "+1 900 555 1234", "900-555-1234"]
+        for number in premium {
+            XCTAssertTrue(PhoneNumber.isPremiumRate(number), number)
+        }
+        let ordinary = ["+3212345678", "012345678", "+32475000000", "+15551234567", "9005551", "*900#"]
+        for number in ordinary {
+            XCTAssertFalse(PhoneNumber.isPremiumRate(number), number)
+        }
+    }
+
+    func testLoginCodes() {
+        let samples: [(String, String, String)] = [
+            ("https://discord.com/ra/AbCdEf123456", "Discord", "https://discord.com/…"),
+            ("https://s.team/q/1/1234567890", "Steam", "https://s.team/…"),
+            ("tg://login?token=abc", "Telegram", "tg://…"),
+            ("2@AbCdEfGhIjKlMnOpQrSt,UvWxYzAbCdEfGhIjKl,MnOpQrStUvWxYzAb,CdEfGhIjKlMnOpQr", "WhatsApp", "…")
+        ]
+        for (text, service, redacted) in samples {
+            let payload = QRClassifier.classify(text)
+            XCTAssertEqual(payload.type, .login, text)
+            XCTAssertEqual(payload.content, .login(service: service), text)
+            XCTAssertEqual(payload.fields, [QRField(label: .service, value: .text(service))], text)
+            XCTAssertEqual(payload.notice, QRNotice(level: .danger, messages: [.signsInOtherDevice]), text)
+            XCTAssertEqual(payload.actions, [], text)
+            // Never a link for the server, never kept in full.
+            XCTAssertNil(payload.host, text)
+            XCTAssertTrue(payload.containsSecret, text)
+            XCTAssertEqual(payload.redactedRaw, redacted, text)
+            XCTAssertEqual(payload.summary, service, text)
+        }
+    }
+
+    func testLoginVariants() {
+        let samples: [(String, String)] = [
+            ("HTTPS://DISCORD.COM/RA/AbC", "Discord"),
+            ("https://ptb.discordapp.com/ra/abc", "Discord"),
+            ("http://s.team/q/1/2", "Steam"),
+            ("https://login.weixin.qq.com/l/abcdef", "WeChat"),
+            ("TG://LOGIN?token=abc", "Telegram"),
+            ("sgnl://linkdevice?uuid=abc&pub_key=def", "Signal"),
+            ("tsdevice:/?uuid=abc&pub_key=def", "Signal"),
+            ("1@AbCdEfGhIjKlMnOpQrSt,UvWxYzAbCdEfGhIjKl,MnOpQrStUvWxYzAb", "WhatsApp")
+        ]
+        for (text, service) in samples {
+            XCTAssertEqual(QRClassifier.classify(text).content, .login(service: service), text)
+        }
+        XCTAssertEqual(QRClassifier.classify("https://discord.com/invite/abc").type, .url)
+        XCTAssertEqual(QRClassifier.classify("https://discord.com.evil.example/ra/abc").type, .url)
+        XCTAssertEqual(QRClassifier.classify("https://example.com/ra/abc").type, .url)
+        XCTAssertEqual(QRClassifier.classify("https://s.team/p/abc").type, .url)
+        XCTAssertEqual(QRClassifier.classify("tg://loginx?token=abc").type, .applink)
+        XCTAssertEqual(QRClassifier.classify("3@AbCdEfGhIjKlMnOpQrSt,UvWxYzAbCdEfGhIjKl,MnOpQrStUvWxYzAb").type, .text)
+        XCTAssertEqual(QRClassifier.classify("2@AbCdEfGhIjKlMnOpQrSt,UvWxYzAbCdEfGhIjKl").type, .text)
+    }
+
+    func testChatWhatsApp() {
+        let text = "https://wa.me/3212345678?text=Hi%20there"
+        let payload = QRClassifier.classify(text)
+        XCTAssertEqual(payload.type, .chat)
+        XCTAssertEqual(payload.content, .chat(ChatLink(
+            service: "WhatsApp", number: "+3212345678", handle: "", isInvite: false, message: "Hi there"
+        )))
+        XCTAssertEqual(payload.fields, [
+            QRField(label: .service, value: .text("WhatsApp")),
+            QRField(label: .number, value: .mono("+3212345678")),
+            QRField(label: .message, value: .text("Hi there"))
+        ])
+        XCTAssertEqual(payload.notice, QRNotice(level: .caution, messages: [.chatWithStranger]))
+        XCTAssertEqual(payload.actions, [.openInApp, .copy])
+        // Replayed unchanged, and not a link for the server.
+        XCTAssertEqual(payload.raw, text)
+        XCTAssertEqual(payload.copyText, text)
+        XCTAssertNil(payload.host)
+        XCTAssertFalse(payload.containsSecret)
+    }
+
+    func testChatTelegram() {
+        let web = QRClassifier.classify("https://t.me/some_shop")
+        XCTAssertEqual(web.type, .chat)
+        XCTAssertEqual(web.content, .chat(ChatLink(
+            service: "Telegram", number: "", handle: "@some_shop", isInvite: false, message: ""
+        )))
+        let app = QRClassifier.classify("tg://resolve?domain=some_shop")
+        XCTAssertEqual(app.type, .chat)
+        XCTAssertEqual(app.content, web.content)
+        XCTAssertEqual(app.fields, [
+            QRField(label: .service, value: .text("Telegram")),
+            QRField(label: .handle, value: .mono("@some_shop"))
+        ])
+    }
+
+    func testChatVariants() {
+        func chat(_ text: String) -> ChatLink? {
+            if case .chat(let link) = QRClassifier.classify(text).content { return link }
+            XCTFail("expected a chat link: \(text)")
+            return nil
+        }
+        XCTAssertEqual(chat("https://api.whatsapp.com/send?phone=%2B32%2012%20345678&text=Hi")?.number, "+3212345678")
+        XCTAssertEqual(chat("whatsapp://send?phone=3212345678")?.number, "+3212345678")
+        XCTAssertEqual(chat("https://wa.me/qr/ABCDEF")?.number, "")
+        XCTAssertEqual(chat("https://telegram.me/some_shop")?.handle, "@some_shop")
+        for invite in ["https://t.me/+AbCdEf123", "https://t.me/joinchat/AbCdEf123"] {
+            let payload = QRClassifier.classify(invite)
+            XCTAssertEqual(payload.fields, [
+                QRField(label: .service, value: .text("Telegram")),
+                QRField(label: .handle, value: .inviteLink)
+            ], invite)
+        }
+        XCTAssertEqual(chat("https://m.me/some.page"), ChatLink(
+            service: "Messenger", number: "", handle: "some.page", isInvite: false, message: ""
+        ))
+        // Neither number nor handle: still the card.
+        XCTAssertEqual(chat("https://signal.me/#p/+3212345678"), ChatLink(
+            service: "Signal", number: "", handle: "", isInvite: false, message: ""
+        ))
+        XCTAssertEqual(chat("viber://chat?number=%2B3212345678")?.number, "+3212345678")
+        XCTAssertEqual(chat("viber://add?number=3212345678")?.service, "Viber")
+
+        XCTAssertEqual(QRClassifier.classify("https://api.whatsapp.com/other").type, .url)
+        XCTAssertEqual(QRClassifier.classify("https://wa.me.evil.example/32123").type, .url)
+        XCTAssertEqual(QRClassifier.classify("https://example.com/?next=https://wa.me/32123").type, .url)
+        XCTAssertEqual(QRClassifier.classify("viber://pa?chatURI=x").type, .applink)
+        XCTAssertEqual(QRClassifier.classify("tg://join?invite=x").type, .applink)
+    }
+
+    func testSwissQRBill() {
+        let payload = QRClassifier.classify("SPC\n0200\n1\nCH4431999123000889012\nS\nRobert Schneider AG\nRue du Lac\n1268\n2501\nBiel\nCH\n\n\n\n\n\n\n\n1949.75\nCHF\n\n\n\n\n\n\n\nQRR\n210000000003139471430009017\nOrder 42\nEPD")
+        XCTAssertEqual(payload.type, .swissqr)
+        guard case .swissqr(let payment) = payload.content else {
+            return XCTFail("expected swissqr")
+        }
+        XCTAssertEqual(payment.name, "Robert Schneider AG")
+        XCTAssertEqual(payment.displayAmount, "1949.75 CHF")
+        XCTAssertEqual(payment.iban, "CH4431999123000889012")
+        XCTAssertTrue(payment.isIBANValid)
+        XCTAssertEqual(payment.reference, "210000000003139471430009017")
+        XCTAssertEqual(payment.message, "Order 42")
+        XCTAssertEqual(payload.fields, [
+            QRField(label: .beneficiary, value: .text("Robert Schneider AG")),
+            QRField(label: .iban, value: .mono("CH44 3199 9123 0008 8901 2")),
+            QRField(label: .amount, value: .text("1949.75 CHF")),
+            QRField(label: .reference, value: .mono("210000000003139471430009017")),
+            QRField(label: .message, value: .text("Order 42"))
+        ])
+        XCTAssertEqual(payload.notice, QRNotice(level: .caution, messages: [.paymentRequest]))
+        XCTAssertEqual(payload.instruction, .scanWithBankingApp)
+        XCTAssertEqual(payload.actions, [.copyIBAN, .copyAll])
+        XCTAssertEqual(payload.bankTransfer?.iban, "CH4431999123000889012")
+
+        let invalid = QRClassifier.classify("SPC\r\n0200\r\n1\r\nCH4431999123000889013\r\nS\r\nX")
+        XCTAssertEqual(invalid.type, .swissqr)
+        XCTAssertEqual(invalid.notice, QRNotice(level: .danger, messages: [.invalidIBAN, .paymentRequest]))
+    }
+
+    func testSPD() {
+        let payload = QRClassifier.classify("SPD*1.0*ACC:CZ5855000000001265098001*AM:480.50*CC:CZK*MSG:Platba%20za%20zbozi*RN:Jan Novak*X-VS:1234567890")
+        XCTAssertEqual(payload.type, .spd)
+        guard case .spd(let payment) = payload.content else {
+            return XCTFail("expected spd")
+        }
+        XCTAssertEqual(payment.name, "Jan Novak")
+        XCTAssertEqual(payment.displayAmount, "480.50 CZK")
+        XCTAssertEqual(payment.iban, "CZ5855000000001265098001")
+        XCTAssertTrue(payment.isIBANValid)
+        XCTAssertEqual(payment.message, "Platba za zbozi")
+        XCTAssertEqual(payment.reference, "1234567890")
+        XCTAssertEqual(payload.notice, QRNotice(level: .caution, messages: [.paymentRequest]))
+        XCTAssertEqual(payload.instruction, .scanWithBankingApp)
+        XCTAssertEqual(payload.actions, [.copyIBAN, .copyAll])
+
+        // IBAN+BIC, lower-case prefix, invalid IBAN.
+        guard case .spd(let withBIC) = QRClassifier.classify("spd*1.0*ACC:CZ5855000000001265098001+RZBCCZPP*AM:1").content else {
+            return XCTFail("expected spd")
+        }
+        XCTAssertEqual(withBIC.iban, "CZ5855000000001265098001")
+        XCTAssertEqual(QRClassifier.classify("SPD*1.0*ACC:CZ5855000000001265098002").notice.level, .danger)
+    }
+
+    func testPix() {
+        let payload = QRClassifier.classify("00020126360014br.gov.bcb.pix0114+5561999999999520400005303986540510.005802BR5908Loja Sul6008Brasilia6304ABCD")
+        XCTAssertEqual(payload.type, .emv)
+        guard case .emv(let payment) = payload.content else {
+            return XCTFail("expected emv")
+        }
+        XCTAssertEqual(payment.provider, "Pix")
+        XCTAssertEqual(payment.payeeAddress, "+5561999999999")
+        XCTAssertEqual(payment.merchant, "Loja Sul")
+        XCTAssertEqual(payment.amount, "10.00")
+        XCTAssertEqual(payment.currency, "BRL")
+        XCTAssertEqual(payload.fields, [
+            QRField(label: .provider, value: .text("Pix")),
+            QRField(label: .merchant, value: .text("Loja Sul")),
+            QRField(label: .city, value: .text("Brasilia")),
+            QRField(label: .country, value: .text("BR")),
+            QRField(label: .amount, value: .text("10.00")),
+            QRField(label: .currency, value: .text("BRL")),
+            QRField(label: .payeeAddress, value: .mono("+5561999999999"))
+        ])
+        XCTAssertEqual(payload.actions, [.copyAll])
+
+        // The payment link (sub-tag 25) when there is no key; upper-case scheme name.
+        guard case .emv(let dynamic) = QRClassifier.classify("00020126390014BR.GOV.BCB.PIX2517pix.example/qr/ab5802BR").content else {
+            return XCTFail("expected emv")
+        }
+        XCTAssertEqual(dynamic.provider, "Pix")
+        XCTAssertEqual(dynamic.payeeAddress, "pix.example/qr/ab")
+    }
+
+    func testOTPExport() {
+        let payload = QRClassifier.classify("otpauth-migration://offline?data=CjEKCkhlbGxvId6tvu8SGEV4YW1wbGU")
+        XCTAssertEqual(payload.type, .otpexport)
+        XCTAssertEqual(payload.content, .otpexport)
+        XCTAssertEqual(payload.fields, [])
+        XCTAssertEqual(payload.notice, QRNotice(level: .danger, messages: [.authenticatorExport]))
+        XCTAssertEqual(payload.actions, [])
+        XCTAssertTrue(payload.containsSecret)
+        XCTAssertEqual(payload.redactedRaw, "otpauth-migration://…")
+        XCTAssertEqual(payload.summary, "")
+    }
+
+    func testESIM() {
+        let payload = QRClassifier.classify("LPA:1$smdp.example.com$ABCD-1234-EFGH")
+        XCTAssertEqual(payload.type, .esim)
+        XCTAssertEqual(payload.content, .esim(ESIMProfile(address: "smdp.example.com", activationCode: "ABCD-1234-EFGH")))
+        XCTAssertEqual(payload.fields, [
+            QRField(label: .address, value: .mono("smdp.example.com")),
+            QRField(label: .activationCode, value: .secret("ABCD-1234-EFGH"))
+        ])
+        XCTAssertEqual(payload.instruction, .installESIM)
+        XCTAssertEqual(payload.notice, QRNotice(level: .caution, messages: [.mobilePlan]))
+        XCTAssertEqual(payload.actions, [.copy])
+        XCTAssertTrue(payload.containsSecret)
+        XCTAssertEqual(payload.redactedRaw, "LPA:1$smdp.example.com$…")
+        XCTAssertEqual(QRClassifier.classify("LPA:1$smdp.example.com$ABCD-1234-EFGH$1.2.3$1").redactedRaw, "LPA:1$smdp.example.com$…")
+
+        // A past scan: the address is still there, the code is not.
+        let stored = QRClassifier.classify(payload.redactedRaw)
+        XCTAssertEqual(stored.content, .esim(ESIMProfile(address: "smdp.example.com", activationCode: "")))
+        XCTAssertEqual(stored.fields, [QRField(label: .address, value: .mono("smdp.example.com"))])
+    }
+
+    func testDeviceSetupCodes() {
+        let samples: [(String, String, String)] = [
+            ("MT:Y.K9042C00KA0648G00", "Matter", "MT:…"),
+            ("X-HM://0023ISYWYABCD", "HomeKit", "X-HM://…"),
+            ("DPP:C:81/1;M:aa:bb:cc:dd:ee:ff;K:MDkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDIgAC;;", "Wi-Fi Easy Connect", "DPP:…")
+        ]
+        for (text, kind, redacted) in samples {
+            let payload = QRClassifier.classify(text)
+            XCTAssertEqual(payload.type, .device, text)
+            XCTAssertEqual(payload.content, .device(kind: kind), text)
+            XCTAssertEqual(payload.fields, [QRField(label: .type, value: .text(kind))], text)
+            XCTAssertEqual(payload.notice, QRNotice(level: .caution, messages: [.deviceSetupCode]), text)
+            XCTAssertEqual(payload.actions, [], text)
+            XCTAssertEqual(payload.redactedRaw, redacted, text)
+            XCTAssertEqual(QRClassifier.classify(redacted).content, .device(kind: kind), text)
+        }
+    }
+
+    func testHealthCertificates() {
+        let certificate = "HC1:6BF+70790T9WJWG.FKY*4GO0.O1CV2 O5 N2FBBRW1*70HS8WY04AC*WIFN0AHCD8KD97TK0F90KECTHGWJC0FDC:5AIA%G7X+AQB9746HS80:54IBQF60R6$A80X6S1BTYACG6M+9XG8KIAWNA91AY%67092L4WJCT3EHS8XJC$+DXJCCWENF6OF63W5NW6WF6%JC QE/IAYJC5LEW34U3ET7DXC9 QE-ED8%E.JCBECB1A-:8$96646AL60A60S6Q$D.UDRYA 96NF6L/5QW6307KQEPD09WEQDD+Q6TW6FA7C466KCN9E%961A6DL6FA7D46JPCT3E5JDLA7$Q6E464W5TG6..DX%DZJC6/DTZ9 QE5$CB$DA/D JC1/D3Z8WED1ECW.CCWE.Y92OAGY8MY9L+9MPCG/D5 C5IA5N9$PC5$CUZCY$5Y$527B+A4KZNQG5TKOWWD9FL%I8U$F7O2IBM85CWOC%LEZU4R/BXHDAHN 11$CA5MRI:AONFN7091K9FKIGIY%VWSSSU9%01FO2*FTPQ3C3F"
+        let payload = QRClassifier.classify(certificate)
+        XCTAssertEqual(payload.type, .healthcert)
+        XCTAssertEqual(payload.fields, [])
+        XCTAssertEqual(payload.notice, QRNotice(level: .caution, messages: [.healthCertificate]))
+        XCTAssertEqual(payload.actions, [])
+        XCTAssertTrue(payload.containsSecret)
+        XCTAssertEqual(payload.redactedRaw, "HC1:…")
+        XCTAssertEqual(payload.summary, "")
+
+        let smart = QRClassifier.classify("shc:/5676290952432060346029243740446031222959532654603460292540772804336028")
+        XCTAssertEqual(smart.type, .healthcert)
+        XCTAssertEqual(smart.redactedRaw, "shc:/…")
+        XCTAssertEqual(QRClassifier.classify(smart.redactedRaw).type, .healthcert)
+    }
+
+    func testUnsafeLinks() {
+        let script = QRClassifier.classify("javascript:alert(1)")
+        XCTAssertEqual(script.type, .unsafe)
+        XCTAssertEqual(script.content, .unsafe(scheme: "javascript"))
+        XCTAssertEqual(script.fields, [
+            QRField(label: .scheme, value: .mono("javascript")),
+            QRField(label: .content, value: .mono("javascript:alert(1)"))
+        ])
+        XCTAssertEqual(script.notice, QRNotice(level: .danger, messages: [.unsafeLink]))
+        XCTAssertEqual(script.actions, [.copy])
+
+        let intent = QRClassifier.classify("intent://scan/#Intent;scheme=zxing;end")
+        XCTAssertEqual(intent.type, .unsafe)
+        XCTAssertEqual(intent.content, .unsafe(scheme: "intent"))
+        XCTAssertEqual(intent.actions, [.copy])
+
+        for scheme in QRClassifier.unsafeSchemes {
+            XCTAssertEqual(QRClassifier.classify(scheme.uppercased() + ":x").content, .unsafe(scheme: scheme), scheme)
+        }
+        XCTAssertEqual(QRClassifier.classify("datax:1").type, .applink)
+    }
+
+    /// Only an ordinary link may go to the preview server.
+    func testOnlyLinksHaveAHost() {
+        let notForTheServer = [
+            "https://discord.com/ra/AbCdEf123456", "https://s.team/q/1/1234567890",
+            "https://login.weixin.qq.com/l/abc", "https://wa.me/3212345678", "https://api.whatsapp.com/send?phone=32",
+            "https://t.me/some_shop", "https://telegram.me/x", "https://m.me/x", "https://signal.me/#p/+32",
+            "https://payconiq.com/t/1/x"
+        ]
+        for text in notForTheServer {
+            let payload = QRClassifier.classify(text)
+            XCTAssertNil(payload.host, text)
+            if case .url = payload.content {
+                XCTFail("must not be a link for the server: \(text)")
+            }
+        }
     }
 
     func testSMSShortCode() {
@@ -441,7 +795,72 @@ final class QRClassifierTests: XCTestCase {
         XCTAssertEqual(card.emails, ["jane@example.com"])
         XCTAssertEqual(card.address, "Main Street 1, Brussels, 1000, Belgium")
         XCTAssertEqual(card.url, "https://example.com/jane")
-        XCTAssertEqual(payload.actions, [.copyAll])
+        XCTAssertEqual(payload.actions, [.addToContacts, .copyAll])
+
+        // The contact handed to the system's new-contact screen.
+        let contact = ContactDraft.contact(for: payload)
+        XCTAssertEqual(contact.givenName, "Jane")
+        XCTAssertEqual(contact.familyName, "Doe")
+        XCTAssertEqual(contact.phoneNumbers.map { $0.value.stringValue }, ["+32 470 12 34 56"])
+        XCTAssertEqual(contact.emailAddresses.map { $0.value as String }, ["jane@example.com"])
+    }
+
+    func testContactDraftFromMECARD() {
+        let payload = QRClassifier.classify("MECARD:N:Doe,John;TEL:+3212345678;EMAIL:john@example.com;ORG:Example;ADR:Main Street 1,Brussels;URL:https://example.com;;")
+        let contact = ContactDraft.contact(for: payload)
+        XCTAssertEqual(contact.givenName, "John")
+        XCTAssertEqual(contact.familyName, "Doe")
+        XCTAssertEqual(contact.organizationName, "Example")
+        XCTAssertEqual(contact.phoneNumbers.map { $0.value.stringValue }, ["+3212345678"])
+        XCTAssertEqual(contact.emailAddresses.map { $0.value as String }, ["john@example.com"])
+        XCTAssertEqual(contact.postalAddresses.map { $0.value.street }, ["Main Street 1, Brussels"])
+        XCTAssertEqual(contact.urlAddresses.map { $0.value as String }, ["https://example.com"])
+    }
+
+    func testEventDates() {
+        var utc = Calendar(identifier: .gregorian)
+        utc.timeZone = TimeZone(secondsFromGMT: 0)!
+        var local = Calendar(identifier: .gregorian)
+        local.timeZone = TimeZone.current
+
+        let zulu = QRClassifier.parseEventDate("20261203T120000Z")
+        XCTAssertEqual(zulu, EventDate(date: utc.date(from: DateComponents(year: 2026, month: 12, day: 3, hour: 12))!, isAllDay: false))
+        XCTAssertEqual(QRClassifier.parseEventDate("20261203T1200Z"), zulu)
+
+        // Without Z: local time.
+        let localNoon = local.date(from: DateComponents(year: 2026, month: 12, day: 3, hour: 12, minute: 30))!
+        XCTAssertEqual(QRClassifier.parseEventDate("20261203T123000"), EventDate(date: localNoon, isAllDay: false))
+        XCTAssertEqual(QRClassifier.parseEventDate("20261203T1230"), EventDate(date: localNoon, isAllDay: false))
+
+        // Without a time: all day.
+        let day = local.date(from: DateComponents(year: 2026, month: 12, day: 3))!
+        XCTAssertEqual(QRClassifier.parseEventDate("20261203"), EventDate(date: day, isAllDay: true))
+
+        for bad in ["", "2026", "2026-12-03", "20261303", "20260230", "20261203T", "20261203T12", "20261203T2560", "20261203 1200", "20261203T120000ZZ", "tomorrow"] {
+            XCTAssertNil(QRClassifier.parseEventDate(bad), bad)
+        }
+    }
+
+    func testEventSchedule() {
+        func schedule(_ lines: String) -> (start: Date, end: Date, isAllDay: Bool)? {
+            guard case .event(let event) = QRClassifier.classify("BEGIN:VEVENT\n" + lines + "\nEND:VEVENT").content else { return nil }
+            return event.schedule
+        }
+        // No end: one hour.
+        let open = schedule("DTSTART:20261203T120000Z")
+        XCTAssertEqual(open?.end.timeIntervalSince(open?.start ?? Date()), 3600)
+
+        // All day; DTEND is the day after the last day.
+        let oneDay = schedule("DTSTART;VALUE=DATE:20261203\nDTEND;VALUE=DATE:20261204")
+        XCTAssertEqual(oneDay?.isAllDay, true)
+        XCTAssertEqual(oneDay?.end, oneDay?.start)
+        let threeDays = schedule("DTSTART:20261203\nDTEND:20261206")
+        XCTAssertEqual(threeDays?.end, QRClassifier.parseEventDate("20261205")?.date)
+        XCTAssertEqual(schedule("DTSTART:20261203")?.isAllDay, true)
+
+        // A start that does not parse: no schedule, so no "Add to calendar".
+        XCTAssertNil(schedule("DTSTART:next week"))
+        XCTAssertEqual(QRClassifier.classify("BEGIN:VEVENT\nDTSTART:next week\nEND:VEVENT").actions, [.copyAll])
     }
 
     func testVCardFallsBackToStructuredName() {

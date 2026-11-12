@@ -227,6 +227,36 @@ enum QRRedaction {
         return parts.path + "?" + kept.joined(separator: "&")
     }
 
+    static let ellipsis = "…"
+
+    /// The first `length` characters, followed by `…`.
+    static func prefixOnly(_ raw: String, length: Int) -> String {
+        return String(raw.prefix(length)) + ellipsis
+    }
+
+    /// A sign-in code keeps only what names the service: a web link up to
+    /// and including the `/` after the host, another link its scheme, and
+    /// anything else nothing at all.
+    static func loginWithoutCode(_ raw: String) -> String {
+        if let scheme = raw.range(of: "://"), QRText.hasPrefix(raw, "http") {
+            if let slash = raw[scheme.upperBound...].firstIndex(of: "/") {
+                return String(raw[...slash]) + ellipsis
+            }
+            return String(raw[..<scheme.upperBound]) + ellipsis
+        }
+        if QRClassifier.appLinkScheme(raw) != nil, let colon = raw.firstIndex(of: ":") {
+            let rest = raw[raw.index(after: colon)...]
+            return String(raw[...colon]) + (rest.hasPrefix("//") ? "//" : "") + ellipsis
+        }
+        return ellipsis
+    }
+
+    /// `LPA:1$<address>$…`: the activation code and anything after it go.
+    static func esimWithoutActivationCode(_ raw: String) -> String {
+        let parts = raw.components(separatedBy: "$")
+        return parts.prefix(2).joined(separator: "$") + "$" + ellipsis
+    }
+
     /// Rebuilds a `WIFI:` payload without the `P` field.
     static func wifiWithoutPassword(_ network: WiFiNetwork) -> String {
         var text = "WIFI:"

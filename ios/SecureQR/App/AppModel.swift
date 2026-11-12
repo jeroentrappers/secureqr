@@ -5,7 +5,9 @@ enum Route: Hashable {
     /// The server preview flow for a link.
     case preview(url: URL, historyID: UUID?)
     /// The typed card for anything that is not a link.
-    case content(raw: String, secretsRemoved: Bool)
+    /// `type` is what the scan was classified as: a past sign-in code is
+    /// stored without the code and cannot be told from its text alone.
+    case content(raw: String, type: QRType, secretsRemoved: Bool)
     case history
     #if DEBUG
     case debugFonts
@@ -42,7 +44,7 @@ final class AppModel: ObservableObject {
 
     /// Shows a past scan again. Links are checked again.
     func reopen(_ entry: HistoryEntry) {
-        let payload = QRClassifier.classify(entry.payload)
+        let payload = QRClassifier.classify(stored: entry.payload, as: entry.type)
         path.append(route(for: payload, historyID: entry.id, secretsRemoved: entry.redacted))
     }
 
@@ -58,6 +60,6 @@ final class AppModel: ObservableObject {
         if case .url(let url) = payload.content {
             return .preview(url: url, historyID: historyID)
         }
-        return .content(raw: payload.raw, secretsRemoved: secretsRemoved)
+        return .content(raw: payload.raw, type: payload.type, secretsRemoved: secretsRemoved)
     }
 }

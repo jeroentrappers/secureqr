@@ -59,6 +59,15 @@ final class HistoryStoreTests: XCTestCase {
 
     func testEveryContentTypeIsStored() {
         let samples: [(String, QRType)] = [
+            ("https://discord.com/ra/AbCdEf123456", .login),
+            ("https://wa.me/3212345678?text=Hi%20there", .chat),
+            ("SPC\n0200\n1\nCH4431999123000889012\nS\nRobert Schneider AG", .swissqr),
+            ("SPD*1.0*ACC:CZ5855000000001265098001*AM:480.50*CC:CZK", .spd),
+            ("otpauth-migration://offline?data=CjEKCkhlbGxvId6tvu8SGEV4YW1wbGU", .otpexport),
+            ("LPA:1$smdp.example.com$ABCD-1234-EFGH", .esim),
+            ("MT:Y.K9042C00KA0648G00", .device),
+            ("HC1:6BF+70790T9WJWG.FKY*4GO0.O1CV2 O5 N2FBBRW1*70HS8WY04AC*WIFN0AHCD8KD97TK0F90KEC", .healthcert),
+            ("javascript:alert(1)", .unsafe),
             ("https://payconiq.com/t/1/5f2a9c0e1b?D=Invoice%2042&A=1250&R=INV42", .paylink),
             ("https://example.com/a", .url),
             ("BCD\n002\n1\nSCT\nGKCCBEBB\nRode Kruis\nBE72000000001616\nEUR25.00", .epc),
@@ -90,8 +99,64 @@ final class HistoryStoreTests: XCTestCase {
         XCTAssertEqual(reloaded.entries, store.entries)
         // Each stored payload still classifies as the same type.
         for entry in reloaded.entries {
-            XCTAssertEqual(QRClassifier.classify(entry.payload).type, entry.type)
+            XCTAssertEqual(QRClassifier.classify(stored: entry.payload, as: entry.type).type, entry.type)
         }
+    }
+
+    func testCodesAreRedactedOnDisk() throws {
+        let samples: [(text: String, secret: String, stored: String)] = [
+            ("https://discord.com/ra/AbCdEf123456", "AbCdEf123456", "https://discord.com/…"),
+            ("https://s.team/q/1/1234567890", "1234567890", "https://s.team/…"),
+            ("tg://login?token=abc", "token", "tg://…"),
+            ("tsdevice:/?uuid=abcdef&pub_key=xyz", "abcdef", "tsdevice:…"),
+            ("2@AbCdEfGhIjKlMnOpQrSt,UvWxYzAbCdEfGhIjKl,MnOpQrStUvWxYzAb,CdEfGhIjKlMnOpQr", "AbCdEfGhIjKl", "…"),
+            ("otpauth-migration://offline?data=CjEKCkhlbGxvId6tvu8SGEV4YW1wbGU", "CjEKCkhlbGxv", "otpauth-migration://…"),
+            ("LPA:1$smdp.example.com$ABCD-1234-EFGH", "ABCD-1234-EFGH", "LPA:1$smdp.example.com$…"),
+            ("MT:Y.K9042C00KA0648G00", "K9042C00KA", "MT:…"),
+            ("X-HM://0023ISYWYABCD", "0023ISYWY", "X-HM://…"),
+            ("DPP:C:81/1;M:aa:bb:cc:dd:ee:ff;K:MDkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDIgAC;;", "MDkwEwYH", "DPP:…"),
+            ("HC1:6BF+70790T9WJWG.FKY*4GO0.O1CV2 O5 N2FBBRW1*70HS8WY04AC*WIFN0AHCD8KD97TK0F90KEC", "6BF+70790T9WJWG", "HC1:…"),
+            ("shc:/5676290952432060346029243740446031222959532654603460292540772804336028", "567629095243", "shc:/…")
+        ]
+        let store = HistoryStore(fileURL: fileURL)
+        for sample in samples {
+            _ = scan(sample.text, into: store)
+        }
+        XCTAssertEqual(store.entries.map { $0.payload }, samples.map { $0.stored }.reversed())
+        XCTAssertTrue(store.entries.allSatisfy { $0.redacted })
+
+        let onDisk = String(decoding: try Data(contentsOf: fileURL), as: UTF8.self)
+        for sample in samples {
+            XCTAssertFalse(onDisk.contains(sample.secret), sample.text)
+        }
+    }
+
+    func testStoredSignInCodeIsNeverALink() {
+        let texts: [(String, String)] = [
+            ("https://discord.com/ra/AbCdEf123456", "Discord"),
+            ("https://s.team/q/1/1234567890", "Steam"),
+            ("https://login.weixin.qq.com/l/abcdef", "WeChat"),
+            ("tg://login?token=abc", "Telegram"),
+            ("sgnl://linkdevice?uuid=abc&pub_key=def", "Signal"),
+            ("2@AbCdEfGhIjKlMnOpQrSt,UvWxYzAbCdEfGhIjKl,MnOpQrStUvWxYzAb,CdEfGhIjKlMnOpQr", "WhatsApp")
+        ]
+        let store = HistoryStore(fileURL: fileURL)
+        for text in texts {
+            _ = scan(text.0, into: store)
+        }
+        let reloaded = HistoryStore(fileURL: fileURL)
+        for (entry, text) in zip(reloaded.entries, texts.reversed()) {
+            XCTAssertEqual(entry.type, .login)
+            XCTAssertNil(entry.host)
+            let payload = QRClassifier.classify(stored: entry.payload, as: entry.type)
+            XCTAssertEqual(payload.content, .login(service: text.1), text.0)
+            XCTAssertEqual(payload.summary, text.1)
+            XCTAssertEqual(payload.actions, [])
+            XCTAssertNil(payload.host)
+        }
+        // Any other stored type is classified from its text as before.
+        XCTAssertEqual(QRClassifier.classify(stored: "https://example.com/a", as: .url).type, .url)
+        XCTAssertEqual(QRClassifier.classify(stored: "tel:1", as: .phone).type, .phone)
     }
 
     func testSecretsAreRedactedOnDisk() throws {
