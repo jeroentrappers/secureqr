@@ -27,7 +27,8 @@ targets:
     info:
       path: SecureQR/Info.plist
       properties:
-        CFBundleDisplayName: SecureQR
+        # Two words, so a search for "qr" on the phone finds the app.
+        CFBundleDisplayName: Secure QR
         CFBundleShortVersionString: $(MARKETING_VERSION)
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
         LSRequiresIPhoneOS: true

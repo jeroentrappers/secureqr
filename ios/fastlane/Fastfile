@@ -85,7 +85,7 @@ platform :ios do
     generate
     sync(type: "appstore")
     version = ENV["MARKETING_VERSION"] || xcconfig_version
-    build = ENV["BUILD_NUMBER"] || commit_count
+    build = ENV["BUILD_NUMBER"] || build_number
     UI.message("SecureQR #{version} (#{build})")
     # codesign cannot ask for the keychain password in a shell without a screen (ssh): open the signing keychain first.
     unlock_keychain(path: keychain_path, password: ENV.fetch("KINFRAME_KEYCHAIN_PASSWORD"), add_to_search_list: true) unless ENV["CI"]
@@ -196,7 +196,8 @@ def xcconfig_version
 end
 
 # The commit count, or 1 when there is no git history yet.
-def commit_count
-  count = `git rev-list --count HEAD 2>/dev/null`.strip
-  count.match?(/\A[1-9]\d*\z/) ? count : "1"
+# Build number: the UTC date and hour (YYYYMMDDHH), so every upload is higher than the last.
+# Not the commit count: the copy on the Mac has no git history, and earlier builds already use dates.
+def build_number
+  Time.now.utc.strftime("%Y%m%d%H")
 end

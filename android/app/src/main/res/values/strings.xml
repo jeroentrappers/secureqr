@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">SecureQR</string>
+    <!-- Two words, so a search for "qr" on the phone finds the app. -->
+    <string name="app_name" translatable="false">Secure QR</string>
     <string name="wordmark_secure" translatable="false">Secure</string>
     <string name="wordmark_qr" translatable="false">QR</string>
 
