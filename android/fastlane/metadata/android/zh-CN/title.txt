@@ -1,1 +1,1 @@
-SecureQR: 安全二维码扫描器
+SecureQR: 开源，无广告

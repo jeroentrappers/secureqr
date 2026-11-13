@@ -111,12 +111,16 @@ platform :android do
     # Until the app has passed its first review Play only accepts a draft
     # (RELEASE_STATUS=draft): it is then rolled out from Play Console.
     draft = ENV["RELEASE_STATUS"] == "draft"
+    rollout = ENV.fetch("ROLLOUT", "0.1")
+    # Play rejects an inProgress release at 100%: everyone means "completed".
+    full = rollout.to_f >= 1.0
+    status = draft ? "draft" : (full ? "completed" : "inProgress")
     upload_to_play_store(
       track: "internal",
       track_promote_to: "production",
-      track_promote_release_status: draft ? "draft" : "inProgress",
+      track_promote_release_status: status,
       version_code: version_code,
-      rollout: draft ? nil : ENV.fetch("ROLLOUT", "0.1"),
+      rollout: (draft || full) ? nil : rollout,
       skip_upload_apk: true,
       skip_upload_aab: true,
       # Promote only: listing text and the changelog already travel with

@@ -1,1 +1,1 @@
-SecureQR: Sicherer QR-Scanner
+SecureQR: Open Source ohne Ads

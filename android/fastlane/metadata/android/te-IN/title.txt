@@ -1,1 +1,1 @@
-SecureQR: సురక్షిత QR స్కానర్
+SecureQR: Open Source, No Ads

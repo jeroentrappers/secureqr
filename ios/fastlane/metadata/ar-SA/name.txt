@@ -1,1 +1,1 @@
-SecureQR: ماسح QR آمن
+SecureQR: مصدر مفتوح بلا إعلان

@@ -1,1 +1,1 @@
-SecureQR: Güvenli QR Tarayıcı
+SecureQR: Açık kod, reklamsız
