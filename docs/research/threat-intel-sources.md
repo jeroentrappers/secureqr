@@ -24,7 +24,7 @@ What a source has to satisfy:
 
 ## Summary
 
-Three findings change the picture more than any new source does:
+Four findings change the picture more than any new source does:
 
 1. **Phishing.Database stopped updating on 2 October 2026.** The file the
    server downloads (`phishing-domains-ACTIVE.txt`) has had no commit since
@@ -96,19 +96,19 @@ Outcome per source, after re-reading each provider's terms:
 | Cloudflare 1.1.1.2 | governed by the privacy policy; Families "designed to help individuals protect their home networks" | ambiguous, leaning allowed |
 | Google Safe Browsing | "non-commercial use only", commercial meaning "for sale or revenue-generating purposes" | ambiguous, leaning allowed; ask Google |
 | Cloudflare Radar (and Tranco through it) | CC BY-NC 4.0: "not primarily intended for or directed towards commercial advantage or monetary compensation" | ambiguous; the company name on the app is the weak point |
-| Spamhaus DBL | DNS | public mirrors, or free Datafeed Query Key | "non-commercial use by small and medium sized organisations"; no queries from "large shared hosting environments" | host name | - | strong on fresh domains | low | ambiguous: ask Spamhaus about the free query key |
+| Spamhaus DBL | "non-commercial use by small and medium sized organisations" | ambiguous; ask Spamhaus |
 | abuse.ch | "for not-for-profit purposes"; paid for "companies ... with commercial or for-profit needs" | ambiguous; ask abuse.ch |
-| VirusTotal public API | API | free key | "must not be used in commercial products or services" (not defined) | URL | 500/day, 4/min | - | - | skip (quota; wording ambiguous) |
-| PhishStats | list/API | 50 requests/day keyless, 150 with free key | "lawful security research, threat intelligence, and related purposes"; no redistribution of raw feeds | query | 90-minute updates | unknown | medium | skip (ambiguous, quota too small) |
-| SURBL | DNS | public | free for organisations with "fewer than 1,000 users"; software developers above that "MAY NOT" use it | host name | - | spam-advertised domains | low | skip: allowed only below 1,000 app users |
+| VirusTotal public API | "must not be used in commercial products or services" | ambiguous on wording; excluded in practice by the 500/day quota |
+| PhishStats | "lawful security research, threat intelligence, and related purposes"; no redistribution of raw feeds | ambiguous; quota too small anyway |
+| SURBL | free for organisations "that have fewer than 1,000 users"; software developers with 1,000 or more users "MAY NOT" | allowed only while the app has fewer than 1,000 users |
 | PhishTank (Cisco General Terms) | use "for Your direct benefit"; may not "provide the functionality of any ... Cloud Services ... to any third party" | leaning excluded; ask Cisco Talos |
 | OpenDNS | archived terms: not "for the benefit of any third parties"; current free-service terms not found | leaning excluded; **unverified** |
 | Control D free | termination for "using Control D in a datacenter environment" | leaning excluded |
 | CIRA Canadian Shield | individuals and families residing in Canada (secondary source) | leaning excluded; **unverified** |
 | DNS4EU | "strictly for their use in a personal capacity"; "not eligible for enterprises" | clearly excluded |
 | OpenPhish | "solely for your personal use"; no use for "detection ... customer protection, or other business functions of any organization" | clearly excluded |
-| Phishing Army | list | keyless | project's own work unrestricted; "every user must respect the terms of the independent sources", which include OpenPhish | nothing | 143,103 domains, 3 MB | 87% of it is CERT.pl; covers 96% of OpenPhish feed, 95% of new PhishTank | low | skip: inherits OpenPhish's exclusion of organisations |
-| urlscan.io | API | free key | "provided only for your own personal use"; commercial use "requires express written permission" | search: host name. Scan: full URL, public by default | free plan 1,000 searches/day | verdicts on already-scanned hosts only | medium | skip, also for measurement, unless urlscan agrees in writing |
+| Phishing Army | inherits OpenPhish and PhishTank terms | excluded through OpenPhish |
+| urlscan.io | "provided only for your own personal use"; "Commercial use of any part of our service requires express written permission" | clearly excluded, measurement included, unless urlscan agrees |
 | CleanBrowsing | free tier "for parents, not organizations"; no automated queries | clearly excluded |
 | AdGuard DNS | EULA section 4: no "automated agents or inject scripts" generating automated requests | excluded |
 | IPQS | free access counts as "evaluation, testing, trial"; no republishing "API responses ... to any third-party" | excluded for production |
@@ -189,10 +189,10 @@ Sizes and counts are as downloaded on 12 November 2026.
 | PhishDestroy destroylist | list | keyless | MIT | nothing | 238,144 domains, 5 MB; hourly | own detection; under 5% overlap with other lists; 57 `.be` | low | adopt after false-positive test |
 | Hagezi TIF medium | list | keyless | GPL-3.0; upstream feeds have own terms | nothing | 373,421 domains, 6.9 MB; daily | includes CERT.pl partly (55%); 12k `.fr`, 6k `.de`, 70 `.be` | low | test |
 | Hagezi TIF full | list | keyless | GPL-3.0 | nothing | 1,482,194 domains, 27 MB; daily | 312 `.be`; higher false-positive risk | low, memory cost | test, medium first |
-| Phishing Army | list | keyless | no licence of its own; upstream terms apply (includes OpenPhish and PhishTank) | nothing | 143,103 domains, 3 MB | 87% of it is CERT.pl; covers 96% of OpenPhish feed, 95% of new PhishTank | low | skip: licence inherits non-commercial upstreams |
+| Phishing Army | list | keyless | project's own work unrestricted; "every user must respect the terms of the independent sources", which include OpenPhish | nothing | 143,103 domains, 3 MB | 87% of it is CERT.pl; covers 96% of OpenPhish feed, 95% of new PhishTank | low | skip: inherits OpenPhish's exclusion of organisations |
 | OpenPhish community feed | list | keyless | "solely for your personal use"; excludes "detection ... customer protection, or other business functions of any organization" | nothing | 300 URLs, 17 kB; every 12 h | fresh, but resolvers block all live hosts already | low | skip (clearly excluded) |
 | PhishTank `online-valid.csv` | list | keyless download works; key for automation | Cisco General Terms: use "for Your direct benefit", no providing functionality "to any third party" | nothing | 46,301 rows, 19,164 hosts, 8.9 MB; hourly | about 110 new per day; US and Polish brands; 8 `.be` | low | measurement only; leaning excluded for production, ask Cisco Talos |
-| PhishStats | list/API | 50 requests/day keyless, 150 with free key | no redistribution; commercial use not addressed | query | 90-minute updates | unknown | medium | skip |
+| PhishStats | list/API | 50 requests/day keyless, 150 with free key | "lawful security research, threat intelligence, and related purposes"; no redistribution of raw feeds | query | 90-minute updates | unknown | medium | skip (ambiguous, quota too small) |
 | phishunt.io | list | keyless | terms page not read, **unverified** | nothing | 944 URLs; hourly | derived from GSB, OpenPhish, PhishTank, urlscan | low | measurement only |
 | curben phishing-filter | list | keyless | derived from PhishTank and OpenPhish | nothing | 19,310 domains | 87% PhishTank | low | skip |
 | abuse.ch URLhaus, ThreatFox | list/API | free Auth-Key, account required | "for not-for-profit purposes"; companies "with commercial or for-profit needs may require a paid subscription" | nothing (dumps) | generated every 5 min | malware delivery and C2, little phishing | medium | skip; ambiguous, ask abuse.ch if ever needed |
@@ -200,8 +200,8 @@ Sizes and counts are as downloaded on 12 November 2026.
 | StevenBlack hosts | list | keyless | MIT, sources mixed incl. NC | nothing | 78,215 entries; updated 8 Nov 2026 | adware and malware, little phishing | low | skip |
 | OISD big | list | keyless | no licence stated | nothing | 227,769 lines, 4.5 MB | ad-blocking first; phishing secondary | low | skip |
 | uBlock Origin badware list | list | keyless | GPL-3.0 | nothing | 7,057 lines | filter syntax, not plain hosts; already inside Hagezi TIF | medium | skip (get it through TIF) |
-| Spamhaus DBL | DNS | public mirrors | free only for non-commercial use; no queries from shared hosting | host name | - | strong on fresh domains | low | skip (terms); paid Datafeed is the commercial route |
-| SURBL | DNS | public | free tier excludes "embedding our data ... into products or services for which a fee is charged" | host name | - | spam-advertised domains | low | skip (terms) |
+| Spamhaus DBL | DNS | public mirrors, or free Datafeed Query Key | "non-commercial use by small and medium sized organisations"; no queries from "large shared hosting environments" | host name | - | strong on fresh domains | low | ambiguous: ask Spamhaus about the free query key |
+| SURBL | DNS | public | free for organisations with "fewer than 1,000 users"; software developers above that "MAY NOT" use it | host name | - | spam-advertised domains | low | skip: allowed only below 1,000 app users |
 | CCB / BAPS list | list | not public | given to ISPs and partners only | - | - | the Belgian list; fed by suspicious@safeonweb.be | - | ask the CCB |
 | Hagezi NRD lists | list | keyless | GPL-3.0; base data from Stamus Labs | nothing | 3.0 M domains for 7 days; daily, may lag | gTLD-heavy; ccTLD coverage unknown | high (memory) | skip; use RDAP per host instead |
 | Control D free, malware (`76.76.2.1`) | DNS | keyless | general terms list "using Control D in a datacenter environment" as a termination ground | host name | answers `0.0.0.0` | blocked 65/65 OpenPhish, 3/30 Phishing.Database; no gain over current three | low | skip (leaning excluded, no gain) |
@@ -217,8 +217,8 @@ Sizes and counts are as downloaded on 12 November 2026.
 | NextDNS | DNS | account | free tier with monthly query cap, **unverified** | host name tied to an account | - | configurable feeds | medium | skip (not anonymous) |
 | Google Safe Browsing v5 | API | free key | "non-commercial use only", commercial meaning "for sale or revenue-generating purposes"; attribution and notice required | 4-byte hash prefixes, or nothing in local-list mode | - | best general phishing coverage | medium | ask Google; adopt local-list mode if allowed |
 | Google Web Risk | API | Google Cloud billing account | paid enterprise product; "information returned by the Web Risk must not be redistributed" | Lookup: full URL. Update: hash prefixes | Lookup free to 100,000 calls/month (pricing **unverified**, from localized pages) | same data as Safe Browsing; includes CCB submissions | medium to high | fallback if Google refuses Safe Browsing |
-| urlscan.io | API | free key | commercial use of free plan not stated, **unverified** | search: host name. Scan: full URL, public by default | free plan 1,000 searches/day | verdicts on already-scanned hosts only | medium | measurement only |
-| VirusTotal public API | API | free key | "must not be used in commercial products or services" | URL | 500/day, 4/min | - | - | cannot use |
+| urlscan.io | API | free key | "provided only for your own personal use"; commercial use "requires express written permission" | search: host name. Scan: full URL, public by default | free plan 1,000 searches/day | verdicts on already-scanned hosts only | medium | skip, also for measurement, unless urlscan agrees in writing |
+| VirusTotal public API | API | free key | "must not be used in commercial products or services" (not defined) | URL | 500/day, 4/min | - | - | skip (quota; wording ambiguous) |
 | Cloudflare URL Scanner | API | free account token | terms not confirmed, **unverified** | full URL, public by default | - | has phishing verdict field | medium | skip (privacy) |
 | AlienVault / LevelBlue OTX | API | free key | terms not readable, **unverified** | host name | - | community pulses, noisy | medium | skip |
 | IPQS malicious URL scanner | API | free key | free access is "evaluation, testing, trial"; no republishing "API responses ... to any third-party" | full URL or domain | "1,000 free lookups" | phishing flag, risk score, domain age | low | skip (excluded for production) |
