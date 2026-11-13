@@ -2,10 +2,11 @@
 //   node design/store/build.mjs        (needs server/node_modules: Playwright, and ImageMagick's `magick`)
 // Output: ios/fastlane/screenshots/en-US (6.9" iPhone, 1320 x 2868) and
 // android/fastlane/metadata/android/en-US/images (phone screenshots 1080 x 1920,
-// feature graphic 1024 x 500, icon 512 x 512). Other languages fall back to these.
+// feature graphic 1024 x 500, icon 512 x 512). The iOS pictures are copied to nl-NL as well: App Store
+// Connect falls back only to the primary language, which is nl-NL, and that one must have its own.
 import { createRequire } from 'node:module';
 import { execFileSync } from 'node:child_process';
-import { mkdirSync, readFileSync, rmSync } from 'node:fs';
+import { cpSync, mkdirSync, readFileSync, rmSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
@@ -80,6 +81,11 @@ for (const [platform, t] of Object.entries(TARGETS)) {
     await render(shotPage(t, s, platform), t.w, t.h, join(t.out, `${String(i + 1).padStart(2, '0')}-${s[platform]}.png`));
   }
 }
+const nl = join(root, 'ios/fastlane/screenshots/nl-NL');
+rmSync(nl, { recursive: true, force: true });
+cpSync(TARGETS.ios.out, nl, { recursive: true });
+console.log('ios/fastlane/screenshots/nl-NL (same pictures)');
+
 const images = join(root, 'android/fastlane/metadata/android/en-US/images');
 await render(feature, 1024, 500, join(images, 'featureGraphic.png'));
 await browser.close();
