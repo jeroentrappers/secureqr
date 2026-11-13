@@ -14,8 +14,9 @@ import { fileURLToPath } from 'node:url';
 
 const ORIGIN = 'https://qr.appmire.be';
 const PLAY_URL = 'https://play.google.com/store/apps/details?id=be.appmire.secureqr';
-// Set once the app is live on the App Store; until then the button says "coming soon".
-const APP_STORE_URL = null;
+// Region-neutral link: Apple redirects to the visitor's own storefront.
+// Set to null to show "coming soon" instead.
+const APP_STORE_URL = 'https://apps.apple.com/app/id6833519603';
 
 // The order of the language menu: English first, then by number of speakers, Dutch last.
 const ORDER = ['en', 'zh', 'hi', 'es', 'ar', 'fr', 'bn', 'pt', 'ru', 'id', 'ur', 'de', 'ja', 'mr', 'vi', 'te', 'tr', 'ta', 'ko', 'it', 'nl'];
