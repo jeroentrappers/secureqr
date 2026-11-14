@@ -20,6 +20,10 @@ final class CameraController: NSObject, ObservableObject {
     @Published private(set) var hasTorch = false
     /// True when no usable camera was found (for example in the simulator).
     @Published private(set) var isUnavailable = false
+    /// Goes up each time the session starts from stopped. The preview view
+    /// reconnects its layer when it changes: after a trip to the background
+    /// the layer can otherwise keep showing the last frame of the old run.
+    @Published private(set) var runGeneration = 0
 
     let session = AVCaptureSession()
 
@@ -77,8 +81,7 @@ final class CameraController: NSObject, ObservableObject {
             guard self.isConfigured else { return }
             self.wantsRunning = true
             if !self.session.isRunning {
-                self.markFrame()
-                self.session.startRunning()
+                self.startSession()
             }
             self.startWatchdog()
             self.videoQueue.async {
@@ -253,8 +256,7 @@ final class CameraController: NSObject, ObservableObject {
             return
         }
         if !session.isRunning {
-            markFrame()
-            session.startRunning()
+            startSession()
             return
         }
         if ProcessInfo.processInfo.systemUptime - frameTime() > stallTimeout {
@@ -266,8 +268,15 @@ final class CameraController: NSObject, ObservableObject {
         if session.isRunning {
             session.stopRunning()
         }
+        startSession()
+    }
+
+    private func startSession() {
         markFrame()
         session.startRunning()
+        DispatchQueue.main.async { [weak self] in
+            self?.runGeneration += 1
+        }
     }
 
     /// Under thermal pressure the system stops the camera altogether, which

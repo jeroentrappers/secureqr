@@ -28,7 +28,7 @@ struct ScannerScreen: View {
             Theme.Scanner.background.ignoresSafeArea()
 
             if showsLiveCamera {
-                CameraPreviewView(session: camera.session)
+                CameraPreviewView(session: camera.session, generation: camera.runGeneration)
                     .ignoresSafeArea()
                     .accessibilityHidden(true)
                 ReticleView()
@@ -73,6 +73,17 @@ struct ScannerScreen: View {
             updateCamera()
         }
         .onChange(of: authorization) { _ in updateCamera() }
+        // Belt and braces next to `scenePhase`, which can lag behind the app
+        // becoming active again: start the camera as soon as the app is back.
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
+            refreshAuthorization()
+            if isAuthorized && model.isScannerFrontmost {
+                camera.start()
+            }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.didEnterBackgroundNotification)) { _ in
+            camera.stop()
+        }
         .onChange(of: photoItem) { item in
             guard let item = item else { return }
             readPhoto(item)
