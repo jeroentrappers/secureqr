@@ -8,6 +8,13 @@ import Vision
 /// Threading: the session is configured, started and stopped on
 /// `sessionQueue`; frames arrive and are analysed on `videoQueue`; published
 /// state and `onDetect` are delivered on the main queue.
+///
+/// Recovery: the session can stop on its own (a capture runtime error, for
+/// example after the media services reset) or stop delivering frames, which
+/// freezes the picture on the last frame. While the scanner wants the camera,
+/// a watchdog restarts the session when that happens. Interruptions (a call,
+/// another app using the camera) are left alone: the session resumes by itself
+/// when they end, and the watchdog starts it again if it did not.
 final class CameraController: NSObject, ObservableObject {
     @Published private(set) var isTorchOn = false
     @Published private(set) var hasTorch = false
@@ -28,6 +35,10 @@ final class CameraController: NSObject, ObservableObject {
     private var device: AVCaptureDevice?
     /// The zoom when the current pinch began; nil between pinches.
     private var zoomAtPinchStart: CGFloat?
+    /// True between `start()` and `stop()`.
+    private var wantsRunning = false
+    private var watchdog: DispatchSourceTimer?
+    private var pressureObservation: NSKeyValueObservation?
     /// Digital zoom beyond this is too blurry to read a code.
     private let maximumZoom: CGFloat = 8
 
@@ -36,6 +47,15 @@ final class CameraController: NSObject, ObservableObject {
     private var lastRequestTime: TimeInterval = 0
     private var lastPayload: String?
     private var ignoreLastPayloadUntil: TimeInterval = 0
+
+    // any queue, guarded by `frameLock`
+    private let frameLock = NSLock()
+    private var lastFrameTime: TimeInterval = 0
+
+    /// How often the watchdog looks at the session.
+    private let watchdogInterval: TimeInterval = 1
+    /// No frame for this long while running counts as a stalled session.
+    private let stallTimeout: TimeInterval = 3
 
     /// Vision runs at most this often.
     private let minimumRequestInterval: TimeInterval = 0.12
@@ -55,9 +75,12 @@ final class CameraController: NSObject, ObservableObject {
             guard let self = self else { return }
             self.configureIfNeeded()
             guard self.isConfigured else { return }
+            self.wantsRunning = true
             if !self.session.isRunning {
+                self.markFrame()
                 self.session.startRunning()
             }
+            self.startWatchdog()
             self.videoQueue.async {
                 self.ignoreLastPayloadUntil = ProcessInfo.processInfo.systemUptime + self.repeatGuardInterval
                 self.detectionEnabled = true
@@ -72,6 +95,8 @@ final class CameraController: NSObject, ObservableObject {
         }
         sessionQueue.async { [weak self] in
             guard let self = self else { return }
+            self.wantsRunning = false
+            self.stopWatchdog()
             if self.session.isRunning {
                 self.session.stopRunning()
             }
@@ -170,6 +195,18 @@ final class CameraController: NSObject, ObservableObject {
             // Default focus behaviour is fine.
         }
 
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(sessionRuntimeError(_:)),
+            name: .AVCaptureSessionRuntimeError,
+            object: session
+        )
+        pressureObservation = camera.observe(\.systemPressureState, options: [.initial, .new]) { [weak self] device, _ in
+            self?.sessionQueue.async {
+                self?.adaptFrameRate(to: device.systemPressureState.level, on: device)
+            }
+        }
+
         device = camera
         isConfigured = true
         let torch = camera.hasTorch
@@ -177,6 +214,95 @@ final class CameraController: NSObject, ObservableObject {
             self?.hasTorch = torch
             self?.isUnavailable = false
         }
+    }
+
+    // MARK: - Recovery (sessionQueue)
+
+    /// After a media services reset the session is restarted straight away.
+    /// Other errors leave it stopped; the watchdog tries again once a second.
+    @objc private func sessionRuntimeError(_ notification: Notification) {
+        let error = notification.userInfo?[AVCaptureSessionErrorKey] as? AVError
+        guard error?.code == .mediaServicesWereReset else { return }
+        sessionQueue.async { [weak self] in
+            guard let self = self, self.wantsRunning else { return }
+            self.restartSession()
+        }
+    }
+
+    private func startWatchdog() {
+        guard watchdog == nil else { return }
+        let timer = DispatchSource.makeTimerSource(queue: sessionQueue)
+        timer.schedule(deadline: .now() + watchdogInterval, repeating: watchdogInterval)
+        timer.setEventHandler { [weak self] in
+            self?.checkSession()
+        }
+        timer.resume()
+        watchdog = timer
+    }
+
+    private func stopWatchdog() {
+        watchdog?.cancel()
+        watchdog = nil
+    }
+
+    private func checkSession() {
+        guard wantsRunning, isConfigured else { return }
+        // An interruption ends by itself; restarting now would fail anyway.
+        if session.isInterrupted {
+            markFrame()
+            return
+        }
+        if !session.isRunning {
+            markFrame()
+            session.startRunning()
+            return
+        }
+        if ProcessInfo.processInfo.systemUptime - frameTime() > stallTimeout {
+            restartSession()
+        }
+    }
+
+    private func restartSession() {
+        if session.isRunning {
+            session.stopRunning()
+        }
+        markFrame()
+        session.startRunning()
+    }
+
+    /// Under thermal pressure the system stops the camera altogether, which
+    /// looks like a frozen picture. Fewer frames keep it going; 15 per second
+    /// is plenty to read a code.
+    private func adaptFrameRate(to level: AVCaptureDevice.SystemPressureState.Level, on device: AVCaptureDevice) {
+        let reduce = level == .serious || level == .critical
+        let slow = CMTime(value: 1, timescale: 15)
+        if reduce {
+            let supported = device.activeFormat.videoSupportedFrameRateRanges.contains { $0.minFrameRate <= 15 && 15 <= $0.maxFrameRate }
+            guard supported else { return }
+        }
+        do {
+            try device.lockForConfiguration()
+            // An invalid time puts the format's default rate back.
+            device.activeVideoMinFrameDuration = reduce ? slow : .invalid
+            device.activeVideoMaxFrameDuration = reduce ? slow : .invalid
+            device.unlockForConfiguration()
+        } catch {
+            // Leave the frame rate as it is.
+        }
+    }
+
+    // MARK: - Frame clock
+
+    private func markFrame() {
+        frameLock.lock()
+        lastFrameTime = ProcessInfo.processInfo.systemUptime
+        frameLock.unlock()
+    }
+
+    private func frameTime() -> TimeInterval {
+        frameLock.lock()
+        defer { frameLock.unlock() }
+        return lastFrameTime
     }
 
     private func reportUnavailable() {
@@ -192,6 +318,7 @@ extension CameraController: AVCaptureVideoDataOutputSampleBufferDelegate {
     // arrive meanwhile are discarded by the output, and the interval check
     // keeps the rate down further.
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+        markFrame()
         guard detectionEnabled else { return }
         let now = ProcessInfo.processInfo.systemUptime
         guard now - lastRequestTime >= minimumRequestInterval else { return }
@@ -218,5 +345,10 @@ extension CameraController: AVCaptureVideoDataOutputSampleBufferDelegate {
         DispatchQueue.main.async { [weak self] in
             self?.onDetect?(text)
         }
+    }
+
+    // A frame dropped while Vision was busy still shows the camera is alive.
+    func captureOutput(_ output: AVCaptureOutput, didDrop sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+        markFrame()
     }
 }
